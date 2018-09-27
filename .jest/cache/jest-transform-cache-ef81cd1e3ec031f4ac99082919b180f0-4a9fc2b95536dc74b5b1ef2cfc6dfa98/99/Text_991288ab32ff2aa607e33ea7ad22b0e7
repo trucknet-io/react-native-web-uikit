@@ -1,0 +1,277 @@
+b8badf8fd0e5ea719993806b043fa6a7
+
+
+
+
+
+
+
+
+
+
+'use strict';var _jsxFileName = "/Users/dsemennyuk/dev/Arrow/node_modules/react-native/Libraries/Text/Text.js";
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+var PRESS_RECT_OFFSET = { top: 20, left: 20, right: 20, bottom: 30 };
+
+var viewConfig = {
+  validAttributes: babelHelpers.objectSpread({},
+  require('ReactNativeViewAttributes').UIView, {
+    isHighlighted: true,
+    numberOfLines: true,
+    ellipsizeMode: true,
+    allowFontScaling: true,
+    disabled: true,
+    selectable: true,
+    selectionColor: true,
+    adjustsFontSizeToFit: true,
+    minimumFontScale: true,
+    textBreakStrategy: true }),
+
+  uiViewClassName: 'RCTText' };var
+
+
+
+
+
+
+
+TouchableText = function (_React$Component) {babelHelpers.inherits(TouchableText, _React$Component);function TouchableText() {var _babelHelpers$getProt;var _this;babelHelpers.classCallCheck(this, TouchableText);for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {args[_key] = arguments[_key];}_this = babelHelpers.possibleConstructorReturn(this, (_babelHelpers$getProt = babelHelpers.getPrototypeOf(TouchableText)).call.apply(_babelHelpers$getProt, [this].concat(args)));_this.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    state = babelHelpers.objectSpread({},
+    require('Touchable').Mixin.touchableGetInitialState(), {
+      isHighlighted: false,
+      createResponderHandlers: _this._createResponseHandlers.bind(babelHelpers.assertThisInitialized(babelHelpers.assertThisInitialized(_this))),
+      responseHandlers: null });return _this;}babelHelpers.createClass(TouchableText, [{ key: "render", value: function render()
+
+
+
+
+
+
+
+
+
+
+
+
+
+    {
+      var props = this.props;
+      if (isTouchable(props)) {
+        props = babelHelpers.objectSpread({},
+        props,
+        this.state.responseHandlers, {
+          isHighlighted: this.state.isHighlighted });
+
+      }
+      if (props.selectionColor != null) {
+        props = babelHelpers.objectSpread({},
+        props, {
+          selectionColor: require('processColor')(props.selectionColor) });
+
+      }
+      if (__DEV__) {
+        if (require('Touchable').TOUCH_TARGET_DEBUG && props.onPress != null) {
+          props = babelHelpers.objectSpread({},
+          props, {
+            style: [props.style, { color: 'magenta' }] });
+
+        }
+      }
+      return (
+        require('React').createElement(require('TextAncestor').Consumer, { __source: { fileName: _jsxFileName, lineNumber: 139 } },
+        function (hasTextAncestor) {return (
+            hasTextAncestor ?
+            require('React').createElement(RCTVirtualText, babelHelpers.extends({}, props, { ref: props.forwardedRef, __source: { fileName: _jsxFileName, lineNumber: 142 } })) :
+
+            require('React').createElement(require('TextAncestor').Provider, { value: true, __source: { fileName: _jsxFileName, lineNumber: 144 } },
+            require('React').createElement(RCTText, babelHelpers.extends({}, props, { ref: props.forwardedRef, __source: { fileName: _jsxFileName, lineNumber: 145 } }))));}));
+
+
+
+
+
+    } }, { key: "_createResponseHandlers", value: function _createResponseHandlers()
+
+    {var _this2 = this;
+      return {
+        onStartShouldSetResponder: function onStartShouldSetResponder() {var
+          onStartShouldSetResponder = _this2.props.onStartShouldSetResponder;
+          var shouldSetResponder =
+          (onStartShouldSetResponder == null ?
+          false :
+          onStartShouldSetResponder()) || isTouchable(_this2.props);
+
+          if (shouldSetResponder) {
+            _this2._attachTouchHandlers();
+          }
+          return shouldSetResponder;
+        },
+        onResponderGrant: function onResponderGrant(event, dispatchID) {
+          require('fbjs/lib/nullthrows')(_this2.touchableHandleResponderGrant)(event, dispatchID);
+          if (_this2.props.onResponderGrant != null) {
+            _this2.props.onResponderGrant.call(_this2, event, dispatchID);
+          }
+        },
+        onResponderMove: function onResponderMove(event) {
+          require('fbjs/lib/nullthrows')(_this2.touchableHandleResponderMove)(event);
+          if (_this2.props.onResponderMove != null) {
+            _this2.props.onResponderMove.call(_this2, event);
+          }
+        },
+        onResponderRelease: function onResponderRelease(event) {
+          require('fbjs/lib/nullthrows')(_this2.touchableHandleResponderRelease)(event);
+          if (_this2.props.onResponderRelease != null) {
+            _this2.props.onResponderRelease.call(_this2, event);
+          }
+        },
+        onResponderTerminate: function onResponderTerminate(event) {
+          require('fbjs/lib/nullthrows')(_this2.touchableHandleResponderTerminate)(event);
+          if (_this2.props.onResponderTerminate != null) {
+            _this2.props.onResponderTerminate.call(_this2, event);
+          }
+        },
+        onResponderTerminationRequest: function onResponderTerminationRequest() {var
+          onResponderTerminationRequest = _this2.props.onResponderTerminationRequest;
+          if (!require('fbjs/lib/nullthrows')(_this2.touchableHandleResponderTerminationRequest)()) {
+            return false;
+          }
+          if (onResponderTerminationRequest == null) {
+            return true;
+          }
+          return onResponderTerminationRequest();
+        } };
+
+    } }, { key: "_attachTouchHandlers", value: function _attachTouchHandlers()
+
+
+
+
+    {var _this3 = this;
+      if (this.touchableGetPressRectOffset != null) {
+        return;
+      }
+      for (var key in require('Touchable').Mixin) {
+        if (typeof require('Touchable').Mixin[key] === 'function') {
+          this[key] = require('Touchable').Mixin[key].bind(this);
+        }
+      }
+      this.touchableHandleActivePressIn = function () {
+        if (!_this3.props.suppressHighlighting && isTouchable(_this3.props)) {
+          _this3.setState({ isHighlighted: true });
+        }
+      };
+      this.touchableHandleActivePressOut = function () {
+        if (!_this3.props.suppressHighlighting && isTouchable(_this3.props)) {
+          _this3.setState({ isHighlighted: false });
+        }
+      };
+      this.touchableHandlePress = function (event) {
+        if (_this3.props.onPress != null) {
+          _this3.props.onPress(event);
+        }
+      };
+      this.touchableHandleLongPress = function (event) {
+        if (_this3.props.onLongPress != null) {
+          _this3.props.onLongPress(event);
+        }
+      };
+      this.touchableGetPressRectOffset = function () {return (
+          _this3.props.pressRetentionOffset == null ?
+          PRESS_RECT_OFFSET :
+          _this3.props.pressRetentionOffset);};
+    } }], [{ key: "getDerivedStateFromProps", value: function getDerivedStateFromProps(nextProps, prevState) {return prevState.responseHandlers == null && isTouchable(nextProps) ? babelHelpers.objectSpread({}, prevState, { responseHandlers: prevState.createResponderHandlers() }) : null;} }]);return TouchableText;}(require('React').Component);TouchableText.defaultProps = { accessible: true, allowFontScaling: true, ellipsizeMode: 'tail' };TouchableText.viewConfig = viewConfig;
+
+
+var isTouchable = function isTouchable(props) {return (
+    props.onPress != null ||
+    props.onLongPress != null ||
+    props.onStartShouldSetResponder != null);};
+
+var RCTText = require('createReactNativeComponentClass')(
+viewConfig.uiViewClassName,
+function () {return viewConfig;});
+
+
+var RCTVirtualText =
+require('UIManager').RCTVirtualText == null ?
+RCTText :
+require('createReactNativeComponentClass')('RCTVirtualText', function () {return {
+    validAttributes: babelHelpers.objectSpread({},
+    require('ReactNativeViewAttributes').UIView, {
+      isHighlighted: true }),
+
+    uiViewClassName: 'RCTVirtualText' };});
+
+
+var Text = function Text(
+props,
+forwardedRef)
+{
+  return require('React').createElement(TouchableText, babelHelpers.extends({}, props, { forwardedRef: forwardedRef, __source: { fileName: _jsxFileName, lineNumber: 268 } }));
+};
+
+var TextToExport = require('React').forwardRef(Text);
+
+
+TextToExport.propTypes = require('TextPropTypes');
+
+module.exports = TextToExport;

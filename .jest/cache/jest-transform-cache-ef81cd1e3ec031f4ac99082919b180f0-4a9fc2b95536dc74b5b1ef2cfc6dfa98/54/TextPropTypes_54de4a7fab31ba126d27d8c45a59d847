@@ -1,0 +1,127 @@
+c0cc4a154e72d18e64dd8e62ff7bcad4
+
+
+
+
+
+
+
+
+
+
+'use strict';
+
+
+
+
+
+
+
+var stylePropType = require('StyleSheetPropType')(require('TextStylePropTypes'));
+
+module.exports = {
+
+
+
+
+
+
+  ellipsizeMode: require('prop-types').oneOf(['head', 'middle', 'tail', 'clip']),
+
+
+
+
+
+  numberOfLines: require('prop-types').number,
+
+
+
+
+
+  textBreakStrategy: require('prop-types').oneOf(['simple', 'highQuality', 'balanced']),
+
+
+
+
+
+  onLayout: require('prop-types').func,
+
+
+
+
+
+  onPress: require('prop-types').func,
+
+
+
+
+
+  onLongPress: require('prop-types').func,
+
+
+
+
+
+
+  pressRetentionOffset: require('EdgeInsetsPropType'),
+
+
+
+
+
+  selectable: require('prop-types').bool,
+
+
+
+
+
+  selectionColor: require('ColorPropType'),
+
+
+
+
+
+  suppressHighlighting: require('prop-types').bool,
+  style: stylePropType,
+
+
+
+
+
+  testID: require('prop-types').string,
+
+
+
+
+
+  nativeID: require('prop-types').string,
+
+
+
+
+
+  allowFontScaling: require('prop-types').bool,
+
+
+
+
+
+  accessible: require('prop-types').bool,
+
+
+
+
+
+  adjustsFontSizeToFit: require('prop-types').bool,
+
+
+
+
+
+  minimumFontScale: require('prop-types').number,
+
+
+
+
+
+  disabled: require('prop-types').bool };

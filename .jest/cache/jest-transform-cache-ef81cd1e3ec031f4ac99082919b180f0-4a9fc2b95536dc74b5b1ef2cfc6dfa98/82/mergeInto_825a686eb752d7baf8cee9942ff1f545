@@ -1,0 +1,59 @@
+592d920331069f496170858ecbad5d6f
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+"use strict";
+
+
+
+
+
+
+
+
+
+
+
+
+function mergeInto(one, two) {
+  require('mergeHelpers').checkMergeIntoObjectArg(one);
+  if (two != null) {
+    require('mergeHelpers').checkMergeObjectArg(two);
+    for (var key in two) {
+      if (!two.hasOwnProperty(key)) {
+        continue;
+      }
+      one[key] = two[key];
+    }
+  }
+}
+
+module.exports = mergeInto;

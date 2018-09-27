@@ -1,0 +1,63 @@
+d85fd7bd552ba8e12edab00c4dacdc16
+
+
+
+
+
+
+
+
+
+'use strict';
+
+module.exports = function (moduleName, instanceMethods) {var _class, _temp;
+  var RealComponent = require.requireActual(moduleName);
+  var React = require('react');
+
+  var SuperClass =
+  typeof RealComponent === 'function' ? RealComponent : React.Component;
+
+  var Component = (_temp = _class = function (_SuperClass) {babelHelpers.inherits(Component, _SuperClass);function Component() {babelHelpers.classCallCheck(this, Component);return babelHelpers.possibleConstructorReturn(this, babelHelpers.getPrototypeOf(Component).apply(this, arguments));}babelHelpers.createClass(Component, [{ key: "render", value: function render()
+
+
+      {var _this = this;
+        var name =
+        RealComponent.displayName ||
+        RealComponent.name || (
+        RealComponent.render ?
+        RealComponent.render.displayName || RealComponent.render.name :
+        'Unknown');
+
+        var props = babelHelpers.extends({}, RealComponent.defaultProps);
+
+        if (this.props) {
+          Object.keys(this.props).forEach(function (prop) {
+
+
+
+
+
+            if (_this.props[prop] !== undefined) {
+              props[prop] = _this.props[prop];
+            }
+          });
+        }
+
+        return React.createElement(
+        name.replace(/^(RCT|RK)/, ''),
+        props,
+        this.props.children);
+
+      } }]);return Component;}(SuperClass), _class.displayName = 'Component', _temp);
+
+
+  Object.keys(RealComponent).forEach(function (classStatic) {
+    Component[classStatic] = RealComponent[classStatic];
+  });
+
+  if (instanceMethods != null) {
+    babelHelpers.extends(Component.prototype, instanceMethods);
+  }
+
+  return Component;
+};

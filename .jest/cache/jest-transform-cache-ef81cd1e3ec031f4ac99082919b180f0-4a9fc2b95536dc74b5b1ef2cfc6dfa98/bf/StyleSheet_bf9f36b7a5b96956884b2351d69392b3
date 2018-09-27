@@ -1,0 +1,375 @@
+49f038c9aae26c36775e96f2a34bd164
+
+
+
+
+
+
+
+
+
+'use strict';
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+var hairlineWidth = require('PixelRatio').roundToNearestPixel(0.4);
+if (hairlineWidth === 0) {
+  hairlineWidth = 1 / require('PixelRatio').get();
+}
+
+var absoluteFill = {
+  position: 'absolute',
+  left: 0,
+  right: 0,
+  top: 0,
+  bottom: 0 };
+
+if (__DEV__) {
+  Object.freeze(absoluteFill);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+module.exports = {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  hairlineWidth: hairlineWidth,
+
+
+
+
+
+
+  absoluteFill: absoluteFill,
+
+
+
+
+
+
+
+
+
+
+
+
+
+  absoluteFillObject: absoluteFill,
+
+
+
+
+
+
+
+  compose: function compose(
+  style1,
+  style2)
+  {
+    if (style1 != null && style2 != null) {
+      return [style1, style2];
+    } else {
+      return style1 != null ? style1 : style2;
+    }
+  },
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  flatten: require('flattenStyle'),
+
+
+
+
+
+
+
+
+
+
+  setStyleAttributePreprocessor: function setStyleAttributePreprocessor(
+  property,
+  process)
+  {
+    var value;
+
+    if (typeof require('ReactNativeStyleAttributes')[property] === 'string') {
+      value = {};
+    } else if (typeof require('ReactNativeStyleAttributes')[property] === 'object') {
+      value = require('ReactNativeStyleAttributes')[property];
+    } else {
+      console.error(property + " is not a valid style attribute");
+      return;
+    }
+
+    if (__DEV__ && typeof value.process === 'function') {
+      console.warn("Overwriting " + property + " style attribute preprocessor");
+    }
+
+    require('ReactNativeStyleAttributes')[property] = babelHelpers.objectSpread({}, value, { process: process });
+  },
+
+
+
+
+  create: function create(obj) {
+
+
+
+    if (__DEV__) {
+      for (var _key in obj) {
+        require('StyleSheetValidation').validateStyle(_key, obj);
+        if (obj[_key]) {
+          Object.freeze(obj[_key]);
+        }
+      }
+    }
+    return obj;
+  } };

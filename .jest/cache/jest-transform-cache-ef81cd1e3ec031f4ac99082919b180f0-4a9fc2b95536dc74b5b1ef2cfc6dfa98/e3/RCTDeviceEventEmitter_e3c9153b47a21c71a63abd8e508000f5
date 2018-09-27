@@ -1,0 +1,85 @@
+10f6383964b5c70bfac242f10c5c65f5
+
+
+
+
+
+
+
+
+
+
+'use strict';
+
+
+
+
+
+
+function checkNativeEventModule(eventType) {
+  if (eventType) {
+    if (eventType.lastIndexOf('statusBar', 0) === 0) {
+      throw new Error(
+      '`' +
+      eventType +
+      '` event should be registered via the StatusBarIOS module');
+
+    }
+    if (eventType.lastIndexOf('keyboard', 0) === 0) {
+      throw new Error(
+      '`' +
+      eventType +
+      '` event should be registered via the Keyboard module');
+
+    }
+    if (eventType === 'appStateDidChange' || eventType === 'memoryWarning') {
+      throw new Error(
+      '`' +
+      eventType +
+      '` event should be registered via the AppState module');
+
+    }
+  }
+}var
+
+
+
+
+
+RCTDeviceEventEmitter = function (_EventEmitter) {babelHelpers.inherits(RCTDeviceEventEmitter, _EventEmitter);
+
+
+  function RCTDeviceEventEmitter() {var _this;babelHelpers.classCallCheck(this, RCTDeviceEventEmitter);
+    var sharedSubscriber = new (require('EventSubscriptionVendor'))();
+    _this = babelHelpers.possibleConstructorReturn(this, babelHelpers.getPrototypeOf(RCTDeviceEventEmitter).call(this, sharedSubscriber));
+    _this.sharedSubscriber = sharedSubscriber;return _this;
+  }babelHelpers.createClass(RCTDeviceEventEmitter, [{ key: "addListener", value: function addListener(
+
+
+    eventType,
+    listener,
+    context)
+    {
+      if (__DEV__) {
+        checkNativeEventModule(eventType);
+      }
+      return babelHelpers.get(babelHelpers.getPrototypeOf(RCTDeviceEventEmitter.prototype), "addListener", this).call(this, eventType, listener, context);
+    } }, { key: "removeAllListeners", value: function removeAllListeners(
+
+    eventType) {
+      if (__DEV__) {
+        checkNativeEventModule(eventType);
+      }
+      babelHelpers.get(babelHelpers.getPrototypeOf(RCTDeviceEventEmitter.prototype), "removeAllListeners", this).call(this, eventType);
+    } }, { key: "removeSubscription", value: function removeSubscription(
+
+    subscription) {
+      if (subscription.emitter !== this) {
+        subscription.emitter.removeSubscription(subscription);
+      } else {
+        babelHelpers.get(babelHelpers.getPrototypeOf(RCTDeviceEventEmitter.prototype), "removeSubscription", this).call(this, subscription);
+      }
+    } }]);return RCTDeviceEventEmitter;}(require('EventEmitter'));
+
+
+module.exports = new RCTDeviceEventEmitter();

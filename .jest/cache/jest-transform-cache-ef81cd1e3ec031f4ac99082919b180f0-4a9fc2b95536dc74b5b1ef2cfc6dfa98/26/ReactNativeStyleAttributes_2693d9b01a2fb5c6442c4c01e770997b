@@ -1,0 +1,51 @@
+bf30676971eb86011c9d8a7cd151538e
+
+
+
+
+
+
+
+
+
+
+'use strict';
+
+
+
+
+
+
+
+
+
+
+
+
+
+var ReactNativeStyleAttributes = babelHelpers.objectSpread({},
+require('fbjs/lib/keyMirror')(require('ViewStylePropTypes')),
+require('fbjs/lib/keyMirror')(require('TextStylePropTypes')),
+require('fbjs/lib/keyMirror')(require('ImageStylePropTypes')));
+
+
+ReactNativeStyleAttributes.transform = { process: require('processTransform') };
+ReactNativeStyleAttributes.shadowOffset = { diff: require('sizesDiffer') };
+
+var colorAttributes = { process: require('processColor') };
+ReactNativeStyleAttributes.backgroundColor = colorAttributes;
+ReactNativeStyleAttributes.borderBottomColor = colorAttributes;
+ReactNativeStyleAttributes.borderColor = colorAttributes;
+ReactNativeStyleAttributes.borderLeftColor = colorAttributes;
+ReactNativeStyleAttributes.borderRightColor = colorAttributes;
+ReactNativeStyleAttributes.borderTopColor = colorAttributes;
+ReactNativeStyleAttributes.borderStartColor = colorAttributes;
+ReactNativeStyleAttributes.borderEndColor = colorAttributes;
+ReactNativeStyleAttributes.color = colorAttributes;
+ReactNativeStyleAttributes.shadowColor = colorAttributes;
+ReactNativeStyleAttributes.textDecorationColor = colorAttributes;
+ReactNativeStyleAttributes.tintColor = colorAttributes;
+ReactNativeStyleAttributes.textShadowColor = colorAttributes;
+ReactNativeStyleAttributes.overlayColor = colorAttributes;
+
+module.exports = ReactNativeStyleAttributes;

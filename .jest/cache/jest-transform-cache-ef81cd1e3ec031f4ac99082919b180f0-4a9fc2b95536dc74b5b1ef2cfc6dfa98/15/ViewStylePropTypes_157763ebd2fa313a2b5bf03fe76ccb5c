@@ -1,0 +1,62 @@
+59f86bac9040092783ff533a4356a876
+
+
+
+
+
+
+
+
+
+
+'use strict';
+
+
+
+
+
+
+
+
+
+
+var ViewStylePropTypes = babelHelpers.objectSpread({}, require('LayoutPropTypes'), require('ShadowPropTypesIOS'), require('TransformPropTypes'), {
+
+
+
+  backfaceVisibility: require('prop-types').oneOf(['visible', 'hidden']),
+  backgroundColor: require('ColorPropType'),
+  borderColor: require('ColorPropType'),
+  borderTopColor: require('ColorPropType'),
+  borderRightColor: require('ColorPropType'),
+  borderBottomColor: require('ColorPropType'),
+  borderLeftColor: require('ColorPropType'),
+  borderStartColor: require('ColorPropType'),
+  borderEndColor: require('ColorPropType'),
+  borderRadius: require('prop-types').number,
+  borderTopLeftRadius: require('prop-types').number,
+  borderTopRightRadius: require('prop-types').number,
+  borderTopStartRadius: require('prop-types').number,
+  borderTopEndRadius: require('prop-types').number,
+  borderBottomLeftRadius: require('prop-types').number,
+  borderBottomRightRadius: require('prop-types').number,
+  borderBottomStartRadius: require('prop-types').number,
+  borderBottomEndRadius: require('prop-types').number,
+  borderStyle: require('prop-types').oneOf(['solid', 'dotted', 'dashed']),
+  borderWidth: require('prop-types').number,
+  borderTopWidth: require('prop-types').number,
+  borderRightWidth: require('prop-types').number,
+  borderBottomWidth: require('prop-types').number,
+  borderLeftWidth: require('prop-types').number,
+  opacity: require('prop-types').number,
+
+
+
+
+
+
+
+  elevation: require('prop-types').number });
+
+
+module.exports = ViewStylePropTypes;

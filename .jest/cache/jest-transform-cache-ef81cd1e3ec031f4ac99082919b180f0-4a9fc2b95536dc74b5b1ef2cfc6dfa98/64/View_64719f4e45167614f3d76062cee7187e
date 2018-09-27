@@ -1,0 +1,54 @@
+6422a152ebe9cba60172503640bf5b45
+
+
+
+
+
+
+
+
+
+
+'use strict';var _jsxFileName = "/Users/dsemennyuk/dev/Arrow/node_modules/react-native/Libraries/Components/View/View.js";
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+var ViewToExport = require('ViewNativeComponent');
+if (__DEV__) {
+  var View = function View(
+  props,
+  forwardedRef)
+  {
+    return (
+      require('React').createElement(require('TextAncestor').Consumer, { __source: { fileName: _jsxFileName, lineNumber: 38 } },
+      function (hasTextAncestor) {
+        require('fbjs/lib/invariant')(
+        !hasTextAncestor,
+        'Nesting of <View> within <Text> is not currently supported.');
+
+        return require('React').createElement(require('ViewNativeComponent'), babelHelpers.extends({}, props, { ref: forwardedRef, __source: { fileName: _jsxFileName, lineNumber: 44 } }));
+      }));
+
+
+  };
+
+  ViewToExport = require('React').forwardRef(View);
+}
+
+module.exports = ViewToExport;

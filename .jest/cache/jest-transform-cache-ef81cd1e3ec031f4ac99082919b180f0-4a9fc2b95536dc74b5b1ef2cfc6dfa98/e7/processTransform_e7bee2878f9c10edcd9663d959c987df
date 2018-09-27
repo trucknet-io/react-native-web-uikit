@@ -1,0 +1,244 @@
+6558a847a5862f207a90f8334b24615c
+
+
+
+
+
+
+
+
+
+
+'use strict';
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function processTransform(
+transform)
+{
+  if (__DEV__) {
+    _validateTransforms(transform);
+  }
+
+
+
+
+  if (require('Platform').OS === 'android' || require('Platform').OS === 'ios') {
+    return transform;
+  }
+
+  var result = require('MatrixMath').createIdentityMatrix();
+
+  transform.forEach(function (transformation) {
+    var key = Object.keys(transformation)[0];
+    var value = transformation[key];
+
+    switch (key) {
+      case 'matrix':
+        require('MatrixMath').multiplyInto(result, result, value);
+        break;
+      case 'perspective':
+        _multiplyTransform(result, require('MatrixMath').reusePerspectiveCommand, [value]);
+        break;
+      case 'rotateX':
+        _multiplyTransform(result, require('MatrixMath').reuseRotateXCommand, [
+        _convertToRadians(value)]);
+
+        break;
+      case 'rotateY':
+        _multiplyTransform(result, require('MatrixMath').reuseRotateYCommand, [
+        _convertToRadians(value)]);
+
+        break;
+      case 'rotate':
+      case 'rotateZ':
+        _multiplyTransform(result, require('MatrixMath').reuseRotateZCommand, [
+        _convertToRadians(value)]);
+
+        break;
+      case 'scale':
+        _multiplyTransform(result, require('MatrixMath').reuseScaleCommand, [value]);
+        break;
+      case 'scaleX':
+        _multiplyTransform(result, require('MatrixMath').reuseScaleXCommand, [value]);
+        break;
+      case 'scaleY':
+        _multiplyTransform(result, require('MatrixMath').reuseScaleYCommand, [value]);
+        break;
+      case 'translate':
+        _multiplyTransform(result, require('MatrixMath').reuseTranslate3dCommand, [
+        value[0],
+        value[1],
+        value[2] || 0]);
+
+        break;
+      case 'translateX':
+        _multiplyTransform(result, require('MatrixMath').reuseTranslate2dCommand, [
+        value,
+        0]);
+
+        break;
+      case 'translateY':
+        _multiplyTransform(result, require('MatrixMath').reuseTranslate2dCommand, [
+        0,
+        value]);
+
+        break;
+      case 'skewX':
+        _multiplyTransform(result, require('MatrixMath').reuseSkewXCommand, [
+        _convertToRadians(value)]);
+
+        break;
+      case 'skewY':
+        _multiplyTransform(result, require('MatrixMath').reuseSkewYCommand, [
+        _convertToRadians(value)]);
+
+        break;
+      default:
+        throw new Error('Invalid transform name: ' + key);}
+
+  });
+
+  return result;
+}
+
+
+
+
+function _multiplyTransform(
+result,
+matrixMathFunction,
+args)
+{
+  var matrixToApply = require('MatrixMath').createIdentityMatrix();
+  var argsWithIdentity = [matrixToApply].concat(args);
+  matrixMathFunction.apply(this, argsWithIdentity);
+  require('MatrixMath').multiplyInto(result, result, matrixToApply);
+}
+
+
+
+
+
+function _convertToRadians(value) {
+  var floatValue = parseFloat(value);
+  return value.indexOf('rad') > -1 ? floatValue : floatValue * Math.PI / 180;
+}
+
+function _validateTransforms(transform) {
+  transform.forEach(function (transformation) {
+    var keys = Object.keys(transformation);
+    require('fbjs/lib/invariant')(
+    keys.length === 1,
+    'You must specify exactly one property per transform object. Passed properties: %s',
+    require('stringifySafe')(transformation));
+
+    var key = keys[0];
+    var value = transformation[key];
+    _validateTransform(key, value, transformation);
+  });
+}
+
+function _validateTransform(key, value, transformation) {
+  require('fbjs/lib/invariant')(
+  !value.getValue,
+  'You passed an Animated.Value to a normal component. ' +
+  'You need to wrap that component in an Animated. For example, ' +
+  'replace <View /> by <Animated.View />.');
+
+
+  var multivalueTransforms = ['matrix', 'translate'];
+  if (multivalueTransforms.indexOf(key) !== -1) {
+    require('fbjs/lib/invariant')(
+    Array.isArray(value),
+    'Transform with key of %s must have an array as the value: %s',
+    key,
+    require('stringifySafe')(transformation));
+
+  }
+  switch (key) {
+    case 'matrix':
+      require('fbjs/lib/invariant')(
+      value.length === 9 || value.length === 16,
+      'Matrix transform must have a length of 9 (2d) or 16 (3d). ' +
+      'Provided matrix has a length of %s: %s',
+      value.length,
+      require('stringifySafe')(transformation));
+
+      break;
+    case 'translate':
+      require('fbjs/lib/invariant')(
+      value.length === 2 || value.length === 3,
+      'Transform with key translate must be an array of length 2 or 3, found %s: %s',
+      value.length,
+      require('stringifySafe')(transformation));
+
+      break;
+    case 'rotateX':
+    case 'rotateY':
+    case 'rotateZ':
+    case 'rotate':
+    case 'skewX':
+    case 'skewY':
+      require('fbjs/lib/invariant')(
+      typeof value === 'string',
+      'Transform with key of "%s" must be a string: %s',
+      key,
+      require('stringifySafe')(transformation));
+
+      require('fbjs/lib/invariant')(
+      value.indexOf('deg') > -1 || value.indexOf('rad') > -1,
+      'Rotate transform must be expressed in degrees (deg) or radians ' +
+      '(rad): %s',
+      require('stringifySafe')(transformation));
+
+      break;
+    case 'perspective':
+      require('fbjs/lib/invariant')(
+      typeof value === 'number',
+      'Transform with key of "%s" must be a number: %s',
+      key,
+      require('stringifySafe')(transformation));
+
+      require('fbjs/lib/invariant')(
+      value !== 0,
+      'Transform with key of "%s" cannot be zero: %s',
+      key,
+      require('stringifySafe')(transformation));
+
+      break;
+    case 'translateX':
+    case 'translateY':
+    case 'scale':
+    case 'scaleX':
+    case 'scaleY':
+      require('fbjs/lib/invariant')(
+      typeof value === 'number',
+      'Transform with key of "%s" must be a number: %s',
+      key,
+      require('stringifySafe')(transformation));
+
+      break;
+    default:
+      require('fbjs/lib/invariant')(
+      false,
+      'Invalid transform %s: %s',
+      key,
+      require('stringifySafe')(transformation));}
+
+
+}
+
+module.exports = processTransform;

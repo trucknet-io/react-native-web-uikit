@@ -1,0 +1,53 @@
+f2392356e06c2b0379d09233f52f652c
+
+
+
+
+
+
+
+
+
+'use strict';
+
+
+
+
+
+
+
+
+
+
+var ImageResizeMode = require('fbjs/lib/keyMirror')({
+
+
+
+
+  contain: null,
+
+
+
+
+  cover: null,
+
+
+
+
+
+  stretch: null,
+
+
+
+
+
+  center: null,
+
+
+
+
+
+  repeat: null });
+
+
+module.exports = ImageResizeMode;

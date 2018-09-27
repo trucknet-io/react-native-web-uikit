@@ -1,0 +1,43 @@
+b4e2ab5258181b6f3766c7e72cad938d
+
+
+
+
+
+
+
+
+
+
+'use strict';
+
+
+
+var Platform = {
+  OS: 'ios',
+  get Version() {
+    var constants = require('NativeModules').PlatformConstants;
+    return constants && constants.osVersion;
+  },
+  get isPad() {
+    var constants = require('NativeModules').PlatformConstants;
+    return constants ? constants.interfaceIdiom === 'pad' : false;
+  },
+
+
+
+  get isTVOS() {
+    return Platform.isTV;
+  },
+  get isTV() {
+    var constants = require('NativeModules').PlatformConstants;
+    return constants ? constants.interfaceIdiom === 'tv' : false;
+  },
+  get isTesting() {
+    var constants = require('NativeModules').PlatformConstants;
+    return constants && constants.isTesting;
+  },
+  select: function select(obj) {return 'ios' in obj ? obj.ios : obj.default;} };
+
+
+module.exports = Platform;

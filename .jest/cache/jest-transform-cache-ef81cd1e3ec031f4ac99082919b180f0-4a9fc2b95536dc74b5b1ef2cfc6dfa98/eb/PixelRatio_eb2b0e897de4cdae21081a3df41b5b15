@@ -1,0 +1,122 @@
+71783d1a63db2a5dd37e336f705dab1d
+
+
+
+
+
+
+
+
+
+
+'use strict';var
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+PixelRatio = function () {function PixelRatio() {babelHelpers.classCallCheck(this, PixelRatio);}babelHelpers.createClass(PixelRatio, null, [{ key: "get", value: function get()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    {
+      return require('Dimensions').get('window').scale;
+    } }, { key: "getFontScale", value: function getFontScale()
+
+
+
+
+
+
+
+
+
+
+
+
+    {
+      return require('Dimensions').get('window').fontScale || PixelRatio.get();
+    } }, { key: "getPixelSizeForLayoutSize", value: function getPixelSizeForLayoutSize(
+
+
+
+
+
+
+    layoutSize) {
+      return Math.round(layoutSize * PixelRatio.get());
+    } }, { key: "roundToNearestPixel", value: function roundToNearestPixel(
+
+
+
+
+
+
+
+    layoutSize) {
+      var ratio = PixelRatio.get();
+      return Math.round(layoutSize * ratio) / ratio;
+    } }, { key: "startDetecting", value: function startDetecting()
+
+
+    {} }]);return PixelRatio;}();
+
+
+module.exports = PixelRatio;

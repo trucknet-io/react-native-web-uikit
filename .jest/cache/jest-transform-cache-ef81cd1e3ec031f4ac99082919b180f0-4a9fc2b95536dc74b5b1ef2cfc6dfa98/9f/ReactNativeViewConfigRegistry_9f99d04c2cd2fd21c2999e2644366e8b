@@ -1,0 +1,113 @@
+0d0811e62f9dd3fc6d8b8fc594b8e109
+
+
+
+
+
+
+
+
+
+
+'use strict';
+
+
+
+
+
+
+
+
+
+var customBubblingEventTypes = {};
+var customDirectEventTypes = {};
+var eventTypes = {};
+
+exports.customBubblingEventTypes = customBubblingEventTypes;
+exports.customDirectEventTypes = customDirectEventTypes;
+exports.eventTypes = eventTypes;
+
+var viewConfigCallbacks = new Map();
+var viewConfigs = new Map();
+
+function processEventTypes(
+viewConfig)
+{var
+  bubblingEventTypes = viewConfig.bubblingEventTypes,directEventTypes = viewConfig.directEventTypes;
+
+  if (__DEV__) {
+    if (bubblingEventTypes != null && directEventTypes != null) {
+      for (var topLevelType in directEventTypes) {
+        require('fbjs/lib/invariant')(
+        bubblingEventTypes[topLevelType] == null,
+        'Event cannot be both direct and bubbling: %s',
+        topLevelType);
+
+      }
+    }
+  }
+
+  if (bubblingEventTypes != null) {
+    for (var _topLevelType in bubblingEventTypes) {
+      if (customBubblingEventTypes[_topLevelType] == null) {
+        eventTypes[_topLevelType] = customBubblingEventTypes[_topLevelType] =
+        bubblingEventTypes[_topLevelType];
+      }
+    }
+  }
+
+  if (directEventTypes != null) {
+    for (var _topLevelType2 in directEventTypes) {
+      if (customDirectEventTypes[_topLevelType2] == null) {
+        eventTypes[_topLevelType2] = customDirectEventTypes[_topLevelType2] =
+        directEventTypes[_topLevelType2];
+      }
+    }
+  }
+}
+
+
+
+
+
+
+
+exports.register = function (name, callback) {
+  require('fbjs/lib/invariant')(
+  !viewConfigCallbacks.has(name),
+  'Tried to register two views with the same name %s',
+  name);
+
+  viewConfigCallbacks.set(name, callback);
+  return name;
+};
+
+
+
+
+
+
+exports.get = function (name) {
+  var viewConfig;
+  if (!viewConfigs.has(name)) {
+    var callback = viewConfigCallbacks.get(name);
+    if (typeof callback !== 'function') {
+      require('fbjs/lib/invariant')(
+      false,
+      'View config not found for name %s.%s',
+      name,
+      typeof name[0] === 'string' && /[a-z]/.test(name[0]) ?
+      ' Make sure to start component names with a capital letter.' :
+      '');
+
+    }
+    viewConfigCallbacks.set(name, null);
+    viewConfig = callback();
+    processEventTypes(viewConfig);
+    viewConfigs.set(name, viewConfig);
+  } else {
+    viewConfig = viewConfigs.get(name);
+  }
+  require('fbjs/lib/invariant')(viewConfig, 'View config not found for name %s', name);
+  return viewConfig;
+};

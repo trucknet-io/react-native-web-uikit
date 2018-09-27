@@ -1,0 +1,63 @@
+c49cc76250516d004b444c9cbbec7830
+
+
+
+
+
+
+
+
+
+'use strict';
+
+
+
+
+
+
+
+
+var ImageStylePropTypes = babelHelpers.objectSpread({}, require('LayoutPropTypes'), require('ShadowPropTypesIOS'), require('TransformPropTypes'), {
+
+
+
+  resizeMode: require('prop-types').oneOf(Object.keys(require('ImageResizeMode'))),
+  backfaceVisibility: require('prop-types').oneOf(['visible', 'hidden']),
+  backgroundColor: require('ColorPropType'),
+  borderColor: require('ColorPropType'),
+  borderWidth: require('prop-types').number,
+  borderRadius: require('prop-types').number,
+  overflow: require('prop-types').oneOf(['visible', 'hidden']),
+
+
+
+
+  tintColor: require('ColorPropType'),
+  opacity: require('prop-types').number,
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  overlayColor: require('prop-types').string,
+
+
+  borderTopLeftRadius: require('prop-types').number,
+  borderTopRightRadius: require('prop-types').number,
+  borderBottomLeftRadius: require('prop-types').number,
+  borderBottomRightRadius: require('prop-types').number });
+
+
+module.exports = ImageStylePropTypes;
