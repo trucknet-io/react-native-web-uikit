@@ -1,4 +1,4 @@
-package com.arrow;
+package com.trucknetboilerplatetypescriptreactnative;
 
 import android.app.Application;
 
