@@ -4,12 +4,17 @@
 
 ## Getting started
 
+To start your new React Native project!
+
 1. `git clone` this repository
 2. `rm -rf .git`
 3. `git init`
 4. `git remote add origin`
 5. `git flow init`
-6. Edit package.json and app.json and all the files to change name, description and git repository
+6. Edit package.json to change name (upper-snake-case), description and git repository of the project
+7. Edit app.json to change name (UpperCamelCase) and display name (Human Readable) of the project
+8. Run `npx react-native eject` to build android and ios folders
+9. Git commit, add and push your new app 😎
 
 ## Libraries
 
