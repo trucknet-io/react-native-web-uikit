@@ -11,11 +11,12 @@ To start your new React Native project!
 3. `git init`
 4. `git remote add origin`
 5. `git flow init`
-6. Edit package.json to change name (upper-snake-case), description and git repository of the project
-7. Edit app.json to change name (UpperCamelCase) and display name (Human Readable) of the project
-8. Run `npx react-native eject` to build android and ios folders
-9. Replace `icon.png` in the root of the project and run `npx app-icon generate`
-10. Git commit, add and push your new app 😎
+6. `nvm install`
+7. Edit package.json to change name (upper-snake-case), description and git repository of the project
+8. Edit app.json to change name (UpperCamelCase) and display name (Human Readable) of the project
+9. Run `npx react-native eject` to build android and ios folders
+10. Replace `icon.png` in the root of the project and run `npx app-icon generate`
+11. Git commit, add and push your new app 😎
 
 ## Libraries
 
