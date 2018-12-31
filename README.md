@@ -14,7 +14,8 @@ To start your new React Native project!
 6. Edit package.json to change name (upper-snake-case), description and git repository of the project
 7. Edit app.json to change name (UpperCamelCase) and display name (Human Readable) of the project
 8. Run `npx react-native eject` to build android and ios folders
-9. Git commit, add and push your new app 😎
+9. Replace `icon.png` in the root of the project and run `npx app-icon generate`
+10. Git commit, add and push your new app 😎
 
 ## Libraries
 
@@ -104,6 +105,3 @@ for the first time to init Git flow inside the local repository.
   - Launch AVD Manager (icon with smartphone and android in right top corner)
   - Create a new virtual device for development using x86 image (in recommended tab)
   - Launch the virtual device
-
-
-
