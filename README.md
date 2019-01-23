@@ -57,7 +57,7 @@ After installation open Extensions tab and install following extensions:
 
 - **ubuntu only** `sudo apt install zsh`
 - **ubuntu only** `chsh -s $(which zsh)`
-- `sh -c "\$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"`
+- `sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"`
 
 ### Git Flow
 
@@ -77,8 +77,9 @@ for the first time to init Git flow inside the local repository.
 
 [NVM](https://github.com/creationix/nvm) is a node version manager. A tool to install and keep at the same time several versions of nodejs on your computer.
 
-- `curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash
+- `curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash`
 - **oh-my-zsh only** add `nvm` to `plugins` section of `~/.zshrc`
+- Reopen terminal
 - `nvm install` (inside this folder)
 - `npm update -g npm`
 
@@ -93,8 +94,7 @@ for the first time to init Git flow inside the local repository.
 - Download [Android Studio](https://developer.android.com/studio/)
   - **ubuntu only**:
     - `sudo apt install unzip libc6:i386 libncurses5:i386 libstdc++6:i386 lib32z1 libbz2-1.0:i386`
-    - `sudo unzip path-to-android-studio-linux.zip -d /opt`
-    - `rm path-to-android-studio-linux.zip`
+    - `sudo unzip path-to-android-studio-linux.zip -d /opt` (Replace path-to-android-studio-linux.zip with the location of the file. If you are in the same directory use `./`. For example: `sudo unzip ./android-studio-ide-182.5199772-linux.zip -d /opt`)
     - `sudo ln -s /opt/android-studio/bin/studio.sh /usr/local/bin/android-studio`
     - `android-studio` will launch Android Studio. The wizard will be started, exit it (when exiting choose to launch wizard next time).
     - Inside Android studio welcome window use `Configure -> Create desktop entry` and check `Create the entry for all users` to create an application launcher in system menu
@@ -106,3 +106,10 @@ for the first time to init Git flow inside the local repository.
   - Launch AVD Manager (icon with smartphone and android in right top corner)
   - Create a new virtual device for development using x86 image (in recommended tab)
   - Launch the virtual device
+
+### Android troubleshooting
+
+- `KVM is required to run this AVD. /dev/kvm device: permission denied. Grant current user access to /dev/kvm`:
+
+`sudo apt install qemu-kvm`
+`sudo adduser $(whoami) kvm`
