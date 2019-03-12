@@ -7,7 +7,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com:trucknet-io/trucknet-boilerplate-typescript-react-native.git"
+    "url": "git@github.com:trucknet-io/react-native-web-uikit.git"
   },
   "version": "0.0.1",
   "private": true,

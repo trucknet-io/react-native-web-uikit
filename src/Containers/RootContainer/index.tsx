@@ -13,7 +13,6 @@ class Root extends React.PureComponent<{}> {
   }
 }
 
-// tslint:disable-next-line
 const windowHeight = Dimensions.get("window").height;
 
 const styles = StyleSheet.create({
