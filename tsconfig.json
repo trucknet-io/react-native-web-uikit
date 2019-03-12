@@ -8,13 +8,16 @@
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
     "isolatedModules": true,
-    "jsx": "react-native",
+    "jsx": "preserve",
     "lib": ["es6"],
     "moduleResolution": "node",
     "noEmit": true,
     "strict": true,
     "target": "esnext",
-    "baseUrl": "."
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "module": "esnext",
+    "resolveJsonModule": true
   },
   "exclude": ["node_modules"],
   "include": ["src/**/*", "definitions/**/*.d.ts"]
