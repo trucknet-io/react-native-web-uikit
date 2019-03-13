@@ -84,7 +84,6 @@ export class GradientButtonWithChildren extends React.PureComponent<GradientButt
           disabled ? Colors.veryVeryLightGray : gradientStartColor,
           disabled ? Colors.veryVeryLightGray : gradientEndColor,
         ]}
-        // @ts-ignore
         style={[styles.linearGradient, linearGradientStyles(this.props), this.state.shadow]}>
         <TouchableOpacity
           testID={this.props.testID}
@@ -135,23 +134,6 @@ export class GradientButton extends React.PureComponent<GradientButtonProps> {
   };
 }
 
-interface TransparentButtonProps extends ButtonProps {
-  label: string;
-}
-
-export const TransparentButton = (props: TransparentButtonProps) => {
-  const { onPress, label, disabled } = props;
-  return (
-    <TouchableOpacity
-      disabled={disabled}
-      testID={props.testID}
-      style={[styles.buttonContainer, buttonContainerStyles(props)]}
-      onPress={onPress}>
-      <Text style={[styles.buttonLabel, { color: props.textColor || Colors.buttonText }]}>{label}</Text>
-    </TouchableOpacity>
-  );
-};
-
 interface TransparentButtonWithTextProps extends ButtonProps {
   link: string;
   label: string;
@@ -187,6 +169,19 @@ export const TransparentButtonWithChildren = (props: TransparentButtonWithChildr
       disabled={disabled}>
       {children}
     </TouchableOpacity>
+  );
+};
+
+interface TransparentButtonProps extends ButtonProps {
+  label: string;
+}
+
+export const TransparentButton = (props: TransparentButtonProps) => {
+  const { label } = props;
+  return (
+    <TransparentButtonWithChildren {...props}>
+      <Text style={[styles.buttonLabel, { color: props.textColor || Colors.buttonText }]}>{label}</Text>
+    </TransparentButtonWithChildren>
   );
 };
 
