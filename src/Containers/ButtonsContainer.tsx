@@ -1,11 +1,14 @@
 import * as React from "react";
-import { ActivityIndicator, Platform, ScrollView, StyleSheet, Text, TextInput, View } from "react-native";
+import { ActivityIndicator, Platform, ScrollView, StyleSheet, Text, View } from "react-native";
 import * as Buttons from "../Components/Buttons";
+import Input from "../Components/Input";
+import CodeView from "../Components/CodeView";
 import Colors from "../Themes/Colors";
+import { isCorrectHexColor } from "../Helpers/colors";
 
-interface State {
+type State = {
   [key: string]: string;
-}
+};
 
 class ButtonsContainer extends React.PureComponent<{}, State> {
   public state: State = {
@@ -16,8 +19,8 @@ class ButtonsContainer extends React.PureComponent<{}, State> {
     borderColor: Colors.gray,
     textColor: Colors.buttonText,
     disabled: "false",
-    gradientStartColor: Colors.blueGreenGradient.gradientColor1,
-    gradientEndColor: Colors.blueGreenGradient.gradientColor2,
+    gradientStartColor: Colors.themeGradient.gradientColor1,
+    gradientEndColor: Colors.themeGradient.gradientColor2,
   };
   private GUB_BETWEEN_BUTTONS = 10;
   public render() {
@@ -50,7 +53,7 @@ class ButtonsContainer extends React.PureComponent<{}, State> {
           label="Transparent Button With "
           link="Link"
           textColor={Colors.defaultText}
-          linkColor={Colors.linkBlue}
+          linkColor={Colors.themeDark}
         />
         <Buttons.TransparentButtonWithChildren
           {...this.getCommonProps()}
@@ -58,7 +61,7 @@ class ButtonsContainer extends React.PureComponent<{}, State> {
           textColor={Colors.defaultText}>
           <View style={styles.buttonChildContainer}>
             <Text style={{ color: Colors.defaultText }}>Transparent Button With Children</Text>
-            <ActivityIndicator size="large" color={Colors.lime} style={{ marginHorizontal: 10 }} />
+            <ActivityIndicator size="large" color={Colors.themeDark} style={{ marginHorizontal: 10 }} />
           </View>
         </Buttons.TransparentButtonWithChildren>
       </ScrollView>
@@ -93,38 +96,40 @@ class ButtonsContainer extends React.PureComponent<{}, State> {
       return value;
     }
 
-    const isCorrectHexColor = /^#[0-9A-F]{6}$/i.test(value);
-    if (isCorrectHexColor) {
+    if (isCorrectHexColor(value)) {
       return value;
     }
     return "#fff";
   };
-  private renderInput = (field: string) => {
-    const value = this.state[field];
-    return (
-      <View style={styles.inputContainer}>
-        <Text>{`${field}: `}</Text>
-        <TextInput
-          style={{ height: 40 }}
-          placeholder={value}
-          value={value}
-          onChangeText={(value) => this.setState({ [field]: value })}
-        />
-      </View>
-    );
-  };
+
+  private onChangeText = (field: string) => (value: string) => this.setState({ [field]: value });
+
   private renderCustomizationInputs = () => (
-    <View style={styles.inputsContainer}>
-      {this.renderInput("width")}
-      {this.renderInput("height")}
-      {this.renderInput("borderRadius")}
-      {this.renderInput("borderWidth")}
-      {this.renderInput("borderColor")}
-      {this.renderInput("gradientStartColor")}
-      {this.renderInput("gradientEndColor")}
-      {this.renderInput("textColor")}
-      {this.renderInput("disabled")}
-    </View>
+    <CodeView width={500}>
+      <View>
+        <Input value={this.state.width} field={"width"} onChangeText={this.onChangeText("width")} />
+        <Input value={this.state.height} field={"height"} onChangeText={this.onChangeText("height")} />
+        <Input
+          value={this.state.borderRadius}
+          field={"borderRadius"}
+          onChangeText={this.onChangeText("borderRadius")}
+        />
+        <Input value={this.state.borderWidth} field={"borderWidth"} onChangeText={this.onChangeText("borderWidth")} />
+        <Input value={this.state.borderColor} field={"borderColor"} onChangeText={this.onChangeText("borderColor")} />
+        <Input
+          value={this.state.gradientStartColor}
+          field={"gradientStartColor"}
+          onChangeText={this.onChangeText("gradientStartColor")}
+        />
+        <Input
+          value={this.state.gradientEndColor}
+          field={"gradientEndColor"}
+          onChangeText={this.onChangeText("gradientEndColor")}
+        />
+        <Input value={this.state.textColor} field={"textColor"} onChangeText={this.onChangeText("textColor")} />
+        <Input value={this.state.disabled} field={"disabled"} onChangeText={this.onChangeText("disabled")} />
+      </View>
+    </CodeView>
   );
 }
 
@@ -136,17 +141,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-around",
-  },
-  inputContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-  },
-  inputsContainer: {
-    backgroundColor: Colors.veryVeryLightGray,
-    borderRadius: 4,
-    padding: 10,
-    margin: 10,
-    width: 500,
   },
 });
 

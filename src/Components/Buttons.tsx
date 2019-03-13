@@ -1,9 +1,9 @@
 import * as React from "react";
 import { Platform, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import Colors from "../Themes/Colors";
-import { shadow } from "../Themes/Shadow";
+import createShadow from "../Themes/Shadow";
 
-import LinearGradient from "react-native-linear-gradient";
+import LinearGradient from "./LinearGradient";
 
 interface LinearGradientStylesProps {
   borderRadius?: number;
@@ -60,14 +60,7 @@ export class GradientButtonWithChildren extends React.PureComponent<GradientButt
   public PRESS_IN_SHADOW = 1;
   public PRESS_OUT_SHADOW = 4;
 
-  private setShadow = (size: number) => {
-    if (Platform.OS === "web") {
-      return {
-        boxShadow: `${size}px ${size}px ${size / 2}px rgba(0, 0, 0, 0.2)`,
-      };
-    }
-    return { elevation: size };
-  };
+  private setShadow = (size: number) => createShadow(size);
 
   public state = {
     shadow: this.setShadow(this.PRESS_OUT_SHADOW),
@@ -75,15 +68,12 @@ export class GradientButtonWithChildren extends React.PureComponent<GradientButt
 
   public render() {
     const { gradientStartColor, gradientEndColor, disabled, onPress } = this.props;
-
     return (
       <LinearGradient
         start={{ x: 0, y: 1 }}
         end={{ x: 1, y: 1 }}
-        colors={[
-          disabled ? Colors.veryVeryLightGray : gradientStartColor,
-          disabled ? Colors.veryVeryLightGray : gradientEndColor,
-        ]}
+        gradientStartColor={this.setColor(gradientStartColor)}
+        gradientEndColor={this.setColor(gradientEndColor)}
         style={[styles.linearGradient, linearGradientStyles(this.props), this.state.shadow]}>
         <TouchableOpacity
           testID={this.props.testID}
@@ -100,6 +90,11 @@ export class GradientButtonWithChildren extends React.PureComponent<GradientButt
       </LinearGradient>
     );
   }
+
+  private setColor = (gradientColor: string) => {
+    if (this.props.disabled) return Colors.veryVeryLightGray;
+    return gradientColor;
+  };
 
   private handlePressIn = () => {
     this.setState({ shadow: this.setShadow(this.PRESS_IN_SHADOW) }, this.props.onPress);
@@ -187,7 +182,7 @@ export const TransparentButton = (props: TransparentButtonProps) => {
 
 const styles = StyleSheet.create({
   linearGradient: {
-    ...shadow,
+    ...createShadow(),
   },
   buttonContainer: {
     alignItems: "center",
