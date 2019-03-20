@@ -25,16 +25,16 @@ class App extends React.PureComponent {
             gradientEndColor={Colors.themeGradient.gradientColor2}
             style={styles.gradient}>
             <View style={styles.leftPanel}>
-              <Link to="/icons" underlayColor={null}>
+              <Link to="/icons">
                 <Text style={styles.label}>Icons</Text>
               </Link>
-              <Link to="/gradient" underlayColor={null}>
+              <Link to="/gradient">
                 <Text style={styles.label}>Gradient</Text>
               </Link>
-              <Link to="/buttons" underlayColor={null}>
+              <Link to="/buttons">
                 <Text style={styles.label}>Buttons</Text>
               </Link>
-              <Link to="/modals" underlayColor={null}>
+              <Link to="/modals">
                 <Text style={styles.label}>Modals</Text>
               </Link>
             </View>

@@ -7,10 +7,10 @@ export default ({ width, height, color }: iconType) => {
     <Svg width={width || 27} height={height || 10} viewBox="0 0 27 3">
       <Text
         fill={color || "#29464D"}
-        fill-rule="evenodd"
-        font-family="Roboto-Medium, Roboto"
-        font-size="14"
-        font-weight="400"
+        fillRule="evenodd"
+        fontFamily="Roboto-Medium, Roboto"
+        fontSize="14"
+        fontWeight="400"
         transform="translate(-326 -540)">
         <TSpan x="326" y="546">
           VAT

@@ -14,11 +14,11 @@ class IconsContainer extends React.PureComponent {
 
   private renderIcons = () => {
     const IconsNames = Object.keys(Icons);
-    return IconsNames.map((name: string) => {
+    return IconsNames.map((name: string, i: number) => {
       // @ts-ignore
       const Icon = Icons[name];
       return (
-        <View style={styles.iconContainer}>
+        <View style={styles.iconContainer} key={i}>
           <Text>{name}</Text>
           <Icon color={Colors.themeDark} />
         </View>
