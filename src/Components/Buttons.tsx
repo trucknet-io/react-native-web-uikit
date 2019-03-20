@@ -22,7 +22,10 @@ interface ButtonProps extends ButtonContainerStylesProps {
   disabled?: boolean;
   textColor?: string;
   testID?: string;
-  onPress(): void;
+  onPress?: () => void;
+  onLongPress?: () => void;
+  onPressIn?: () => void;
+  onPressOut?: () => void;
 }
 
 const linearGradientStyles = (props: LinearGradientStylesProps) => {
@@ -67,7 +70,7 @@ export class GradientButtonWithChildren extends React.PureComponent<GradientButt
   };
 
   public render() {
-    const { gradientStartColor, gradientEndColor, disabled, onPress } = this.props;
+    const { gradientStartColor, gradientEndColor, disabled, onPress, onLongPress } = this.props;
     return (
       <LinearGradient
         start={{ x: 0, y: 1 }}
@@ -82,6 +85,7 @@ export class GradientButtonWithChildren extends React.PureComponent<GradientButt
             buttonContainerStyles({ ...this.props, marginVertical: 0, marginHorizontal: 0 }),
           ]}
           onPress={onPress}
+          onLongPress={onLongPress}
           onPressIn={this.handlePressIn}
           onPressOut={this.handlePressOut}
           disabled={disabled}>
@@ -97,10 +101,10 @@ export class GradientButtonWithChildren extends React.PureComponent<GradientButt
   };
 
   private handlePressIn = () => {
-    this.setState({ shadow: this.setShadow(this.PRESS_IN_SHADOW) }, this.props.onPress);
+    this.setState({ shadow: this.setShadow(this.PRESS_IN_SHADOW) }, this.props.onPressIn);
   };
   private handlePressOut = () => {
-    this.setState({ shadow: this.setShadow(this.PRESS_OUT_SHADOW) }, this.props.onPress);
+    this.setState({ shadow: this.setShadow(this.PRESS_OUT_SHADOW) }, this.props.onPressOut);
   };
 }
 
@@ -137,11 +141,17 @@ interface TransparentButtonWithTextProps extends ButtonProps {
 }
 
 export const TransparentButtonWithLink = (props: TransparentButtonWithTextProps) => {
-  const { onPress, label, link, disabled } = props;
+  const { onPress, label, link, disabled, onLongPress, onPressIn, onPressOut } = props;
   return (
     <View style={[styles.buttonContainer, buttonContainerStyles(props), { flexDirection: "row" }]}>
       <Text style={[styles.buttonText, { color: props.textColor || Colors.buttonText }]}>{label}</Text>
-      <TouchableOpacity disabled={disabled} testID={props.testID} onPress={onPress}>
+      <TouchableOpacity
+        testID={props.testID}
+        disabled={disabled}
+        onPressIn={onPressIn}
+        onPress={onPress}
+        onPressOut={onPressOut}
+        onLongPress={onLongPress}>
         <Text style={[styles.buttonLinkText, { color: props.linkColor || Colors.buttonText }]}>{link}</Text>
       </TouchableOpacity>
     </View>
@@ -149,18 +159,20 @@ export const TransparentButtonWithLink = (props: TransparentButtonWithTextProps)
 };
 
 interface TransparentButtonWithChildrenProps extends ButtonProps {
-  label: string;
   children: React.ReactChild;
 }
 
 export const TransparentButtonWithChildren = (props: TransparentButtonWithChildrenProps) => {
-  const { onPress, disabled, children } = props;
+  const { onPressIn, onPress, onPressOut, disabled, children, onLongPress } = props;
 
   return (
     <TouchableOpacity
       testID={props.testID}
       style={[styles.buttonContainer, buttonContainerStyles(props)]}
+      onPressIn={onPressIn}
       onPress={onPress}
+      onPressOut={onPressOut}
+      onLongPress={onLongPress}
       disabled={disabled}>
       {children}
     </TouchableOpacity>

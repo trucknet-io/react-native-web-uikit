@@ -28,6 +28,7 @@ class ButtonsContainer extends React.PureComponent<{}, State> {
       <ScrollView style={styles.container}>
         {this.renderCustomizationInputs()}
         <Buttons.GradientButton
+          width="100%"
           {...this.getCommonProps()}
           label="Gradient Button"
           textColor={this.state.textColor}
@@ -55,10 +56,7 @@ class ButtonsContainer extends React.PureComponent<{}, State> {
           textColor={Colors.defaultText}
           linkColor={Colors.themeDark}
         />
-        <Buttons.TransparentButtonWithChildren
-          {...this.getCommonProps()}
-          label="Transparent Button"
-          textColor={Colors.defaultText}>
+        <Buttons.TransparentButtonWithChildren {...this.getCommonProps()} textColor={Colors.defaultText}>
           <View style={styles.buttonChildContainer}>
             <Text style={{ color: Colors.defaultText }}>Transparent Button With Children</Text>
             <ActivityIndicator size="large" color={Colors.themeDark} style={{ marginHorizontal: 10 }} />
@@ -69,7 +67,6 @@ class ButtonsContainer extends React.PureComponent<{}, State> {
   }
 
   private getCommonProps = () => ({
-    onPress: this.showDialog,
     width: this.parseStringToNumberOrPercents(this.state.width),
     height: this.parseStringToNumberOrPercents(this.state.height),
     borderWidth: this.parseStringToNumber(this.state.borderWidth),
@@ -78,8 +75,6 @@ class ButtonsContainer extends React.PureComponent<{}, State> {
     disabled: this.state.disabled === "true" ? true : false,
     marginVertical: this.GUB_BETWEEN_BUTTONS,
   });
-
-  private showDialog = () => {};
 
   private parseStringToNumber = (value: string): number => {
     return parseInt(value);

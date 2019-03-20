@@ -107,6 +107,22 @@ android {
             abiFilters "armeabi-v7a", "x86"
         }
     }
+    // CHANGE
+    signingConfigs {
+        release {
+            if (project.hasProperty('MYAPP_RELEASE_STORE_PASSWORD')) {
+                storeFile file("../../extra/keystores/accesKey.jks")
+                storePassword MYAPP_RELEASE_STORE_PASSWORD
+                keyAlias "key0"
+                keyPassword MYAPP_RELEASE_KEY_PASSWORD
+            } else {
+                storeFile file("../../extra/keystores/development.jks")
+                storePassword "12345678"
+                keyAlias "key0"
+                keyPassword "12345678"
+            }
+        }
+    }  
     splits {
         abi {
             reset()
@@ -118,6 +134,7 @@ android {
     buildTypes {
         release {
             minifyEnabled enableProguardInReleaseBuilds
+            signingConfig signingConfigs.release
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
         }
     }
@@ -137,6 +154,7 @@ android {
 }
 
 dependencies {
+    compile project(':react-native-svg')
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation "com.android.support:appcompat-v7:${rootProject.ext.supportLibVersion}"
     implementation "com.facebook.react:react-native:+"  // From node_modules

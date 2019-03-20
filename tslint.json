@@ -52,7 +52,7 @@
       true,
       {
         "limit": 120,
-        "ignore-pattern": "^\\s+`|^\\s+\"|describe\\(\"|it\\(\"|test\\(\""
+        "ignore-pattern": "^\\s+`|^\\s+\"|describe\\(\"|it\\(\"|test\\(\"|d="
       }
     ],
     "function-name": [

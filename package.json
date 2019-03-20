@@ -15,6 +15,7 @@
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "ios": "react-native run-ios",
     "android": "react-native run-android",
+    "android:release": "react-native run-android --variant=release",
     "web": "react-app-rewired start",
     "commit": "commit-prompt",
     "precommit": "lint-staged && npm run lint",
@@ -29,6 +30,7 @@
     "build": "tsc"
   },
   "dependencies": {
+    "@types/react-router-native": "^4.2.4",
     "native-base-web": "0.0.5",
     "react": "16.6.3",
     "react-art": "^16.8.4",
@@ -36,6 +38,7 @@
     "react-native": "0.57.8",
     "react-native-linear-gradient": "^2.5.3",
     "react-native-paper": "^2.13.0",
+    "react-native-svg": "^9.3.5",
     "react-native-vector-icons": "^6.3.0",
     "react-native-web": "^0.10.0",
     "react-native-web-linear-gradient": "^1.0.5",

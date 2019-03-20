@@ -7,6 +7,7 @@ const createShadowStyles = (size?: number) => {
   if (Platform.OS === "web")
     return {
       boxShadow: `${shadowSize}px ${shadowSize}px ${shadowSize / 2}px ${Colors.shadow}`,
+      zIndex: 100 * shadowSize,
     };
   return {
     shadowColor: Colors.shadow,
