@@ -9,7 +9,6 @@ import Colors from "../Themes/Colors";
 import LinearGradient from "../Components/LinearGradient";
 import { Route, Link } from "react-router-native";
 import { isWeb } from "../Helpers/platform";
-import RootWrapper from "../Wrappers/RootWrapper";
 
 const Router = isWeb ? require("react-router-native").BrowserRouter : require("react-router-native").NativeRouter;
 
@@ -17,7 +16,7 @@ class App extends React.PureComponent {
   render() {
     return (
       <Router>
-        <RootWrapper styles={styles.container}>
+        <View style={styles.container}>
           <LinearGradient
             start={{ x: 0, y: 0 }}
             end={{ x: 1, y: 1 }}
@@ -43,7 +42,7 @@ class App extends React.PureComponent {
           <Route path="/gradient" component={Gradient} />
           <Route path="/buttons" component={Buttons} />
           <Route path="/modals" component={Modals} />
-        </RootWrapper>
+        </View>
       </Router>
     );
   }

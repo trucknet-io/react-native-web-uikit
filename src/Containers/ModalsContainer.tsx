@@ -4,6 +4,7 @@ import { TransparentButtonWithChildren, GradientButton } from "../Components/But
 import Colors from "../Themes/Colors";
 import Subscriber from "../Subscriber";
 import { ChevronRight, ChevronLeft, Handler } from "../Components/Icons";
+import RootWrapper from "../Wrappers/RootWrapper";
 
 type ModalViewProps = {
   width: string | number;
@@ -86,15 +87,17 @@ class ModalView extends React.PureComponent<ModalViewProps> {
 class ModalsContainer extends React.PureComponent {
   public render() {
     return (
-      <View style={styles.container}>
-        <GradientButton
-          label="Show Modal"
-          width="100%"
-          onPress={this.showModal}
-          gradientStartColor={Colors.themeGradient.gradientColor1}
-          gradientEndColor={Colors.themeGradient.gradientColor2}
-        />
-      </View>
+      <RootWrapper styles={{ flex: 1 }}>
+        <View style={styles.container}>
+          <GradientButton
+            label="Show Modal"
+            width="100%"
+            onPress={this.showModal}
+            gradientStartColor={Colors.themeGradient.gradientColor1}
+            gradientEndColor={Colors.themeGradient.gradientColor2}
+          />
+        </View>
+      </RootWrapper>
     );
   }
 

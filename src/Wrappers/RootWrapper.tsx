@@ -1,7 +1,6 @@
 import * as React from "react";
 import { StyleSheet, View, Dimensions, Animated } from "react-native";
 import Subscriber, { modalPropertiesType } from "../Subscriber";
-import { withRouter } from "react-router-native";
 import createShadow from "../Themes/Shadow";
 import Colors from "../Themes/Colors";
 
@@ -453,4 +452,4 @@ const styles = StyleSheet.create({
 });
 
 // @ts-ignore
-export default withRouter(RootWrapper);
+export default RootWrapper;
