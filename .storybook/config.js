@@ -1,10 +1,8 @@
 import { configure } from '@storybook/react';
+import './addons';
 
-import "./addons";
-
-const req = require.context('../src/stories', true, /index.tsx/);
 function loadStories() {
-  req.keys().forEach(filename => req(filename));
+  require('../src/stories');
 }
 
-export default configure(loadStories, module);
+configure(loadStories, module);

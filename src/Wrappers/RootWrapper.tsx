@@ -77,11 +77,12 @@ class RootWrapper extends React.PureComponent<Props, State> {
   private onBackDropPress = () => {
     const modal = this.state.modals[0];
     if (modal) {
+      if (modal.onBackdropPress) {
+        return modal.onBackdropPress();
+      }
       if (modal.closeOnBackdropPress) {
         return this.animateModalsDisappearanceSequence(0);
       }
-      const onBackdropPress = modal.onBackdropPress;
-      if (onBackdropPress) onBackdropPress();
     }
   };
 

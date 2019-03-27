@@ -7,10 +7,10 @@ import LinearGradient from "./LinearGradient";
 
 interface LinearGradientStylesProps {
   borderRadius?: number;
-  width?: number | string;
-  height?: number | string;
-  marginVertical?: number | string;
-  marginHorizontal?: number | string;
+  width?: string | number;
+  height?: string | number;
+  marginVertical?: string | number;
+  marginHorizontal?: string | number;
 }
 
 interface ButtonContainerStylesProps extends LinearGradientStylesProps {
@@ -35,6 +35,7 @@ const linearGradientStyles = (props: LinearGradientStylesProps) => {
     height: props.height || 44,
     marginVertical: props.marginVertical,
     marginHorizontal: props.marginHorizontal,
+    alignItems: "center",
   };
   if (Platform.OS === "web") {
     return commonStyles;

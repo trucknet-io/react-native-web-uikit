@@ -1,9 +1,10 @@
 import * as React from "react";
 import { Svg, G, Path } from "react-native-svg";
+import { iconType } from "./iconType";
 
-export default ({ color }: { color: string }) => {
+export default ({ color, width, height }: iconType) => {
   return (
-    <Svg height="22" width="19" viewBox="0 0 19 22">
+    <Svg height={width || 22} width={height || 19} viewBox="0 0 19 22">
       <G fill="none" fillRule="evenodd">
         <Path d="M-2-1h24v24H-2z" />
         <Path

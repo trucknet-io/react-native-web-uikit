@@ -3,7 +3,13 @@ import { View, Text, StyleSheet, ScrollView } from "react-native";
 import * as Icons from "../Components/Icons";
 import Colors from "../Themes/Colors";
 
-class IconsContainer extends React.PureComponent {
+type IconProps = {
+  width?: number;
+  height?: number;
+  color?: string;
+};
+
+class IconName extends React.PureComponent<IconProps> {
   public render() {
     return (
       <ScrollView>
@@ -20,7 +26,7 @@ class IconsContainer extends React.PureComponent {
       return (
         <View style={styles.iconContainer} key={i}>
           <Text>{name}</Text>
-          <Icon color={Colors.themeDark} />
+          <Icon color={this.props.color} width={this.props.width} height={this.props.height} />
         </View>
       );
     });
@@ -45,4 +51,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default IconsContainer;
+export default IconName;
