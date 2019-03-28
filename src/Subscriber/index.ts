@@ -1,5 +1,3 @@
-// import * as React from "react";
-
 type Component = React.ReactNode;
 
 export type modalPropertiesType = {
@@ -61,9 +59,9 @@ class Subscriber implements ISubscriber {
     }
   };
 
-  public changeModalPosition = (id: number, position: number | string) => {
+  public changeModalPosition = (id: number, positionShift: number | string) => {
     if (this.onChangeModalPosition) {
-      this.onChangeModalPosition(id, position);
+      this.onChangeModalPosition(id, positionShift);
     }
   };
 

@@ -18,7 +18,57 @@ const styles = StyleSheet.create({
   headerText: {
     fontWeight: "bold",
   },
+  cursiveText: {
+    fontStyle: "italic",
+  },
+  tableColumnsContainer: { flexDirection: "row" },
+  tableColumn: { width: 150, marginRight: 15 },
+  tableBigColumn: { width: 400, marginRight: 15 },
 });
+
+const SourceCode = `<RootWrapper
+        styles={any}>
+            <Button title="toggle modal" onPress={this.toggleModal} />
+            <Modal
+                id={id}
+                component={component}
+                containerStyles={modalStyles}
+                shadow={shadow}
+                dontShowBackdrop={dontShowBackdrop}
+                verticalDirection={verticalDirection}
+                initialPosition={initialPosition}
+                isModalOpen={this.state.isModalOpen}
+                onBackdropPress={this.onBackdropPress}
+            />
+    </RootWrapper>`;
+
+const instruction = (
+  <Text>
+    You can use
+    <Text style={[styles.codeContainer, { marginHorizontal: 4 }]}> Modal </Text>
+    Component or
+    <Text style={[styles.codeContainer, { marginHorizontal: 4 }]}> Subscriber </Text>
+    for show Modal
+  </Text>
+);
+
+const SubscriberShowModalCode = `class Modal extends React.PureComponent<ModalProps> {
+    some code...
+    showModal = () => {
+        Subscriber.showModal(this.props.component, {
+            id: this.props.id,
+            containerStyles: this.props.containerStyles,
+            shadow: this.props.shadow,
+            dontShowBackdrop: this.props.dontShowBackdrop,
+            verticalDirection: this.props.verticalDirection,
+            onBackdropPress: this.props.onBackdropPress,
+            initialPosition: this.props.initialPosition,
+        });
+    };
+    hideAllModals = () => {
+        Subscriber.hideModal();
+    };
+}`;
 
 const containerStylesType = `{
     top: string | number;
@@ -76,7 +126,7 @@ const idTypeDefinition = {
         <Text>Subscriber.stretchModal(id, stretchingValue? = "10%")</Text>
       </View>
       <View style={styles.codeContainer}>
-        <Text>Subscriber.hideModal(id)</Text>
+        <Text>Subscriber.hideModal(id? = undefined)</Text>
       </View>
     </View>
   ),
@@ -156,46 +206,49 @@ const TableComponent = () => {
   ];
   const props = propDefinitions.map(({ property, propType, required, description, defaultValue }) => {
     return (
-      <tr key={property}>
-        <View style={{ flexDirection: "row" }}>
-          <View style={{ width: 150, marginRight: 15 }}>
-            <Text>
-              {property}
-              {required ? <Text style={{ color: "red" }}>*</Text> : null}
-            </Text>
-          </View>
-          <View style={[styles.codeContainer, { width: 400, marginRight: 15 }]}>
-            <Text>{propType.name}</Text>
-          </View>
-          <View style={{ width: 400, marginRight: 15 }}>{defaultValue}</View>
-          <View style={{ width: 400 }}>{description}</View>
+      <View style={styles.tableColumnsContainer}>
+        <View style={styles.tableColumn}>
+          <Text>
+            {property}
+            {required ? <Text style={{ color: "red" }}>*</Text> : null}
+          </Text>
         </View>
-      </tr>
+        <View style={[styles.codeContainer, styles.tableBigColumn]}>
+          <Text>{propType.name}</Text>
+        </View>
+        <View style={styles.tableBigColumn}>{defaultValue}</View>
+        <View style={styles.tableBigColumn}>{description}</View>
+      </View>
     );
   });
 
   return (
-    <table>
-      <thead>
-        <tr>
-          <View style={{ flexDirection: "row" }}>
-            <View style={{ width: 150, marginRight: 15 }}>
-              <Text style={styles.headerText}>name</Text>
-            </View>
-            <View style={{ width: 400, marginRight: 15 }}>
-              <Text style={styles.headerText}>type</Text>
-            </View>
-            <View style={{ width: 400, marginRight: 15 }}>
-              <Text style={styles.headerText}>default</Text>
-            </View>
-            <View style={{ width: 400 }}>
-              <Text style={styles.headerText}>description</Text>
-            </View>
-          </View>
-        </tr>
-      </thead>
-      <tbody>{props}</tbody>
-    </table>
+    <View>
+      <View style={{ marginVertical: 10 }}>
+        <Text>{instruction}</Text>
+      </View>
+      <View style={[styles.codeContainer, { alignItems: "flex-start" }]}>
+        <Text>{SourceCode}</Text>
+      </View>
+      <View style={[styles.codeContainer, { alignItems: "flex-start" }]}>
+        <Text>{SubscriberShowModalCode}</Text>
+      </View>
+      <View style={[styles.tableColumnsContainer, { marginTop: 20 }]}>
+        <View style={styles.tableColumn}>
+          <Text style={styles.headerText}>name</Text>
+        </View>
+        <View style={styles.tableBigColumn}>
+          <Text style={styles.headerText}>type</Text>
+        </View>
+        <View style={styles.tableBigColumn}>
+          <Text style={styles.headerText}>default</Text>
+        </View>
+        <View style={styles.tableBigColumn}>
+          <Text style={styles.headerText}>description</Text>
+        </View>
+      </View>
+      <View>{props}</View>
+    </View>
   );
 };
 
