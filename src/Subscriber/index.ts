@@ -25,7 +25,7 @@ export type modalPropertiesType = {
 
 type onShowModal = (Component: Component, props: modalPropertiesType) => void;
 type onHideModal = (id: number) => void;
-type onChangeModalPosition = (id: number, position: string | number) => void;
+type onChangeModalPosition = (id: number, positionShift: string | number) => void;
 type onStretchModal = (id: number, stretchingValue?: string | number) => void;
 
 interface ISubscriber {

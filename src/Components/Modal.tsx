@@ -4,18 +4,20 @@ import Subscriber, { modalPropertiesType } from "../Subscriber";
 
 interface ModalProps extends modalPropertiesType {
   component: React.ReactNode;
-  isModalOpen?: boolean;
+  isModalOpen: boolean;
 }
 
 class Modal extends React.PureComponent<ModalProps> {
   componentDidMount = () => {
-    if (this.props.isModalOpen !== false) {
+    if (this.props.isModalOpen) {
       setTimeout(this.showModal, 500);
     }
   };
   componentWillReceiveProps = (nextProps: ModalProps) => {
-    if (!nextProps.isModalOpen && nextProps.isModalOpen !== this.props.isModalOpen) return this.hideModal();
-    return this.showModal();
+    if (!nextProps.isModalOpen) return this.hideAllModals();
+    if (nextProps.isModalOpen) {
+      return this.showModal();
+    }
   };
   render() {
     return <View />;
@@ -33,8 +35,8 @@ class Modal extends React.PureComponent<ModalProps> {
     });
   };
 
-  hideModal = () => {
-    Subscriber.hideModal(this.props.id);
+  hideAllModals = () => {
+    Subscriber.hideModal();
   };
 }
 

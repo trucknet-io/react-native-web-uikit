@@ -300,7 +300,8 @@ class RootWrapper extends React.PureComponent<Props, State> {
   private findModalIndexById = (id: number) => this.state.modals.findIndex((modal) => modal.id === id);
 
   private deleteModalsById = (id: number) => {
-    const modalIndex = this.findModalIndexById(id);
+    let modalIndex = this.findModalIndexById(id);
+    if (!id) modalIndex = 0;
     if (modalIndex >= 0) this.animateModalsDisappearanceSequence(modalIndex);
   };
 

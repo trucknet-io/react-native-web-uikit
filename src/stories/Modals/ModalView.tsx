@@ -28,7 +28,7 @@ class ModalView extends React.PureComponent<ModalViewProps> {
   };
 
   changeModalPosition = (position: string | number) => {
-    action(`onPressOut: Subscriber.changeModalPosition(id: number, position: string | number)`)(
+    action(`onPressOut: Subscriber.changeModalPosition(id: number, positionShift: string | number)`)(
       `Subscriber.changeModalPosition(${this.props.modalId}, ${position})`,
     );
     Subscriber.changeModalPosition(this.props.modalId, position);
@@ -92,13 +92,6 @@ const styles = StyleSheet.create({
     width: "100%",
     justifyContent: "space-between",
     alignItems: "center",
-  },
-  subModalContainer: {
-    flex: 1,
-    width: "100%",
-    alignItems: "center",
-    backgroundColor: Colors.ashLight,
-    borderRadius: 10,
   },
 });
 
