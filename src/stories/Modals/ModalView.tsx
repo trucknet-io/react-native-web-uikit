@@ -85,7 +85,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-between",
     backgroundColor: Colors.themeLight,
-    borderRadius: 5,
+    borderRadius: 25,
   },
   buttonsContainer: {
     flex: 1,

@@ -31,7 +31,6 @@
     "build-storybook": "build-storybook -s public"
   },
   "dependencies": {
-    "@types/react-router-native": "^4.2.4",
     "core-js": "^2.6.5",
     "marked": "^0.6.1",
     "react-art": "^16.8.4",
