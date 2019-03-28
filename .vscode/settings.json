@@ -1,7 +1,7 @@
 {
   "files.exclude": {
-    "{src,test}/**/*.js": true,
-    "{src,test}/**/*.js.map": true
+    "{src,test}/**/*.js": false,
+    "{src,test}/**/*.js.map": false
   },
   "tslint.autoFixOnSave": true,
   "editor.formatOnSave": true

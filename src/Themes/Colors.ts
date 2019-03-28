@@ -16,12 +16,25 @@ const Colors = {
   separator: "#000",
   veryVeryLightGray: "#f2f2f2",
   gray: "#9b9b9b",
-  blueGreenGradient: {
-    gradientColor1: "#2cceb3",
-    gradientColor2: "#2cce62",
+  themeGradient: {
+    gradientColor1: "#6441A5",
+    gradientColor2: "#2a0845",
+  },
+  ashGradient: {
+    gradientColor1: "#C9D6FF",
+    gradientColor2: "#E2E2E2",
   },
   lime: "#2cce62",
   linkBlue: "#2979ff",
+  white: "#fff",
+  black: "#000",
+  border: "#808080",
+  codeBackground: "#f2f2f2",
+  shadow: "#00000022",
+  themeLight: "#6441A5",
+  themeDark: "#2a0845",
+  ashLight: "#606c88",
+  ashDark: "#3f4c6b",
 };
 
 export default Colors;

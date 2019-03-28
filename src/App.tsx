@@ -1,8 +1,3 @@
-import * as React from "react";
-import RootContainer from "./Containers/RootContainer";
+import storybook from "../rn_storybook";
 
-export default class App extends React.Component {
-  public render() {
-    return <RootContainer />;
-  }
-}
+export default storybook;

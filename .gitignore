@@ -57,3 +57,6 @@ buck-out/
 
 # Jest
 /.jest
+
+# Cache
+/.awcache
