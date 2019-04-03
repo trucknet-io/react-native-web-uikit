@@ -1,0 +1,78 @@
+{
+  "extends": ["tslint-config-prettier"],
+  "linterOptions": {
+    "exclude": ["*.json", "**/*.json"]
+  },
+  "rules": {
+    "missing-jsdoc": false,
+    "no-backbone-get-set-outside-model": false,
+    "completed-docs": false,
+    "no-implicit-dependencies": false,
+    "no-submodule-imports": false,
+    "no-default-export": false,
+    "export-name": false,
+    "quotemark": [true, "double"],
+    "typedef": false,
+    "trailing-comma": false,
+    "no-angle-bracket-type-assertion": true,
+    "prefer-type-cast": false,
+    "match-default-export-name": false,
+    "max-classes-per-file": false,
+    "promise-function-async": false,
+    "strict-boolean-expressions": false,
+    "semicolon": [true, "always", "strict-bound-class-methods"],
+    "align": false,
+    "no-suspicious-comment": false,
+    "no-increment-decrement": false,
+    "no-invalid-this": false,
+    "mocha-no-side-effect-code": false,
+    "variable-name": [true, "ban-keywords", "check-format", "allow-pascal-case"],
+    "no-use-before-declare": false,
+    "no-reserved-keywords": false,
+    "no-relative-imports": [true, "allow-siblings"],
+    "newline-before-return": false,
+    "no-unnecessary-local-variable": false,
+    "max-func-body-length": false,
+    "prefer-readonly": false,
+    "radix": false,
+    "no-console": [
+      true,
+      {
+        "allow": ["error"]
+      }
+    ],
+    "no-import-side-effect": [
+      true,
+      {
+        "ignore-module": "^jest-dom/extend-expect$"
+      }
+    ],
+    "interface-name": false,
+    "max-line-length": [
+      true,
+      {
+        "limit": 120,
+        "ignore-pattern": "^\\s+`|^\\s+\"|describe\\(\"|it\\(\"|test\\(\"|d="
+      }
+    ],
+    "function-name": [
+      true,
+      {
+        "method-regex": "^[a-z][\\w\\d]+$",
+        "private-method-regex": "^[a-z][\\w\\d]+$",
+        "protected-method-regex": "^[a-z][\\w\\d]+$",
+        "static-method-regex": "^[a-z][\\w\\d]+$",
+        "function-regex": "^[a-z][\\w\\d]+$"
+      }
+    ]
+  },
+  "jsRules": {
+    "max-line-length": [
+      true,
+      {
+        "limit": 150,
+        "ignore-pattern": "^\\s+`|^\\s+\"|describe\\(\"|it\\(\"|test\\(\""
+      }
+    ]
+  }
+}
