@@ -1,7 +1,7 @@
 import * as React from "react";
 import { View, Platform } from "react-native";
 import Gradient from "../Components/LinearGradient";
-import Input from "../Components/Input";
+import Input from "../Components/Inputs/Input";
 import CodeView from "../Components/CodeView";
 import Colors from "../Themes/Colors";
 import { isCorrectHexColor } from "../Helpers/colors";
