@@ -2,6 +2,25 @@
 
 > UI Kit for react-native and react-native-web apps with modal and drawer
 
+## StoryBook
+
+    - git clone git@github.com:trucknet-io/react-native-web-uikit.git
+    - npm install
+
+### Web
+
+    - npm run storybook
+
+### Mobile
+
+    - npm run android
+
+## Usage
+
+    - import { ComponentName } from "react-native-web-uikit"
+    - <ComponentName {...props} />
+    - Wrap Root Container with RootWrapper Component for showing Modal
+
 ## Libraries
 
 ### Peer Dependencies
