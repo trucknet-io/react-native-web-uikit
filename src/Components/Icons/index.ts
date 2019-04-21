@@ -36,7 +36,7 @@ import Vehicle from "./Vehicle";
 import TrucknetLogo from "./TrucknetLogo";
 import TrucknetLogoIcon from "./TrucknetLogoIcon";
 
-export {
+const Icons = {
   ChevronUp,
   ChevronLeft,
   ChevronRight,
@@ -75,3 +75,5 @@ export {
   VatIcon,
   Vehicle,
 };
+
+export default Icons;
