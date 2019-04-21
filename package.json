@@ -9,7 +9,7 @@
     "type": "git",
     "url": "git@github.com:trucknet-io/react-native-web-uikit.git"
   },
-  "version": "0.2.0",
+  "version": "1.0.1",
   "private": false,
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
@@ -76,5 +76,14 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
+  ],
+  "keywords": [
+    "react-native-uikit",
+    "react-native-web-uikit",
+    "react-native-modal",
+    "react-native-drawer",
+    "react-native-web-modal",
+    "react-native-web-drawer",
+    "react-native-web-storybook-uikit"
   ]
 }
