@@ -5,7 +5,7 @@ import createShadow from "../Themes/Shadow";
 import Colors from "../Themes/Colors";
 
 type Props = {
-  styles: any;
+  style: any;
 };
 
 type modalType = {
@@ -52,7 +52,7 @@ class RootWrapper extends React.PureComponent<Props, State> {
   };
   public render() {
     return (
-      <View style={this.props.styles}>
+      <View style={this.props.style}>
         {this.props.children}
         {this.renderBackDrop()}
         {this.renderModals()}
