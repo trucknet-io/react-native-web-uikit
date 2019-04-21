@@ -33,9 +33,6 @@
   "dependencies": {
     "core-js": "^2.6.5",
     "marked": "^0.6.1",
-    "react-art": "^16.8.4",
-    "react-native-web": "^0.10.0",
-    "react-native-web-linear-gradient": "^1.0.5",
     "react-scripts": "^2.1.8"
   },
   "devDependencies": {
@@ -68,6 +65,7 @@
   "peerDependencies": {
     "react": "16.6.3",
     "react-dom": "^16.8.4",
+    "react-art": "^16.8.4",
     "react-native-web": "^0.10.0",
     "react-native-web-linear-gradient": "^1.0.5",
     "react-native-svg-web": "^1.0.1",
