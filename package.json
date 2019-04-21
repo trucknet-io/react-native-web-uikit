@@ -1,6 +1,6 @@
 {
   "name": "react-native-web-uikit",
-  "description": "Boilerplate react-native project build with Typescript",
+  "description": "react-native and react-native-web uiKit with Typescript",
   "engines": {
     "node": "~10.14.0",
     "npm": "~6.4.0"
@@ -9,7 +9,7 @@
     "type": "git",
     "url": "git@github.com:trucknet-io/react-native-web-uikit.git"
   },
-  "version": "0.1.1",
+  "version": "0.1.3",
   "private": false,
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
@@ -42,7 +42,6 @@
     "@types/react": "16.7.18",
     "@types/react-native": "0.57.23",
     "@types/react-test-renderer": "16.0.3",
-    "app-icon": "^0.6.3",
     "awesome-typescript-loader": "^5.2.1",
     "babel-core": "^6.26.3",
     "babel-jest": "23.6.0",
@@ -56,8 +55,6 @@
     "prop-types": "^15.7.2",
     "react-app-rewired": "^2.1.1",
     "react-docgen-typescript-loader": "^3.0.1",
-    "react-native-svg-web": "^1.0.1",
-    "react-test-renderer": "16.6.3",
     "tslint-config-trucknet-io": "^1.3.0",
     "typescript": "3.2.2",
     "webpack": "^4.28.3"
