@@ -1,4 +1,5 @@
-export const libName = "react-native-web-kit";
+import { name as appName } from "../../../app.json";
+export const libName = appName;
 export const setRequiredProp = (name: string) => `${name} (required)`;
 export const setOptionalProp = (name: string) => `${name} (optional)`;
 

@@ -1,6 +1,6 @@
 {
-  "name": "uikit",
-  "description": "Boilerplate react-native project build with Typescript",
+  "name": "react-native-web-uikit",
+  "description": "UI Kit for react-native and react-native-web",
   "engines": {
     "node": "~10.14.0",
     "npm": "~6.4.0"
