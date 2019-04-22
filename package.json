@@ -1,6 +1,6 @@
 {
-  "name": "uikit",
-  "description": "Boilerplate react-native project build with Typescript",
+  "name": "react-native-web-uikit",
+  "description": "UI Kit for react-native and react-native-web",
   "engines": {
     "node": "~10.14.0",
     "npm": "~6.4.0"
@@ -31,7 +31,6 @@
     "build-storybook": "build-storybook -s public"
   },
   "dependencies": {
-    "@types/react-router-native": "^4.2.4",
     "core-js": "^2.6.5",
     "marked": "^0.6.1",
     "react-art": "^16.8.4",

@@ -12,10 +12,10 @@ class ModalContainer extends React.PureComponent<{}> {
   render() {
     const getModalStyles = (verticalDirection: boolean) => {
       if (verticalDirection) {
-        return { top: "-50%", left: "20%", height: "100%", width: "60%", borderRadius: 35 };
+        return { top: "-50%", left: "20%", height: "100%", width: "60%", borderRadius: 25 };
       }
 
-      return { top: "20%", left: "-40%", height: "60%", width: "60%", borderRadius: 35 };
+      return { top: "20%", left: "-40%", height: "60%", width: "60%", borderRadius: 25 };
     };
 
     const verticalDirection = boolean("verticalDirection", false);
