@@ -1,4 +1,4 @@
-# trucknet-boilerplate-typescript-react
+# UI Kit
 
 > UI Kit for react-native and react-native-web apps with modal and drawer
 
@@ -17,12 +17,12 @@
 
 ## Usage
 
-    ```
-        import { ComponentName } from "react-native-web-uikit"
-        <ComponentName {...props} />
-    ```
+```
+import { ComponentName } from "react-native-web-uikit"
+<ComponentName {...props} />
+```
 
-    - For show Modal Wrap Root Container with RootWrapper Component
+For show Modal Wrap Root Container with `RootWrapper` Component
 
 ## Libraries
 
