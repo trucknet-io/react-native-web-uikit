@@ -17,27 +17,30 @@
 
 ## Usage
 
-    - import { ComponentName } from "react-native-web-uikit"
-    - <ComponentName {...props} />
-    - Wrap Root Container with RootWrapper Component for showing Modal
+    ```
+        import { ComponentName } from "react-native-web-uikit"
+        <ComponentName {...props} />
+    ```
+
+    - For show Modal Wrap Root Container with RootWrapper Component
 
 ## Libraries
 
 ### Peer Dependencies
 
-    - react 16.6.3,
-    - react-dom ^16.8.4
+    - react
+    - react-dom
 
 ### Peer Dependencies Mobile
 
-    - react-native ^0.57.8,
-    - react-native-linear-gradient ^1.0.5,
-    - react-native-svg ^9.3.5,
-    - react-native-vector-icons ^6.3.0
+    - react-native
+    - react-native-linear-gradient
+    - react-native-svg
+    - react-native-vector-icons
 
 ### Peer Dependencies Web
 
-    - react-art ^16.8.4,
-    - react-native-web ^0.10.0,
-    - react-native-web-linear-gradient ^1.0.5,
-    - react-native-svg-web ^1.0.1,
+    - react-art
+    - react-native-web
+    - react-native-web-linear-gradient
+    - react-native-svg-web
