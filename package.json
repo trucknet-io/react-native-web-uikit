@@ -9,7 +9,7 @@
     "type": "git",
     "url": "git@github.com:trucknet-io/react-native-web-uikit.git"
   },
-  "version": "1.0.8",
+  "version": "1.1.0",
   "private": false,
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
