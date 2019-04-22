@@ -19,6 +19,6 @@ const stories = storiesOf("Icons", module);
 stories.addDecorator(withKnobs);
 stories.addDecorator(withInfo);
 
-stories.add("Icons", Icons, importInfo("IconName"));
+stories.add("Icons", Icons, importInfo("Icons"));
 
 export default stories;
