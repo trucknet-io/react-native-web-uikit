@@ -1,7 +1,6 @@
 # OSX
 #
 .DS_Store
-
 # Xcode
 #
 build/
@@ -35,6 +34,9 @@ local.properties
 node_modules/
 npm-debug.log
 yarn-error.log
+
+# Storybook
+storybook-static
 
 # BUCK
 buck-out/
