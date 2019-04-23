@@ -11,14 +11,15 @@
     "jsx": "preserve",
     "lib": ["es6"],
     "moduleResolution": "node",
-    "noEmit": true,
     "strict": true,
-    "target": "esnext",
+    "target": "es5",
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "module": "esnext",
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    "outDir": "dist",
+    "baseUrl": "."
   },
   "exclude": ["node_modules"],
-  "include": ["src/**/*", "definitions/**/*.d.ts"]
+  "include": ["src/index.lib.ts", "definitions/**/*.d.ts"]
 }
