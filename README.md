@@ -6,7 +6,7 @@
 
 ## StoryBook
 
-![UIKit Storybook Link](https://react-native-web-uikit.storybook.trucknet.io)
+[UIKit Storybook Link](https://react-native-web-uikit.storybook.trucknet.io)
     - git clone git@github.com:trucknet-io/react-native-web-uikit.git
     - npm install
 
