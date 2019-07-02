@@ -4,10 +4,8 @@
     "noUnusedLocals": true,
     "noImplicitReturns": true,
     "noImplicitThis": true,
-    "allowJs": true,
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
-    "isolatedModules": true,
     "jsx": "preserve",
     "lib": ["es6"],
     "moduleResolution": "node",
@@ -18,7 +16,8 @@
     "module": "esnext",
     "resolveJsonModule": true,
     "outDir": "dist",
-    "baseUrl": "."
+    "baseUrl": ".",
+    "declaration": true
   },
   "exclude": ["node_modules"],
   "include": ["src/index.lib.ts", "definitions/**/*.d.ts"]
