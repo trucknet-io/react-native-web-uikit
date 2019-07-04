@@ -4,11 +4,11 @@ import {
   TransparentButton,
   TransparentButtonWithChildren,
   TransparentButtonWithLink,
-} from "src/Components/Buttons";
-import * as Icons from "src/Components/Icons";
-import Modal from "src/Components/Modal";
-import LinearGradient from "src/Components/LinearGradient";
-import RootWrapper from "src/Wrappers/RootWrapper";
+} from "./Components/Buttons";
+import * as Icons from "./Components/Icons";
+import Modal from "./Components/Modal";
+import LinearGradient from "./Components/LinearGradient";
+import RootWrapper from "./Wrappers/RootWrapper";
 
 export {
   GradientButton,
