@@ -1,5 +1,7 @@
 type Component = React.ReactNode;
 
+export type IdType = string | number;
+
 export type modalPropertiesType = {
   containerStyles: {
     top: string | number;
@@ -13,7 +15,7 @@ export type modalPropertiesType = {
     borderTopLeftRadius?: number;
     borderTopRightRadius?: number;
   };
-  id?: number;
+  id?: IdType;
   onBackdropPress?: Function;
   initialPosition?: string | number;
   dontShowBackdrop?: boolean;
@@ -22,9 +24,9 @@ export type modalPropertiesType = {
 };
 
 type onShowModal = (Component: Component, props: modalPropertiesType) => void;
-type onHideModal = (id: number) => void;
-type onChangeModalPosition = (id: number, positionShift: string | number) => void;
-type onStretchModal = (id: number, stretchingValue?: string | number) => void;
+type onHideModal = (id: IdType) => void;
+type onChangeModalPosition = (id: IdType, positionShift: string | number) => void;
+type onStretchModal = (id: IdType, stretchingValue?: string | number) => void;
 
 interface ISubscriber {
   subscribeShowModal(fn: onShowModal): void;
@@ -59,19 +61,19 @@ class Subscriber implements ISubscriber {
     }
   };
 
-  public changeModalPosition = (id: number, positionShift: number | string) => {
+  public changeModalPosition = (id: IdType, positionShift: number | string) => {
     if (this.onChangeModalPosition) {
       this.onChangeModalPosition(id, positionShift);
     }
   };
 
-  public stretchModal = (id: number, stretchingValue?: string | number) => {
+  public stretchModal = (id: IdType, stretchingValue?: string | number) => {
     if (this.onStretchModal) {
       this.onStretchModal(id, stretchingValue);
     }
   };
 
-  public hideModal = (id: number = 0) => {
+  public hideModal = (id: IdType = 0) => {
     if (this.onHideModal) {
       this.onHideModal(id);
     }
