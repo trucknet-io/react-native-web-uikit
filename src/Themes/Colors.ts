@@ -24,6 +24,10 @@ const Colors = {
     gradientColor1: "#C9D6FF",
     gradientColor2: "#E2E2E2",
   },
+  blueGreenGradient: {
+    gradientColor1: "#2cceb3",
+    gradientColor2: "#2cce62",
+  },
   lime: "#2cce62",
   linkBlue: "#2979ff",
   white: "#fff",

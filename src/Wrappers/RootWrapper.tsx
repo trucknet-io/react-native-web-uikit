@@ -1,6 +1,6 @@
 import * as React from "react";
 import { StyleSheet, View, Dimensions, Animated } from "react-native";
-import Subscriber, { modalPropertiesType } from "../Subscriber";
+import Subscriber, { modalPropertiesType, IdType } from "../Subscriber";
 import createShadow from "../Themes/Shadow";
 import Colors from "../Themes/Colors";
 
@@ -10,7 +10,7 @@ type Props = {
 
 type modalType = {
   component: React.ReactNode;
-  id: number;
+  id: IdType;
   onBackdropPress?: Function;
   containerStyles?: any;
   position: Animated.Value;
@@ -195,7 +195,7 @@ class RootWrapper extends React.PureComponent<Props, State> {
       }),
   });
 
-  private animateModalStretch = (id: number, stretchingValue: number | string = "5%") => {
+  private animateModalStretch = (id: IdType, stretchingValue: number | string = "5%") => {
     const modalIndex = this.findModalIndexById(id);
     const modal = this.state.modals[modalIndex];
     if (modal) {
@@ -262,7 +262,7 @@ class RootWrapper extends React.PureComponent<Props, State> {
       }),
   });
 
-  private changeModalPosition = (id: number, position: string | number) => {
+  private changeModalPosition = (id: IdType, position: string | number) => {
     const modalIndex = this.findModalIndexById(id);
     const modals = this.state.modals.map((modal: modalType) => {
       if (modal.id === id && modal.verticalDirection) return this.changeModalVerticalPosition(modal, position);
@@ -297,9 +297,9 @@ class RootWrapper extends React.PureComponent<Props, State> {
     };
   };
 
-  private findModalIndexById = (id: number) => this.state.modals.findIndex((modal) => modal.id === id);
+  private findModalIndexById = (id: IdType) => this.state.modals.findIndex((modal) => modal.id === id);
 
-  private deleteModalsById = (id: number) => {
+  private deleteModalsById = (id: IdType) => {
     let modalIndex = this.findModalIndexById(id);
     if (!id) modalIndex = 0;
     if (modalIndex >= 0) this.animateModalsDisappearanceSequence(modalIndex);
@@ -352,7 +352,7 @@ class RootWrapper extends React.PureComponent<Props, State> {
     const initialModalPosition = this.getInitialModalPosition(properties);
     return {
       component,
-      id: properties.id || 0,
+      id: properties.id || "0",
       onBackdropPress: properties.onBackdropPress,
       containerStyles: {
         ...containerStyles,
@@ -396,7 +396,7 @@ class RootWrapper extends React.PureComponent<Props, State> {
     return leftValue;
   };
 
-  private isModalAlreadyExist = (id: number = 0) => {
+  private isModalAlreadyExist = (id: IdType = "0") => {
     return !!this.state.modals.find((modal) => modal.id === id);
   };
 
