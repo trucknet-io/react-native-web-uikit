@@ -60,7 +60,11 @@ interface GradientButtonWithChildrenProps extends ButtonProps {
   disabled?: boolean;
 }
 
-export class GradientButtonWithChildren extends React.PureComponent<GradientButtonWithChildrenProps> {
+class GradientButtonWithChildren extends React.PureComponent<GradientButtonWithChildrenProps> {
+  public static defaultProps = {
+    gradientStartColor: "#2cceb3",
+    gradientEndColor: "#2cce62",
+  };
   public PRESS_IN_SHADOW = 1;
   public PRESS_OUT_SHADOW = 4;
 
@@ -71,7 +75,7 @@ export class GradientButtonWithChildren extends React.PureComponent<GradientButt
   };
 
   public render() {
-    const { gradientStartColor, gradientEndColor, disabled, onPress, onLongPress } = this.props;
+    const { disabled, onPress, onLongPress, gradientStartColor, gradientEndColor } = this.props;
     return (
       <LinearGradient
         start={{ x: 0, y: 1 }}
@@ -108,6 +112,8 @@ export class GradientButtonWithChildren extends React.PureComponent<GradientButt
     this.setState({ shadow: this.setShadow(this.PRESS_OUT_SHADOW) }, this.props.onPressOut);
   };
 }
+
+export { GradientButtonWithChildren };
 
 interface GradientButtonProps extends ButtonProps {
   label: string;
