@@ -62,8 +62,8 @@ interface GradientButtonWithChildrenProps extends ButtonProps {
 
 class GradientButtonWithChildren extends React.PureComponent<GradientButtonWithChildrenProps> {
   public static defaultProps = {
-    gradientStartColor: "#2cceb3",
-    gradientEndColor: "#2cce62",
+    gradientStartColor: Colors.blueGreenGradient.gradientColor1,
+    gradientEndColor: Colors.blueGreenGradient.gradientColor2,
   };
   public PRESS_IN_SHADOW = 1;
   public PRESS_OUT_SHADOW = 4;

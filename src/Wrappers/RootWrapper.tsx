@@ -352,7 +352,7 @@ class RootWrapper extends React.PureComponent<Props, State> {
     const initialModalPosition = this.getInitialModalPosition(properties);
     return {
       component,
-      id: properties.id || 0,
+      id: properties.id || "0",
       onBackdropPress: properties.onBackdropPress,
       containerStyles: {
         ...containerStyles,
@@ -396,7 +396,7 @@ class RootWrapper extends React.PureComponent<Props, State> {
     return leftValue;
   };
 
-  private isModalAlreadyExist = (id: IdType = 0) => {
+  private isModalAlreadyExist = (id: IdType = "0") => {
     return !!this.state.modals.find((modal) => modal.id === id);
   };
 

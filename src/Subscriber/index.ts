@@ -1,6 +1,6 @@
 type Component = React.ReactNode;
 
-export type IdType = string | number;
+export type IdType = string;
 
 export type modalPropertiesType = {
   containerStyles: {
@@ -73,7 +73,7 @@ class Subscriber implements ISubscriber {
     }
   };
 
-  public hideModal = (id: IdType = 0) => {
+  public hideModal = (id: IdType = "0") => {
     if (this.onHideModal) {
       this.onHideModal(id);
     }
