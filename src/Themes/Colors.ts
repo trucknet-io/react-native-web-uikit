@@ -15,6 +15,7 @@ const Colors = {
   stylishButtonText: "#2cce62",
   separator: "#000",
   veryVeryLightGray: "#f2f2f2",
+  disableGray: "#152327",
   gray: "#9b9b9b",
   themeGradient: {
     gradientColor1: "#6441A5",
