@@ -123,6 +123,10 @@ interface GradientButtonProps extends ButtonProps {
 }
 
 export class GradientButton extends React.PureComponent<GradientButtonProps> {
+  public static defaultProps = {
+    gradientStartColor: Colors.blueGreenGradient.gradientColor1,
+    gradientEndColor: Colors.blueGreenGradient.gradientColor2,
+  };
   public render() {
     const { label } = this.props;
     return (
