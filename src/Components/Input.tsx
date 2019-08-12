@@ -1,65 +1,156 @@
 import * as React from "react";
-import { View, StyleSheet, Text } from "react-native";
-import { Hoshi } from "react-native-textinput-effects";
+import { StyleSheet, Text, TextInput, Animated } from "react-native";
 import Colors from "../Themes/Colors";
-
-type Response = { value: string; isValid: boolean };
+import { isWeb } from "../Helpers/platform";
 
 type Props = {
   label: string;
-  setValue(Response): void;
-  fieldColor: string;
+  onChange(res: { value: string | undefined; isValid: boolean }): void;
+  width: number | string;
+  height: number;
+  onSuccessInputFieldColor: string;
   secureTextEntry: boolean;
-  validateValue?(value: string): string | undefined;
+  validateValue?(value?: string): string | undefined;
   initialValue?: string;
+  onInputFocus?(): void;
+  onInputBlur?(): void;
+  keyboardType:
+    | "default"
+    | "email-address"
+    | "numeric"
+    | "phone-pad"
+    | "visible-password"
+    | "ascii-capable"
+    | "numbers-and-punctuation"
+    | "url"
+    | "number-pad"
+    | "name-phone-pad"
+    | "decimal-pad"
+    | "twitter"
+    | "web-search"
+    | undefined;
 };
 
 type State = {
-  value: string;
+  value?: string;
   error?: string;
+  labelFontSize: Animated.Value;
+  labelMarginBottom: Animated.Value;
 };
 
 class Field extends React.PureComponent<Props, State> {
+  maxLabelFontSize = 16;
+  minLabelFontSize = 12;
+  maxLabelMarginBottom = isWeb ? 16 : 0;
+  minLabelMarginBottom = isWeb ? -24 : -34;
   static defaultProps = {
-    fieldColor: Colors.lime,
+    onSuccessInputFieldColor: Colors.lime,
     secureTextEntry: false,
+    keyboardType: "default",
+    width: "100%",
+    height: 84,
   };
   public state = {
     value: this.props.initialValue,
     error: undefined,
+    labelFontSize: this.props.initialValue
+      ? new Animated.Value(this.minLabelFontSize)
+      : new Animated.Value(this.maxLabelFontSize),
+    labelMarginBottom: this.props.initialValue
+      ? new Animated.Value(this.maxLabelFontSize)
+      : new Animated.Value(this.minLabelMarginBottom),
   };
   public render() {
+    const { labelFontSize, labelMarginBottom } = this.state;
+    const { width, height } = this.props;
     return (
-      <View style={styles.container}>
+      <Animated.View style={[styles.container, { width, height }]}>
+        <Animated.Text
+          style={{ fontSize: labelFontSize, marginBottom: labelMarginBottom, color: this.setLabelColor() }}>
+          {this.props.label}
+        </Animated.Text>
         {this.renderInput()}
         <Text style={styles.error}>{this.state.error}</Text>
-      </View>
+      </Animated.View>
     );
   }
 
   private renderInput = () => {
-    const { label, secureTextEntry } = this.props;
+    const { secureTextEntry, keyboardType } = this.props;
     return (
-      //@ts-ignore
-      <Hoshi
+      <TextInput
+        keyboardType={keyboardType}
+        style={{
+          borderBottomWidth: 1,
+          borderBottomColor: this.setFieldColor(),
+          paddingHorizontal: 0,
+          paddingVertical: 8,
+        }}
         secureTextEntry={secureTextEntry}
-        label={label}
-        borderColor={this.setFieldColor()}
+        onFocus={this.onFocus}
+        onBlur={this.onBlur}
         value={this.state.value}
         onChangeText={this.onChangeText}
-        inputPadding={8}
-        borderHeight={1}
-        labelStyle={{ fontSize: 14 }}
-        inputStyle={{ paddingTop: 8, fontSize: 18, borderWidth: 0 }}
       />
     );
   };
 
-  private setFieldColor = () => {
+  private onFocus = () => {
+    if (this.props.onInputFocus) this.props.onInputFocus();
+    this.animateLabelUp();
+  };
+
+  private onBlur = () => {
+    if (this.props.onInputBlur) this.props.onInputBlur();
+    this.animateLabelDown();
+  };
+
+  private animateLabelUp = () => {
+    Animated.parallel([
+      Animated.timing(this.state.labelFontSize, {
+        toValue: this.minLabelFontSize,
+        duration: 250,
+      }),
+      Animated.timing(this.state.labelMarginBottom, {
+        toValue: this.maxLabelMarginBottom,
+        duration: 250,
+      }),
+    ]).start();
+  };
+
+  private animateLabelDown = () => {
+    if (!this.state.value) {
+      Animated.parallel([
+        Animated.timing(this.state.labelFontSize, {
+          toValue: this.maxLabelFontSize,
+          duration: 250,
+        }),
+        Animated.timing(this.state.labelMarginBottom, {
+          toValue: this.minLabelMarginBottom,
+          duration: 250,
+        }),
+      ]).start();
+    }
+  };
+
+  private setLabelColor = () => {
+    if (!this.state.value) {
+      return Colors.lightGray;
+    }
     if (this.state.error) {
       return Colors.error;
     }
-    return this.props.fieldColor;
+    return Colors.defaultText;
+  };
+
+  private setFieldColor = () => {
+    if (!this.state.value) {
+      return Colors.lightGray;
+    }
+    if (this.state.error) {
+      return Colors.error;
+    }
+    return this.props.onSuccessInputFieldColor;
   };
 
   private onChangeText = (value) => {
@@ -76,17 +167,19 @@ class Field extends React.PureComponent<Props, State> {
   };
 
   private setValue = () => {
-    this.props.setValue({ value: this.state.value, isValid: !this.state.error });
+    this.props.onChange({ value: this.state.value, isValid: !this.state.error });
   };
 }
 
 const styles = StyleSheet.create({
   container: {
-    width: "100%",
+    height: 84,
+    justifyContent: "flex-end",
   },
   error: {
+    fontSize: 12,
     color: Colors.error,
-    paddingHorizontal: 8,
+    height: 24,
   },
 });
 

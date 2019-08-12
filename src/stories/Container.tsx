@@ -8,6 +8,8 @@ const width = Dimensions.get("window").width;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    height,
+    width,
     alignItems: "center",
     justifyContent: "center",
   },
