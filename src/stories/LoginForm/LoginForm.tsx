@@ -12,6 +12,8 @@ const LoginForm = () => {
       <FormContainer
         emailLabel={text(setRequiredProp("emailLabel"), "Email")}
         passwordLabel={text(setRequiredProp("passwordLabel"), "Password")}
+        validateEmail={validateEmail}
+        validatePassword={validatePassword}
         initialEmailValue={text(setOptionalProp("initialEmailValue"), "lol@lol.ru")}
         initialPasswordValue={text(setOptionalProp("initialPasswordValue"), "12345678")}
         submitLabel={text(setOptionalProp("submitLabel"), "Sign in")}
@@ -21,8 +23,6 @@ const LoginForm = () => {
         separatorText={text(setOptionalProp("separatorText"), "or")}
         registrationButtonLabel={text(setOptionalProp("registrationButtonLabel"), "call for registration")}
         onRegistrationPress={() => Alert.alert("registration button press")}
-        validateEmail={validateEmail}
-        validatePassword={validatePassword}
         backgroundColor={color(setOptionalProp("backgroundColor"), Colors.white)}
         themeColor={color(setOptionalProp("themeColor"), Colors.lime)}
         componentsSizeRatio={number(setOptionalProp("componentsSizeRatio"), 1)}

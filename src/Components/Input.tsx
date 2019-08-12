@@ -32,13 +32,13 @@ type Props = {
 };
 
 type State = {
-  value?: string;
-  error?: string;
   labelFontSize: Animated.Value;
   labelMarginBottom: Animated.Value;
+  value?: string;
+  error?: string;
 };
 
-class Field extends React.PureComponent<Props, State> {
+class Input extends React.PureComponent<Props, State> {
   maxLabelFontSize = 16;
   minLabelFontSize = 12;
   maxLabelMarginBottom = isWeb ? 16 : 0;
@@ -80,12 +80,7 @@ class Field extends React.PureComponent<Props, State> {
     return (
       <TextInput
         keyboardType={keyboardType}
-        style={{
-          borderBottomWidth: 1,
-          borderBottomColor: this.setFieldColor(),
-          paddingHorizontal: 0,
-          paddingVertical: 8,
-        }}
+        style={[styles.textInput, { borderBottomColor: this.setFieldColor() }]}
         secureTextEntry={secureTextEntry}
         onFocus={this.onFocus}
         onBlur={this.onBlur}
@@ -163,7 +158,7 @@ class Field extends React.PureComponent<Props, State> {
       return this.setState({ error: validateValue(this.state.value) }, this.setValue);
     }
 
-    return this.setValue;
+    return this.setValue();
   };
 
   private setValue = () => {
@@ -173,8 +168,12 @@ class Field extends React.PureComponent<Props, State> {
 
 const styles = StyleSheet.create({
   container: {
-    height: 84,
     justifyContent: "flex-end",
+  },
+  textInput: {
+    borderBottomWidth: 1,
+    paddingHorizontal: 0,
+    paddingVertical: 8,
   },
   error: {
     fontSize: 12,
@@ -183,4 +182,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Field;
+export default Input;
