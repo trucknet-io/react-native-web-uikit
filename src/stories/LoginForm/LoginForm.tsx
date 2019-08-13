@@ -25,6 +25,7 @@ const LoginForm = () => {
         onRegistrationPress={() => Alert.alert("registration button press")}
         backgroundColor={color(setOptionalProp("backgroundColor"), Colors.white)}
         themeColor={color(setOptionalProp("themeColor"), Colors.lime)}
+        textColor={color(setOptionalProp("textColor"), Colors.defaultText)}
         componentsSizeRatio={number(setOptionalProp("componentsSizeRatio"), 1)}
       />
     </Container>

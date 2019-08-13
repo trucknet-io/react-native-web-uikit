@@ -20,6 +20,7 @@ export type Props = {
   onRegistrationPress?(): void;
   separatorText?: string;
   themeColor: string;
+  textColor: string;
   backgroundColor: string;
   componentsSizeRatio: number;
 };
@@ -36,6 +37,7 @@ class FormContainer extends React.PureComponent<Props, State> {
     forgotPasswordButtonLabel: "Forgot your passport?",
     registrationButtonLabel: "call for registration",
     themeColor: Colors.lime,
+    textColor: Colors.defaultText,
     backgroundColor: Colors.white,
     componentsSizeRatio: 1,
   };
@@ -45,7 +47,7 @@ class FormContainer extends React.PureComponent<Props, State> {
     subElementsOpacity: new Animated.Value(1),
   };
   public render() {
-    const { emailLabel, passwordLabel, validateEmail, validatePassword, backgroundColor } = this.props;
+    const { emailLabel, passwordLabel, validateEmail, validatePassword, backgroundColor, textColor } = this.props;
     return (
       <View style={[styles.container, { backgroundColor }]}>
         {this.renderLogo()}
@@ -56,8 +58,9 @@ class FormContainer extends React.PureComponent<Props, State> {
             validateValue={validateEmail}
             onChange={this.setEmail}
             onSuccessInputFieldColor={this.props.themeColor}
-            onInputFocus={this.hideSubElements}
-            onInputBlur={this.showSubElements}
+            textColor={textColor}
+            onFocus={this.hideSubElements}
+            onBlur={this.showSubElements}
             keyboardType="email-address"
           />
           <Input
@@ -67,8 +70,9 @@ class FormContainer extends React.PureComponent<Props, State> {
             validateValue={validatePassword}
             onChange={this.setPassword}
             onSuccessInputFieldColor={this.props.themeColor}
-            onInputFocus={this.hideSubElements}
-            onInputBlur={this.showSubElements}
+            textColor={textColor}
+            onFocus={this.hideSubElements}
+            onBlur={this.showSubElements}
           />
         </View>
         <View style={styles.buttonsContainer}>
@@ -98,7 +102,11 @@ class FormContainer extends React.PureComponent<Props, State> {
   private renderLogo = () => {
     return (
       <Animated.View style={{ opacity: this.state.subElementsOpacity }}>
-        <Icons.TrucknetLogo height={24 * this.props.componentsSizeRatio} width={182 * this.props.componentsSizeRatio} />
+        <Icons.TrucknetLogo
+          color={this.props.textColor}
+          height={24 * this.props.componentsSizeRatio}
+          width={182 * this.props.componentsSizeRatio}
+        />
       </Animated.View>
     );
   };
@@ -129,7 +137,7 @@ class FormContainer extends React.PureComponent<Props, State> {
         <TransparentButton
           height={32 * this.props.componentsSizeRatio}
           label={this.props.forgotPasswordButtonLabel}
-          textColor={Colors.black}
+          textColor={this.props.textColor}
           onPress={this.props.onForgotPasswordPress}
         />
       );
@@ -140,13 +148,21 @@ class FormContainer extends React.PureComponent<Props, State> {
     if (this.props.separatorText) {
       return (
         <Animated.View style={[styles.separatorContainer, { opacity: this.state.subElementsOpacity }]}>
-          <View style={styles.line} />
-          <Text style={styles.separatorText}>{this.props.separatorText}</Text>
-          <View style={styles.line} />
+          <View style={[styles.line, { backgroundColor: this.setSeparatorLineColor() }]} />
+          <Text style={[styles.separatorText, { color: this.setSeparatorTextColor() }]}>
+            {this.props.separatorText}
+          </Text>
+          <View style={[styles.line, { backgroundColor: this.setSeparatorLineColor() }]} />
         </Animated.View>
       );
     }
     return <View />;
+  };
+  private setSeparatorTextColor = () => {
+    return `${this.props.textColor}80`;
+  };
+  private setSeparatorLineColor = () => {
+    return `${this.props.themeColor}30`;
   };
   private renderRegistrationButton = () => {
     if (this.props.onRegistrationPress) {

@@ -1,7 +1,19 @@
 import * as React from "react";
-import { StyleSheet, Text, TextInput, Animated } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  TextInput,
+  Animated,
+  NativeSyntheticEvent,
+  TextInputFocusEventData,
+  TextInputProps,
+} from "react-native";
 import Colors from "../Themes/Colors";
 import { isWeb } from "../Helpers/platform";
+
+export interface TargetedEvent {
+  target: number;
+}
 
 type Props = {
   label: string;
@@ -9,11 +21,16 @@ type Props = {
   width: number | string;
   height: number;
   onSuccessInputFieldColor: string;
+  textColor: string;
   secureTextEntry: boolean;
   validateValue?(value?: string): string | undefined;
   initialValue?: string;
-  onInputFocus?(): void;
-  onInputBlur?(): void;
+  onFocus?(e: NativeSyntheticEvent<TextInputFocusEventData>): void;
+  onBlur?(e: NativeSyntheticEvent<TargetedEvent>): void;
+  maxLabelFontSize: number;
+  minLabelFontSize: number;
+  maxLabelMarginBottom: number;
+  minLabelMarginBottom: number;
   keyboardType:
     | "default"
     | "email-address"
@@ -27,8 +44,8 @@ type Props = {
     | "name-phone-pad"
     | "decimal-pad"
     | "twitter"
-    | "web-search"
-    | undefined;
+    | "web-search";
+  nativeTextInputProps?: TextInputProps;
 };
 
 type State = {
@@ -39,26 +56,27 @@ type State = {
 };
 
 class Input extends React.PureComponent<Props, State> {
-  maxLabelFontSize = 16;
-  minLabelFontSize = 12;
-  maxLabelMarginBottom = isWeb ? 16 : 0;
-  minLabelMarginBottom = isWeb ? -24 : -34;
   static defaultProps = {
     onSuccessInputFieldColor: Colors.lime,
+    textColor: Colors.defaultText,
     secureTextEntry: false,
     keyboardType: "default",
     width: "100%",
     height: 84,
+    maxLabelFontSize: 16,
+    minLabelFontSize: 12,
+    maxLabelMarginBottom: isWeb ? 16 : 0,
+    minLabelMarginBottom: isWeb ? -24 : -34,
   };
   public state = {
     value: this.props.initialValue,
     error: undefined,
     labelFontSize: this.props.initialValue
-      ? new Animated.Value(this.minLabelFontSize)
-      : new Animated.Value(this.maxLabelFontSize),
+      ? new Animated.Value(this.props.minLabelFontSize)
+      : new Animated.Value(this.props.maxLabelFontSize),
     labelMarginBottom: this.props.initialValue
-      ? new Animated.Value(this.maxLabelFontSize)
-      : new Animated.Value(this.minLabelMarginBottom),
+      ? new Animated.Value(this.props.maxLabelFontSize)
+      : new Animated.Value(this.props.minLabelMarginBottom),
   };
   public render() {
     const { labelFontSize, labelMarginBottom } = this.state;
@@ -76,38 +94,39 @@ class Input extends React.PureComponent<Props, State> {
   }
 
   private renderInput = () => {
-    const { secureTextEntry, keyboardType } = this.props;
+    const { secureTextEntry, keyboardType, textColor, nativeTextInputProps } = this.props;
     return (
       <TextInput
         keyboardType={keyboardType}
-        style={[styles.textInput, { borderBottomColor: this.setFieldColor() }]}
+        style={[styles.textInput, { borderBottomColor: this.setFieldColor(), color: textColor }]}
         secureTextEntry={secureTextEntry}
         onFocus={this.onFocus}
         onBlur={this.onBlur}
         value={this.state.value}
         onChangeText={this.onChangeText}
+        {...nativeTextInputProps}
       />
     );
   };
 
-  private onFocus = () => {
-    if (this.props.onInputFocus) this.props.onInputFocus();
+  private onFocus = (event: NativeSyntheticEvent<TextInputFocusEventData>) => {
+    if (this.props.onFocus) this.props.onFocus(event);
     this.animateLabelUp();
   };
 
-  private onBlur = () => {
-    if (this.props.onInputBlur) this.props.onInputBlur();
+  private onBlur = (event: NativeSyntheticEvent<TargetedEvent>) => {
+    if (this.props.onBlur) this.props.onBlur(event);
     this.animateLabelDown();
   };
 
   private animateLabelUp = () => {
     Animated.parallel([
       Animated.timing(this.state.labelFontSize, {
-        toValue: this.minLabelFontSize,
+        toValue: this.props.minLabelFontSize,
         duration: 250,
       }),
       Animated.timing(this.state.labelMarginBottom, {
-        toValue: this.maxLabelMarginBottom,
+        toValue: this.props.maxLabelMarginBottom,
         duration: 250,
       }),
     ]).start();
@@ -117,11 +136,11 @@ class Input extends React.PureComponent<Props, State> {
     if (!this.state.value) {
       Animated.parallel([
         Animated.timing(this.state.labelFontSize, {
-          toValue: this.maxLabelFontSize,
+          toValue: this.props.maxLabelFontSize,
           duration: 250,
         }),
         Animated.timing(this.state.labelMarginBottom, {
-          toValue: this.minLabelMarginBottom,
+          toValue: this.props.minLabelMarginBottom,
           duration: 250,
         }),
       ]).start();
@@ -135,7 +154,7 @@ class Input extends React.PureComponent<Props, State> {
     if (this.state.error) {
       return Colors.error;
     }
-    return Colors.defaultText;
+    return this.props.textColor;
   };
 
   private setFieldColor = () => {

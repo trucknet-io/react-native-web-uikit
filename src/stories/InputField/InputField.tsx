@@ -5,6 +5,7 @@ import { boolean, color, text, number } from "@storybook/addon-knobs/react";
 import { setRequiredProp, setOptionalProp } from "../Helpers";
 import Container from "../Container";
 import Colors from "../../Themes/Colors";
+import { isWeb } from "../../Helpers/platform";
 
 const InputFieldStory = () => (
   <Container>
@@ -16,11 +17,16 @@ const InputFieldStory = () => (
         height={number(setOptionalProp("height"), 84)}
         initialValue={text(setOptionalProp("initialValue"), "lol")}
         validateValue={(value) => (value.length < 8 ? "to short" : undefined)}
+        textColor={color(setOptionalProp("textColor"), Colors.defaultText)}
         onSuccessInputFieldColor={color(setOptionalProp("fieldColor"), Colors.lime)}
-        onInputFocus={() => console.log("focus")}
-        onInputBlur={() => console.log("blur")}
+        onFocus={() => console.log("focus")}
+        onBlur={() => console.log("blur")}
         keyboardType={text(setOptionalProp("keyboardType"), "default")}
         secureTextEntry={boolean(setOptionalProp("secureTextEntry"), false)}
+        maxLabelFontSize={number(setOptionalProp("maxLabelFontSize"), 16)}
+        minLabelFontSize={number(setOptionalProp("minLabelFontSize"), 12)}
+        maxLabelMarginBottom={number(setOptionalProp("maxLabelMarginBottom"), isWeb ? 16 : 0)}
+        minLabelMarginBottom={number(setOptionalProp("minLabelMarginBottom"), isWeb ? -24 : -34)}
       />
     </View>
   </Container>
