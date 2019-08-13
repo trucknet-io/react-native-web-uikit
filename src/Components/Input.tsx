@@ -45,6 +45,9 @@ type Props = {
     | "decimal-pad"
     | "twitter"
     | "web-search";
+  errorFontSize: 12;
+  errorColor: string;
+  borderBottomWidth: number;
   nativeTextInputProps?: TextInputProps;
 };
 
@@ -67,6 +70,9 @@ class Input extends React.PureComponent<Props, State> {
     minLabelFontSize: 12,
     maxLabelMarginBottom: isWeb ? 16 : 0,
     minLabelMarginBottom: isWeb ? -24 : -34,
+    errorFontSize: 12,
+    errorColor: Colors.error,
+    borderBottomWidth: 1,
   };
   public state = {
     value: this.props.initialValue,
@@ -80,7 +86,7 @@ class Input extends React.PureComponent<Props, State> {
   };
   public render() {
     const { labelFontSize, labelMarginBottom } = this.state;
-    const { width, height } = this.props;
+    const { width, height, errorFontSize, errorColor } = this.props;
     return (
       <Animated.View style={[styles.container, { width, height }]}>
         <Animated.Text
@@ -88,17 +94,17 @@ class Input extends React.PureComponent<Props, State> {
           {this.props.label}
         </Animated.Text>
         {this.renderInput()}
-        <Text style={styles.error}>{this.state.error}</Text>
+        <Text style={[styles.error, { fontSize: errorFontSize, color: errorColor }]}>{this.state.error}</Text>
       </Animated.View>
     );
   }
 
   private renderInput = () => {
-    const { secureTextEntry, keyboardType, textColor, nativeTextInputProps } = this.props;
+    const { secureTextEntry, keyboardType, textColor, nativeTextInputProps, borderBottomWidth } = this.props;
     return (
       <TextInput
         keyboardType={keyboardType}
-        style={[styles.textInput, { borderBottomColor: this.setFieldColor(), color: textColor }]}
+        style={[styles.textInput, { borderBottomColor: this.setFieldColor(), color: textColor, borderBottomWidth }]}
         secureTextEntry={secureTextEntry}
         onFocus={this.onFocus}
         onBlur={this.onBlur}
@@ -152,7 +158,7 @@ class Input extends React.PureComponent<Props, State> {
       return Colors.lightGray;
     }
     if (this.state.error) {
-      return Colors.error;
+      return this.props.errorColor;
     }
     return this.props.textColor;
   };
@@ -162,7 +168,7 @@ class Input extends React.PureComponent<Props, State> {
       return Colors.lightGray;
     }
     if (this.state.error) {
-      return Colors.error;
+      return this.props.errorColor;
     }
     return this.props.onSuccessInputFieldColor;
   };
@@ -195,8 +201,6 @@ const styles = StyleSheet.create({
     paddingVertical: 8,
   },
   error: {
-    fontSize: 12,
-    color: Colors.error,
     height: 24,
   },
 });
