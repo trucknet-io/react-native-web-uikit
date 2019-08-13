@@ -5,6 +5,7 @@ import FormContainer from "../../Containers/FormContainer";
 import { text, number, color } from "@storybook/addon-knobs/react";
 import { setRequiredProp, setOptionalProp, isEmailInvalid } from "../Helpers";
 import Colors from "../../Themes/Colors";
+import * as Icons from "../../Components/Icons";
 
 const LoginForm = () => {
   return (

@@ -1,5 +1,5 @@
 import * as React from "react";
-import { View, StyleSheet, Text, Animated } from "react-native";
+import { View, StyleSheet, Text, Animated, Keyboard } from "react-native";
 import * as Icons from "../Components/Icons";
 import Colors from "../Themes/Colors";
 import Input from "../Components/Input";
@@ -23,6 +23,7 @@ export type Props = {
   textColor: string;
   backgroundColor: string;
   componentsSizeRatio: number;
+  logo?: React.ReactNode;
 };
 
 type State = {
@@ -32,6 +33,8 @@ type State = {
 };
 
 class FormContainer extends React.PureComponent<Props, State> {
+  keyboardDidShowListener;
+  keyboardDidHideListener;
   static defaultProps = {
     submitLabel: "sign in",
     forgotPasswordButtonLabel: "Forgot your passport?",
@@ -46,11 +49,21 @@ class FormContainer extends React.PureComponent<Props, State> {
     password: { value: this.props.initialPasswordValue, isValid: !!this.props.initialPasswordValue },
     subElementsOpacity: new Animated.Value(1),
   };
+  componentDidMount() {
+    this.keyboardDidShowListener = Keyboard.addListener("keyboardDidShow", this.hideSubElements);
+    this.keyboardDidHideListener = Keyboard.addListener("keyboardDidHide", this.showSubElements);
+  }
+
+  componentWillUnmount() {
+    this.keyboardDidShowListener.remove();
+    this.keyboardDidHideListener.remove();
+  }
+
   public render() {
     const { emailLabel, passwordLabel, validateEmail, validatePassword, backgroundColor, textColor } = this.props;
     return (
       <View style={[styles.container, { backgroundColor }]}>
-        {this.renderLogo()}
+        {this.renderLogoContainer()}
         <View style={styles.inputContainer}>
           <Input
             label={emailLabel}
@@ -59,8 +72,6 @@ class FormContainer extends React.PureComponent<Props, State> {
             onChange={this.setEmail}
             onSuccessInputFieldColor={this.props.themeColor}
             textColor={textColor}
-            onFocus={this.hideSubElements}
-            onBlur={this.showSubElements}
             keyboardType="email-address"
           />
           <Input
@@ -71,8 +82,6 @@ class FormContainer extends React.PureComponent<Props, State> {
             onChange={this.setPassword}
             onSuccessInputFieldColor={this.props.themeColor}
             textColor={textColor}
-            onFocus={this.hideSubElements}
-            onBlur={this.showSubElements}
           />
         </View>
         <View style={styles.buttonsContainer}>
@@ -99,15 +108,20 @@ class FormContainer extends React.PureComponent<Props, State> {
     }).start();
   };
 
+  private renderLogoContainer = () => {
+    return <Animated.View style={{ opacity: this.state.subElementsOpacity }}>{this.renderLogo()}</Animated.View>;
+  };
+
   private renderLogo = () => {
+    if (this.props.logo) {
+      return this.props.logo;
+    }
     return (
-      <Animated.View style={{ opacity: this.state.subElementsOpacity }}>
-        <Icons.TrucknetLogo
-          color={this.props.textColor}
-          height={24 * this.props.componentsSizeRatio}
-          width={182 * this.props.componentsSizeRatio}
-        />
-      </Animated.View>
+      <Icons.TrucknetLogo
+        color={this.props.textColor}
+        height={24 * this.props.componentsSizeRatio}
+        width={182 * this.props.componentsSizeRatio}
+      />
     );
   };
 
@@ -162,7 +176,7 @@ class FormContainer extends React.PureComponent<Props, State> {
     return `${this.props.textColor}80`;
   };
   private setSeparatorLineColor = () => {
-    return `${this.props.themeColor}30`;
+    return `${this.props.themeColor}`;
   };
   private renderRegistrationButton = () => {
     if (this.props.onRegistrationPress) {
@@ -205,6 +219,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   line: {
+    marginTop: 2,
     height: 1,
     backgroundColor: Colors.veryLightGray,
     width: "45%",
