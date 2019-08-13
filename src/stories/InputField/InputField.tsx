@@ -27,6 +27,7 @@ const InputFieldStory = () => (
         minLabelFontSize={number(setOptionalProp("minLabelFontSize"), 12)}
         maxLabelMarginBottom={number(setOptionalProp("maxLabelMarginBottom"), isWeb ? 16 : 0)}
         minLabelMarginBottom={number(setOptionalProp("minLabelMarginBottom"), isWeb ? -24 : -34)}
+        inputFontSize={number(setOptionalProp("inputFontSize"), 14)}
         errorFontSize={number(setOptionalProp("errorFontSize"), 12)}
         errorColor={color(setOptionalProp("errorColor"), Colors.error)}
         borderBottomWidth={number(setOptionalProp("borderBottomWidth"), 1)}

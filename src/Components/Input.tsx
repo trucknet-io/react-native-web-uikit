@@ -45,6 +45,7 @@ type Props = {
     | "decimal-pad"
     | "twitter"
     | "web-search";
+  inputFontSize: number;
   errorFontSize: 12;
   errorColor: string;
   borderBottomWidth: number;
@@ -70,6 +71,7 @@ class Input extends React.PureComponent<Props, State> {
     minLabelFontSize: 12,
     maxLabelMarginBottom: isWeb ? 16 : 0,
     minLabelMarginBottom: isWeb ? -24 : -34,
+    inputFontSize: 14,
     errorFontSize: 12,
     errorColor: Colors.error,
     borderBottomWidth: 1,
@@ -100,11 +102,21 @@ class Input extends React.PureComponent<Props, State> {
   }
 
   private renderInput = () => {
-    const { secureTextEntry, keyboardType, textColor, nativeTextInputProps, borderBottomWidth } = this.props;
+    const {
+      secureTextEntry,
+      keyboardType,
+      textColor,
+      nativeTextInputProps,
+      borderBottomWidth,
+      inputFontSize,
+    } = this.props;
     return (
       <TextInput
         keyboardType={keyboardType}
-        style={[styles.textInput, { borderBottomColor: this.setFieldColor(), color: textColor, borderBottomWidth }]}
+        style={[
+          styles.textInput,
+          { borderBottomColor: this.setFieldColor(), color: textColor, borderBottomWidth, fontSize: inputFontSize },
+        ]}
         secureTextEntry={secureTextEntry}
         onFocus={this.onFocus}
         onBlur={this.onBlur}
