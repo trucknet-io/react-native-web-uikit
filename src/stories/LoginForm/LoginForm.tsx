@@ -2,31 +2,37 @@ import React from "react";
 import { Alert } from "react-native";
 import Container from "../Container";
 import LoginFormContainer from "../../Containers/LoginFormContainer";
-import { text, number, color } from "@storybook/addon-knobs/react";
+import { text, number, color, object } from "@storybook/addon-knobs/react";
 import { setRequiredProp, setOptionalProp, isEmailInvalid } from "../Helpers";
 import Colors from "../../Themes/Colors";
-import * as Icons from "../../Components/Icons";
 
 const LoginForm = () => {
   return (
     <Container>
       <LoginFormContainer
-        emailLabel={text(setRequiredProp("emailLabel"), "Email")}
-        passwordLabel={text(setRequiredProp("passwordLabel"), "Password")}
-        validateEmail={validateEmail}
-        validatePassword={validatePassword}
-        initialEmailValue={text(setOptionalProp("initialEmailValue"), "lol@lol.ru")}
-        initialPasswordValue={text(setOptionalProp("initialPasswordValue"), "12345678")}
-        submitLabel={text(setOptionalProp("submitLabel"), "Sign in")}
-        onSubmit={handleSubmit}
-        forgotPasswordButtonLabel={text(setOptionalProp("forgotPasswordButtonLabel"), "Forgot your passport?")}
-        onForgotPasswordPress={() => Alert.alert("forgot password button press")}
-        separatorText={text(setOptionalProp("separatorText"), "or")}
-        registrationButtonLabel={text(setOptionalProp("registrationButtonLabel"), "call for registration")}
-        onRegistrationPress={() => Alert.alert("registration button press")}
-        backgroundColor={color(setOptionalProp("backgroundColor"), Colors.white)}
-        themeColor={color(setOptionalProp("themeColor"), Colors.lime)}
-        textColor={color(setOptionalProp("textColor"), Colors.defaultText)}
+        callback={object(setRequiredProp("callback"), {
+          onSubmit: handleSubmit,
+          onForgotPasswordPress: () => Alert.alert("forgot password button press"),
+          onRegistrationPress: () => Alert.alert("registration button press"),
+        })}
+        initial={object(setOptionalProp("initial"), {
+          email: "lol@lol.ru",
+          password: "12345678",
+        })}
+        validate={{ email: validateEmail, password: validatePassword }}
+        text={object(setOptionalProp("text"), {
+          emailLabel: "Email",
+          passwordLabel: "Password",
+          submitLabel: "Sign in",
+          forgotPasswordButtonLabel: "Forgot your passport?",
+          registrationButtonLabel: "call for registration",
+          separatorText: "or",
+        })}
+        color={object(setOptionalProp("color"), {
+          background: color(setOptionalProp("backgroundColor"), Colors.white),
+          theme: color(setOptionalProp("themeColor"), Colors.lime),
+          text: color(setOptionalProp("textColor"), Colors.defaultText),
+        })}
         componentsSizeRatio={number(setOptionalProp("componentsSizeRatio"), 1)}
       />
     </Container>

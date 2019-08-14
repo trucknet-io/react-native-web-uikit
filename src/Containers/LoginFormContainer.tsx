@@ -6,82 +6,112 @@ import Input from "../Components/Input";
 import { GradientButton, TransparentButton } from "../Components/Buttons";
 
 export type Props = {
-  emailLabel: string;
-  passwordLabel: string;
-  validateEmail(value: string): string | undefined;
-  validatePassword(value: string): string | undefined;
-  onSubmit(res: { email: string; password: string }): void;
-  submitLabel: string;
-  initialEmailValue?: string;
-  initialPasswordValue?: string;
-  forgotPasswordButtonLabel: string;
-  onForgotPasswordPress?(): void;
-  registrationButtonLabel: string;
-  onRegistrationPress?(): void;
-  separatorText?: string;
-  themeColor: string;
-  textColor: string;
-  backgroundColor: string;
+  callback: {
+    onSubmit(res: { email: string; password: string }): void;
+    onForgotPasswordPress?(): void;
+    onRegistrationPress?(): void;
+  };
+  validate: {
+    email(value: string): string | undefined;
+    password(value: string): string | undefined;
+  };
+  initial: {
+    email?: string;
+    password?: string;
+  };
+  text: {
+    emailLabel: string;
+    passwordLabel: string;
+    submitLabel: string;
+    forgotPasswordButtonLabel: string;
+    registrationButtonLabel: string;
+    separatorText: string;
+  };
+  color: {
+    text: string;
+    theme: string;
+    background: string;
+  };
   componentsSizeRatio: number;
   logo?: React.ReactNode;
 };
 
 type State = {
-  email: { value?: string; isValid: boolean };
-  password: { value?: string; isValid: boolean };
+  fields: {
+    email: { value?: string; isValid: boolean };
+    password: { value?: string; isValid: boolean };
+  };
   subElementsOpacity: Animated.Value;
 };
 
 class LoginFormContainer extends React.PureComponent<Props, State> {
   keyboardDidShowListener;
   keyboardDidHideListener;
+
   static defaultProps = {
-    submitLabel: "sign in",
-    forgotPasswordButtonLabel: "Forgot your passport?",
-    registrationButtonLabel: "call for registration",
-    themeColor: Colors.lime,
-    textColor: Colors.defaultText,
-    backgroundColor: Colors.white,
+    initial: { email: undefined, password: undefined },
+    text: {
+      emailLabel: "email",
+      passwordLabel: "password",
+      submitLabel: "sign in",
+      forgotPasswordButtonLabel: "Forgot your passport?",
+      registrationButtonLabel: "call for registration",
+      separatorText: "or",
+    },
+    color: {
+      theme: Colors.lime,
+      text: Colors.defaultText,
+      background: Colors.white,
+    },
     componentsSizeRatio: 1,
   };
+
+  private setInitialFieldsValues = () => {
+    const { email, password } = this.props.initial;
+    return {
+      email: { value: email, isValid: !!email },
+      password: { value: password, isValid: !!password },
+    };
+  };
+
   state = {
-    email: { value: this.props.initialEmailValue, isValid: !!this.props.initialEmailValue },
-    password: { value: this.props.initialPasswordValue, isValid: !!this.props.initialPasswordValue },
+    fields: this.setInitialFieldsValues(),
     subElementsOpacity: new Animated.Value(1),
   };
-  componentDidMount() {
+
+  public componentDidMount() {
     this.keyboardDidShowListener = Keyboard.addListener("keyboardDidShow", this.hideSubElements);
     this.keyboardDidHideListener = Keyboard.addListener("keyboardDidHide", this.showSubElements);
   }
 
-  componentWillUnmount() {
+  public componentWillUnmount() {
     this.keyboardDidShowListener.remove();
     this.keyboardDidHideListener.remove();
   }
 
   public render() {
-    const { emailLabel, passwordLabel, validateEmail, validatePassword, backgroundColor, textColor } = this.props;
+    const { validate, text, color, initial } = this.props;
     return (
-      <View style={[styles.container, { backgroundColor }]}>
+      <View style={[styles.container, { backgroundColor: color.background }]}>
         {this.renderLogoContainer()}
         <View style={styles.inputContainer}>
           <Input
-            label={emailLabel}
-            initialValue={this.props.initialEmailValue}
-            validateValue={validateEmail}
-            onChange={this.setEmail}
-            onSuccessInputFieldColor={this.props.themeColor}
-            textColor={textColor}
+            label={text.emailLabel}
+            initialValue={initial.email}
+            validateValue={validate.email}
+            onChange={this.setField("email")}
+            onSuccessInputFieldColor={color.theme}
+            textColor={color.text}
             keyboardType="email-address"
           />
           <Input
             secureTextEntry
-            label={passwordLabel}
-            initialValue={this.props.initialPasswordValue}
-            validateValue={validatePassword}
-            onChange={this.setPassword}
-            onSuccessInputFieldColor={this.props.themeColor}
-            textColor={textColor}
+            label={text.passwordLabel}
+            initialValue={initial.password}
+            validateValue={validate.password}
+            onChange={this.setField("password")}
+            onSuccessInputFieldColor={color.theme}
+            textColor={color.text}
           />
         </View>
         <View style={styles.buttonsContainer}>
@@ -93,6 +123,25 @@ class LoginFormContainer extends React.PureComponent<Props, State> {
       </View>
     );
   }
+
+  private setField = (fieldName) => (value) => this.setState({ fields: { ...this.state.fields, [fieldName]: value } });
+  private onSubmit = () => {
+    const { email, password } = this.state.fields;
+    const emailValue = email.value as string;
+    const passwordValue = password.value as string;
+    this.props.callback.onSubmit({ email: emailValue, password: passwordValue });
+  };
+  private renderSubmitButton = () => {
+    const { email, password } = this.state.fields;
+    return (
+      <GradientButton
+        height={40 * this.props.componentsSizeRatio}
+        disabled={!(email.isValid && password.isValid)}
+        label={this.props.text.submitLabel.toUpperCase()}
+        onPress={this.onSubmit}
+      />
+    );
+  };
 
   private showSubElements = () => {
     Animated.timing(this.state.subElementsOpacity, {
@@ -118,53 +167,33 @@ class LoginFormContainer extends React.PureComponent<Props, State> {
     }
     return (
       <Icons.TrucknetLogo
-        color={this.props.textColor}
+        color={this.props.color.text}
         height={24 * this.props.componentsSizeRatio}
         width={182 * this.props.componentsSizeRatio}
       />
     );
   };
 
-  private setEmail = (email) => this.setState({ email });
-  private setPassword = (password) => this.setState({ password });
-  private onSubmit = () => {
-    const { email, password } = this.state;
-    const emailValue = email.value as string;
-    const passwordValue = password.value as string;
-    this.props.onSubmit({ email: emailValue, password: passwordValue });
-  };
-  private renderSubmitButton = () => {
-    const { email, password } = this.state;
-    return (
-      <GradientButton
-        height={40 * this.props.componentsSizeRatio}
-        disabled={!(email.isValid && password.isValid)}
-        label={this.props.submitLabel.toUpperCase()}
-        onPress={this.onSubmit}
-      />
-    );
-  };
-
   private renderForgotPasswordButton = () => {
-    if (this.props.onForgotPasswordPress) {
+    if (this.props.callback.onForgotPasswordPress) {
       return (
         <TransparentButton
           height={32 * this.props.componentsSizeRatio}
-          label={this.props.forgotPasswordButtonLabel}
-          textColor={this.props.textColor}
-          onPress={this.props.onForgotPasswordPress}
+          label={this.props.text.forgotPasswordButtonLabel}
+          textColor={this.props.color.text}
+          onPress={this.props.callback.onForgotPasswordPress}
         />
       );
     }
     return <View />;
   };
   private renderSeparationLine = () => {
-    if (this.props.separatorText) {
+    if (this.props.text.separatorText) {
       return (
         <Animated.View style={[styles.separatorContainer, { opacity: this.state.subElementsOpacity }]}>
           <View style={[styles.line, { backgroundColor: this.setSeparatorLineColor() }]} />
           <Text style={[styles.separatorText, { color: this.setSeparatorTextColor() }]}>
-            {this.props.separatorText}
+            {this.props.text.separatorText}
           </Text>
           <View style={[styles.line, { backgroundColor: this.setSeparatorLineColor() }]} />
         </Animated.View>
@@ -173,21 +202,21 @@ class LoginFormContainer extends React.PureComponent<Props, State> {
     return <View />;
   };
   private setSeparatorTextColor = () => {
-    return `${this.props.textColor}80`;
+    return `${this.props.color.text}80`;
   };
   private setSeparatorLineColor = () => {
-    return `${this.props.themeColor}`;
+    return `${this.props.color.theme}`;
   };
   private renderRegistrationButton = () => {
-    if (this.props.onRegistrationPress) {
+    if (this.props.callback.onRegistrationPress) {
       return (
         <TransparentButton
-          label={this.props.registrationButtonLabel.toUpperCase()}
+          label={this.props.text.registrationButtonLabel.toUpperCase()}
           height={40 * this.props.componentsSizeRatio}
           borderWidth={1}
-          borderColor={this.props.themeColor}
-          textColor={this.props.themeColor}
-          onPress={this.props.onRegistrationPress}
+          borderColor={this.props.color.theme}
+          textColor={this.props.color.theme}
+          onPress={this.props.callback.onRegistrationPress}
         />
       );
     }
