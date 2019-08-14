@@ -13,7 +13,7 @@
     "dist/**/*"
   ],
   "main": "dist/index.lib.js",
-  "version": "2.1.0",
+  "version": "2.2.0",
   "private": false,
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
