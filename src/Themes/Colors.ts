@@ -16,6 +16,9 @@ const Colors = {
   separator: "#000",
   veryVeryLightGray: "#f2f2f2",
   gray: "#9b9b9b",
+  error: "#ff1744",
+  veryLightGray: "#c7c7c7",
+  lightGray: "#929292",
   themeGradient: {
     gradientColor1: "#6441A5",
     gradientColor2: "#2a0845",
