@@ -1,7 +1,7 @@
 import React from "react";
 import { Alert } from "react-native";
 import Container from "../Container";
-import FormContainer from "../../Containers/FormContainer";
+import LoginFormContainer from "../../Containers/LoginFormContainer";
 import { text, number, color } from "@storybook/addon-knobs/react";
 import { setRequiredProp, setOptionalProp, isEmailInvalid } from "../Helpers";
 import Colors from "../../Themes/Colors";
@@ -10,7 +10,7 @@ import * as Icons from "../../Components/Icons";
 const LoginForm = () => {
   return (
     <Container>
-      <FormContainer
+      <LoginFormContainer
         emailLabel={text(setRequiredProp("emailLabel"), "Email")}
         passwordLabel={text(setRequiredProp("passwordLabel"), "Password")}
         validateEmail={validateEmail}

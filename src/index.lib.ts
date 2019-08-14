@@ -11,7 +11,7 @@ import LinearGradient from "./Components/LinearGradient";
 import RootWrapper from "./Wrappers/RootWrapper";
 import Subscriber from "./Subscriber";
 import InputField from "./Components/Input";
-import LoginForm from "./Containers/FormContainer";
+import LoginForm from "./Containers/LoginFormContainer";
 
 export {
   GradientButton,
