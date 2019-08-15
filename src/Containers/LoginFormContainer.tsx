@@ -1,7 +1,8 @@
 import * as React from "react";
+
 import { View, StyleSheet, Text, Animated, Keyboard } from "react-native";
 import * as Icons from "../Components/Icons";
-import Colors from "../Themes/Colors";
+import Colors, { colorTheme } from "../Themes/Colors";
 import Input from "../Components/Input";
 import { GradientButton, TransparentButton } from "../Components/Buttons";
 
@@ -27,11 +28,7 @@ export type Props = {
     registrationButtonLabel: string;
     separatorText: string;
   };
-  color: {
-    text: string;
-    theme: string;
-    background: string;
-  };
+  theme: "light" | "dark";
   componentsSizeRatio: number;
   logo?: React.ReactNode;
 };
@@ -42,6 +39,7 @@ type State = {
     password: { value?: string; isValid: boolean };
   };
   subElementsOpacity: Animated.Value;
+  colors: typeof colorTheme;
 };
 
 class LoginFormContainer extends React.PureComponent<Props, State> {
@@ -57,11 +55,7 @@ class LoginFormContainer extends React.PureComponent<Props, State> {
       forgotPasswordButtonLabel: "Forgot your passport?",
       registrationButtonLabel: "call for registration",
       separatorText: "or",
-    },
-    color: {
-      theme: Colors.lime,
-      text: Colors.defaultText,
-      background: Colors.white,
+      theme: "light",
     },
     componentsSizeRatio: 1,
   };
@@ -77,6 +71,7 @@ class LoginFormContainer extends React.PureComponent<Props, State> {
   state = {
     fields: this.setInitialFieldsValues(),
     subElementsOpacity: new Animated.Value(1),
+    colors: colorTheme,
   };
 
   public componentDidMount() {
@@ -90,9 +85,10 @@ class LoginFormContainer extends React.PureComponent<Props, State> {
   }
 
   public render() {
-    const { validate, text, color, initial } = this.props;
+    const { validate, text, initial } = this.props;
+    const theme = this.state.colors[this.props.theme];
     return (
-      <View style={[styles.container, { backgroundColor: color.background }]}>
+      <View style={[styles.container, { backgroundColor: theme.background }]}>
         {this.renderLogoContainer()}
         <View style={styles.inputContainer}>
           <Input
@@ -100,8 +96,8 @@ class LoginFormContainer extends React.PureComponent<Props, State> {
             initialValue={initial.email}
             validateValue={validate.email}
             onChange={this.setField("email")}
-            onSuccessInputFieldColor={color.theme}
-            textColor={color.text}
+            onSuccessInputFieldColor={theme.lime}
+            textColor={theme.defaultText}
             keyboardType="email-address"
           />
           <Input
@@ -110,8 +106,8 @@ class LoginFormContainer extends React.PureComponent<Props, State> {
             initialValue={initial.password}
             validateValue={validate.password}
             onChange={this.setField("password")}
-            onSuccessInputFieldColor={color.theme}
-            textColor={color.text}
+            onSuccessInputFieldColor={theme.lime}
+            textColor={theme.defaultText}
           />
         </View>
         <View style={styles.buttonsContainer}>
@@ -162,12 +158,13 @@ class LoginFormContainer extends React.PureComponent<Props, State> {
   };
 
   private renderLogo = () => {
+    const theme = this.state.colors[this.props.theme];
     if (this.props.logo) {
       return this.props.logo;
     }
     return (
       <Icons.TrucknetLogo
-        color={this.props.color.text}
+        color={theme.defaultText}
         height={24 * this.props.componentsSizeRatio}
         width={182 * this.props.componentsSizeRatio}
       />
@@ -175,12 +172,13 @@ class LoginFormContainer extends React.PureComponent<Props, State> {
   };
 
   private renderForgotPasswordButton = () => {
+    const theme = this.state.colors[this.props.theme];
     if (this.props.callback.onForgotPasswordPress) {
       return (
         <TransparentButton
           height={32 * this.props.componentsSizeRatio}
           label={this.props.text.forgotPasswordButtonLabel}
-          textColor={this.props.color.text}
+          textColor={theme.defaultText}
           onPress={this.props.callback.onForgotPasswordPress}
         />
       );
@@ -202,20 +200,23 @@ class LoginFormContainer extends React.PureComponent<Props, State> {
     return <View />;
   };
   private setSeparatorTextColor = () => {
-    return `${this.props.color.text}80`;
+    const theme = this.state.colors[this.props.theme];
+    return `${theme.defaultText}80`;
   };
   private setSeparatorLineColor = () => {
-    return `${this.props.color.theme}`;
+    const theme = this.state.colors[this.props.theme];
+    return `${theme.veryLightGray}`;
   };
   private renderRegistrationButton = () => {
+    const theme = this.state.colors[this.props.theme];
     if (this.props.callback.onRegistrationPress) {
       return (
         <TransparentButton
           label={this.props.text.registrationButtonLabel.toUpperCase()}
           height={40 * this.props.componentsSizeRatio}
           borderWidth={1}
-          borderColor={this.props.color.theme}
-          textColor={this.props.color.theme}
+          borderColor={theme.lime}
+          textColor={theme.lime}
           onPress={this.props.callback.onRegistrationPress}
         />
       );

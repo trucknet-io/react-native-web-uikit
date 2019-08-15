@@ -12,6 +12,8 @@ import RootWrapper from "./Wrappers/RootWrapper";
 import Subscriber from "./Subscriber";
 import InputField from "./Components/Input";
 import LoginForm from "./Containers/LoginFormContainer";
+import SignatureModal from "./Components/SignatureModal";
+import { colorTheme } from "./Themes/Colors";
 
 export {
   GradientButton,
@@ -26,4 +28,6 @@ export {
   Subscriber,
   InputField,
   LoginForm,
+  SignatureModal,
+  colorTheme,
 };

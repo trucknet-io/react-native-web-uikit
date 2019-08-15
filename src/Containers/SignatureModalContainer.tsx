@@ -3,16 +3,17 @@ import { View } from "react-native";
 import SignatureModal from "../Components/SignatureModal";
 import { GradientButton } from "../Components/Buttons";
 import { isWeb } from "../Helpers/platform";
+import { ParsedDataUrlType } from "../Helpers/regexHelpers";
 
 type Props = {
   isVisible: boolean;
   onBackdropPress(): void;
-  onSignApply(data: string): void;
+  onSignApply(data?: ParsedDataUrlType): void;
   submitButtonLabel: string;
   cancelButtonLabel: string;
   headerText?: string;
   helperText?: string;
-  backgroundColor?: string;
+  theme?: "dark" | "light";
 };
 
 class SignatureModalContainer extends React.PureComponent<Props> {

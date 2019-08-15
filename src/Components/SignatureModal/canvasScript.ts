@@ -53,7 +53,6 @@ export const canvasScript = `
     canvas.addEventListener("mouseup", function (e) {
       e.preventDefault();
       isMouseDown = false;
-      console.log(window);
       window.parent.postMessage(canvas.toDataURL())
     });
 
