@@ -143,6 +143,7 @@ export const darkColors = {
   subtitle: "#808080",
   veryLightBlue: "rgba(233, 241, 255, 0.3)",
   veryLightBlack: "rgba(0, 0, 0, 0.12)",
+  bottomNavBarBackgroundActive: "#39565d",
   lightElephant: "#1c4246",
   lightBlue: "#2979ff22",
   linkBlue: "#000",
