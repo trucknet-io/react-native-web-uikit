@@ -1,20 +1,20 @@
 import Colors from "../../Themes/Colors";
 import Fonts from "../../Themes/Fonts";
 import { parseDataUrl, ParsedDataUrlType } from "../../Helpers/regexHelpers";
-import React from "react";
+import * as React from "react";
 import { Text, View, StyleSheet } from "react-native";
-import Modal from "modal-react-native-web";
+import Modal from "react-native-modal";
 import { GradientButton } from "../Buttons";
 import { canvasHTML } from "./canvasHTML";
-import WebView from "react-native-web-webview";
+import WebView from "react-native-webview";
+import { isWeb } from "../../Helpers/platform";
 
 type Props = {
   isVisible: boolean;
   onBackdropPress(): void;
   onSignApply(data: string): void;
-  cancelButtonLabel: string;
   submitButtonLabel: string;
-  currentStatus?: string;
+  cancelButtonLabel: string;
   headerText?: string;
   helperText?: string;
   backgroundColor?: string;
@@ -26,25 +26,30 @@ type State = {
 };
 
 class SignatureModal extends React.PureComponent<Props, State> {
+  static defaultProps = {
+    backgroundColor: Colors.white,
+    submitButtonLabel: "ok",
+    cancelButtonLabel: "cancel",
+  };
   private webView;
   public state = {
     signatureData: undefined,
     isSignSubmitted: false,
   };
-
   public render() {
     const { backgroundColor } = this.props;
     return (
+      //@ts-ignore
       <Modal
-        visible={this.props.isVisible}
+        {...this.setVisibleProps()}
         onBackdropPress={this.props.onBackdropPress}
         onModalShow={this.unSubmitSignApply}>
-        <View style={[styles.container, { backgroundColor: backgroundColor || Colors.white }]}>
+        <View style={[styles.container, { backgroundColor }]}>
           {this.renderHeaderText()}
           {this.renderHelperText()}
           <View style={{ flex: 1, borderWidth: 1 }}>
             <WebView
-              // ref={this.setWebViewRef}
+              ref={this.setWebViewRef}
               onMessage={this.onMessage}
               style={styles.webView}
               automaticallyAdjustContentInsets={false}
@@ -76,6 +81,14 @@ class SignatureModal extends React.PureComponent<Props, State> {
     );
   }
 
+  private setVisibleProps = () => {
+    if (isWeb) {
+      return { visible: this.props.isVisible };
+    }
+
+    return { isVisible: this.props.isVisible };
+  };
+
   private renderHeaderText = () => {
     if (this.props.headerText) {
       return <Text style={styles.headerText}>{this.props.headerText}</Text>;
@@ -88,13 +101,12 @@ class SignatureModal extends React.PureComponent<Props, State> {
   };
   private setWebViewRef = (ref) => {
     this.webView = ref;
-    if (this.webView) {
+    if (this.webView && !isWeb) {
       this.webView.reload();
     }
   };
   private onMessage = (message: { nativeEvent: { data: string } }) => {
     const signatureData = parseDataUrl(message.nativeEvent.data);
-    console.log(signatureData, "signatureData");
     this.setState({ signatureData });
   };
 
@@ -103,8 +115,11 @@ class SignatureModal extends React.PureComponent<Props, State> {
     this.props.onSignApply(this.state.signatureData.url);
   };
   private resetWebView = () => {
+    if (isWeb) {
+      return location.reload();
+    }
     this.setState({ signatureData: undefined }, this.unSubmitSignApply);
-    this.webView.reload();
+    return this.webView.reload();
   };
   private submitSignApply = () => {
     this.setState({ isSignSubmitted: true });

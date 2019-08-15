@@ -1,7 +1,7 @@
 import { storiesOf } from "@storybook/react-native";
 import { importInfo } from "../Helpers";
 import SignatureModalStory from "./SignatureModalStory";
-import { withKnobs } from "@storybook/addon-knobs/react";
+import { withKnobs } from "@storybook/addon-knobs";
 
 const stories = storiesOf("SignatureModal", module);
 stories.addDecorator(withKnobs);

@@ -54,7 +54,7 @@ export const canvasScript = `
       e.preventDefault();
       isMouseDown = false;
       console.log(window);
-      window.postMessage(canvas.toDataURL());
+      window.parent.postMessage(canvas.toDataURL())
     });
 
     canvas.addEventListener("touchstart", function (e) {
