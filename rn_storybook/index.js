@@ -1,9 +1,9 @@
-import { AppRegistry } from 'react-native';
-import { getStorybookUI, configure } from '@storybook/react-native';
-import { name as appName } from '../app.json';
-import stories from '../src/stories/index.mobile';
+import { AppRegistry } from "react-native";
+import { getStorybookUI, configure } from "@storybook/react-native";
+import { appName } from "../app.json";
+import stories from "../src/stories/index.mobile";
 
-import './rn-addons';
+import "./rn-addons";
 
 // import stories
 configure(() => stories, module);

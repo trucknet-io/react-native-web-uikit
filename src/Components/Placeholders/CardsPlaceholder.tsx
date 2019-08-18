@@ -42,7 +42,7 @@ class CardsPlaceholder extends React.PureComponent<IProps> {
   };
 
   private renderPlaceholderLines = () => {
-    const placeholderCards = [];
+    const placeholderCards: Array<{ card: string }> = [];
     const cards = this.props.cards;
     let i;
     for (i = 0; i < cards; i++) {

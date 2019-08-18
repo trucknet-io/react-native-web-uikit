@@ -16,7 +16,7 @@ class MapPlaceholder extends React.PureComponent<IProps> {
     return (
       <View style={styles.container}>
         <View style={styles.mapIconContainer}>
-          <MapPlaceholderIcon color={Colors.defaultText} size={150} />
+          <MapPlaceholderIcon color={Colors.defaultText} width={150} height={150} />
         </View>
         <Paragraph lines={this.props.lines} />
       </View>

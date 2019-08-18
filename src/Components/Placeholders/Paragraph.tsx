@@ -19,7 +19,7 @@ class ParagraphPlaceholder extends React.PureComponent<IParagraphPlaceholderProp
   }
 
   private renderNativePlaceholderLines = () => {
-    const placeholderLines = [];
+    const placeholderLines: Array<React.ReactNode> = [];
     let i;
     for (i = 0; i < this.props.lines; i++) {
       placeholderLines.push(<Shimmer autoRun={true} style={styles.line} />);
@@ -27,7 +27,7 @@ class ParagraphPlaceholder extends React.PureComponent<IParagraphPlaceholderProp
     return placeholderLines;
   };
   private renderWebPlaceholderLines = () => {
-    const placeholderLines = [];
+    const placeholderLines: Array<React.ReactNode> = [];
     let i;
     for (i = 0; i < this.props.lines; i++) {
       placeholderLines.push(<rect x="80" y={10 * i} rx="3" ry="3" width="250" height="6" />);

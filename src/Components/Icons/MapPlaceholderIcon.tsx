@@ -1,9 +1,9 @@
 import * as React from "react";
 import { Circle, G, Path, Svg } from "react-native-svg";
 
-export default ({ color, size }: { size: number; color?: string }) => {
+export default ({ color, width, height }: { width: number; height: number; color?: string }) => {
   return (
-    <Svg width={size} height={size} viewBox="0 0 100 125">
+    <Svg width={width} height={height} viewBox="0 0 100 125">
       <G>
         <Path
           fill={color}
