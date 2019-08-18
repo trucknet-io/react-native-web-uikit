@@ -11,8 +11,8 @@ const stories = storiesOf("Placeholders", module);
 stories.addDecorator(withKnobs);
 stories.addDecorator(withInfo);
 
-stories.add("Paragraph", ParagraphStory, importInfo("Placeholders"));
-stories.add("Cards", CardsStory, importInfo("Placeholders"));
-stories.add("Map", MapPlaceholderStory, importInfo("Placeholders"));
+stories.add("Paragraph", ParagraphStory, importInfo("ParagraphPlaceholder"));
+stories.add("Cards", CardsStory, importInfo("CardsPlaceholder"));
+stories.add("Map", MapPlaceholderStory, importInfo(" MapPlaceholder"));
 
 export default stories;
