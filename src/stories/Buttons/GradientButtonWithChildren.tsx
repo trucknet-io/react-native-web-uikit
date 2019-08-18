@@ -10,8 +10,8 @@ import Container from "../Container";
 const GradientButtonStory = () => (
   <Container>
     <GradientButtonWithChildren
-      gradientStartColor={color(setRequiredProp("gradientStartColor"), Colors.themeGradient.gradientColor1)}
-      gradientEndColor={color(setRequiredProp("gradientEndColor"), Colors.themeGradient.gradientColor2)}
+      gradientStartColor={color(setRequiredProp("gradientStartColor"), Colors.purpleGradient.gradientColor1)}
+      gradientEndColor={color(setRequiredProp("gradientEndColor"), Colors.purpleGradient.gradientColor2)}
       {...buttonProps()}>
       <Text style={{ color: Colors.white }}>Gradient Button With Children</Text>
     </GradientButtonWithChildren>

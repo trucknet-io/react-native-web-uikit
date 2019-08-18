@@ -96,7 +96,7 @@ class LoginFormContainer extends React.PureComponent<Props, State> {
             initialValue={initial.email}
             validateValue={validate.email}
             onChange={this.setField("email")}
-            onSuccessInputFieldColor={theme.lime}
+            onSuccessInputFieldColor={theme.themeColor}
             textColor={theme.defaultText}
             keyboardType="email-address"
           />
@@ -106,7 +106,7 @@ class LoginFormContainer extends React.PureComponent<Props, State> {
             initialValue={initial.password}
             validateValue={validate.password}
             onChange={this.setField("password")}
-            onSuccessInputFieldColor={theme.lime}
+            onSuccessInputFieldColor={theme.themeColor}
             textColor={theme.defaultText}
           />
         </View>
@@ -215,8 +215,8 @@ class LoginFormContainer extends React.PureComponent<Props, State> {
           label={this.props.text.registrationButtonLabel.toUpperCase()}
           height={40 * this.props.componentsSizeRatio}
           borderWidth={1}
-          borderColor={theme.lime}
-          textColor={theme.lime}
+          borderColor={theme.themeColor}
+          textColor={theme.themeColor}
           onPress={this.props.callback.onRegistrationPress}
         />
       );

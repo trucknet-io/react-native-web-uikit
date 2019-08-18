@@ -6,10 +6,13 @@ import Colors from "../Themes/Colors";
 type IconProps = {
   width?: number;
   height?: number;
-  color?: string;
+  color: string;
 };
 
 class IconName extends React.PureComponent<IconProps> {
+  public static defaultProps = {
+    color: Colors.icon,
+  };
   public render() {
     return (
       <ScrollView>

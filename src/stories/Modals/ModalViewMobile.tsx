@@ -8,7 +8,7 @@ import { ChevronRight, ChevronLeft, ChevronUp, ChevronDown } from "../../Compone
 type ModalViewProps = {
   buttonWidth: string | number;
   verticalDirection?: boolean;
-  modalId: number;
+  modalId: string;
 };
 
 class ModalView extends React.PureComponent<ModalViewProps> {
@@ -54,14 +54,14 @@ class ModalView extends React.PureComponent<ModalViewProps> {
       <View style={[styles.buttonsContainer, { flexDirection: "column" }]}>
         <TransparentButtonWithChildren
           width={this.props.buttonWidth}
-          onPressIn={() => Subscriber.stretchModal(1, "10%")}
-          onPressOut={() => Subscriber.changeModalPosition(1, "-50%")}>
+          onPressIn={() => Subscriber.stretchModal("1", "10%")}
+          onPressOut={() => Subscriber.changeModalPosition("1", "-50%")}>
           <ChevronUp color={Colors.white} />
         </TransparentButtonWithChildren>
         <TransparentButtonWithChildren
           width={this.props.buttonWidth}
-          onPressIn={() => Subscriber.stretchModal(1, "10%")}
-          onPressOut={() => Subscriber.changeModalPosition(1, "50%")}>
+          onPressIn={() => Subscriber.stretchModal("1", "10%")}
+          onPressOut={() => Subscriber.changeModalPosition("1", "50%")}>
           <ChevronDown color={Colors.white} />
         </TransparentButtonWithChildren>
       </View>
@@ -75,7 +75,7 @@ class ModalView extends React.PureComponent<ModalViewProps> {
       return { top: "50%", left: "20%", height: "100%", width: "60%", borderRadius: 35 };
     };
     Subscriber.showModal(this.renderSubModalView(), {
-      id: 1,
+      id: "1",
       containerStyles: getModalStyles(),
       verticalDirection: true,
     });
@@ -94,7 +94,7 @@ const styles = StyleSheet.create({
     width: "100%",
     alignItems: "center",
     justifyContent: "space-between",
-    backgroundColor: Colors.themeLight,
+    backgroundColor: Colors.purpleLight,
     borderRadius: 5,
   },
   buttonsContainer: {

@@ -61,7 +61,7 @@ type State = {
 
 class Input extends React.PureComponent<Props, State> {
   static defaultProps = {
-    onSuccessInputFieldColor: Colors.lime,
+    onSuccessInputFieldColor: Colors.themeColor,
     textColor: Colors.defaultText,
     secureTextEntry: false,
     keyboardType: "default",

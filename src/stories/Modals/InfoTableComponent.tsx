@@ -6,8 +6,8 @@ const styles = StyleSheet.create({
   codeContainer: {
     backgroundColor: Colors.veryVeryLightGray,
     borderWidth: 1,
-    borderColor: Colors.themeDark,
-    color: Colors.themeDark,
+    borderColor: Colors.purpleDark,
+    color: Colors.purpleDark,
     borderRadius: 4,
     padding: 5,
     marginTop: 2,

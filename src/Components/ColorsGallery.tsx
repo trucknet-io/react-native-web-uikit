@@ -43,7 +43,7 @@ class ColorsGallery extends React.PureComponent<Props> {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: Colors.veryLightBlack,
+    backgroundColor: Colors.veryVeryLightGray,
     padding: 50,
     width: "100%",
   },
@@ -58,7 +58,7 @@ const styles = StyleSheet.create({
     width: 450,
     height: 65,
     borderRadius: 4,
-    borderColor: Colors.black,
+    borderColor: Colors.borderColor,
     borderWidth: 1,
   },
 });

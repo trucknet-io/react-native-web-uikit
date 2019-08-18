@@ -3,7 +3,8 @@ import Fonts from "../../Themes/Fonts";
 import { parseDataUrl, ParsedDataUrlType } from "../../Helpers/regexHelpers";
 import * as React from "react";
 import { Text, View, StyleSheet } from "react-native";
-import Modal from "react-native-modal";
+import NativeModal from "react-native-modal";
+import WebModal from "modal-react-native-web";
 import { TransparentButtonWithChildren } from "../Buttons";
 import { canvasHTML } from "./canvasHTML";
 import WebView from "react-native-webview";
@@ -40,39 +41,13 @@ class SignatureModal extends React.PureComponent<Props> {
     colors: colorTheme,
   };
   public render() {
-    const theme = this.state.colors[this.props.theme];
-    const backgroundColor = theme.background;
-    return (
-      //@ts-ignore
-      <Modal
-        {...this.setVisibleProps()}
-        onBackdropPress={this.props.onBackdropPress}
-        onModalShow={this.unSubmitSignApply}>
-        <View style={[styles.container, { backgroundColor }]}>
-          {this.renderHeaderText()}
-          {this.renderHelperText()}
-          <View style={[styles.webViewContainer, { backgroundColor: theme.webViewBackground }]}>
-            <WebView
-              ref={this.setWebViewRef}
-              onMessage={this.onMessage}
-              style={[styles.webView, { backgroundColor: theme.webViewBackground }]}
-              automaticallyAdjustContentInsets={false}
-              javaScriptEnabled={true}
-              source={{ html: canvasHTML }}
-              showsVerticalScrollIndicator={false}
-              showsHorizontalScrollIndicator={false}
-            />
-          </View>
-          {this.renderButtons()}
-        </View>
-      </Modal>
-    );
+    return <View>{isWeb ? this.renderWebModal() : this.renderNativeModal()}</View>;
   }
 
   private renderButtons = () => {
     const theme = this.state.colors[this.props.theme];
     const isDisabled = this.state.isSignSubmitted || !this.state.signatureData;
-    const submitButtonTextColor = isDisabled ? theme.lightGray : theme.lime;
+    const submitButtonTextColor = isDisabled ? theme.lightGray : theme.themeColor;
     return (
       <View style={styles.buttonsContainer}>
         <TransparentButtonWithChildren onPress={this.resetWebView} width={60}>
@@ -89,14 +64,46 @@ class SignatureModal extends React.PureComponent<Props> {
     );
   };
 
-  private setVisibleProps = () => {
-    if (isWeb) {
-      return { visible: this.props.isVisible };
-    }
+  private renderNativeModal = () => (
+    <NativeModal
+      isVisible={this.props.isVisible}
+      onBackdropPress={this.props.onBackdropPress}
+      onModalShow={this.unSubmitSignApply}>
+      {this.renderSignView()}
+    </NativeModal>
+  );
 
-    return { isVisible: this.props.isVisible };
+  private renderWebModal = () => (
+    <WebModal
+      visible={this.props.isVisible}
+      onBackdropPress={this.props.onBackdropPress}
+      onModalShow={this.unSubmitSignApply}>
+      {this.renderSignView()}
+    </WebModal>
+  );
+
+  renderSignView = () => {
+    const theme = this.state.colors[this.props.theme];
+    return (
+      <View style={[styles.container, { backgroundColor: theme.background }]}>
+        {this.renderHeaderText()}
+        {this.renderHelperText()}
+        <View style={[styles.webViewContainer, { backgroundColor: theme.webViewBackground }]}>
+          <WebView
+            ref={this.setWebViewRef}
+            onMessage={this.onMessage}
+            style={[styles.webView, { backgroundColor: theme.webViewBackground }]}
+            automaticallyAdjustContentInsets={false}
+            javaScriptEnabled={true}
+            source={{ html: canvasHTML }}
+            showsVerticalScrollIndicator={false}
+            showsHorizontalScrollIndicator={false}
+          />
+        </View>
+        {this.renderButtons()}
+      </View>
+    );
   };
-
   private renderHeaderText = () => {
     const theme = this.state.colors[this.props.theme];
     if (this.props.headerText) {

@@ -14,11 +14,11 @@
 #define TIMEOUT_SECONDS 600
 #define TEXT_TO_LOOK_FOR @"Welcome to React Native!"
 
-@interface TrucknetBoilerplateTypescriptReactNativeTests : XCTestCase
+@interface reactnativewebuikitTests : XCTestCase
 
 @end
 
-@implementation TrucknetBoilerplateTypescriptReactNativeTests
+@implementation reactnativewebuikitTests
 
 - (BOOL)findSubviewInView:(UIView *)view matching:(BOOL(^)(UIView *view))test
 {

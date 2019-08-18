@@ -1,4 +1,4 @@
-package com.trucknetboilerplatetypescriptreactnative;
+package com.reactnativewebuikit;
 
 import android.app.Application;
 

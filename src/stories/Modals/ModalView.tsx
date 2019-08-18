@@ -9,7 +9,7 @@ import { action } from "@storybook/addon-actions";
 type ModalViewProps = {
   buttonWidth: string | number;
   verticalDirection?: boolean;
-  modalId: number;
+  modalId: string;
 };
 
 class ModalView extends React.PureComponent<ModalViewProps> {
@@ -84,7 +84,7 @@ const styles = StyleSheet.create({
     width: "100%",
     alignItems: "center",
     justifyContent: "space-between",
-    backgroundColor: Colors.themeLight,
+    backgroundColor: Colors.purpleLight,
     borderRadius: 25,
   },
   buttonsContainer: {
