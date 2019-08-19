@@ -3,21 +3,33 @@ import { FlatList, StyleSheet, View } from "react-native";
 // tslint:disable-next-line:import-name
 import Shimmer from "react-native-shimmer-placeholder";
 import { isWeb } from "../../Helpers/platform";
-interface IProps {
+import { colorTheme } from "../../Themes/Colors";
+
+interface Props {
   cards: number;
   margin: string | number;
   cardHeight: number;
+  theme: "light" | "dark";
 }
 
-class CardsPlaceholder extends React.PureComponent<IProps> {
+interface State {
+  colors: typeof colorTheme;
+}
+
+class CardsPlaceholder extends React.PureComponent<Props, State> {
+  state = {
+    colors: colorTheme,
+  };
   public static defaultProps = {
     lines: 5,
     margin: 12,
     cardHeight: 250,
+    theme: "light",
   };
   public render() {
+    const theme = this.state.colors[this.props.theme];
     return (
-      <View style={styles.container}>
+      <View style={[styles.container, { backgroundColor: theme.background }]}>
         <FlatList
           style={{ width: "100%" }}
           data={this.renderPlaceholderLines()}

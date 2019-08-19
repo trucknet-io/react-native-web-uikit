@@ -1,24 +1,34 @@
 import * as React from "react";
 import { StyleSheet, View } from "react-native";
 import MapPlaceholderIcon from "../Icons/MapPlaceholderIcon";
-import Colors from "../../Themes/Colors";
 import Paragraph from "./Paragraph";
+import { colorTheme } from "../../Themes/Colors";
 
-interface IProps {
+interface Props {
   lines: number;
+  theme: "light" | "dark";
 }
 
-class MapPlaceholder extends React.PureComponent<IProps> {
+interface State {
+  colors: typeof colorTheme;
+}
+
+class MapPlaceholder extends React.PureComponent<Props, State> {
+  state = {
+    colors: colorTheme,
+  };
   public static defaultProps = {
     lines: 5,
+    theme: "light",
   };
   public render() {
+    const theme = this.state.colors[this.props.theme];
     return (
-      <View style={styles.container}>
+      <View style={[styles.container, { backgroundColor: theme.background }]}>
         <View style={styles.mapIconContainer}>
-          <MapPlaceholderIcon color={Colors.defaultText} width={150} height={150} />
+          <MapPlaceholderIcon color={theme.defaultText} width={150} height={150} />
         </View>
-        <Paragraph lines={this.props.lines} />
+        <Paragraph lines={this.props.lines} theme={this.props.theme} />
       </View>
     );
   }
