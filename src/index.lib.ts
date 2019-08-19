@@ -14,8 +14,8 @@ import InputField from "./Components/Input";
 import LoginForm from "./Containers/LoginFormContainer";
 import SignatureModal from "./Components/SignatureModal";
 import { colorTheme } from "./Themes/Colors";
-import CardsPlaceholder from "./Components/Placeholders/CardsPlaceholder";
-import MapPlaceholder from "./Components/Placeholders/MapPlaceholder";
+import CardsPlaceholder from "./Components/Placeholders/Cards";
+import MapPlaceholder from "./Components/Placeholders/Map";
 import ParagraphPlaceholder from "./Components/Placeholders/Paragraph";
 
 export {

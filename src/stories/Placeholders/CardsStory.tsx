@@ -1,5 +1,5 @@
 import React from "react";
-import CardsPlaceholder from "../../Components/Placeholders/CardsPlaceholder";
+import CardsPlaceholder from "../../Components/Placeholders/Cards";
 import { number } from "@storybook/addon-knobs/react";
 import { setOptionalProp } from "../Helpers";
 import Container from "../Container";

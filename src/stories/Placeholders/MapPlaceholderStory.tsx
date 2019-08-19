@@ -1,5 +1,5 @@
 import React from "react";
-import MapPlaceholder from "../../Components/Placeholders/MapPlaceholder";
+import MapPlaceholder from "../../Components/Placeholders/Map";
 import { number } from "@storybook/addon-knobs/react";
 import { setOptionalProp } from "../Helpers";
 import Container from "../Container";
