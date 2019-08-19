@@ -12,6 +12,7 @@ import RootWrapper from "./Wrappers/RootWrapper";
 import Subscriber from "./Subscriber";
 import InputField from "./Components/Input";
 import LoginForm from "./Containers/LoginFormContainer";
+import setUikitWebpackSetting from "./setUikitWebpackSetting";
 
 export {
   GradientButton,
@@ -26,4 +27,5 @@ export {
   Subscriber,
   InputField,
   LoginForm,
+  setUikitWebpackSetting,
 };
