@@ -42,13 +42,13 @@ class ModalView extends React.PureComponent<ModalViewProps> {
             width={this.props.buttonWidth}
             onPressIn={this.stretchModal}
             onPressOut={() => this.changeModalPosition("-60%")}>
-            <ChevronLeft color={Colors.white} />
+            <ChevronLeft color={Colors.palette.white} />
           </TransparentButtonWithChildren>
           <TransparentButtonWithChildren
             width={this.props.buttonWidth}
             onPressIn={this.stretchModal}
             onPressOut={() => this.changeModalPosition("60%")}>
-            <ChevronRight color={Colors.white} />
+            <ChevronRight color={Colors.palette.white} />
           </TransparentButtonWithChildren>
         </View>
       );
@@ -59,13 +59,13 @@ class ModalView extends React.PureComponent<ModalViewProps> {
           width={this.props.buttonWidth}
           onPressIn={this.stretchModal}
           onPressOut={() => this.changeModalPosition("-50%")}>
-          <ChevronUp color={Colors.white} />
+          <ChevronUp color={Colors.palette.white} />
         </TransparentButtonWithChildren>
         <TransparentButtonWithChildren
           width={this.props.buttonWidth}
           onPressIn={() => Subscriber.stretchModal(this.props.modalId, "10%")}
           onPressOut={() => this.changeModalPosition("50%")}>
-          <ChevronDown color={Colors.white} />
+          <ChevronDown color={Colors.palette.white} />
         </TransparentButtonWithChildren>
       </View>
     );
@@ -84,7 +84,7 @@ const styles = StyleSheet.create({
     width: "100%",
     alignItems: "center",
     justifyContent: "space-between",
-    backgroundColor: Colors.purpleLight,
+    backgroundColor: Colors.palette.purpleLight,
     borderRadius: 25,
   },
   buttonsContainer: {

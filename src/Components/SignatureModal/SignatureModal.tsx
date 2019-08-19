@@ -29,7 +29,7 @@ type State = {
 
 class SignatureModal extends React.PureComponent<Props> {
   static defaultProps = {
-    backgroundColor: Colors.white,
+    backgroundColor: Colors.palette.white,
     submitButtonLabel: "ok",
     cancelButtonLabel: "cancel",
     theme: "light",
@@ -47,7 +47,7 @@ class SignatureModal extends React.PureComponent<Props> {
   private renderButtons = () => {
     const theme = this.state.colors[this.props.theme];
     const isDisabled = this.state.isSignSubmitted || !this.state.signatureData;
-    const submitButtonTextColor = isDisabled ? theme.lightGray : theme.themeColor;
+    const submitButtonTextColor = isDisabled ? theme.palette.lightGray : theme.themeColor;
     return (
       <View style={styles.buttonsContainer}>
         <TransparentButtonWithChildren onPress={this.resetWebView} width={60}>
@@ -164,7 +164,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 5,
     padding: 2,
-    borderColor: Colors.veryLightGray,
+    borderColor: Colors.palette.veryLightGray,
   },
   webView: {
     flex: 1,

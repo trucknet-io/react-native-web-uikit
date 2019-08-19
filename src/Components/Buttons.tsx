@@ -101,7 +101,7 @@ class GradientButtonWithChildren extends React.PureComponent<GradientButtonWithC
   }
 
   private setColor = (gradientColor: string) => {
-    if (this.props.disabled) return Colors.veryVeryLightGray;
+    if (this.props.disabled) return Colors.palette.veryVeryLightGray;
     return gradientColor;
   };
 

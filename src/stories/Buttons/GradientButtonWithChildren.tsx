@@ -13,7 +13,7 @@ const GradientButtonStory = () => (
       gradientStartColor={color(setRequiredProp("gradientStartColor"), Colors.purpleGradient.gradientColor1)}
       gradientEndColor={color(setRequiredProp("gradientEndColor"), Colors.purpleGradient.gradientColor2)}
       {...buttonProps()}>
-      <Text style={{ color: Colors.white }}>Gradient Button With Children</Text>
+      <Text style={{ color: Colors.palette.white }}>Gradient Button With Children</Text>
     </GradientButtonWithChildren>
   </Container>
 );

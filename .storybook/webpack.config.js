@@ -2,6 +2,7 @@ module.exports = async ({ config }) => {
   const moduleRulesChanges = {
     rules: [
       ...config.module.rules,
+      // https://github.com/react-native-web-community/react-native-web-webview#getting-started
       {
         test: /postMock.html$/,
         use: {

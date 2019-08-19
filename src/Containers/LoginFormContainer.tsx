@@ -205,7 +205,7 @@ class LoginFormContainer extends React.PureComponent<Props, State> {
   };
   private setSeparatorLineColor = () => {
     const theme = this.state.colors[this.props.theme];
-    return `${theme.veryLightGray}`;
+    return `${theme.palette.veryLightGray}`;
   };
   private renderRegistrationButton = () => {
     const theme = this.state.colors[this.props.theme];
@@ -251,11 +251,11 @@ const styles = StyleSheet.create({
   line: {
     marginTop: 2,
     height: 1,
-    backgroundColor: Colors.veryLightGray,
+    backgroundColor: Colors.palette.veryLightGray,
     width: "45%",
   },
   separatorText: {
-    color: Colors.lightGray,
+    color: Colors.palette.lightGray,
   },
 });
 

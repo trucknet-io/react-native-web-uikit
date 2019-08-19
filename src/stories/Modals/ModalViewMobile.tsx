@@ -34,16 +34,16 @@ class ModalView extends React.PureComponent<ModalViewProps> {
           width={this.props.buttonWidth}
           onPressIn={this.stretchModal}
           onPressOut={() => this.changeModalPosition("-60%")}>
-          <ChevronLeft color={Colors.white} />
+          <ChevronLeft color={Colors.palette.white} />
         </TransparentButtonWithChildren>
         <TransparentButtonWithChildren width={150} onPress={this.renderVerticalModal}>
-          <Text style={{ color: Colors.white }}>Show Vertical Modal</Text>
+          <Text style={{ color: Colors.palette.white }}>Show Vertical Modal</Text>
         </TransparentButtonWithChildren>
         <TransparentButtonWithChildren
           width={this.props.buttonWidth}
           onPressIn={this.stretchModal}
           onPressOut={() => this.changeModalPosition("60%")}>
-          <ChevronRight color={Colors.white} />
+          <ChevronRight color={Colors.palette.white} />
         </TransparentButtonWithChildren>
       </View>
     );
@@ -56,13 +56,13 @@ class ModalView extends React.PureComponent<ModalViewProps> {
           width={this.props.buttonWidth}
           onPressIn={() => Subscriber.stretchModal("1", "10%")}
           onPressOut={() => Subscriber.changeModalPosition("1", "-50%")}>
-          <ChevronUp color={Colors.white} />
+          <ChevronUp color={Colors.palette.white} />
         </TransparentButtonWithChildren>
         <TransparentButtonWithChildren
           width={this.props.buttonWidth}
           onPressIn={() => Subscriber.stretchModal("1", "10%")}
           onPressOut={() => Subscriber.changeModalPosition("1", "50%")}>
-          <ChevronDown color={Colors.white} />
+          <ChevronDown color={Colors.palette.white} />
         </TransparentButtonWithChildren>
       </View>
     );
@@ -94,7 +94,7 @@ const styles = StyleSheet.create({
     width: "100%",
     alignItems: "center",
     justifyContent: "space-between",
-    backgroundColor: Colors.purpleLight,
+    backgroundColor: Colors.palette.purpleLight,
     borderRadius: 5,
   },
   buttonsContainer: {
@@ -107,7 +107,7 @@ const styles = StyleSheet.create({
     flex: 1,
     width: "100%",
     alignItems: "center",
-    backgroundColor: Colors.ashLight,
+    backgroundColor: Colors.palette.ashLight,
     borderRadius: 10,
   },
 });
