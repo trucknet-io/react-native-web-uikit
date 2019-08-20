@@ -53,6 +53,10 @@ module.exports = setUikitWebpackSetting(config?: webpackConfig);
     - react-native-linear-gradient
     - react-native-svg
     - react-native-vector-icons
+    - react-native-modal
+    - react-native-webview
+    - react-content-loader
+    - react-native-shimmer-placeholder
 
 ### Peer Dependencies Web
 
@@ -60,4 +64,7 @@ module.exports = setUikitWebpackSetting(config?: webpackConfig);
     - react-native-web
     - react-native-web-linear-gradient
     - react-native-svg-web
+    - react-native-web-webview,
+    - modal-react-native-web,
+    - react-content-loader,
 

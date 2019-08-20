@@ -61,7 +61,7 @@ type State = {
 
 class Input extends React.PureComponent<Props, State> {
   static defaultProps = {
-    onSuccessInputFieldColor: Colors.lime,
+    onSuccessInputFieldColor: Colors.themeColor,
     textColor: Colors.defaultText,
     secureTextEntry: false,
     keyboardType: "default",
@@ -167,7 +167,7 @@ class Input extends React.PureComponent<Props, State> {
 
   private setLabelColor = () => {
     if (!this.state.value) {
-      return Colors.lightGray;
+      return Colors.palette.lightGray;
     }
     if (this.state.error) {
       return this.props.errorColor;
@@ -177,7 +177,7 @@ class Input extends React.PureComponent<Props, State> {
 
   private setFieldColor = () => {
     if (!this.state.value) {
-      return Colors.lightGray;
+      return Colors.palette.lightGray;
     }
     if (this.state.error) {
       return this.props.errorColor;

@@ -8,7 +8,7 @@ import Colors from "../../Themes/Colors";
 const GradientButtonStory = () => (
   <Container>
     <TransparentButtonWithChildren {...buttonProps()}>
-      <Text style={{ color: Colors.black }}>Transparent Button With Children</Text>
+      <Text style={{ color: Colors.borderColor }}>Transparent Button With Children</Text>
     </TransparentButtonWithChildren>
   </Container>
 );

@@ -62,8 +62,8 @@ interface GradientButtonWithChildrenProps extends ButtonProps {
 
 class GradientButtonWithChildren extends React.PureComponent<GradientButtonWithChildrenProps> {
   public static defaultProps = {
-    gradientStartColor: Colors.blueGreenGradient.gradientColor1,
-    gradientEndColor: Colors.blueGreenGradient.gradientColor2,
+    gradientStartColor: Colors.themeGradient.gradientColor1,
+    gradientEndColor: Colors.themeGradient.gradientColor2,
   };
   public PRESS_IN_SHADOW = 1;
   public PRESS_OUT_SHADOW = 4;
@@ -101,7 +101,7 @@ class GradientButtonWithChildren extends React.PureComponent<GradientButtonWithC
   }
 
   private setColor = (gradientColor: string) => {
-    if (this.props.disabled) return Colors.veryVeryLightGray;
+    if (this.props.disabled) return Colors.palette.veryVeryLightGray;
     return gradientColor;
   };
 
@@ -124,8 +124,8 @@ interface GradientButtonProps extends ButtonProps {
 
 export class GradientButton extends React.PureComponent<GradientButtonProps> {
   public static defaultProps = {
-    gradientStartColor: Colors.blueGreenGradient.gradientColor1,
-    gradientEndColor: Colors.blueGreenGradient.gradientColor2,
+    gradientStartColor: Colors.themeGradient.gradientColor1,
+    gradientEndColor: Colors.themeGradient.gradientColor2,
   };
   public render() {
     const { label } = this.props;

@@ -18,7 +18,7 @@ const InputFieldStory = () => (
         initialValue={text(setOptionalProp("initialValue"), "lol")}
         validateValue={(value) => (value.length < 8 ? "to short" : undefined)}
         textColor={color(setOptionalProp("textColor"), Colors.defaultText)}
-        onSuccessInputFieldColor={color(setOptionalProp("fieldColor"), Colors.lime)}
+        onSuccessInputFieldColor={color(setOptionalProp("fieldColor"), Colors.themeColor)}
         onFocus={() => console.log("focus")}
         onBlur={() => console.log("blur")}
         keyboardType={text(setOptionalProp("keyboardType"), "default")}

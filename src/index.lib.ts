@@ -13,6 +13,11 @@ import Subscriber from "./Subscriber";
 import InputField from "./Components/Input";
 import LoginForm from "./Containers/LoginFormContainer";
 import setUikitWebpackSetting from "./setUikitWebpackSetting";
+import SignatureModal from "./Components/SignatureModal";
+import { colorTheme } from "./Themes/Colors";
+import CardsPlaceholder from "./Components/Placeholders/Cards";
+import MapPlaceholder from "./Components/Placeholders/Map";
+import ParagraphPlaceholder from "./Components/Placeholders/Paragraph";
 
 export {
   GradientButton,
@@ -28,4 +33,9 @@ export {
   InputField,
   LoginForm,
   setUikitWebpackSetting,
+  SignatureModal,
+  colorTheme,
+  ParagraphPlaceholder,
+  CardsPlaceholder,
+  MapPlaceholder,
 };
