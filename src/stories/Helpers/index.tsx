@@ -1,5 +1,5 @@
-import { name as appName } from "../../../app.json";
-export const libName = appName;
+import { displayName } from "../../../app.json";
+export const libName = displayName;
 export const setRequiredProp = (name: string) => `${name} (required)`;
 export const setOptionalProp = (name: string) => `${name} (optional)`;
 

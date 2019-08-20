@@ -35,6 +35,7 @@ import MyLocation from "./MyLocation";
 import Vehicle from "./Vehicle";
 import TrucknetLogo from "./TrucknetLogo";
 import TrucknetLogoIcon from "./TrucknetLogoIcon";
+import MapPlaceholderIcon from "./MapPlaceholderIcon";
 
 export {
   ChevronUp,
@@ -74,4 +75,5 @@ export {
   TrucknetLogoIcon,
   VatIcon,
   Vehicle,
+  MapPlaceholderIcon,
 };

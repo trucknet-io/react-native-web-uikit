@@ -12,7 +12,7 @@ const GradientButtonStory = () => (
       label={text(setRequiredProp("label"), "Transparent Button With ")}
       link={text(setRequiredProp("link"), "Link")}
       textColor={color(setOptionalProp("textColor"), Colors.defaultText)}
-      linkColor={color(setOptionalProp("linkColor"), Colors.themeDark)}
+      linkColor={color(setOptionalProp("linkColor"), Colors.purpleDark)}
       {...buttonProps()}
     />
   </Container>

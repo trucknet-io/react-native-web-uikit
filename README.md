@@ -41,6 +41,10 @@ For show Modal Wrap Root Container with `RootWrapper` Component
     - react-native-linear-gradient
     - react-native-svg
     - react-native-vector-icons
+    - react-native-modal
+    - react-native-webview
+    - react-content-loader
+    - react-native-shimmer-placeholder
 
 ### Peer Dependencies Web
 
@@ -48,4 +52,7 @@ For show Modal Wrap Root Container with `RootWrapper` Component
     - react-native-web
     - react-native-web-linear-gradient
     - react-native-svg-web
+    - react-native-web-webview,
+    - modal-react-native-web,
+    - react-content-loader,
 
