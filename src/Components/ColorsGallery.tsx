@@ -2,7 +2,7 @@ import * as React from "react";
 import { StyleSheet, View, Text, ScrollView } from "react-native";
 import Colors, { colorTheme } from "../Themes/Colors";
 import LinearGradient from "./LinearGradient";
-
+import { isWeb } from "../Helpers/platform";
 type Props = {
   theme: "light" | "dark";
 };
@@ -82,7 +82,7 @@ const styles = StyleSheet.create({
     margin: 5,
   },
   colorView: {
-    width: 450,
+    width: isWeb ? 450 : 200,
     height: 65,
     borderRadius: 4,
     borderColor: Colors.borderColor,
