@@ -28,10 +28,16 @@ const setUikitWebpackSetting = (config) => {
       "@storybook/react-native": "@storybook/react",
     },
   };
+  if (config) {
+    return {
+      ...config,
+      module: config.module ? { ...config.module, ...moduleRulesChanges } : moduleRulesChanges,
+      resolve: config.resolve ? { ...config.resolve, ...resolveChanges } : resolveChanges,
+    };
+  }
   return {
-    ...config,
-    module: { ...config.module, ...moduleRulesChanges },
-    resolve: { ...config.resolve, ...resolveChanges },
+    module: moduleRulesChanges,
+    resolve: resolveChanges,
   };
 };
 
