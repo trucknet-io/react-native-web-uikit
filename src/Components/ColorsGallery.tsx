@@ -14,9 +14,11 @@ class ColorsGallery extends React.PureComponent<Props> {
   public render() {
     return (
       <ScrollView style={styles.container}>
-        {this.renderColors()}
-        <Text>Palette Colors</Text>
-        {this.renderPaletteColors()}
+        <View style={styles.colorViewContainer}>
+          {this.renderColors()}
+          <Text style={[styles.text, { fontSize: 18 }]}>Palette Colors</Text>
+          {this.renderPaletteColors()}
+        </View>
       </ScrollView>
     );
   }
@@ -26,8 +28,8 @@ class ColorsGallery extends React.PureComponent<Props> {
     const colorNames = Object.keys(Colors.palette);
     return colorNames.map((colorName) => {
       return (
-        <View style={styles.colorViewContainer}>
-          <Text>{colorName}</Text>
+        <View>
+          <Text style={styles.text}>{colorName}</Text>
           <View style={[styles.colorView, { backgroundColor: theme[colorName] }]} />
         </View>
       );
@@ -41,15 +43,15 @@ class ColorsGallery extends React.PureComponent<Props> {
       if (colorName !== "palette") {
         if (typeof theme[colorName] === "string") {
           return (
-            <View style={styles.colorViewContainer}>
-              <Text>{colorName}</Text>
+            <View>
+              <Text style={styles.text}>{colorName}</Text>
               <View style={[styles.colorView, { backgroundColor: theme[colorName] }]} />
             </View>
           );
         }
         return (
-          <View style={styles.colorViewContainer}>
-            <Text>{colorName}</Text>
+          <View>
+            <Text style={styles.text}>{colorName}</Text>
             <LinearGradient
               style={styles.colorView}
               gradientStartColor={theme[colorName].gradientColor1}
@@ -67,6 +69,10 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.palette.veryVeryLightGray,
     padding: 50,
     width: "100%",
+  },
+  text: {
+    margin: 2,
+    marginTop: 10,
   },
   colorViewContainer: {
     flex: 1,
