@@ -28,6 +28,18 @@ import { ComponentName } from "react-native-web-uikit"
 
 For show Modal Wrap Root Container with `RootWrapper` Component
 
+## webpack config
+
+*web apps only*
+
+change your `webpack.config.js`
+```
+const { setUikitWebpackSetting } = require("react-native-web-uikit");
+
+module.exports = setUikitWebpackSetting(config?: webpackConfig);
+
+```
+
 ## Libraries
 
 ### Peer Dependencies
