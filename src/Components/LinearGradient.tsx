@@ -5,7 +5,7 @@ import LinearGradient from "react-native-linear-gradient";
 type Props = {
   gradientStartColor: string;
   gradientEndColor: string;
-  children: React.ReactChild;
+  children?: React.ReactChild;
   start?: { x: number; y: number };
   end?: { x: number; y: number };
   style?: any;

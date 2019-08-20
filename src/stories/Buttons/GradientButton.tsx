@@ -10,8 +10,8 @@ const GradientButtonStory = () => (
   <Container>
     <GradientButton
       label={text(setRequiredProp("label"), "Gradient Button")}
-      gradientStartColor={color(setRequiredProp("gradientStartColor"), Colors.themeGradient.gradientColor1)}
-      gradientEndColor={color(setRequiredProp("gradientEndColor"), Colors.themeGradient.gradientColor2)}
+      gradientStartColor={color(setRequiredProp("gradientStartColor"), Colors.purpleGradient.gradientColor1)}
+      gradientEndColor={color(setRequiredProp("gradientEndColor"), Colors.purpleGradient.gradientColor2)}
       {...buttonProps()}
     />
   </Container>

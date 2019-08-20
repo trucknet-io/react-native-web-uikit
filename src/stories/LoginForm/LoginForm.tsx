@@ -2,7 +2,7 @@ import React from "react";
 import { Alert } from "react-native";
 import Container from "../Container";
 import LoginFormContainer from "../../Containers/LoginFormContainer";
-import { text, number, color, object } from "@storybook/addon-knobs/react";
+import { select, number, color, object } from "@storybook/addon-knobs/react";
 import { setRequiredProp, setOptionalProp, isEmailInvalid } from "../Helpers";
 import Colors from "../../Themes/Colors";
 
@@ -28,12 +28,8 @@ const LoginForm = () => {
           registrationButtonLabel: "call for registration",
           separatorText: "or",
         })}
-        color={object(setOptionalProp("color"), {
-          background: color(setOptionalProp("backgroundColor"), Colors.white),
-          theme: color(setOptionalProp("themeColor"), Colors.lime),
-          text: color(setOptionalProp("textColor"), Colors.defaultText),
-        })}
         componentsSizeRatio={number(setOptionalProp("componentsSizeRatio"), 1)}
+        theme={select(setOptionalProp("theme"), { light: "light", dark: "dark" }, "light")}
       />
     </Container>
   );

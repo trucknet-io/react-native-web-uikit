@@ -8,7 +8,7 @@ import { setOptionalProp, importInfo } from "../Helpers";
 
 const Icons = () => (
   <IconsContainer
-    color={color(setOptionalProp("color"), Colors.themeDark)}
+    color={color(setOptionalProp("color"), Colors.purpleDark)}
     width={number(setOptionalProp("width"), undefined)}
     height={number(setOptionalProp("height"), undefined)}
   />
