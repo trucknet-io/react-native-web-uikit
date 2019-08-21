@@ -99,6 +99,7 @@ class LoginFormContainer extends React.PureComponent<Props, State> {
             onSuccessInputFieldColor={theme.themeColor}
             textColor={theme.defaultText}
             keyboardType="email-address"
+            key={initial.email}
           />
           <Input
             secureTextEntry
@@ -108,6 +109,7 @@ class LoginFormContainer extends React.PureComponent<Props, State> {
             onChange={this.setField("password")}
             onSuccessInputFieldColor={theme.themeColor}
             textColor={theme.defaultText}
+            key={initial.password}
           />
         </View>
         <View style={styles.buttonsContainer}>
