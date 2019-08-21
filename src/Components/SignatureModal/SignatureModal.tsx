@@ -3,8 +3,7 @@ import Fonts from "../../Themes/Fonts";
 import { parseDataUrl, ParsedDataUrlType } from "../../Helpers/regexHelpers";
 import * as React from "react";
 import { Text, View, StyleSheet } from "react-native";
-import NativeModal from "react-native-modal";
-import WebModal from "modal-react-native-web";
+import Modal from "react-native-modal";
 import { TransparentButtonWithChildren } from "../Buttons";
 import { canvasHTML } from "./canvasHTML";
 import WebView from "react-native-webview";
@@ -65,21 +64,22 @@ class SignatureModal extends React.PureComponent<Props> {
   };
 
   private renderNativeModal = () => (
-    <NativeModal
+    <Modal
       isVisible={this.props.isVisible}
       onBackdropPress={this.props.onBackdropPress}
       onModalShow={this.unSubmitSignApply}>
       {this.renderSignView()}
-    </NativeModal>
+    </Modal>
   );
 
   private renderWebModal = () => (
-    <WebModal
+    // @ts-ignore: visible right name for prop if import from modal-react-native-web
+    <Modal
       visible={this.props.isVisible}
       onBackdropPress={this.props.onBackdropPress}
       onModalShow={this.unSubmitSignApply}>
       {this.renderSignView()}
-    </WebModal>
+    </Modal>
   );
 
   renderSignView = () => {
