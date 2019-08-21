@@ -86,11 +86,6 @@ class Input extends React.PureComponent<Props, State> {
       ? new Animated.Value(this.props.maxLabelFontSize)
       : new Animated.Value(this.props.minLabelMarginBottom),
   };
-  public componentWillReceiveProps = (nextProps: Props) => {
-    if (nextProps.initialValue !== this.props.initialValue) {
-      this.setState({ value: nextProps.initialValue }, this.validate);
-    }
-  };
   public render() {
     const { labelFontSize, labelMarginBottom } = this.state;
     const { width, height, errorFontSize, errorColor } = this.props;
