@@ -54,4 +54,4 @@ const setUikitWebpackSetting = (config) => {
   };
 };
 
-module.exports = setUikitWebpackSetting;
+export default setUikitWebpackSetting;
