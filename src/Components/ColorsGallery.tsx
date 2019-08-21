@@ -60,6 +60,7 @@ class ColorsGallery extends React.PureComponent<Props> {
           </View>
         );
       }
+      return <View />;
     });
   };
 }
