@@ -81,7 +81,7 @@ class LoginFormContainer extends React.PureComponent<Props, State> {
       }
       return (
         <Input
-          ref={(el) => (this[fieldName] = el)}
+          ref={this.setFieldRef(fieldName)}
           key={fieldName}
           label={field.label}
           secureTextEntry={field.secureTextEntry}
@@ -96,6 +96,8 @@ class LoginFormContainer extends React.PureComponent<Props, State> {
       );
     });
   };
+
+  private setFieldRef = (fieldName) => (field) => (this[fieldName] = field);
 
   private onCurrentInputSubmit = (nextComponentName?: string) => () => {
     if (nextComponentName) {

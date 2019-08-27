@@ -221,7 +221,6 @@ const Field = (props) => {
     <TextInput
       ref={setInputRef}
       defaultValue={initialValue}
-      type="number"
       keyboardType={keyboardType}
       style={[
         styles.textInput,
