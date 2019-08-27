@@ -27,6 +27,7 @@ type Props = {
   initialValue?: string;
   onFocus?(e: NativeSyntheticEvent<TextInputFocusEventData>): void;
   onBlur?(e: NativeSyntheticEvent<TargetedEvent>): void;
+  onSubmitEditing?(e: NativeSyntheticEvent<TargetedEvent>): void;
   maxLabelFontSize: number;
   minLabelFontSize: number;
   maxLabelMarginBottom: number;
@@ -60,6 +61,7 @@ type State = {
 };
 
 class Input extends React.PureComponent<Props, State> {
+  textInput = React.createRef();
   static defaultProps = {
     onSuccessInputFieldColor: Colors.themeColor,
     textColor: Colors.defaultText,
@@ -86,6 +88,11 @@ class Input extends React.PureComponent<Props, State> {
       ? new Animated.Value(this.props.maxLabelFontSize)
       : new Animated.Value(this.props.minLabelMarginBottom),
   };
+  public focus = () => {
+    const textInput = this.textInput as { focus(): void; current: Object };
+    textInput.focus();
+  };
+
   public render() {
     const { labelFontSize, labelMarginBottom } = this.state;
     const { width, height, errorFontSize, errorColor } = this.props;
@@ -95,36 +102,44 @@ class Input extends React.PureComponent<Props, State> {
           style={{ fontSize: labelFontSize, marginBottom: labelMarginBottom, color: this.setLabelColor() }}>
           {this.props.label}
         </Animated.Text>
-        {this.renderInput()}
+        <Field
+          setInputRef={this.setInputRef}
+          secureTextEntry={this.props.secureTextEntry}
+          keyboardType={this.props.keyboardType}
+          textColor={this.props.textColor}
+          borderBottomWidth={this.props.borderBottomWidth}
+          inputFontSize={this.props.inputFontSize}
+          onFocus={this.onFocus}
+          onBlur={this.onBlur}
+          onSubmitEditing={this.props.onSubmitEditing}
+          onChangeText={this.onChangeText}
+          setFieldColor={this.setFieldColor}
+          nativeTextInputProps={this.props.nativeTextInputProps}
+          initialValue={this.props.initialValue}
+        />
         <Text style={[styles.error, { fontSize: errorFontSize, color: errorColor }]}>{this.state.error}</Text>
       </Animated.View>
     );
   }
+  private setInputRef = (el) => {
+    this.textInput = el;
+  };
 
-  private renderInput = () => {
-    const {
-      secureTextEntry,
-      keyboardType,
-      textColor,
-      nativeTextInputProps,
-      borderBottomWidth,
-      inputFontSize,
-    } = this.props;
-    return (
-      <TextInput
-        keyboardType={keyboardType}
-        style={[
-          styles.textInput,
-          { borderBottomColor: this.setFieldColor(), color: textColor, borderBottomWidth, fontSize: inputFontSize },
-        ]}
-        secureTextEntry={secureTextEntry}
-        onFocus={this.onFocus}
-        onBlur={this.onBlur}
-        value={this.state.value}
-        onChangeText={this.onChangeText}
-        {...nativeTextInputProps}
-      />
-    );
+  private onChangeText = (value) => {
+    this.setState({ value }, this.validate);
+  };
+
+  private validate = () => {
+    const { validateValue } = this.props;
+    if (validateValue) {
+      return this.setState({ error: validateValue(this.state.value) }, this.setValue);
+    }
+
+    return this.setValue();
+  };
+
+  private setValue = () => {
+    this.props.onChange({ value: this.state.value, isValid: !this.state.error });
   };
 
   private onFocus = (event: NativeSyntheticEvent<TextInputFocusEventData>) => {
@@ -184,24 +199,43 @@ class Input extends React.PureComponent<Props, State> {
     }
     return this.props.onSuccessInputFieldColor;
   };
-
-  private onChangeText = (value) => {
-    this.setState({ value }, this.validate);
-  };
-
-  private validate = () => {
-    const { validateValue } = this.props;
-    if (validateValue) {
-      return this.setState({ error: validateValue(this.state.value) }, this.setValue);
-    }
-
-    return this.setValue();
-  };
-
-  private setValue = () => {
-    this.props.onChange({ value: this.state.value, isValid: !this.state.error });
-  };
 }
+
+const Field = (props) => {
+  const {
+    initialValue,
+    secureTextEntry,
+    keyboardType,
+    textColor,
+    nativeTextInputProps,
+    borderBottomWidth,
+    inputFontSize,
+    onFocus,
+    onBlur,
+    onChangeText,
+    setFieldColor,
+    onSubmitEditing,
+    setInputRef,
+  } = props;
+  return (
+    <TextInput
+      ref={setInputRef}
+      defaultValue={initialValue}
+      type="number"
+      keyboardType={keyboardType}
+      style={[
+        styles.textInput,
+        { borderBottomColor: setFieldColor(), color: textColor, borderBottomWidth, fontSize: inputFontSize },
+      ]}
+      secureTextEntry={secureTextEntry}
+      onFocus={onFocus}
+      onBlur={onBlur}
+      onChangeText={onChangeText}
+      onSubmitEditing={onSubmitEditing}
+      {...nativeTextInputProps}
+    />
+  );
+};
 
 const styles = StyleSheet.create({
   container: {

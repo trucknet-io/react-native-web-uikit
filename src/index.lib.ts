@@ -11,6 +11,7 @@ import LinearGradient from "./Components/LinearGradient";
 import RootWrapper from "./Wrappers/RootWrapper";
 import Subscriber from "./Subscriber";
 import InputField from "./Components/Input";
+import Form from "./Containers/FormContainer";
 import LoginForm from "./Containers/LoginFormContainer";
 import SignatureModal from "./Components/SignatureModal";
 import { colorTheme } from "./Themes/Colors";
@@ -31,6 +32,7 @@ export {
   RootWrapper,
   Subscriber,
   InputField,
+  Form,
   LoginForm,
   setUikitWebpackSetting,
   SignatureModal,
