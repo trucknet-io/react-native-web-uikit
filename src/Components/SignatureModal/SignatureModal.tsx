@@ -24,6 +24,10 @@ type State = {
   signatureData?: ParsedDataUrlType;
   isSignSubmitted: boolean;
   colors: typeof colorTheme;
+  /**
+   * Change it to rerender webview, when reset is needed
+   */
+  resetCount: number;
 };
 
 class SignatureModal extends React.PureComponent<Props> {
@@ -38,6 +42,7 @@ class SignatureModal extends React.PureComponent<Props> {
     signatureData: undefined,
     isSignSubmitted: false,
     colors: colorTheme,
+    resetCount: 0,
   };
   public render() {
     return <View>{isWeb ? this.renderWebModal() : this.renderNativeModal()}</View>;
@@ -98,6 +103,7 @@ class SignatureModal extends React.PureComponent<Props> {
             source={{ html: canvasHTML }}
             showsVerticalScrollIndicator={false}
             showsHorizontalScrollIndicator={false}
+            key={this.state.resetCount}
           />
         </View>
         {this.renderButtons()}
@@ -135,12 +141,8 @@ class SignatureModal extends React.PureComponent<Props> {
     this.props.onSignApply(signatureData);
   };
   private resetWebView = () => {
-    if (isWeb) {
-      // @ts-ignore
-      return location.reload();
-    }
     this.setState({ signatureData: undefined }, this.unSubmitSignApply);
-    return this.webView.reload();
+    this.setState({ resetCount: this.state.resetCount + 1 });
   };
   private submitSignApply = () => {
     this.setState({ isSignSubmitted: true });
