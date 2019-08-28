@@ -1,7 +1,6 @@
 import Colors, { colorTheme } from "../../Themes/Colors";
 import Fonts from "../../Themes/Fonts";
 import { parseDataUrl, ParsedDataUrlType } from "../../Helpers/regexHelpers";
-import { sleep } from "../../Helpers/timeHelpers";
 import * as React from "react";
 import { Text, View, StyleSheet } from "react-native";
 import Modal from "react-native-modal";
@@ -25,7 +24,10 @@ type State = {
   signatureData?: ParsedDataUrlType;
   isSignSubmitted: boolean;
   colors: typeof colorTheme;
-  isModalVisible: boolean;
+  /**
+   * Change it to rerender webview, when reset is needed
+   */
+  resetCount: number;
 };
 
 class SignatureModal extends React.PureComponent<Props> {
@@ -40,12 +42,9 @@ class SignatureModal extends React.PureComponent<Props> {
     signatureData: undefined,
     isSignSubmitted: false,
     colors: colorTheme,
-    isModalVisible: true,
+    resetCount: 0,
   };
   public render() {
-    if (!this.state.isModalVisible) {
-      return <View />;
-    }
     return <View>{isWeb ? this.renderWebModal() : this.renderNativeModal()}</View>;
   }
 
@@ -104,6 +103,7 @@ class SignatureModal extends React.PureComponent<Props> {
             source={{ html: canvasHTML }}
             showsVerticalScrollIndicator={false}
             showsHorizontalScrollIndicator={false}
+            key={this.state.resetCount}
           />
         </View>
         {this.renderButtons()}
@@ -142,11 +142,7 @@ class SignatureModal extends React.PureComponent<Props> {
   };
   private resetWebView = () => {
     this.setState({ signatureData: undefined }, this.unSubmitSignApply);
-    this.setState({ isModalVisible: false }, this.showModalAfterDelay);
-  };
-  private showModalAfterDelay = async () => {
-    await sleep(0);
-    this.setState({ isModalVisible: true });
+    this.setState({ resetCount: this.state.resetCount + 1 });
   };
   private submitSignApply = () => {
     this.setState({ isSignSubmitted: true });
