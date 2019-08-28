@@ -16,7 +16,7 @@ const InputFieldStory = () => (
         width={text(setOptionalProp("width"), "100%")}
         height={number(setOptionalProp("height"), 84)}
         initialValue={text(setOptionalProp("initialValue"), "lol")}
-        validateValue={(value) => (value.length < 8 ? "to short" : undefined)}
+        validateValue={validateValue}
         textColor={color(setOptionalProp("textColor"), Colors.defaultText)}
         onSuccessInputFieldColor={color(setOptionalProp("fieldColor"), Colors.themeColor)}
         onFocus={() => console.log("focus")}
@@ -35,5 +35,12 @@ const InputFieldStory = () => (
     </View>
   </Container>
 );
+
+const validateValue = (value?: string) => {
+  if (!value) {
+    return "need some value";
+  }
+  return value.length < 8 ? "to short" : undefined;
+};
 
 export default InputFieldStory;

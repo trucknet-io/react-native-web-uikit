@@ -7,8 +7,9 @@ import {
   NativeSyntheticEvent,
   TextInputFocusEventData,
   TextInputProps,
+  TextInputSubmitEditingEventData,
 } from "react-native";
-import Colors from "../Themes/Colors";
+import Colors, { colorTheme } from "../Themes/Colors";
 import { isWeb } from "../Helpers/platform";
 
 export interface TargetedEvent {
@@ -27,7 +28,7 @@ type Props = {
   initialValue?: string;
   onFocus?(e: NativeSyntheticEvent<TextInputFocusEventData>): void;
   onBlur?(e: NativeSyntheticEvent<TargetedEvent>): void;
-  onSubmitEditing?(e: NativeSyntheticEvent<TargetedEvent>): void;
+  onSubmitEditing?(e: NativeSyntheticEvent<TextInputSubmitEditingEventData>): void;
   maxLabelFontSize: number;
   minLabelFontSize: number;
   maxLabelMarginBottom: number;
@@ -58,10 +59,11 @@ type State = {
   labelMarginBottom: Animated.Value;
   value?: string;
   error?: string;
+  inputBorderColor: string;
 };
 
 class Input extends React.PureComponent<Props, State> {
-  textInput = React.createRef();
+  textInput?: TextInput;
   static defaultProps = {
     onSuccessInputFieldColor: Colors.themeColor,
     textColor: Colors.defaultText,
@@ -81,6 +83,7 @@ class Input extends React.PureComponent<Props, State> {
   public state = {
     value: this.props.initialValue,
     error: undefined,
+    inputBorderColor: colorTheme.light.palette.lightGray,
     labelFontSize: this.props.initialValue
       ? new Animated.Value(this.props.minLabelFontSize)
       : new Animated.Value(this.props.maxLabelFontSize),
@@ -88,9 +91,13 @@ class Input extends React.PureComponent<Props, State> {
       ? new Animated.Value(this.props.maxLabelFontSize)
       : new Animated.Value(this.props.minLabelMarginBottom),
   };
+  public componentDidMount = () => {
+    this.setState({ inputBorderColor: this.setFieldColor() });
+  };
   public focus = () => {
-    const textInput = this.textInput as { focus(): void; current: Object };
-    textInput.focus();
+    if (this.textInput) {
+      this.textInput.focus();
+    }
   };
 
   public render() {
@@ -111,9 +118,9 @@ class Input extends React.PureComponent<Props, State> {
           inputFontSize={this.props.inputFontSize}
           onFocus={this.onFocus}
           onBlur={this.onBlur}
-          onSubmitEditing={this.props.onSubmitEditing}
+          onSubmitEditing={this.onSubmitEditing}
           onChangeText={this.onChangeText}
-          setFieldColor={this.setFieldColor}
+          inputBorderColor={this.state.inputBorderColor}
           nativeTextInputProps={this.props.nativeTextInputProps}
           initialValue={this.props.initialValue}
         />
@@ -121,11 +128,18 @@ class Input extends React.PureComponent<Props, State> {
       </Animated.View>
     );
   }
-  private setInputRef = (el) => {
+
+  private onSubmitEditing = (e) => {
+    if (this.props.onSubmitEditing) {
+      this.props.onSubmitEditing(e);
+    }
+  };
+
+  private setInputRef = (el: TextInput) => {
     this.textInput = el;
   };
 
-  private onChangeText = (value) => {
+  private onChangeText = (value: string) => {
     this.setState({ value }, this.validate);
   };
 
@@ -140,6 +154,7 @@ class Input extends React.PureComponent<Props, State> {
 
   private setValue = () => {
     this.props.onChange({ value: this.state.value, isValid: !this.state.error });
+    this.setState({ inputBorderColor: this.setFieldColor() });
   };
 
   private onFocus = (event: NativeSyntheticEvent<TextInputFocusEventData>) => {
@@ -190,7 +205,7 @@ class Input extends React.PureComponent<Props, State> {
     return this.props.textColor;
   };
 
-  private setFieldColor = () => {
+  private setFieldColor() {
     if (!this.state.value) {
       return Colors.palette.lightGray;
     }
@@ -198,43 +213,74 @@ class Input extends React.PureComponent<Props, State> {
       return this.props.errorColor;
     }
     return this.props.onSuccessInputFieldColor;
-  };
+  }
 }
 
-const Field = (props) => {
-  const {
-    initialValue,
-    secureTextEntry,
-    keyboardType,
-    textColor,
-    nativeTextInputProps,
-    borderBottomWidth,
-    inputFontSize,
-    onFocus,
-    onBlur,
-    onChangeText,
-    setFieldColor,
-    onSubmitEditing,
-    setInputRef,
-  } = props;
-  return (
-    <TextInput
-      ref={setInputRef}
-      defaultValue={initialValue}
-      keyboardType={keyboardType}
-      style={[
-        styles.textInput,
-        { borderBottomColor: setFieldColor(), color: textColor, borderBottomWidth, fontSize: inputFontSize },
-      ]}
-      secureTextEntry={secureTextEntry}
-      onFocus={onFocus}
-      onBlur={onBlur}
-      onChangeText={onChangeText}
-      onSubmitEditing={onSubmitEditing}
-      {...nativeTextInputProps}
-    />
-  );
+type FieldProps = {
+  onChangeText(value: string): void;
+  inputBorderColor: string;
+  setInputRef(TextInput): void;
+  borderBottomWidth: number;
+  inputFontSize: number;
+  onSubmitEditing(e: NativeSyntheticEvent<TextInputSubmitEditingEventData>): void;
+  initialValue?: string;
+  secureTextEntry?: boolean;
+  textColor?: string;
+  nativeTextInputProps?: TextInputProps;
+  onFocus?(e: NativeSyntheticEvent<TextInputFocusEventData>): void;
+  onBlur?(e: NativeSyntheticEvent<TargetedEvent>): void;
+  keyboardType:
+    | "default"
+    | "email-address"
+    | "numeric"
+    | "phone-pad"
+    | "visible-password"
+    | "ascii-capable"
+    | "numbers-and-punctuation"
+    | "url"
+    | "number-pad"
+    | "name-phone-pad"
+    | "decimal-pad"
+    | "twitter"
+    | "web-search";
 };
+
+class Field extends React.PureComponent<FieldProps> {
+  render() {
+    const {
+      initialValue,
+      secureTextEntry,
+      keyboardType,
+      textColor,
+      nativeTextInputProps,
+      borderBottomWidth,
+      inputFontSize,
+      onFocus,
+      onBlur,
+      onChangeText,
+      inputBorderColor,
+      onSubmitEditing,
+      setInputRef,
+    } = this.props;
+    return (
+      <TextInput
+        ref={setInputRef}
+        defaultValue={initialValue}
+        keyboardType={keyboardType}
+        style={[
+          styles.textInput,
+          { borderBottomColor: inputBorderColor, color: textColor, borderBottomWidth, fontSize: inputFontSize },
+        ]}
+        secureTextEntry={secureTextEntry}
+        onFocus={onFocus}
+        onBlur={onBlur}
+        onChangeText={onChangeText}
+        onSubmitEditing={onSubmitEditing}
+        {...nativeTextInputProps}
+      />
+    );
+  }
+}
 
 const styles = StyleSheet.create({
   container: {

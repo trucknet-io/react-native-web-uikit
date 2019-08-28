@@ -1,14 +1,14 @@
 import * as React from "react";
 
-import { View, StyleSheet, KeyboardType } from "react-native";
-import { colorTheme } from "../Themes/Colors";
-import Input from "../Components/Input";
-import { GradientButton } from "../Components/Buttons";
+import { View, StyleSheet, KeyboardType, TextInput } from "react-native";
+import { colorTheme } from "src/Themes/Colors";
+import Input from "src/Components/Input";
+import { GradientButton } from "src/Components/Buttons";
 
 type FieldsState = { [key: string]: { value?: string; isValid: boolean } };
 
 interface Props {
-  onSubmit(res: FieldsState): void;
+  handleSubmit(res: FieldsState): void;
   fields: {
     [key: string]: {
       label: string;
@@ -30,11 +30,14 @@ interface State {
 }
 
 class LoginFormContainer extends React.PureComponent<Props, State> {
+  nextInput: { [key: string]: TextInput } = {};
   static defaultProps = {
     paddingTop: 32,
     paddingHorizontal: "16%",
   };
-  public setFields = () => {
+
+  public constructor(props) {
+    super(props);
     const fields: FieldsState = {};
     for (const fieldName in this.props.fields) {
       const field = this.props.fields[fieldName];
@@ -43,12 +46,12 @@ class LoginFormContainer extends React.PureComponent<Props, State> {
         isValid: field.validate ? !field.validate(field.initialValue) : true,
       };
     }
-    return fields;
-  };
-  state = {
-    fields: this.setFields(),
-    colors: colorTheme,
-  };
+
+    this.state = {
+      fields: fields,
+      colors: colorTheme,
+    };
+  }
 
   public render() {
     const theme = this.state.colors[this.props.theme];
@@ -71,14 +74,10 @@ class LoginFormContainer extends React.PureComponent<Props, State> {
   private renderInputs = () => {
     const theme = this.state.colors[this.props.theme];
     const fieldNames = Object.keys(this.props.fields);
-    const fieldNamesLength = fieldNames.length;
 
     return fieldNames.map((fieldName, index) => {
       const field = this.props.fields[fieldName];
-      let nextComponentName: string | undefined = fieldNames[index + 1];
-      if (index === fieldNamesLength - 1) {
-        nextComponentName = undefined;
-      }
+      const nextInputName = fieldNames[index + 1];
       return (
         <Input
           ref={this.setFieldRef(fieldName)}
@@ -91,41 +90,42 @@ class LoginFormContainer extends React.PureComponent<Props, State> {
           textColor={theme.defaultText}
           keyboardType={field.keyboardType}
           initialValue={field.initialValue}
-          onSubmitEditing={this.onCurrentInputSubmit(nextComponentName)}
+          onSubmitEditing={this.onCurrentInputSubmit(nextInputName)}
         />
       );
     });
   };
 
-  private setFieldRef = (fieldName) => (field) => (this[fieldName] = field);
+  private setFieldRef = (fieldName) => (field) => (this.nextInput[fieldName] = field);
 
-  private onCurrentInputSubmit = (nextComponentName?: string) => () => {
-    if (nextComponentName) {
-      return this[nextComponentName].focus();
+  private onCurrentInputSubmit = (nextInputName?: string) => () => {
+    if (nextInputName && this.nextInput[nextInputName]) {
+      const textInput = this.nextInput[nextInputName] as TextInput;
+      return textInput.focus();
     }
-    if (!nextComponentName && this.isFieldsValid()) {
-      return this.onSubmit();
+    if (!nextInputName && this.isFormValid()) {
+      return this.handleSubmit();
     }
   };
 
   private setValue = (fieldName: string) => (value) => {
     this.setState({ fields: { ...this.state.fields, [fieldName]: value } });
   };
-  private onSubmit = () => {
-    this.props.onSubmit(this.state.fields);
+  private handleSubmit = () => {
+    this.props.handleSubmit(this.state.fields);
   };
   private renderSubmitButton = () => {
     return (
       <GradientButton
-        disabled={!this.isFieldsValid()}
+        disabled={!this.isFormValid()}
         height={40}
         label={this.props.submitLabel.toUpperCase()}
-        onPress={this.onSubmit}
+        onPress={this.handleSubmit}
       />
     );
   };
 
-  private isFieldsValid = () => {
+  private isFormValid = () => {
     const fieldsValidStatus: boolean[] = [];
     for (const fieldName in this.state.fields) {
       const field = this.state.fields[fieldName];

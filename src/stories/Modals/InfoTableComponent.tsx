@@ -4,10 +4,10 @@ import Colors from "../../Themes/Colors";
 
 const styles = StyleSheet.create({
   codeContainer: {
-    backgroundColor: Colors.veryVeryLightGray,
+    backgroundColor: Colors.palette.veryVeryLightGray,
     borderWidth: 1,
-    borderColor: Colors.purpleDark,
-    color: Colors.purpleDark,
+    borderColor: Colors.palette.purpleDark,
+    color: Colors.palette.purpleDark,
     borderRadius: 4,
     padding: 5,
     marginTop: 2,

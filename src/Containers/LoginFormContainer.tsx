@@ -1,9 +1,9 @@
 import * as React from "react";
 
 import { View, StyleSheet, Text, Animated, Keyboard } from "react-native";
-import * as Icons from "../Components/Icons";
-import Colors, { colorTheme } from "../Themes/Colors";
-import { TransparentButton } from "../Components/Buttons";
+import * as Icons from "src/Components/Icons";
+import Colors, { colorTheme } from "src/Themes/Colors";
+import { TransparentButton } from "src/Components/Buttons";
 import FormContainer from "./FormContainer";
 
 type Props = {
@@ -20,7 +20,7 @@ type Props = {
     };
   };
   callback: {
-    onSubmit(res: { email: string; password: string }): void;
+    handleSubmit(res: { email: string; password: string }): void;
     onForgotPasswordPress?(): void;
     onRegistrationPress?(): void;
   };
@@ -89,7 +89,7 @@ class LoginFormContainer extends React.PureComponent<Props, State> {
             },
           }}
           theme={this.props.theme}
-          onSubmit={this.onSubmit}
+          handleSubmit={this.handleSubmit}
           paddingHorizontal={0}
           paddingTop={84}
           submitLabel={this.props.text.submitLabel}
@@ -104,10 +104,10 @@ class LoginFormContainer extends React.PureComponent<Props, State> {
     );
   }
 
-  private onSubmit = (fields) => {
+  private handleSubmit = (fields) => {
     const email = fields.email.value;
     const password = fields.password.value;
-    this.props.callback.onSubmit({ email, password });
+    this.props.callback.handleSubmit({ email, password });
   };
 
   private showSubElements = () => {
