@@ -4,7 +4,7 @@ import GradientButtonWithChildrenStory from "./GradientButtonWithChildren";
 import TransparentButtonStory from "./TransparentButton";
 import TransparentButtonWithChildrenStory from "./TransparentButtonWithChildren";
 import TransparentButtonWithLinkStory from "./TransparentButtonWithLink";
-import { importInfo } from "../Helpers";
+import { importInfo } from "src/stories/Helpers";
 import { withKnobs } from "@storybook/addon-knobs/react";
 
 const stories = storiesOf("Buttons", module);

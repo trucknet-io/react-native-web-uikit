@@ -9,8 +9,8 @@ import {
   TextInputProps,
   TextInputSubmitEditingEventData,
 } from "react-native";
-import Colors from "../Themes/Colors";
-import { isWeb } from "../Helpers/platform";
+import Colors from "src/Themes/Colors";
+import { isWeb } from "src/Helpers/platform";
 
 export interface TargetedEvent {
   target: number;

@@ -1,10 +1,10 @@
 import React from "react";
 import { storiesOf } from "@storybook/react-native";
-import IconsContainer from "../../Containers/IconsContainer";
+import IconsContainer from "src/Containers/IconsContainer";
 import { withKnobs, number, color } from "@storybook/addon-knobs/react";
 import { withInfo } from "@storybook/addon-info";
-import Colors from "../../Themes/Colors";
-import { setOptionalProp, importInfo } from "../Helpers";
+import Colors from "src/Themes/Colors";
+import { setOptionalProp, importInfo } from "src/stories/Helpers";
 
 const Icons = () => (
   <IconsContainer

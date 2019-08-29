@@ -11,7 +11,7 @@ const LoginForm = () => {
     <Container>
       <LoginFormContainer
         callback={object(setRequiredProp("callback"), {
-          onSubmit: action("Submit"),
+          handleSubmit: action("Submit"),
           onForgotPasswordPress: () => Alert.alert("forgot password button press"),
           onRegistrationPress: () => Alert.alert("registration button press"),
         })}

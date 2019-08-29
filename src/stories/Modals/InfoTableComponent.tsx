@@ -1,6 +1,6 @@
 import React from "react";
 import { Text, StyleSheet, View } from "react-native";
-import Colors from "../../Themes/Colors";
+import Colors from "src/Themes/Colors";
 
 const styles = StyleSheet.create({
   codeContainer: {
