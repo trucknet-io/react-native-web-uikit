@@ -28,7 +28,7 @@ const LoginForm = () => {
           separatorText: "or",
         })}
         componentsSizeRatio={number(setOptionalProp("componentsSizeRatio"), 1)}
-        theme={select(setOptionalProp("theme"), { light: "light", dark: "dark" }, "light")}
+        theme={select(setOptionalProp("theme"), { light: "light", dark: "dark" }, "dark")}
       />
     </Container>
   );
