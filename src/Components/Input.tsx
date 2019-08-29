@@ -9,8 +9,8 @@ import {
   TextInputProps,
   TextInputSubmitEditingEventData,
 } from "react-native";
-import Colors from "src/Themes/Colors";
-import { isWeb } from "src/Helpers/platform";
+import Colors from "../Themes/Colors";
+import { isWeb, isAndroid } from "../Helpers/platform";
 
 export interface TargetedEvent {
   target: number;
@@ -70,10 +70,10 @@ class Input extends React.PureComponent<Props, State> {
     keyboardType: "default",
     width: "100%",
     height: 84,
-    maxLabelFontSize: 16,
+    maxLabelFontSize: 14,
     minLabelFontSize: 12,
     maxLabelMarginBottom: isWeb ? 16 : 0,
-    minLabelMarginBottom: isWeb ? -24 : -34,
+    minLabelMarginBottom: isWeb ? -24 : isAndroid ? -34 : -28,
     inputFontSize: 14,
     errorFontSize: 12,
     errorColor: Colors.error,
