@@ -9,7 +9,7 @@ import {
   TextInputProps,
   TextInputSubmitEditingEventData,
 } from "react-native";
-import Colors, { colorTheme } from "../Themes/Colors";
+import Colors from "../Themes/Colors";
 import { isWeb } from "../Helpers/platform";
 
 export interface TargetedEvent {
@@ -59,7 +59,6 @@ type State = {
   labelMarginBottom: Animated.Value;
   value?: string;
   error?: string;
-  inputBorderColor: string;
 };
 
 class Input extends React.PureComponent<Props, State> {
@@ -80,10 +79,10 @@ class Input extends React.PureComponent<Props, State> {
     errorColor: Colors.error,
     borderBottomWidth: 1,
   };
-  public state = {
+
+  state = {
     value: this.props.initialValue,
     error: undefined,
-    inputBorderColor: colorTheme.light.palette.lightGray,
     labelFontSize: this.props.initialValue
       ? new Animated.Value(this.props.minLabelFontSize)
       : new Animated.Value(this.props.maxLabelFontSize),
@@ -91,9 +90,7 @@ class Input extends React.PureComponent<Props, State> {
       ? new Animated.Value(this.props.maxLabelFontSize)
       : new Animated.Value(this.props.minLabelMarginBottom),
   };
-  public componentDidMount = () => {
-    this.setState({ inputBorderColor: this.setFieldColor() });
-  };
+
   public focus = () => {
     if (this.textInput) {
       this.textInput.focus();
@@ -106,7 +103,7 @@ class Input extends React.PureComponent<Props, State> {
     return (
       <Animated.View style={[styles.container, { width, height }]}>
         <Animated.Text
-          style={{ fontSize: labelFontSize, marginBottom: labelMarginBottom, color: this.setLabelColor() }}>
+          style={{ fontSize: labelFontSize, marginBottom: labelMarginBottom, color: this.getLabelColor() }}>
           {this.props.label}
         </Animated.Text>
         <Field
@@ -120,7 +117,7 @@ class Input extends React.PureComponent<Props, State> {
           onBlur={this.onBlur}
           onSubmitEditing={this.onSubmitEditing}
           onChangeText={this.onChangeText}
-          inputBorderColor={this.state.inputBorderColor}
+          inputBorderColor={this.getFieldColor()}
           nativeTextInputProps={this.props.nativeTextInputProps}
           initialValue={this.props.initialValue}
         />
@@ -154,7 +151,6 @@ class Input extends React.PureComponent<Props, State> {
 
   private setValue = () => {
     this.props.onChange({ value: this.state.value, isValid: !this.state.error });
-    this.setState({ inputBorderColor: this.setFieldColor() });
   };
 
   private onFocus = (event: NativeSyntheticEvent<TextInputFocusEventData>) => {
@@ -195,7 +191,7 @@ class Input extends React.PureComponent<Props, State> {
     }
   };
 
-  private setLabelColor = () => {
+  private getLabelColor = () => {
     if (!this.state.value) {
       return Colors.palette.lightGray;
     }
@@ -205,7 +201,7 @@ class Input extends React.PureComponent<Props, State> {
     return this.props.textColor;
   };
 
-  private setFieldColor() {
+  private getFieldColor = () => {
     if (!this.state.value) {
       return Colors.palette.lightGray;
     }
@@ -213,7 +209,7 @@ class Input extends React.PureComponent<Props, State> {
       return this.props.errorColor;
     }
     return this.props.onSuccessInputFieldColor;
-  }
+  };
 }
 
 type FieldProps = {
@@ -245,7 +241,7 @@ type FieldProps = {
     | "web-search";
 };
 
-class Field extends React.PureComponent<FieldProps> {
+class Field extends React.Component<FieldProps> {
   render() {
     const {
       initialValue,
