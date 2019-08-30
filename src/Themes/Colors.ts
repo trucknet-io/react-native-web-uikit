@@ -113,3 +113,5 @@ export const colorTheme = {
   light: lightColors,
   dark: darkColors,
 };
+
+export type ColorThemeName = "light" | "dark";

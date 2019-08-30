@@ -1,5 +1,5 @@
 import Colors, { colorTheme } from "../../Themes/Colors";
-import Fonts from "../../Themes/Fonts";
+import fonts from "../../Themes/Fonts";
 import { parseDataUrl, ParsedDataUrlType } from "../../Helpers/regexHelpers";
 import * as React from "react";
 import { Text, View, StyleSheet } from "react-native";
@@ -178,15 +178,11 @@ const styles = StyleSheet.create({
     justifyContent: "flex-end",
     alignItems: "flex-end",
   },
-  headerText: {
-    ...Fonts.style.Title,
-  },
-  helperText: {
-    ...Fonts.style.SubTitle2,
-  },
+  headerText: fonts.MTitle,
+  helperText: fonts.SubTitle,
   buttonText: {
     flex: 1,
-    ...Fonts.style.Button,
+    ...fonts.BodyRegular,
     textAlign: "right",
   },
 });
