@@ -37,7 +37,9 @@
     "postrelease": "npm run publish",
     "release": "./extra/release.sh"
   },
-  "dependencies": {},
+  "dependencies": {
+    "react-native-device-info": "^2.3.2"
+  },
   "devDependencies": {
     "@babel/core": "^7.5.5",
     "@babel/preset-flow": "^7.0.0",

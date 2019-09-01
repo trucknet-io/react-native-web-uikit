@@ -34,6 +34,7 @@ import { ThemeProvider } from "react-native-web-uikit";
 <ThemeProvider
         value={{
           colorThemeName: this.state.colorThemeName,
+          dimensions: this.state.dimensions,
         }}>
     <ThemedComponents />
 </ThemeProvider>
@@ -65,14 +66,26 @@ class Component extends React.PureComponent<Props, State> {
     }
 }
 
-const setStyle = ({ color, getFont }: SetStyleParamsType) =>
-    StyleSheet.create({
-        container: {
-            backgroundColor: color.background,
-        },
-        text: getFont("BodyRegular"),
-    });
-
+const setStyle = ({ color, getFont, variables }: SetStyleParamsType) => {
+    const { shadow, size, borderRadius, borderWidth, screenWidth, screenHeight, isTablet } = variables;
+    return (
+        StyleSheet.create({
+            container: {
+                backgroundColor: color.background,
+                padding: isTablet ? size.xl : size.l,
+                width: screenWidth,
+                height: screenHeight,
+            },
+            card, {
+                flex: 1,
+                borderRadius,
+                borderWidth,
+                ...shadow,
+            }
+            text: getFont("BodyRegular"),
+        });
+    )
+}
 export default withTheme<Props, Style>(setStyle)(Component);
 
 ```

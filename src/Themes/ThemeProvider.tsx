@@ -1,13 +1,19 @@
 import { colorTheme, ColorThemeNameType, ColorThemeType } from "./Colors";
 import * as React from "react";
-import { StyleProp } from "react-native";
+import { StyleProp, Dimensions } from "react-native";
+import getVariables, { GetVariablesType } from "./Variables";
 import { getThemeFont } from "./Fonts";
 
-export type ThemeProviderType = { colorThemeName: ColorThemeNameType };
-export type SetStyleParamsType = { color: ColorThemeType; getFont: ReturnType<typeof getThemeFont> };
+export type ThemeProviderType = { colorThemeName: ColorThemeNameType; dimensions: Dimensions };
+export type SetStyleParamsType = {
+  color: ColorThemeType;
+  getFont: ReturnType<typeof getThemeFont>;
+  variables: GetVariablesType;
+};
 
 const { Provider, Consumer } = React.createContext({
   colorThemeName: "light",
+  dimensions: Dimensions,
 });
 
 const ThemeProvider = Provider as React.Provider<ThemeProviderType>;
@@ -20,6 +26,7 @@ type GetComponentStyle<S> = (theme: SetStyleParamsType) => S;
 export interface WithStyle<S> {
   style: S;
   colorThemeName: ColorThemeNameType;
+  variables: GetVariablesType;
 }
 
 export const withTheme = <P, S>(getComponentStyle: GetComponentStyle<S>) => (Component: React.ComponentType<P>) => {
@@ -29,12 +36,13 @@ export const withTheme = <P, S>(getComponentStyle: GetComponentStyle<S>) => (Com
     }
 
     public renderComponent = (ctx: ThemeProviderType) => {
-      const { colorThemeName } = ctx;
+      const { colorThemeName, dimensions } = ctx;
       const color = colorTheme[colorThemeName];
       const getFont = getThemeFont(colorThemeName);
-      const componentStyle = getComponentStyle({ color, getFont });
+      const variables = getVariables(dimensions);
+      const componentStyle = getComponentStyle({ color, getFont, variables });
       const style: StyleProp<typeof componentStyle> = componentStyle;
-      return <Component {...this.props} style={style} colorThemeName={colorThemeName} />;
+      return <Component {...this.props} style={style} colorThemeName={colorThemeName} variables={variables} />;
     };
   };
 };
