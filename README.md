@@ -51,11 +51,12 @@ type Props = {
 class Component extends React.PureComponent<Props, State> {
     render() {
         const { style, colorThemeName } = this.props;
-        const getFont = getThemeFont(colorThemeName)
+        const getFont = getThemeFont(colorThemeName);
+        const color = colorTheme[colorThemeName];
         return (
             <View styles={style.container}>
                 <UikitComponentWithTheme theme={colorThemeName} />
-                 <Text style={{...getFont("SubTitle"), color: colorTheme[colorThemeName].primaryText}}>
+                 <Text style={{...getFont("SubTitle"), color: color.primaryText}}>
                     Some Text
                 </Text>
             </View>
@@ -67,7 +68,7 @@ class Component extends React.PureComponent<Props, State> {
 const setStyle = ({ color, getFont }: SetStyleParamsType) =>
     StyleSheet.create({
         container: {
-            backgroundColor: color.background
+            backgroundColor: color.background,
         },
         text: getFont("BodyRegular"),
     });

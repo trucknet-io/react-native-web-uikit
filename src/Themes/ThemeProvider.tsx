@@ -1,4 +1,4 @@
-import Colors, { colorTheme, ColorThemeNameType, ColorThemeType } from "./Colors";
+import { colorTheme, ColorThemeNameType, ColorThemeType } from "./Colors";
 import * as React from "react";
 import { StyleProp } from "react-native";
 import { getThemeFont } from "./Fonts";
@@ -19,7 +19,6 @@ type GetComponentStyle<S> = (theme: SetStyleParamsType) => S;
 
 export interface WithStyle<S> {
   style: S;
-  colors: typeof Colors;
   colorThemeName: ColorThemeNameType;
 }
 

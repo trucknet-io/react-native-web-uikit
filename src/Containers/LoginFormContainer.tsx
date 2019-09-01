@@ -1,15 +1,12 @@
 import * as React from "react";
 
-import { View, Text, Animated, Keyboard, StyleSheet } from "react-native";
+import { View, StyleSheet, Text, Animated, Keyboard } from "react-native";
 import * as Icons from "../Components/Icons";
-import { colorTheme, ColorThemeNameType, ColorThemeType } from "../Themes/Colors";
+import Colors, { colorTheme } from "../Themes/Colors";
 import Input from "../Components/Input";
 import { GradientButton, TransparentButton } from "../Components/Buttons";
-import { withTheme, SetStyleParamsType } from "../Themes/ThemeProvider";
 
-type Style = ReturnType<typeof setStyle>;
-
-type Props = {
+export type Props = {
   callback: {
     onSubmit(res: { email: string; password: string }): void;
     onForgotPasswordPress?(): void;
@@ -31,11 +28,9 @@ type Props = {
     registrationButtonLabel: string;
     separatorText: string;
   };
-  theme: ColorThemeNameType;
+  theme: "light" | "dark";
   componentsSizeRatio: number;
   logo?: React.ReactNode;
-  style: Style;
-  color: ColorThemeType;
 };
 
 type State = {
@@ -44,7 +39,7 @@ type State = {
     password: { value?: string; isValid: boolean };
   };
   subElementsOpacity: Animated.Value;
-  colors: typeof colorTheme["dark"];
+  colors: typeof colorTheme;
 };
 
 class LoginFormContainer extends React.PureComponent<Props, State> {
@@ -76,7 +71,7 @@ class LoginFormContainer extends React.PureComponent<Props, State> {
   state = {
     fields: this.setInitialFieldsValues(),
     subElementsOpacity: new Animated.Value(1),
-    colors: colorTheme["dark"],
+    colors: colorTheme,
   };
 
   public componentDidMount() {
@@ -90,18 +85,19 @@ class LoginFormContainer extends React.PureComponent<Props, State> {
   }
 
   public render() {
-    const { validate, text, initial, style, color } = this.props;
+    const { validate, text, initial } = this.props;
+    const theme = this.state.colors[this.props.theme];
     return (
-      <View style={style.container}>
+      <View style={[styles.container, { backgroundColor: theme.background }]}>
         {this.renderLogoContainer()}
-        <View style={style.inputContainer}>
+        <View style={styles.inputContainer}>
           <Input
             label={text.emailLabel}
             initialValue={initial.email}
             validateValue={validate.email}
             onChange={this.setField("email")}
-            onSuccessInputFieldColor={color.themeColor}
-            textColor={color.defaultText}
+            onSuccessInputFieldColor={theme.themeColor}
+            textColor={theme.defaultText}
             keyboardType="email-address"
             key={initial.email}
           />
@@ -111,12 +107,12 @@ class LoginFormContainer extends React.PureComponent<Props, State> {
             initialValue={initial.password}
             validateValue={validate.password}
             onChange={this.setField("password")}
-            onSuccessInputFieldColor={color.themeColor}
-            textColor={color.defaultText}
+            onSuccessInputFieldColor={theme.themeColor}
+            textColor={theme.defaultText}
             key={initial.password}
           />
         </View>
-        <View style={style.buttonsContainer}>
+        <View style={styles.buttonsContainer}>
           {this.renderSubmitButton()}
           {this.renderForgotPasswordButton()}
           {this.renderSeparationLine()}
@@ -164,12 +160,13 @@ class LoginFormContainer extends React.PureComponent<Props, State> {
   };
 
   private renderLogo = () => {
+    const theme = this.state.colors[this.props.theme];
     if (this.props.logo) {
       return this.props.logo;
     }
     return (
       <Icons.TrucknetLogo
-        color={this.props.color.defaultText}
+        color={theme.defaultText}
         height={24 * this.props.componentsSizeRatio}
         width={182 * this.props.componentsSizeRatio}
       />
@@ -177,12 +174,13 @@ class LoginFormContainer extends React.PureComponent<Props, State> {
   };
 
   private renderForgotPasswordButton = () => {
+    const theme = this.state.colors[this.props.theme];
     if (this.props.callback.onForgotPasswordPress) {
       return (
         <TransparentButton
           height={32 * this.props.componentsSizeRatio}
           label={this.props.text.forgotPasswordButtonLabel}
-          textColor={this.props.color.defaultText}
+          textColor={theme.defaultText}
           onPress={this.props.callback.onForgotPasswordPress}
         />
       );
@@ -190,32 +188,37 @@ class LoginFormContainer extends React.PureComponent<Props, State> {
     return <View />;
   };
   private renderSeparationLine = () => {
-    const { style } = this.props;
     if (this.props.text.separatorText) {
       return (
-        <Animated.View style={[style.separatorContainer, { opacity: this.state.subElementsOpacity }]}>
-          <View style={[style.line, { backgroundColor: this.setSeparatorLineColor() }]} />
-          <Text style={style.separatorText}>{this.props.text.separatorText}</Text>
-          <View style={[style.line, { backgroundColor: this.setSeparatorLineColor() }]} />
+        <Animated.View style={[styles.separatorContainer, { opacity: this.state.subElementsOpacity }]}>
+          <View style={[styles.line, { backgroundColor: this.setSeparatorLineColor() }]} />
+          <Text style={[styles.separatorText, { color: this.setSeparatorTextColor() }]}>
+            {this.props.text.separatorText}
+          </Text>
+          <View style={[styles.line, { backgroundColor: this.setSeparatorLineColor() }]} />
         </Animated.View>
       );
     }
     return <View />;
   };
-
+  private setSeparatorTextColor = () => {
+    const theme = this.state.colors[this.props.theme];
+    return `${theme.defaultText}80`;
+  };
   private setSeparatorLineColor = () => {
-    return `${this.props.color.palette.veryLightGray}`;
+    const theme = this.state.colors[this.props.theme];
+    return `${theme.palette.veryLightGray}`;
   };
   private renderRegistrationButton = () => {
-    const { color } = this.props;
+    const theme = this.state.colors[this.props.theme];
     if (this.props.callback.onRegistrationPress) {
       return (
         <TransparentButton
           label={this.props.text.registrationButtonLabel.toUpperCase()}
           height={40 * this.props.componentsSizeRatio}
           borderWidth={1}
-          borderColor={color.themeColor}
-          textColor={color.themeColor}
+          borderColor={theme.themeColor}
+          textColor={theme.themeColor}
           onPress={this.props.callback.onRegistrationPress}
         />
       );
@@ -224,38 +227,38 @@ class LoginFormContainer extends React.PureComponent<Props, State> {
   };
 }
 
-const setStyle = ({ color, getFont }: SetStyleParamsType) =>
-  StyleSheet.create({
-    container: {
-      flex: 1,
-      width: "100%",
-      paddingHorizontal: "16%",
-      paddingVertical: 32,
-      justifyContent: "space-around",
-      alignItems: "center",
-      backgroundColor: color.background,
-    },
-    inputContainer: {
-      flex: 1,
-      width: "100%",
-      flexDirection: "column",
-      justifyContent: "flex-end",
-    },
-    buttonsContainer: { flex: 1, width: "100%", justifyContent: "space-around" },
-    separatorContainer: {
-      flexDirection: "row",
-      width: "100%",
-      height: 32,
-      justifyContent: "space-between",
-      alignItems: "center",
-    },
-    line: {
-      marginTop: 2,
-      height: 1,
-      backgroundColor: color.palette.veryLightGray,
-      width: "45%",
-    },
-    separatorText: getFont("BodyRegular"),
-  });
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    width: "100%",
+    paddingHorizontal: "16%",
+    paddingVertical: 32,
+    justifyContent: "space-around",
+    alignItems: "center",
+  },
+  inputContainer: {
+    flex: 1,
+    width: "100%",
+    flexDirection: "column",
+    justifyContent: "flex-end",
+  },
+  buttonsContainer: { flex: 1, width: "100%", justifyContent: "space-around" },
+  separatorContainer: {
+    flexDirection: "row",
+    width: "100%",
+    height: 32,
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
+  line: {
+    marginTop: 2,
+    height: 1,
+    backgroundColor: Colors.palette.veryLightGray,
+    width: "45%",
+  },
+  separatorText: {
+    color: Colors.palette.lightGray,
+  },
+});
 
-export default withTheme<Props, Style>(setStyle)(LoginFormContainer);
+export default LoginFormContainer;
