@@ -1,5 +1,4 @@
 const lightColors = {
-  // guideline colors
   inverseTextColor: "#fff",
   background: "#fff",
   navBarBackground: "#fff",
@@ -53,7 +52,6 @@ const lightColors = {
   },
 };
 export const darkColors = {
-  // guideline colors
   inverseTextColor: "#222",
   background: "#2e2e2e",
   navBarBackground: "#464646",

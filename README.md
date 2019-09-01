@@ -34,7 +34,7 @@ import { ThemeProvider } from "react-native-web-uikit";
 <ThemeProvider
         value={{
           colorThemeName: this.state.colorThemeName,
-          dimensions: this.state.dimensions,
+          windowSize: this.state.windowSize,
         }}>
     <ThemedComponents />
 </ThemeProvider>
@@ -67,14 +67,16 @@ class Component extends React.PureComponent<Props, State> {
 }
 
 const setStyle = ({ color, getFont, variables }: SetStyleParamsType) => {
-    const { shadow, size, borderRadius, borderWidth, screenWidth, screenHeight, isTablet } = variables;
+    const { shadow, size, borderRadius, borderWidth, window, isTablet, isLandscape } = variables;
     return (
         StyleSheet.create({
             container: {
                 backgroundColor: color.background,
                 padding: isTablet ? size.xl : size.l,
-                width: screenWidth,
-                height: screenHeight,
+                width: isLandscape ? window.width / 2 : window.width,
+                height: window.height,
+                alignItems: "center",
+                justifyContent: "center",
             },
             card, {
                 flex: 1,
