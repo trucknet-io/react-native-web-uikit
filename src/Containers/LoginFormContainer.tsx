@@ -2,14 +2,14 @@ import * as React from "react";
 
 import { View, Text, Animated, Keyboard, StyleSheet } from "react-native";
 import * as Icons from "../Components/Icons";
-import Colors, { colorTheme, ColorThemeName } from "../Themes/Colors";
+import { colorTheme, ColorThemeNameType, ColorThemeType } from "../Themes/Colors";
 import Input from "../Components/Input";
 import { GradientButton, TransparentButton } from "../Components/Buttons";
-import { withTheme, ComponentThemeType } from "../Themes/themeProvider";
+import { withTheme, SetStyleParamsType } from "../Themes/ThemeProvider";
 
-type Styles = ReturnType<typeof setStyles>;
+type Style = ReturnType<typeof setStyle>;
 
-export type Props = {
+type Props = {
   callback: {
     onSubmit(res: { email: string; password: string }): void;
     onForgotPasswordPress?(): void;
@@ -31,11 +31,11 @@ export type Props = {
     registrationButtonLabel: string;
     separatorText: string;
   };
-  theme: ColorThemeName;
+  theme: ColorThemeNameType;
   componentsSizeRatio: number;
   logo?: React.ReactNode;
-  style: Styles;
-  color: typeof Colors;
+  style: Style;
+  color: ColorThemeType;
 };
 
 type State = {
@@ -224,7 +224,7 @@ class LoginFormContainer extends React.PureComponent<Props, State> {
   };
 }
 
-const setStyles = ({ color, getFont }: ComponentThemeType) =>
+const setStyle = ({ color, getFont }: SetStyleParamsType) =>
   StyleSheet.create({
     container: {
       flex: 1,
@@ -258,4 +258,4 @@ const setStyles = ({ color, getFont }: ComponentThemeType) =>
     separatorText: getFont("BodyRegular"),
   });
 
-export default withTheme<Props, Styles>(setStyles)(LoginFormContainer);
+export default withTheme<Props, Style>(setStyle)(LoginFormContainer);

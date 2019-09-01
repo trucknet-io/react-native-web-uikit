@@ -1,28 +1,26 @@
-import Colors, { colorTheme, ColorThemeName } from "./Colors";
+import Colors, { colorTheme, ColorThemeNameType, ColorThemeType } from "./Colors";
 import * as React from "react";
 import { StyleProp } from "react-native";
 import { getThemeFont } from "./Fonts";
 
-export type ProviderThemeType = { colorThemeName: ColorThemeName };
-export type ComponentThemeType = { color: ColorThemeType; getFont: ReturnType<typeof getThemeFont> };
+export type ThemeProviderType = { colorThemeName: ColorThemeNameType };
+export type SetStyleParamsType = { color: ColorThemeType; getFont: ReturnType<typeof getThemeFont> };
 
 const { Provider, Consumer } = React.createContext({
   colorThemeName: "light",
 });
 
-const ThemeProvider = Provider as React.Provider<ProviderThemeType>;
-const ThemeConsumer = Consumer as React.Consumer<ProviderThemeType>;
+const ThemeProvider = Provider as React.Provider<ThemeProviderType>;
+const ThemeConsumer = Consumer as React.Consumer<ThemeProviderType>;
 
 export { ThemeProvider };
 
-type ColorThemeType = typeof Colors;
-
-export type GetComponentStyle<S> = (theme: ComponentThemeType) => S;
+type GetComponentStyle<S> = (theme: SetStyleParamsType) => S;
 
 export interface WithStyle<S> {
   style: S;
   colors: typeof Colors;
-  colorThemeName: ColorThemeName;
+  colorThemeName: ColorThemeNameType;
 }
 
 export const withTheme = <P, S>(getComponentStyle: GetComponentStyle<S>) => (Component: React.ComponentType<P>) => {
@@ -31,13 +29,13 @@ export const withTheme = <P, S>(getComponentStyle: GetComponentStyle<S>) => (Com
       return <ThemeConsumer>{this.renderComponent}</ThemeConsumer>;
     }
 
-    public renderComponent = (ctx: ProviderThemeType) => {
+    public renderComponent = (ctx: ThemeProviderType) => {
       const { colorThemeName } = ctx;
       const color = colorTheme[colorThemeName];
       const getFont = getThemeFont(colorThemeName);
       const componentStyle = getComponentStyle({ color, getFont });
       const style: StyleProp<typeof componentStyle> = componentStyle;
-      return <Component {...this.props} style={style} color={color} colorThemeName={colorThemeName} />;
+      return <Component {...this.props} style={style} colorThemeName={colorThemeName} />;
     };
   };
 };

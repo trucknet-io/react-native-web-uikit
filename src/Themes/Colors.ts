@@ -114,4 +114,5 @@ export const colorTheme = {
   dark: darkColors,
 };
 
-export type ColorThemeName = "light" | "dark";
+export type ColorThemeNameType = "light" | "dark";
+export type ColorThemeType = typeof lightColors;

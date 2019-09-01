@@ -26,6 +26,55 @@ import { ComponentName } from "react-native-web-uikit"
 <ComponentName {...props} />
 ```
 
+## ThemeProvider
+
+```
+import { ThemeProvider } from "react-native-web-uikit";
+
+<ThemeProvider
+        value={{
+          colorThemeName: this.state.colorThemeName,
+        }}>
+    <ThemedComponents />
+</ThemeProvider>
+```
+
+```
+import { withTheme, colorTheme, getThemeFont, UikitComponentWithTheme, SetStyleParamsType } from "react-native-web-uikit";
+
+type Style = ReturnType<typeof setStyle>;
+type Props = {
+  style: Style;
+  colorThemeName: ColorThemeNameType
+}
+
+class Component extends React.PureComponent<Props, State> {
+    render() {
+        const { style, colorThemeName } = this.props;
+        const getFont = getThemeFont(colorThemeName)
+        return (
+            <View styles={style.container}>
+                <UikitComponentWithTheme theme={colorThemeName} />
+                 <Text style={{...getFont("SubTitle"), color: colorTheme[colorThemeName].primaryText}}>
+                    Some Text
+                </Text>
+            </View>
+            );
+        )
+    }
+}
+
+const setStyle = ({ color, getFont }: SetStyleParamsType) =>
+    StyleSheet.create({
+        container: {
+            backgroundColor: color.background
+        },
+        text: getFont("BodyRegular"),
+    });
+
+export default withTheme<Props, Style>(setStyle)(Component);
+
+```
 For show Modal Wrap Root Container with `RootWrapper` Component
 
 ## webpack config

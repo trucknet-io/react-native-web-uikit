@@ -5,7 +5,7 @@ import LoginFormContainer from "../../Containers/LoginFormContainer";
 import { select, number, color, object } from "@storybook/addon-knobs/react";
 import { setRequiredProp, setOptionalProp, isEmailInvalid } from "../Helpers";
 import { ThemeProvider } from "../../Themes/themeProvider";
-import { ColorThemeName } from "../../Themes/Colors";
+import { ColorThemeNameType } from "../../Themes/Colors";
 import { GradientButton } from "../../Components/Buttons";
 const LoginForm = () => {
   return (
@@ -16,7 +16,7 @@ const LoginForm = () => {
 };
 
 type State = {
-  colorThemeName: ColorThemeName;
+  colorThemeName: ColorThemeNameType;
 };
 
 class LoginWrapper extends React.PureComponent<{}, State> {

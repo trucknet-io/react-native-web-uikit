@@ -1,7 +1,7 @@
 import { normalize } from "./FontHelper";
-import { colorTheme, ColorThemeName } from "./Colors";
+import { colorTheme, ColorThemeNameType } from "./Colors";
 
-const getFonts = (colorThemeName: ColorThemeName) => {
+const getFonts = (colorThemeName: ColorThemeNameType) => {
   const color = colorTheme[colorThemeName].defaultText;
   return {
     LargeTitle: {
@@ -45,7 +45,7 @@ const getFonts = (colorThemeName: ColorThemeName) => {
 type FontType = ReturnType<typeof getFonts>;
 export type FontNames = keyof FontType;
 
-export const getThemeFont = (colorThemeName: ColorThemeName) => (fontName: FontNames) =>
+export const getThemeFont = (colorThemeName: ColorThemeNameType) => (fontName: FontNames) =>
   getFonts(colorThemeName)[fontName];
 
 const fonts = getFonts("light");
