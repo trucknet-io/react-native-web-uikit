@@ -67,14 +67,14 @@ class Component extends React.PureComponent<Props, State> {
 }
 
 const setStyle = ({ color, getFont, variables }: SetStyleParamsType) => {
-    const { shadow, size, borderRadius, borderWidth, window, isTablet, isLandscape } = variables;
+    const { shadow, indent, size, borderRadius, borderWidth, window, isTablet, isLandscape } = variables;
     return (
         StyleSheet.create({
             container: {
                 backgroundColor: color.background,
-                padding: isTablet ? size.xl : size.l,
+                padding: isTablet ? indent.xl : indent.l,
                 width: isLandscape ? window.width / 2 : window.width,
-                height: window.height,
+                height: size.xxxl,
                 alignItems: "center",
                 justifyContent: "center",
             },

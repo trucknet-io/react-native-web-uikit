@@ -5,7 +5,8 @@ import DeviceInfo from "react-native-device-info";
 import { normalize } from "../Helpers/sizeHelper";
 
 const sizeBase = normalize(2);
-type SizeType = {
+
+type IndentType = {
   xxs: 1;
   xs: 2;
   s: 4;
@@ -15,6 +16,18 @@ type SizeType = {
   xxl: 64;
   xxxl: 128;
   xxxxl: 256;
+};
+
+type SizeType = {
+  xxs: 1;
+  xs: 4;
+  s: 16;
+  m: 32;
+  l: 64;
+  xl: 128;
+  xxl: 256;
+  xxxl: 512;
+  xxxxl: 1024;
 };
 
 export type WindowSizeType = {
@@ -27,16 +40,28 @@ export const initialWindowSize = {
   height: Dimensions.get("window").height,
 };
 
+const indent = {
+  xxs: normalize(1) as IndentType["xxs"],
+  xs: sizeBase as IndentType["xs"],
+  s: Math.pow(sizeBase, 2) as IndentType["s"],
+  m: Math.pow(sizeBase, 3) as IndentType["m"],
+  l: Math.pow(sizeBase, 4) as IndentType["l"],
+  xl: Math.pow(sizeBase, 5) as IndentType["xl"],
+  xxl: Math.pow(sizeBase, 6) as IndentType["xxl"],
+  xxxl: Math.pow(sizeBase, 7) as IndentType["xxxl"],
+  xxxxl: Math.pow(sizeBase, 8) as IndentType["xxxxl"],
+};
+
 const size = {
-  xxs: normalize(1),
-  xs: sizeBase as SizeType["xs"],
-  s: Math.pow(sizeBase, 2) as SizeType["s"],
-  m: Math.pow(sizeBase, 3) as SizeType["m"],
-  l: Math.pow(sizeBase, 4) as SizeType["l"],
-  xl: Math.pow(sizeBase, 5) as SizeType["xl"],
-  xxl: Math.pow(sizeBase, 6) as SizeType["xxl"],
-  xxxl: Math.pow(sizeBase, 7) as SizeType["xxxl"],
-  xxxxl: Math.pow(sizeBase, 8) as SizeType["xxxxl"],
+  xxs: normalize(1) as SizeType["xxs"],
+  xs: Math.pow(sizeBase, 2) as SizeType["xs"],
+  s: Math.pow(sizeBase, 4) as SizeType["s"],
+  m: Math.pow(sizeBase, 5) as SizeType["m"],
+  l: Math.pow(sizeBase, 6) as SizeType["l"],
+  xl: Math.pow(sizeBase, 7) as SizeType["xl"],
+  xxl: Math.pow(sizeBase, 8) as SizeType["xxl"],
+  xxxl: Math.pow(sizeBase, 9) as SizeType["xxxl"],
+  xxxxl: Math.pow(sizeBase, 10) as SizeType["xxxxl"],
 };
 
 const getVariables = (windowSize: WindowSizeType) => {
@@ -44,11 +69,11 @@ const getVariables = (windowSize: WindowSizeType) => {
     platform: Platform.OS,
     isTablet: DeviceInfo.isTablet(),
     isLandscape: DeviceInfo.isLandscape(),
-    deviceType: DeviceInfo.getDeviceType(),
-    shadow: getShadowStyle(size.s),
+    shadow: getShadowStyle(size.xs),
     getShadowStyle,
-    borderRadius: size.s,
+    borderRadius: size.xs,
     borderWidth: size.xxs,
+    indent,
     size,
     window: windowSize,
   };
