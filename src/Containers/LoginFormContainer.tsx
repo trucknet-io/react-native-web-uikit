@@ -203,7 +203,7 @@ class LoginFormContainer extends React.PureComponent<Props, State> {
   };
   private setSeparatorTextColor = () => {
     const theme = this.state.colors[this.props.theme];
-    return `${theme.defaultText}80`;
+    return theme.defaultText;
   };
   private setSeparatorLineColor = () => {
     const theme = this.state.colors[this.props.theme];
