@@ -1,6 +1,5 @@
-import Colors, { colorTheme, ColorThemeNameType, ColorThemeType } from "./Colors";
+import { colorTheme, ColorThemeNameType, ColorThemeType } from "./Colors";
 import * as React from "react";
-import { StyleProp } from "react-native";
 import getVariables, { GetVariablesType, WindowSizeType, initialWindowSize } from "./Variables";
 import { getThemeFont } from "./Fonts";
 
@@ -28,7 +27,6 @@ type GetComponentStyle<S> = (theme: SetStyleParamsType) => S;
 
 export interface WithStyle<S> {
   style: S;
-  colors: typeof Colors;
   colorThemeName: ColorThemeNameType;
   variables: GetVariablesType;
 }
@@ -44,11 +42,8 @@ export const withTheme = <P, S>(getComponentStyle: GetComponentStyle<S>) => (Com
       const color = colorTheme[colorThemeName];
       const getFont = getThemeFont(colorThemeName);
       const variables = getVariables(windowSize);
-      const componentStyle = getComponentStyle({ color, getFont, variables });
-      const style: StyleProp<typeof componentStyle> = componentStyle;
-      return (
-        <Component {...this.props} style={style} colorThemeName={colorThemeName} variables={variables} color={color} />
-      );
+      const style = getComponentStyle({ color, getFont, variables });
+      return <Component {...this.props} style={style} colorThemeName={colorThemeName} variables={variables} />;
     };
   };
 };
