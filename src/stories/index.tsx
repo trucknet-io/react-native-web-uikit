@@ -5,7 +5,7 @@ import * as Buttons from "./Buttons";
 import * as Modals from "./Modals";
 import * as SignatureModal from "./SignatureModal";
 import * as InputField from "./InputField";
-import * as LoginForm from "./LoginForm";
+import * as Forms from "./Forms";
 import * as Placeholders from "./Placeholders";
 
-export { Gradient, Buttons, Icons, ColorsGallery, Modals, Placeholders, InputField, LoginForm, SignatureModal };
+export { Gradient, Buttons, Icons, ColorsGallery, Modals, Placeholders, InputField, Forms, SignatureModal };

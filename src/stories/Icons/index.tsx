@@ -1,14 +1,14 @@
 import React from "react";
 import { storiesOf } from "@storybook/react-native";
-import IconsContainer from "../../Containers/IconsContainer";
+import IconsContainer from "src/Containers/IconsContainer";
 import { withKnobs, number, color } from "@storybook/addon-knobs/react";
 import { withInfo } from "@storybook/addon-info";
-import Colors from "../../Themes/Colors";
-import { setOptionalProp, importInfo } from "../Helpers";
+import Colors from "src/Themes/Colors";
+import { setOptionalProp, importInfo } from "src/stories/Helpers";
 
 const Icons = () => (
   <IconsContainer
-    color={color(setOptionalProp("color"), Colors.purpleDark)}
+    color={color(setOptionalProp("color"), Colors.palette.purpleDark)}
     width={number(setOptionalProp("width"), undefined)}
     height={number(setOptionalProp("height"), undefined)}
   />

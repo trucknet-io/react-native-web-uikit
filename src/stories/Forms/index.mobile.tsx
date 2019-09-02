@@ -1,14 +1,13 @@
 import { storiesOf } from "@storybook/react-native";
+import { importInfo } from "src/stories/Helpers";
 import LoginForm from "./LoginForm";
+import Form from "./Form";
 import { withKnobs } from "@storybook/addon-knobs/react";
-import { withInfo } from "@storybook/addon-info";
-import { importInfo } from "../Helpers";
 
-const stories = storiesOf("LoginForm", module);
-
+const stories = storiesOf("Forms", module);
 stories.addDecorator(withKnobs);
-stories.addDecorator(withInfo);
 
+stories.add("Form", Form, importInfo("Form"));
 stories.add("LoginForm", LoginForm, importInfo("LoginForm"));
 
 export default stories;

@@ -1,4 +1,4 @@
-import { normalize } from "../Helpers/sizeHelper";
+import { normalize } from "src/Helpers/sizeHelper";
 import { getColor, ColorThemeNames } from "./Colors";
 
 export const getFont = (theme: ColorThemeNames) => {

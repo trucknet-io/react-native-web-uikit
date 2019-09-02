@@ -1,13 +1,13 @@
-import Colors, { colorTheme } from "../../Themes/Colors";
-import fonts from "../../Themes/Fonts";
-import { parseDataUrl, ParsedDataUrlType } from "../../Helpers/regexHelpers";
+import Colors, { colorTheme } from "src/Themes/Colors";
+import fonts from "src/Themes/Fonts";
+import { parseDataUrl, ParsedDataUrlType } from "src/Helpers/regexHelpers";
 import * as React from "react";
 import { Text, View, StyleSheet } from "react-native";
 import Modal from "react-native-modal";
-import { TransparentButtonWithChildren } from "../Buttons";
+import { TransparentButtonWithChildren } from "src/Components/Buttons";
 import { canvasHTML } from "./canvasHTML";
 import WebView from "react-native-webview";
-import { isWeb } from "../../Helpers/platform";
+import { isWeb } from "src/Helpers/platform";
 
 type Props = {
   isVisible: boolean;

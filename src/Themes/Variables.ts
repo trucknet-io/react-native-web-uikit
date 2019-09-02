@@ -2,7 +2,7 @@ import getShadowStyle from "./Shadow";
 
 import { Dimensions, Platform } from "react-native";
 import DeviceInfo from "react-native-device-info";
-import { normalize } from "../Helpers/sizeHelper";
+import { normalize } from "src/Helpers/sizeHelper";
 
 const sizeBase = normalize(2);
 

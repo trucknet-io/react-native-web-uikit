@@ -1,13 +1,13 @@
 import React from "react";
 import { Text, StyleSheet, View } from "react-native";
-import Colors from "../../Themes/Colors";
+import Colors from "src/Themes/Colors";
 
 const styles = StyleSheet.create({
   codeContainer: {
-    backgroundColor: Colors.veryVeryLightGray,
+    backgroundColor: Colors.palette.veryVeryLightGray,
     borderWidth: 1,
-    borderColor: Colors.purpleDark,
-    color: Colors.purpleDark,
+    borderColor: Colors.palette.purpleDark,
+    color: Colors.palette.purpleDark,
     borderRadius: 4,
     padding: 5,
     marginTop: 2,

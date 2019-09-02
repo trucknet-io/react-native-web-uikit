@@ -17,8 +17,12 @@
     "resolveJsonModule": true,
     "outDir": "dist",
     "baseUrl": ".",
-    "declaration": true
+    "declaration": true,
+    "strictNullChecks": true,
+    "paths": {
+      "@src/*": ["src/*"]
+    }
   },
   "exclude": ["node_modules"],
-  "include": ["src/index.lib.ts", "definitions/**/*.d.ts"]
+  "include": ["src/**/*", "definitions/**/*.d.ts"]
 }

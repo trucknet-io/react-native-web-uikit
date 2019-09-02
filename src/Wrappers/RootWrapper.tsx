@@ -1,8 +1,8 @@
 import * as React from "react";
 import { StyleSheet, View, Dimensions, Animated } from "react-native";
-import Subscriber, { modalPropertiesType, IdType } from "../Subscriber";
-import createShadow from "../Themes/Shadow";
-import Colors from "../Themes/Colors";
+import Subscriber, { modalPropertiesType, IdType } from "src/Subscriber";
+import createShadow from "src/Themes/Shadow";
+import Colors from "src/Themes/Colors";
 
 type Props = {
   styles: any;

@@ -1,8 +1,8 @@
 import React from "react";
-import SignatureModal from "../../Containers/SignatureModalContainer";
+import SignatureModal from "src/Containers/SignatureModalContainer";
 import { boolean, text, select } from "@storybook/addon-knobs/react";
-import { setRequiredProp, setOptionalProp } from "../Helpers";
-import Container from "../Container";
+import { setRequiredProp, setOptionalProp } from "src/stories/Helpers";
+import Container from "src/stories/Container";
 
 let isVisible = true;
 
