@@ -18,11 +18,8 @@
     "outDir": "dist",
     "baseUrl": ".",
     "declaration": true,
-    "strictNullChecks": true,
-    "paths": {
-      "@src/*": ["src/*"]
-    }
+    "strictNullChecks": true
   },
   "exclude": ["node_modules"],
-  "include": ["src/**/*", "definitions/**/*.d.ts"]
+  "include": ["src/index.lib.ts", "definitions/**/*.d.ts"]
 }
