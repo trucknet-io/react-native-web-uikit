@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Platform, StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import Colors from "../Themes/Colors";
-import createShadow from "../Themes/Shadow";
+import Colors from "src/Themes/Colors";
+import createShadow from "src/Themes/Shadow";
 
 import LinearGradient from "./LinearGradient";
 

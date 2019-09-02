@@ -1,5 +1,5 @@
 import { canvasScript } from "./canvasScript";
-import { isWeb } from "../../Helpers/platform";
+import { isWeb } from "src/Helpers/platform";
 import { Dimensions } from "react-native";
 
 const height = Dimensions.get("window").height;
