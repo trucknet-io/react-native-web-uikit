@@ -1,8 +1,8 @@
 import { color, number, boolean } from "@storybook/addon-knobs/react";
-import { setOptionalProp } from "../Helpers";
+import { setOptionalProp } from "src/stories/Helpers";
 import { action } from "@storybook/addon-actions";
-import Colors from "../../Themes/Colors";
-import { isWeb } from "../../Helpers/platform";
+import Colors from "src/Themes/Colors";
+import { isWeb } from "src/Helpers/platform";
 
 const buttonProps = () => ({
   width: number(setOptionalProp("width"), isWeb ? 800 : "80%"),

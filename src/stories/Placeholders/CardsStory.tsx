@@ -1,8 +1,7 @@
 import React from "react";
-import CardsPlaceholder from "../../Components/Placeholders/Cards";
+import CardsPlaceholder from "src/Components/Placeholders/Cards";
 import { number, select } from "@storybook/addon-knobs/react";
-import { setOptionalProp } from "../Helpers";
-import Container from "../Container";
+import { setOptionalProp } from "src/stories/Helpers";
 
 const ParagraphStory = () => {
   return (

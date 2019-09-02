@@ -13,7 +13,7 @@
     "dist/**/*"
   ],
   "main": "dist/index.lib.js",
-  "version": "2.3.5",
+  "version": "2.4.0",
   "private": false,
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
@@ -34,7 +34,7 @@
     "storybook": "start-storybook -p 9009 -s public",
     "build-storybook": "build-storybook -s public",
     "prepublishOnly": "npm run build",
-    "postrelease": "npm run publish",
+    "postrelease": "npm publish",
     "release": "./extra/release.sh"
   },
   "dependencies": {},
