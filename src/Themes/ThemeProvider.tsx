@@ -1,20 +1,22 @@
-import { colorTheme, ColorThemeNameType, ColorThemeType } from "./Colors";
+import { getColor, ColorThemeNames, ColorType } from "./Colors";
 import * as React from "react";
 import getVariables, { GetVariablesType, WindowSizeType, initialWindowSize } from "./Variables";
-import { getThemeFont } from "./Fonts";
+import { getFont } from "./Fonts";
+
+export type ThemeType = ColorThemeNames;
 
 export type ThemeProviderType = {
-  colorThemeName: ColorThemeNameType;
+  theme: ThemeType;
   windowSize: WindowSizeType;
 };
 export type SetStyleParamsType = {
-  color: ColorThemeType;
-  getFont: ReturnType<typeof getThemeFont>;
+  color: ColorType;
+  font: ReturnType<typeof getFont>;
   variables: GetVariablesType;
 };
 
 const { Provider, Consumer } = React.createContext({
-  colorThemeName: "light",
+  theme: "light",
   windowSize: initialWindowSize,
 });
 
@@ -27,7 +29,7 @@ type GetComponentStyle<S> = (theme: SetStyleParamsType) => S;
 
 export interface WithStyle<S> {
   style: S;
-  colorThemeName: ColorThemeNameType;
+  theme: ThemeType;
   variables: GetVariablesType;
 }
 
@@ -38,12 +40,12 @@ export const withTheme = <P, S>(getComponentStyle: GetComponentStyle<S>) => (Com
     }
 
     public renderComponent = (ctx: ThemeProviderType) => {
-      const { colorThemeName, windowSize } = ctx;
-      const color = colorTheme[colorThemeName];
-      const getFont = getThemeFont(colorThemeName);
+      const { theme, windowSize } = ctx;
+      const color = getColor(theme);
+      const font = getFont(theme);
       const variables = getVariables(windowSize);
-      const style = getComponentStyle({ color, getFont, variables });
-      return <Component {...this.props} style={style} colorThemeName={colorThemeName} variables={variables} />;
+      const style = getComponentStyle({ color, font, variables });
+      return <Component {...this.props} style={style} theme={theme} variables={variables} />;
     };
   };
 };

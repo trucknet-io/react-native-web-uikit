@@ -20,7 +20,7 @@
     "ios": "react-native run-ios",
     "android": "react-native run-android",
     "android:release": "react-native run-android --variant=release",
-    "commit": "commit-prompt",
+    "commit": "commit-prompt --no-verify",
     "precommit": "lint-staged && npm run lint",
     "lint": "npm run lint:tsc && npm run lint:tslint",
     "lint:tsc": "tsc -p tsconfig.json --noEmit",

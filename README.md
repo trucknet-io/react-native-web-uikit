@@ -41,23 +41,23 @@ import { ThemeProvider } from "react-native-web-uikit";
 ```
 
 ```
-import { withTheme, colorTheme, getThemeFont, UikitComponentWithTheme, SetStyleParamsType } from "react-native-web-uikit";
+import { withTheme, getColor, getFont, UikitComponentWithTheme, SetStyleParamsType, ThemeType } from "react-native-web-uikit";
 
 type Style = ReturnType<typeof setStyle>;
 type Props = {
   style: Style;
-  colorThemeName: ColorThemeNameType
+  theme: ThemeType
 }
 
 class Component extends React.PureComponent<Props, State> {
     render() {
-        const { style, colorThemeName } = this.props;
-        const getFont = getThemeFont(colorThemeName);
-        const color = colorTheme[colorThemeName];
+        const { style, theme } = this.props;
+        const font = getFont(theme);
+        const color = getColor(theme);
         return (
             <View styles={style.container}>
-                <UikitComponentWithTheme theme={colorThemeName} />
-                 <Text style={{...getFont("SubTitle"), color: color.primaryText}}>
+                <UikitComponentWithTheme theme={theme} />
+                <Text style={{...font.SubTitle, color: color.primaryText}}>
                     Some Text
                 </Text>
             </View>
@@ -66,7 +66,7 @@ class Component extends React.PureComponent<Props, State> {
     }
 }
 
-const setStyle = ({ color, getFont, variables }: SetStyleParamsType) => {
+const setStyle = ({ color, font, variables }: SetStyleParamsType) => {
     const { shadow, indent, size, borderRadius, borderWidth, window, isTablet, isLandscape } = variables;
     return (
         StyleSheet.create({
@@ -84,7 +84,7 @@ const setStyle = ({ color, getFont, variables }: SetStyleParamsType) => {
                 borderWidth,
                 ...shadow,
             }
-            text: getFont("BodyRegular"),
+            text: font.BodyRegular,
         });
     )
 }

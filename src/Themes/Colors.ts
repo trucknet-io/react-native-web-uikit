@@ -34,8 +34,6 @@ const lightColors = {
     gradientColor2: "#2a0845",
   },
   palette: {
-    elephant: "#1f3239",
-    tarawera: "#29464d",
     nightRider: "#303030",
     dodgerBlue: "#2979ff",
     lightningYellow: "#f9a825",
@@ -87,8 +85,6 @@ export const darkColors = {
     gradientColor2: "#2a0845",
   },
   palette: {
-    elephant: "#1f3239",
-    tarawera: "#29464d",
     nightRider: "#303030",
     dodgerBlue: "#2979ff",
     lightningYellow: "#f9a825",
@@ -112,5 +108,8 @@ export const colorTheme = {
   dark: darkColors,
 };
 
-export type ColorThemeNameType = "light" | "dark";
-export type ColorThemeType = typeof lightColors;
+export type ColorThemeNames = "light" | "dark";
+
+export const getColor = (theme: ColorThemeNames) => colorTheme[theme];
+
+export type ColorType = typeof lightColors;

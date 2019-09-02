@@ -1,8 +1,8 @@
 import { normalize } from "../Helpers/sizeHelper";
-import { colorTheme, ColorThemeNameType } from "./Colors";
+import { getColor, ColorThemeNames } from "./Colors";
 
-const getFonts = (colorThemeName: ColorThemeNameType) => {
-  const color = colorTheme[colorThemeName].defaultText;
+export const getFont = (theme: ColorThemeNames) => {
+  const color = getColor(theme).defaultText;
   return {
     LargeTitle: {
       fontFamily: "Roboto-Medium",
@@ -42,11 +42,8 @@ const getFonts = (colorThemeName: ColorThemeNameType) => {
   };
 };
 
-type FontType = ReturnType<typeof getFonts>;
+export type FontType = ReturnType<typeof getFont>;
 export type FontNames = keyof FontType;
 
-export const getThemeFont = (colorThemeName: ColorThemeNameType) => (fontName: FontNames) =>
-  getFonts(colorThemeName)[fontName];
-
-const fonts = getFonts("light");
-export default fonts;
+const font = getFont("light");
+export default font;

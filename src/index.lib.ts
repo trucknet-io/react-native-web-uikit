@@ -13,10 +13,10 @@ import Subscriber from "./Subscriber";
 import InputField from "./Components/Input";
 import LoginForm from "./Containers/LoginFormContainer";
 import SignatureModal from "./Components/SignatureModal";
-import { colorTheme, ColorThemeNameType, ColorThemeType } from "./Themes/Colors";
-import { getThemeFont, FontNames } from "./Themes/Fonts";
+import { getColor, ColorType, ColorThemeNames } from "./Themes/Colors";
+import { getFont, FontType, FontNames } from "./Themes/Fonts";
 import getVariables, { GetVariablesType } from "./Themes/Variables";
-import { ThemeProvider, withTheme, ThemeProviderType, SetStyleParamsType } from "./Themes/ThemeProvider";
+import { ThemeProvider, withTheme, ThemeProviderType, SetStyleParamsType, ThemeType } from "./Themes/ThemeProvider";
 import CardsPlaceholder from "./Components/Placeholders/Cards";
 import MapPlaceholder from "./Components/Placeholders/Map";
 import ParagraphPlaceholder from "./Components/Placeholders/Paragraph";
@@ -37,10 +37,11 @@ export {
   LoginForm,
   setUikitWebpackSetting,
   SignatureModal,
-  colorTheme,
-  ColorThemeNameType,
-  ColorThemeType,
-  getThemeFont,
+  getColor,
+  ColorThemeNames,
+  ColorType,
+  getFont,
+  FontType,
   FontNames,
   getVariables,
   GetVariablesType,
@@ -49,6 +50,7 @@ export {
   MapPlaceholder,
   ThemeProvider,
   ThemeProviderType,
+  ThemeType,
   withTheme,
   SetStyleParamsType,
 };
