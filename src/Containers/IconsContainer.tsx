@@ -1,7 +1,7 @@
 import * as React from "react";
 import { View, Text, StyleSheet, ScrollView } from "react-native";
-import * as Icons from "../Components/Icons";
-import Colors from "../Themes/Colors";
+import * as Icons from "src/Components/Icons";
+import Colors from "src/Themes/Colors";
 
 type IconProps = {
   width?: number;

@@ -1,8 +1,8 @@
 import * as React from "react";
 import { StyleSheet, View, Text, ScrollView } from "react-native";
-import Colors, { colorTheme } from "../Themes/Colors";
+import Colors, { colorTheme } from "src/Themes/Colors";
 import LinearGradient from "./LinearGradient";
-import { isWeb } from "../Helpers/platform";
+import { isWeb } from "src/Helpers/platform";
 type Props = {
   theme: "light" | "dark";
 };

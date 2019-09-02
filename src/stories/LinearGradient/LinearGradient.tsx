@@ -1,10 +1,10 @@
 import React from "react";
 import { Text } from "react-native";
-import LinearGradient from "../../Components/LinearGradient";
+import LinearGradient from "src/Components/LinearGradient";
 import { object, color } from "@storybook/addon-knobs/react";
-import { setRequiredProp, setOptionalProp } from "../Helpers";
-import Container from "../Container";
-import Colors from "../../Themes/Colors";
+import { setRequiredProp, setOptionalProp } from "src/stories/Helpers";
+import Container from "src/stories/Container";
+import Colors from "src/Themes/Colors";
 
 const GradientStory = () => (
   <Container>

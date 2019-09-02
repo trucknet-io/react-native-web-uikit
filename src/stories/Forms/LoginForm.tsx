@@ -1,27 +1,33 @@
 import React from "react";
 import { Alert } from "react-native";
-import Container from "../Container";
-import LoginFormContainer from "../../Containers/LoginFormContainer";
-import { select, number, color, object } from "@storybook/addon-knobs/react";
-import { setRequiredProp, setOptionalProp, isEmailInvalid } from "../Helpers";
+import Container from "src/stories/Container";
+import LoginFormContainer from "src/Containers/LoginFormContainer";
+import { select, number, object } from "@storybook/addon-knobs/react";
+import { setRequiredProp, setOptionalProp, isEmailInvalid } from "src/stories/Helpers";
+import { action } from "@storybook/addon-actions";
 
 const LoginForm = () => {
   return (
     <Container>
       <LoginFormContainer
         callback={object(setRequiredProp("callback"), {
-          onSubmit: handleSubmit,
+          handleSubmit: action("Submit"),
           onForgotPasswordPress: () => Alert.alert("forgot password button press"),
           onRegistrationPress: () => Alert.alert("registration button press"),
         })}
-        initial={object(setOptionalProp("initial"), {
-          email: "lol@lol.ru",
-          password: "12345678",
+        fields={object(setOptionalProp("fields"), {
+          email: {
+            label: "Email",
+            initialValue: "lol@lol.ru",
+            validate: validateEmail,
+          },
+          password: {
+            label: "Password",
+            initialValue: "123123123",
+            validate: validatePassword,
+          },
         })}
-        validate={{ email: validateEmail, password: validatePassword }}
         text={object(setOptionalProp("text"), {
-          emailLabel: "Email",
-          passwordLabel: "Password",
           submitLabel: "Sign in",
           forgotPasswordButtonLabel: "Forgot your passport?",
           registrationButtonLabel: "call for registration",
@@ -32,9 +38,6 @@ const LoginForm = () => {
       />
     </Container>
   );
-};
-const handleSubmit = (value) => {
-  console.log(value);
 };
 
 const validateEmail = (email) => {

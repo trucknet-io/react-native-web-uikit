@@ -2,8 +2,8 @@ import * as React from "react";
 import { FlatList, StyleSheet, View } from "react-native";
 // tslint:disable-next-line:import-name
 import Shimmer from "react-native-shimmer-placeholder";
-import { isWeb } from "../../Helpers/platform";
-import { colorTheme } from "../../Themes/Colors";
+import { isWeb } from "src/Helpers/platform";
+import { colorTheme } from "src/Themes/Colors";
 
 interface Props {
   cards: number;

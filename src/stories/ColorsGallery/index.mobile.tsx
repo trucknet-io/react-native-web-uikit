@@ -1,6 +1,6 @@
 import { storiesOf } from "@storybook/react-native";
 import { withKnobs } from "@storybook/addon-knobs/react";
-import { importInfo } from "../Helpers";
+import { importInfo } from "src/stories/Helpers";
 import ColorsGalleryStory from "./ColorsGalleryStory";
 
 const stories = storiesOf("ColorsGallery", module);

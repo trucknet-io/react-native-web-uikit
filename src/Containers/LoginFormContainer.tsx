@@ -1,28 +1,30 @@
 import * as React from "react";
 
 import { View, StyleSheet, Text, Animated, Keyboard } from "react-native";
-import * as Icons from "../Components/Icons";
-import Colors, { colorTheme } from "../Themes/Colors";
-import Input from "../Components/Input";
-import { GradientButton, TransparentButton } from "../Components/Buttons";
+import * as Icons from "src/Components/Icons";
+import Colors, { colorTheme } from "src/Themes/Colors";
+import { TransparentButton } from "src/Components/Buttons";
+import FormContainer from "./FormContainer";
 
-export type Props = {
+type Props = {
+  fields: {
+    email: {
+      label: string;
+      initialValue?: string;
+      validate?(value: string): string | undefined;
+    };
+    password: {
+      label: string;
+      initialValue?: string;
+      validate?(value: string): string | undefined;
+    };
+  };
   callback: {
-    onSubmit(res: { email: string; password: string }): void;
+    handleSubmit(res: { email: string; password: string }): void;
     onForgotPasswordPress?(): void;
     onRegistrationPress?(): void;
   };
-  validate: {
-    email(value: string): string | undefined;
-    password(value: string): string | undefined;
-  };
-  initial: {
-    email?: string;
-    password?: string;
-  };
   text: {
-    emailLabel: string;
-    passwordLabel: string;
     submitLabel: string;
     forgotPasswordButtonLabel: string;
     registrationButtonLabel: string;
@@ -34,10 +36,6 @@ export type Props = {
 };
 
 type State = {
-  fields: {
-    email: { value?: string; isValid: boolean };
-    password: { value?: string; isValid: boolean };
-  };
   subElementsOpacity: Animated.Value;
   colors: typeof colorTheme;
 };
@@ -47,10 +45,7 @@ class LoginFormContainer extends React.PureComponent<Props, State> {
   keyboardDidHideListener;
 
   static defaultProps = {
-    initial: { email: undefined, password: undefined },
     text: {
-      emailLabel: "email",
-      passwordLabel: "password",
       submitLabel: "sign in",
       forgotPasswordButtonLabel: "Forgot your passport?",
       registrationButtonLabel: "call for registration",
@@ -60,16 +55,7 @@ class LoginFormContainer extends React.PureComponent<Props, State> {
     componentsSizeRatio: 1,
   };
 
-  private setInitialFieldsValues = () => {
-    const { email, password } = this.props.initial;
-    return {
-      email: { value: email, isValid: !!email },
-      password: { value: password, isValid: !!password },
-    };
-  };
-
   state = {
-    fields: this.setInitialFieldsValues(),
     subElementsOpacity: new Animated.Value(1),
     colors: colorTheme,
   };
@@ -85,35 +71,31 @@ class LoginFormContainer extends React.PureComponent<Props, State> {
   }
 
   public render() {
-    const { validate, text, initial } = this.props;
+    const { fields } = this.props;
     const theme = this.state.colors[this.props.theme];
+    const formKey = `${fields.email.initialValue}${fields.password.initialValue}`;
     return (
       <View style={[styles.container, { backgroundColor: theme.background }]}>
         {this.renderLogoContainer()}
-        <View style={styles.inputContainer}>
-          <Input
-            label={text.emailLabel}
-            initialValue={initial.email}
-            validateValue={validate.email}
-            onChange={this.setField("email")}
-            onSuccessInputFieldColor={theme.themeColor}
-            textColor={theme.defaultText}
-            keyboardType="email-address"
-            key={initial.email}
-          />
-          <Input
-            secureTextEntry
-            label={text.passwordLabel}
-            initialValue={initial.password}
-            validateValue={validate.password}
-            onChange={this.setField("password")}
-            onSuccessInputFieldColor={theme.themeColor}
-            textColor={theme.defaultText}
-            key={initial.password}
-          />
-        </View>
+        <FormContainer
+          fields={{
+            email: {
+              ...fields.email,
+              keyboardType: "email-address",
+            },
+            password: {
+              ...fields.password,
+              secureTextEntry: true,
+            },
+          }}
+          theme={this.props.theme}
+          handleSubmit={this.handleSubmit}
+          paddingHorizontal={0}
+          paddingTop={84}
+          submitLabel={this.props.text.submitLabel}
+          key={formKey}
+        />
         <View style={styles.buttonsContainer}>
-          {this.renderSubmitButton()}
           {this.renderForgotPasswordButton()}
           {this.renderSeparationLine()}
           {this.renderRegistrationButton()}
@@ -122,23 +104,10 @@ class LoginFormContainer extends React.PureComponent<Props, State> {
     );
   }
 
-  private setField = (fieldName) => (value) => this.setState({ fields: { ...this.state.fields, [fieldName]: value } });
-  private onSubmit = () => {
-    const { email, password } = this.state.fields;
-    const emailValue = email.value as string;
-    const passwordValue = password.value as string;
-    this.props.callback.onSubmit({ email: emailValue, password: passwordValue });
-  };
-  private renderSubmitButton = () => {
-    const { email, password } = this.state.fields;
-    return (
-      <GradientButton
-        height={40 * this.props.componentsSizeRatio}
-        disabled={!(email.isValid && password.isValid)}
-        label={this.props.text.submitLabel.toUpperCase()}
-        onPress={this.onSubmit}
-      />
-    );
+  private handleSubmit = (fields) => {
+    const email = fields.email.value;
+    const password = fields.password.value;
+    this.props.callback.handleSubmit({ email, password });
   };
 
   private showSubElements = () => {
@@ -232,15 +201,9 @@ const styles = StyleSheet.create({
     flex: 1,
     width: "100%",
     paddingHorizontal: "16%",
-    paddingVertical: 32,
+    paddingVertical: 8,
     justifyContent: "space-around",
     alignItems: "center",
-  },
-  inputContainer: {
-    flex: 1,
-    width: "100%",
-    flexDirection: "column",
-    justifyContent: "flex-end",
   },
   buttonsContainer: { flex: 1, width: "100%", justifyContent: "space-around" },
   separatorContainer: {
