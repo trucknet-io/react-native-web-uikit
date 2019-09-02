@@ -19,9 +19,9 @@
     "baseUrl": ".",
     "declaration": true,
     "strictNullChecks": true,
-    "paths": {
-      "@src/*": ["src/*"]
-    }
+    // "paths": {
+    //   "@src/*": ["src/*"]
+    // }
   },
   "exclude": ["node_modules"],
   "include": ["src/index.lib.ts", "definitions/**/*.d.ts"]
