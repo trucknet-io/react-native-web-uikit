@@ -96,7 +96,7 @@ export default withTheme<Props, Style>(setStyle)(Component);
  - add defaultProps if you need
   
 ```
-type DefaultProps = typeof LoginFormContainer.defaultProps;
+type DefaultProps = typeof Component.defaultProps;
 
 export default withTheme<Props, Style, DefaultProps>(setStyle)(Component);
 ```

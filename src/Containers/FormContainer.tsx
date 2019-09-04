@@ -33,7 +33,7 @@ interface State {
   colors: typeof colorTheme;
 }
 
-class LoginFormContainer extends React.PureComponent<Props, State> {
+class FormContainer extends React.PureComponent<Props, State> {
   nextInput: { [key: string]: TextInput } = {};
   static defaultProps = {
     paddingTop: 32,
@@ -158,4 +158,6 @@ const setStyle = ({ color }: SetStyleParamsType) => {
   });
 };
 
-export default withTheme<Props, Style>(setStyle)(LoginFormContainer);
+type DefaultProps = typeof FormContainer.defaultProps;
+
+export default withTheme<Props, Style, DefaultProps>(setStyle)(FormContainer);

@@ -24,14 +24,18 @@ export interface ThemeProps<S> {
 }
 
 type WithOutThemeProps<P, S> = Pick<P, Exclude<keyof P, keyof ThemeProps<S>>>;
-type WithOutDefaultProps<P, D> = Pick<P, Exclude<keyof P, keyof D>>;
+type WithOutProps<P, D> = Pick<P, Exclude<keyof P, keyof D>>;
 
 const withTheme = <P, S = {}, D = {}>(getComponentStyle?: GetComponentStyle<S>) => (
   Component: React.ComponentClass<P>,
 ) => {
   type WithoutThemeProps = WithOutThemeProps<P, S>;
-  type WithoutDefaultProps = WithOutDefaultProps<WithoutThemeProps, D>;
-  type ComponentProps = WithoutDefaultProps & Partial<D>;
+  type ComponentWithoutDefaultProps = WithOutProps<WithoutThemeProps, D>;
+  /**
+   * get defaultProps from P because D can has wrong typing
+   */
+  type ComponentDefaultProps = WithOutProps<WithoutThemeProps, ComponentWithoutDefaultProps>;
+  type ComponentProps = ComponentWithoutDefaultProps & Partial<ComponentDefaultProps>;
   return class WithContextHOC extends React.PureComponent<ComponentProps> {
     public render() {
       return <ThemeConsumer>{this.renderComponent}</ThemeConsumer>;

@@ -197,4 +197,6 @@ const setStyle = ({ color, font }: SetStyleParamsType) => {
   });
 };
 
-export default withTheme<Props, Style>(setStyle)(SignatureModal);
+type DefaultProps = typeof SignatureModal.defaultProps;
+
+export default withTheme<Props, Style, DefaultProps>(setStyle)(SignatureModal);
