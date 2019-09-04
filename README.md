@@ -28,6 +28,8 @@ import { ComponentName } from "react-native-web-uikit"
 
 ## ThemeProvider
 
+*themed components (Form, LoginForm, SignatureModal) will work only inside ThemeProviderWrapper in your app*
+
 ```
 import { ThemeProviderWrapper } from "react-native-web-uikit";
 
@@ -40,9 +42,8 @@ import { ThemeProviderWrapper } from "react-native-web-uikit";
 import { withTheme, UikitComponentWithTheme, SetStyleParamsType, ThemeProps } from "react-native-web-uikit";
 
 type Style = ReturnType<typeof setStyle>;
-interface Props extends ThemeProps<Style> {}
 
-interface ComponentProps extends PropsFromThemeProvider {}
+interface Props extends ThemeProps<Style> {}
 
 class Component extends React.PureComponent<Props, State> {
     render() {
@@ -91,7 +92,14 @@ const setStyle = ({ color, font, variables }: SetStyleParamsType) => {
 export default withTheme<Props, Style>(setStyle)(Component);
 
 ```
-For show Modal Wrap Root Container with `RootWrapper` Component
+
+ - add defaultProps if you need
+  
+```
+type DefaultProps = typeof LoginFormContainer.defaultProps;
+
+export default withTheme<Props, Style, DefaultProps>(setStyle)(Component);
+```
 
 ## webpack config
 
