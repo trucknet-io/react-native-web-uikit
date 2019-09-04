@@ -79,5 +79,5 @@ const getVariables = (windowSize: WindowSizeType) => {
   };
 };
 
-export type GetVariablesType = ReturnType<typeof getVariables>;
+export type VariablesType = ReturnType<typeof getVariables>;
 export default getVariables;

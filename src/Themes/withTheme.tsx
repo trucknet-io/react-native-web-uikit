@@ -1,27 +1,29 @@
 import { getColor, ColorType, ColorThemeNames } from "./Colors";
 import * as React from "react";
-import getVariables, { GetVariablesType } from "./Variables";
-import { getFont } from "./Fonts";
+import getVariables, { VariablesType } from "./Variables";
+import { getFont, FontType } from "./Fonts";
 import { ThemeConsumer, ThemeProviderType } from "src/Contexts/ThemeContext";
+
+export type ThemeType = ColorThemeNames;
 
 export type SetStyleParamsType = {
   color: ColorType;
-  font: ReturnType<typeof getFont>;
-  variables: GetVariablesType;
+  font: FontType;
+  variables: VariablesType;
 };
 
 type GetComponentStyle<S> = (theme: SetStyleParamsType) => S;
 
-export interface WithStyle<S> {
+export interface WithTheme<S> {
   style: S;
   theme: ColorThemeNames;
-  variables: GetVariablesType;
+  variables: VariablesType;
   color: ColorType;
-  font: ReturnType<typeof getFont>;
+  font: FontType;
   switchTheme: () => void;
 }
 
-type ComponentProps<P, S> = Pick<P, Exclude<keyof P, keyof WithStyle<S>>>;
+type ComponentProps<P, S> = Pick<P, Exclude<keyof P, keyof WithTheme<S>>>;
 
 const withTheme = <P, S>(getComponentStyle?: GetComponentStyle<S>) => (Component: React.ComponentClass<P>) => {
   return class WithContextHOC extends React.PureComponent<ComponentProps<P, S>> {

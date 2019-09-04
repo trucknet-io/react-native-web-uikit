@@ -16,9 +16,9 @@ import LoginForm from "./Containers/LoginFormContainer";
 import SignatureModal from "./Components/SignatureModal";
 import { getColor, ColorType, ColorThemeNames } from "./Themes/Colors";
 import { getFont, FontType, FontNames } from "./Themes/Fonts";
-import getVariables, { GetVariablesType } from "./Themes/Variables";
+import getVariables, { VariablesType } from "./Themes/Variables";
 import { ThemeProviderType } from "./Contexts/ThemeContext";
-import withTheme, { SetStyleParamsType } from "./Themes/withTheme";
+import withTheme, { SetStyleParamsType, ThemeType } from "./Themes/withTheme";
 import ThemeProviderWrapper from "./Wrappers/ThemeProviderWrapper";
 import CardsPlaceholder from "./Components/Placeholders/Cards";
 import MapPlaceholder from "./Components/Placeholders/Map";
@@ -48,12 +48,13 @@ export {
   FontType,
   FontNames,
   getVariables,
-  GetVariablesType,
+  VariablesType,
   ParagraphPlaceholder,
   CardsPlaceholder,
   MapPlaceholder,
   ThemeProviderWrapper,
   ThemeProviderType,
   withTheme,
+  ThemeType,
   SetStyleParamsType,
 };

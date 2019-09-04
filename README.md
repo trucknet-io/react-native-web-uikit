@@ -29,38 +29,43 @@ import { ComponentName } from "react-native-web-uikit"
 ## ThemeProvider
 
 ```
-import { ThemeProvider } from "react-native-web-uikit";
+import { ThemeProviderWrapper } from "react-native-web-uikit";
 
-<ThemeProvider
-        value={{
-          colorThemeName: this.state.colorThemeName,
-          windowSize: this.state.windowSize,
-        }}>
+<ThemeProviderWrapper>
     <ThemedComponents />
-</ThemeProvider>
+</ThemeProviderWrapper>
 ```
 
 ```
-import { withTheme, getColor, getFont, UikitComponentWithTheme, SetStyleParamsType, ThemeType } from "react-native-web-uikit";
+import { withTheme, FontType, ColorType, VariablesType, UikitComponentWithTheme, SetStyleParamsType, ThemeType } from "react-native-web-uikit";
 
 type Style = ReturnType<typeof setStyle>;
-type Props = {
-  style: Style;
-  theme: ThemeType
+type PropsFromThemeProvider = {
+    style: Style;
+    theme: ThemeType;
+    color: ColorType;
+    font: FontType;
+    variables: VariablesType;
+    switchTheme: () => void;
 }
+
+interface ComponentProps extends PropsFromThemeProvider {}
 
 class Component extends React.PureComponent<Props, State> {
     render() {
-        const { style, theme } = this.props;
-        const font = getFont(theme);
-        const color = getColor(theme);
+        const { style, theme, font, color, switchTheme } = this.props;
         return (
-            <View styles={style.container}>
-                <UikitComponentWithTheme theme={theme} />
-                <Text style={{...font.SubTitle, color: color.primaryText}}>
-                    Some Text
-                </Text>
-            </View>
+                <View style={style.container}>
+                    <SwitchTheme currentThemeName={theme} switchTheme={switchTheme}/>
+                    <View style={style.card}>
+                        <UikitComponentWithTheme />
+                        <!-- uikit component theme will change depends on app theme change -->
+                    </View>
+                    <Text style={{...font.SubTitle, color: color.primaryText}}>
+                        Some Text
+                    </Text>
+                    <Text style={style.text}>Some Text</Text>
+                </View>
             );
         )
     }
@@ -68,6 +73,7 @@ class Component extends React.PureComponent<Props, State> {
 
 const setStyle = ({ color, font, variables }: SetStyleParamsType) => {
     const { shadow, indent, size, borderRadius, borderWidth, window, isTablet, isLandscape } = variables;
+    // window sizes, isLandscape change on dimensions change
     return (
         StyleSheet.create({
             container: {
@@ -88,7 +94,8 @@ const setStyle = ({ color, font, variables }: SetStyleParamsType) => {
         });
     )
 }
-export default withTheme<Props, Style>(setStyle)(Component);
+
+export default withTheme<ComponentProps, Style>(setStyle)(Component);
 
 ```
 For show Modal Wrap Root Container with `RootWrapper` Component
