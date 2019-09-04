@@ -1,9 +1,20 @@
 import { AppRegistry } from "react-native";
-import { getStorybookUI, configure } from "@storybook/react-native";
+import { getStorybookUI, configure, addDecorator } from "@storybook/react-native";
 import { name } from "../app.json";
-import stories from "../src/stories/index.mobile";
-
+import stories from "src/stories/index.mobile";
+import ThemeProviderWrapper from "src/Wrappers/ThemeProviderWrapper";
+import StoryWrapper from "src/Wrappers/StoryWrapper";
+import { withKnobs } from "@storybook/addon-knobs/react";
 import "./rn-addons";
+
+addDecorator(withKnobs);
+addDecorator((story) => {
+  return (
+    <ThemeProviderWrapper>
+      <StoryWrapper>{story}</StoryWrapper>
+    </ThemeProviderWrapper>
+  );
+});
 
 // import stories
 configure(() => stories, module);

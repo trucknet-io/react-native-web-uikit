@@ -8,7 +8,6 @@ const stories = storiesOf("SignatureModal", module);
 
 stories.addDecorator(withKnobs);
 stories.addDecorator(withInfo);
-
 stories.add("SignatureModal", SignatureModalStory, importInfo("SignatureModal"));
 
 export default stories;

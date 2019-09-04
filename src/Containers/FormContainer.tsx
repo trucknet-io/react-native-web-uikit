@@ -1,11 +1,14 @@
 import * as React from "react";
 
 import { View, StyleSheet, KeyboardType, TextInput } from "react-native";
-import { colorTheme } from "src/Themes/Colors";
+import { colorTheme, ColorType } from "src/Themes/Colors";
 import Input from "src/Components/Input";
 import { GradientButton } from "src/Components/Buttons";
+import withTheme, { SetStyleParamsType } from "src/Themes/withTheme";
 
 type FieldsState = { [key: string]: { value?: string; isValid: boolean } };
+
+type Style = ReturnType<typeof setStyle>;
 
 interface Props {
   handleSubmit(res: FieldsState): void;
@@ -19,9 +22,11 @@ interface Props {
     };
   };
   submitLabel: string;
-  theme: "light" | "dark";
-  paddingTop: string | number;
-  paddingHorizontal: string | number;
+  paddingTop?: string | number;
+  paddingHorizontal?: string | number;
+  style: Style;
+  color: ColorType;
+  // switchTheme2: any;
 }
 
 interface State {
@@ -54,25 +59,24 @@ class LoginFormContainer extends React.PureComponent<Props, State> {
   }
 
   public render() {
-    const theme = this.state.colors[this.props.theme];
+    const { style } = this.props;
     return (
       <View
         style={[
-          styles.container,
+          style.container,
           {
-            backgroundColor: theme.background,
             paddingTop: this.props.paddingTop,
             paddingHorizontal: this.props.paddingHorizontal,
           },
         ]}>
-        <View style={styles.inputContainer}>{this.renderInputs()}</View>
-        <View style={styles.buttonsContainer}>{this.renderSubmitButton()}</View>
+        <View style={style.inputContainer}>{this.renderInputs()}</View>
+        <View style={style.buttonsContainer}>{this.renderSubmitButton()}</View>
       </View>
     );
   }
 
   private renderInputs = () => {
-    const theme = this.state.colors[this.props.theme];
+    const { color } = this.props;
     const fieldNames = Object.keys(this.props.fields);
 
     return fieldNames.map((fieldName, index) => {
@@ -86,8 +90,8 @@ class LoginFormContainer extends React.PureComponent<Props, State> {
           secureTextEntry={field.secureTextEntry}
           validateValue={field.validate}
           onChange={this.setValue(fieldName)}
-          onSuccessInputFieldColor={theme.themeColor}
-          textColor={theme.defaultText}
+          onSuccessInputFieldColor={color.themeColor}
+          textColor={color.defaultText}
           keyboardType={field.keyboardType}
           initialValue={field.initialValue}
           onSubmitEditing={this.onCurrentInputSubmit(nextInputName)}
@@ -136,20 +140,23 @@ class LoginFormContainer extends React.PureComponent<Props, State> {
   };
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    width: "100%",
-    justifyContent: "space-around",
-    alignItems: "center",
-  },
-  inputContainer: {
-    flex: 1,
-    width: "100%",
-    flexDirection: "column",
-    justifyContent: "flex-end",
-  },
-  buttonsContainer: { flex: 1, width: "100%", justifyContent: "space-around" },
-});
+const setStyle = ({ color }: SetStyleParamsType) => {
+  return StyleSheet.create({
+    container: {
+      flex: 1,
+      width: "100%",
+      justifyContent: "space-around",
+      alignItems: "center",
+      backgroundColor: color.background,
+    },
+    inputContainer: {
+      flex: 1,
+      width: "100%",
+      flexDirection: "column",
+      justifyContent: "flex-end",
+    },
+    buttonsContainer: { flex: 1, width: "100%", justifyContent: "space-around" },
+  });
+};
 
-export default LoginFormContainer;
+export default withTheme<Props, Style>(setStyle)(LoginFormContainer);

@@ -1,11 +1,11 @@
 import React from "react";
 import Container from "src/stories/Container";
 import FormContainer from "src/Containers/FormContainer";
-import { select, object } from "@storybook/addon-knobs/react";
-import { setRequiredProp, setOptionalProp, isEmailInvalid } from "src/stories/Helpers";
+import { object, button } from "@storybook/addon-knobs/react";
+import { setRequiredProp, isEmailInvalid } from "src/stories/Helpers";
 import { action } from "@storybook/addon-actions";
 
-const LoginForm = () => {
+const LoginForm = (props) => {
   return (
     <Container>
       <FormContainer
@@ -16,7 +16,7 @@ const LoginForm = () => {
           phone: { label: "phone", keyboardType: "phone-pad" },
         })}
         submitLabel="Sign in"
-        theme={select(setOptionalProp("theme"), { light: "light", dark: "dark" }, "light")}
+        {...button("switch theme", props.switchTheme)}
       />
     </Container>
   );

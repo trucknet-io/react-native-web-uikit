@@ -64,6 +64,7 @@ class GradientButtonWithChildren extends React.PureComponent<GradientButtonWithC
   public static defaultProps = {
     gradientStartColor: Colors.themeGradient.gradientColor1,
     gradientEndColor: Colors.themeGradient.gradientColor2,
+    borderRadius: 4,
   };
   public PRESS_IN_SHADOW = 1;
   public PRESS_OUT_SHADOW = 4;
@@ -75,19 +76,20 @@ class GradientButtonWithChildren extends React.PureComponent<GradientButtonWithC
   };
 
   public render() {
-    const { disabled, onPress, onLongPress, gradientStartColor, gradientEndColor } = this.props;
+    const { disabled, onPress, onLongPress, gradientStartColor, gradientEndColor, borderRadius } = this.props;
     return (
       <LinearGradient
         start={{ x: 0, y: 1 }}
         end={{ x: 1, y: 1 }}
         gradientStartColor={this.setColor(gradientStartColor)}
         gradientEndColor={this.setColor(gradientEndColor)}
-        style={[styles.linearGradient, linearGradientStyles(this.props), this.state.shadow]}>
+        style={[styles.linearGradient, linearGradientStyles(this.props), this.state.shadow, { borderRadius }]}>
         <TouchableOpacity
           testID={this.props.testID}
           style={[
             styles.buttonContainer,
             buttonContainerStyles({ ...this.props, marginVertical: 0, marginHorizontal: 0 }),
+            { borderRadius },
           ]}
           onPress={onPress}
           onLongPress={onLongPress}

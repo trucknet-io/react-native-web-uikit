@@ -17,7 +17,9 @@ import SignatureModal from "./Components/SignatureModal";
 import { getColor, ColorType, ColorThemeNames } from "./Themes/Colors";
 import { getFont, FontType, FontNames } from "./Themes/Fonts";
 import getVariables, { GetVariablesType } from "./Themes/Variables";
-import { ThemeProvider, withTheme, ThemeProviderType, SetStyleParamsType, ThemeType } from "./Themes/ThemeProvider";
+import { ThemeProviderType } from "./Contexts/ThemeContext";
+import withTheme, { SetStyleParamsType } from "./Themes/withTheme";
+import ThemeProviderWrapper from "./Wrappers/ThemeProviderWrapper";
 import CardsPlaceholder from "./Components/Placeholders/Cards";
 import MapPlaceholder from "./Components/Placeholders/Map";
 import ParagraphPlaceholder from "./Components/Placeholders/Paragraph";
@@ -50,9 +52,8 @@ export {
   ParagraphPlaceholder,
   CardsPlaceholder,
   MapPlaceholder,
-  ThemeProvider,
+  ThemeProviderWrapper,
   ThemeProviderType,
-  ThemeType,
   withTheme,
   SetStyleParamsType,
 };

@@ -13,7 +13,6 @@ type Props = {
   cancelButtonLabel: string;
   headerText?: string;
   helperText?: string;
-  theme?: "dark" | "light";
 };
 
 class SignatureModalContainer extends React.PureComponent<Props> {

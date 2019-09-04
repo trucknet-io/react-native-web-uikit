@@ -1,5 +1,4 @@
-import Colors, { colorTheme } from "src/Themes/Colors";
-import fonts from "src/Themes/Fonts";
+import Colors, { colorTheme, ColorType } from "src/Themes/Colors";
 import { parseDataUrl, ParsedDataUrlType } from "src/Helpers/regexHelpers";
 import * as React from "react";
 import { Text, View, StyleSheet } from "react-native";
@@ -8,6 +7,9 @@ import { TransparentButtonWithChildren } from "src/Components/Buttons";
 import { canvasHTML } from "./canvasHTML";
 import WebView from "react-native-webview";
 import { isWeb } from "src/Helpers/platform";
+import withTheme, { SetStyleParamsType } from "src/Themes/withTheme";
+
+type Style = ReturnType<typeof setStyle>;
 
 type Props = {
   isVisible: boolean;
@@ -17,7 +19,8 @@ type Props = {
   cancelButtonLabel: string;
   headerText?: string;
   helperText?: string;
-  theme: "light" | "dark";
+  style: Style;
+  color: ColorType;
 };
 
 type State = {
@@ -49,18 +52,16 @@ class SignatureModal extends React.PureComponent<Props> {
   }
 
   private renderButtons = () => {
-    const theme = this.state.colors[this.props.theme];
+    const { style, color } = this.props;
     const isDisabled = this.state.isSignSubmitted || !this.state.signatureData;
-    const submitButtonTextColor = isDisabled ? theme.palette.lightGray : theme.themeColor;
+    const submitButtonTextColor = isDisabled ? color.palette.lightGray : color.themeColor;
     return (
-      <View style={styles.buttonsContainer}>
+      <View style={style.buttonsContainer}>
         <TransparentButtonWithChildren onPress={this.resetWebView} width={60}>
-          <Text style={[styles.buttonText, { color: theme.defaultText, width: 60 }]}>
-            {this.props.cancelButtonLabel.toUpperCase()}
-          </Text>
+          <Text style={style.buttonText}>{this.props.cancelButtonLabel.toUpperCase()}</Text>
         </TransparentButtonWithChildren>
         <TransparentButtonWithChildren disabled={isDisabled} onPress={this.sendSignature} width={40}>
-          <Text style={[styles.buttonText, { color: submitButtonTextColor, width: 40 }]}>
+          <Text style={[style.submitButtonText, { color: submitButtonTextColor }]}>
             {this.props.submitButtonLabel.toUpperCase()}
           </Text>
         </TransparentButtonWithChildren>
@@ -80,6 +81,7 @@ class SignatureModal extends React.PureComponent<Props> {
   private renderWebModal = () => (
     // @ts-ignore: visible right name for prop if import from modal-react-native-web
     <Modal
+      ariaHideApp={false}
       visible={this.props.isVisible}
       onBackdropPress={this.props.onBackdropPress}
       onModalShow={this.unSubmitSignApply}>
@@ -88,16 +90,16 @@ class SignatureModal extends React.PureComponent<Props> {
   );
 
   renderSignView = () => {
-    const theme = this.state.colors[this.props.theme];
+    const { style } = this.props;
     return (
-      <View style={[styles.container, { backgroundColor: theme.background }]}>
+      <View style={style.container}>
         {this.renderHeaderText()}
         {this.renderHelperText()}
-        <View style={[styles.webViewContainer, { backgroundColor: theme.webViewBackground }]}>
+        <View style={style.webViewContainer}>
           <WebView
             ref={this.setWebViewRef}
             onMessage={this.onMessage}
-            style={[styles.webView, { backgroundColor: theme.webViewBackground }]}
+            style={style.webView}
             automaticallyAdjustContentInsets={false}
             javaScriptEnabled={true}
             source={{ html: canvasHTML }}
@@ -111,16 +113,14 @@ class SignatureModal extends React.PureComponent<Props> {
     );
   };
   private renderHeaderText = () => {
-    const theme = this.state.colors[this.props.theme];
     if (this.props.headerText) {
-      return <Text style={[styles.headerText, { color: theme.defaultText }]}>{this.props.headerText}</Text>;
+      return <Text style={this.props.style.headerText}>{this.props.headerText}</Text>;
     }
     return;
   };
   private renderHelperText = () => {
-    const theme = this.state.colors[this.props.theme];
     if (this.props.helperText) {
-      return <Text style={[styles.helperText, { color: theme.defaultText }]}>{this.props.helperText}</Text>;
+      return <Text style={this.props.style.helperText}>{this.props.helperText}</Text>;
     }
     return;
   };
@@ -152,37 +152,49 @@ class SignatureModal extends React.PureComponent<Props> {
     this.setState({ isSignSubmitted: false });
   };
 }
-export default SignatureModal;
+const setStyle = ({ color, font }: SetStyleParamsType) => {
+  return StyleSheet.create({
+    container: {
+      flex: 1,
+      paddingHorizontal: 20,
+      paddingTop: 10,
+      borderRadius: 5,
+      backgroundColor: color.background,
+    },
+    webViewContainer: {
+      flex: 1,
+      borderWidth: 1,
+      borderRadius: 5,
+      padding: 2,
+      borderColor: color.palette.veryLightGray,
+      backgroundColor: color.webViewBackground,
+    },
+    webView: {
+      flex: 1,
+      borderRadius: 5,
+      backgroundColor: color.webViewBackground,
+    },
+    buttonsContainer: {
+      marginTop: 25,
+      flexDirection: "row",
+      justifyContent: "flex-end",
+      alignItems: "flex-end",
+    },
+    headerText: font.MTitle,
+    helperText: font.SubTitle,
+    buttonText: {
+      flex: 1,
+      textAlign: "right",
+      width: 60,
+      ...font.BodyRegular,
+    },
+    submitButtonText: {
+      flex: 1,
+      width: 40,
+      textAlign: "right",
+      ...font.BodyRegular,
+    },
+  });
+};
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    paddingHorizontal: 20,
-    paddingTop: 10,
-    borderRadius: 5,
-  },
-  webViewContainer: {
-    flex: 1,
-    borderWidth: 1,
-    borderRadius: 5,
-    padding: 2,
-    borderColor: Colors.palette.veryLightGray,
-  },
-  webView: {
-    flex: 1,
-    borderRadius: 5,
-  },
-  buttonsContainer: {
-    marginTop: 25,
-    flexDirection: "row",
-    justifyContent: "flex-end",
-    alignItems: "flex-end",
-  },
-  headerText: fonts.MTitle,
-  helperText: fonts.SubTitle,
-  buttonText: {
-    flex: 1,
-    ...fonts.BodyRegular,
-    textAlign: "right",
-  },
-});
+export default withTheme<Props, Style>(setStyle)(SignatureModal);

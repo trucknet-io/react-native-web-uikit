@@ -1,7 +1,7 @@
 import React from "react";
 import SignatureModal from "src/Containers/SignatureModalContainer";
-import { boolean, text, select } from "@storybook/addon-knobs/react";
-import { setRequiredProp, setOptionalProp } from "src/stories/Helpers";
+import { boolean, text } from "@storybook/addon-knobs/react";
+import { setRequiredProp, setOptionalProp, switchThemeButton } from "src/stories/Helpers";
 import Container from "src/stories/Container";
 
 let isVisible = true;
@@ -14,7 +14,7 @@ const onSignApply = (data) => {
   console.log(data);
 };
 
-const SignatureModalStory = () => {
+const SignatureModalStory = (props) => {
   return (
     <Container>
       <SignatureModal
@@ -25,7 +25,7 @@ const SignatureModalStory = () => {
         cancelButtonLabel={text(setOptionalProp("cancelButtonLabel"), "cancel")}
         headerText={text(setOptionalProp("headerText"), "header")}
         helperText={text(setOptionalProp("helperText"), "do what u need to do")}
-        theme={select(setOptionalProp("theme"), { light: "light", dark: "dark" }, "light")}
+        {...switchThemeButton(props.switchTheme)}
       />
     </Container>
   );
