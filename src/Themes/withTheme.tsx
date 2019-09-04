@@ -14,7 +14,7 @@ export type SetStyleParamsType = {
 
 type GetComponentStyle<S> = (theme: SetStyleParamsType) => S;
 
-export interface WithTheme<S> {
+export interface ThemeProps<S> {
   style: S;
   theme: ColorThemeNames;
   variables: VariablesType;
@@ -23,10 +23,16 @@ export interface WithTheme<S> {
   switchTheme: () => void;
 }
 
-type ComponentProps<P, S> = Pick<P, Exclude<keyof P, keyof WithTheme<S>>>;
+type WithOutThemeProps<P, S> = Pick<P, Exclude<keyof P, keyof ThemeProps<S>>>;
+type WithOutDefaultProps<P, D> = Pick<P, Exclude<keyof P, keyof D>>;
 
-const withTheme = <P, S>(getComponentStyle?: GetComponentStyle<S>) => (Component: React.ComponentClass<P>) => {
-  return class WithContextHOC extends React.PureComponent<ComponentProps<P, S>> {
+const withTheme = <P, S = {}, D = {}>(getComponentStyle?: GetComponentStyle<S>) => (
+  Component: React.ComponentClass<P>,
+) => {
+  type WithoutThemeProps = WithOutThemeProps<P, S>;
+  type WithoutDefaultProps = WithOutDefaultProps<WithoutThemeProps, D>;
+  type ComponentProps = WithoutDefaultProps & Partial<D>;
+  return class WithContextHOC extends React.PureComponent<ComponentProps> {
     public render() {
       return <ThemeConsumer>{this.renderComponent}</ThemeConsumer>;
     }

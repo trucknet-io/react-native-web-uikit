@@ -37,23 +37,16 @@ import { ThemeProviderWrapper } from "react-native-web-uikit";
 ```
 
 ```
-import { withTheme, FontType, ColorType, VariablesType, UikitComponentWithTheme, SetStyleParamsType, ThemeType } from "react-native-web-uikit";
+import { withTheme, UikitComponentWithTheme, SetStyleParamsType, ThemeProps } from "react-native-web-uikit";
 
 type Style = ReturnType<typeof setStyle>;
-type PropsFromThemeProvider = {
-    style: Style;
-    theme: ThemeType;
-    color: ColorType;
-    font: FontType;
-    variables: VariablesType;
-    switchTheme: () => void;
-}
+interface Props extends ThemeProps<Style> {}
 
 interface ComponentProps extends PropsFromThemeProvider {}
 
 class Component extends React.PureComponent<Props, State> {
     render() {
-        const { style, theme, font, color, switchTheme } = this.props;
+        const { style, theme, font, color, switchTheme, variables } = this.props;
         return (
                 <View style={style.container}>
                     <SwitchTheme currentThemeName={theme} switchTheme={switchTheme}/>
@@ -95,7 +88,7 @@ const setStyle = ({ color, font, variables }: SetStyleParamsType) => {
     )
 }
 
-export default withTheme<ComponentProps, Style>(setStyle)(Component);
+export default withTheme<Props, Style>(setStyle)(Component);
 
 ```
 For show Modal Wrap Root Container with `RootWrapper` Component

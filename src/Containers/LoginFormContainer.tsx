@@ -2,13 +2,13 @@ import * as React from "react";
 
 import { View, StyleSheet, Text, Animated, Keyboard } from "react-native";
 import * as Icons from "src/Components/Icons";
-import Colors, { colorTheme, ColorType } from "src/Themes/Colors";
+import Colors, { colorTheme } from "src/Themes/Colors";
 import { TransparentButton } from "src/Components/Buttons";
 import FormContainer from "./FormContainer";
-import withTheme, { SetStyleParamsType } from "src/Themes/withTheme";
+import withTheme, { SetStyleParamsType, ThemeProps } from "src/Themes/withTheme";
 
 type Style = ReturnType<typeof setStyle>;
-type OwnProps = {
+interface Props extends ThemeProps<Style> {
   fields: {
     email: {
       label: string;
@@ -34,11 +34,6 @@ type OwnProps = {
   };
   componentsSizeRatio: number;
   logo?: React.ReactNode;
-  color: ColorType;
-};
-
-interface ComponentProps extends OwnProps {
-  style: Style;
 }
 
 type State = {
@@ -46,7 +41,7 @@ type State = {
   colors: typeof colorTheme;
 };
 
-class LoginFormContainer extends React.PureComponent<ComponentProps, State> {
+class LoginFormContainer extends React.PureComponent<Props, State> {
   keyboardDidShowListener;
   keyboardDidHideListener;
 
@@ -218,4 +213,6 @@ const setStyle = ({ color }: SetStyleParamsType) => {
   });
 };
 
-export default withTheme<ComponentProps, Style>(setStyle)(LoginFormContainer);
+type DefaultProps = typeof LoginFormContainer.defaultProps;
+
+export default withTheme<Props, Style, DefaultProps>(setStyle)(LoginFormContainer);

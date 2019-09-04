@@ -4,13 +4,13 @@ import { View, StyleSheet, KeyboardType, TextInput } from "react-native";
 import { colorTheme, ColorType } from "src/Themes/Colors";
 import Input from "src/Components/Input";
 import { GradientButton } from "src/Components/Buttons";
-import withTheme, { SetStyleParamsType } from "src/Themes/withTheme";
+import withTheme, { SetStyleParamsType, ThemeProps } from "src/Themes/withTheme";
 
 type FieldsState = { [key: string]: { value?: string; isValid: boolean } };
 
 type Style = ReturnType<typeof setStyle>;
 
-interface Props {
+interface Props extends ThemeProps<Style> {
   handleSubmit(res: FieldsState): void;
   fields: {
     [key: string]: {
@@ -26,7 +26,6 @@ interface Props {
   paddingHorizontal?: string | number;
   style: Style;
   color: ColorType;
-  // switchTheme2: any;
 }
 
 interface State {

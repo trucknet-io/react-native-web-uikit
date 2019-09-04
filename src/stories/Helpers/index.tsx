@@ -12,6 +12,10 @@ export const importInfo = (...rest: Array<string>) => {
   };
 };
 
+export const switchButton = (props: { switchTheme: () => void }): Object => ({
+  ...button("switch theme", props.switchTheme),
+});
+
 const emailRegex =
   // tslint:disable:max-line-length
   new RegExp(

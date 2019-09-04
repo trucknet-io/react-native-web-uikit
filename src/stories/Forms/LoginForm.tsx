@@ -2,8 +2,8 @@ import React from "react";
 import { Alert } from "react-native";
 import Container from "src/stories/Container";
 import LoginFormContainer from "src/Containers/LoginFormContainer";
-import { number, object, button } from "@storybook/addon-knobs/react";
-import { setRequiredProp, setOptionalProp, isEmailInvalid } from "src/stories/Helpers";
+import { number, object } from "@storybook/addon-knobs/react";
+import { setRequiredProp, setOptionalProp, isEmailInvalid, switchButton } from "src/stories/Helpers";
 import { action } from "@storybook/addon-actions";
 
 const LoginForm = (props) => {
@@ -34,7 +34,7 @@ const LoginForm = (props) => {
           separatorText: "or",
         })}
         componentsSizeRatio={number(setOptionalProp("componentsSizeRatio"), 1)}
-        {...button("switch theme", props.switchTheme)}
+        {...switchButton(props)}
       />
     </Container>
   );

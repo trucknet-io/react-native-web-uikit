@@ -1,8 +1,8 @@
 import React from "react";
 import Container from "src/stories/Container";
 import FormContainer from "src/Containers/FormContainer";
-import { object, button } from "@storybook/addon-knobs/react";
-import { setRequiredProp, isEmailInvalid } from "src/stories/Helpers";
+import { object } from "@storybook/addon-knobs/react";
+import { setRequiredProp, isEmailInvalid, switchButton } from "src/stories/Helpers";
 import { action } from "@storybook/addon-actions";
 
 const LoginForm = (props) => {
@@ -16,7 +16,7 @@ const LoginForm = (props) => {
           phone: { label: "phone", keyboardType: "phone-pad" },
         })}
         submitLabel="Sign in"
-        {...button("switch theme", props.switchTheme)}
+        {...switchButton(props)}
       />
     </Container>
   );
