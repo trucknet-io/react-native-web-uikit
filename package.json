@@ -14,7 +14,7 @@
   "private": false,
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
-    "ios": "npm run clean && react-native run-ios",
+    "ios": "react-native run-ios",
     "android": "npm run clean && react-native run-android",
     "android:release": "react-native run-android --variant=release",
     "commit": "commit-prompt --no-verify",
