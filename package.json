@@ -10,7 +10,7 @@
     "url": "git@github.com:trucknet-io/react-native-web-uikit.git"
   },
   "main": "src/index.lib.js",
-  "version": "2.4.2",
+  "version": "2.4.3",
   "private": false,
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
@@ -106,7 +106,6 @@
     "react-native-svg-web": "^1.0.1",
     "react-native-linear-gradient": "^1.0.5",
     "react-native-svg": "^9.3.5",
-    "react-native-vector-icons": "^6.3.0",
     "modal-react-native-web": "^0.2.0",
     "react-native-modal": "^11.3.1",
     "react-native-popup-menu": "^0.15.6",

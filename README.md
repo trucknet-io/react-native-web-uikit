@@ -125,7 +125,6 @@ module.exports = setUikitWebpackSetting(config?: webpackConfig);
     - react-native
     - react-native-linear-gradient
     - react-native-svg
-    - react-native-vector-icons
     - react-native-modal
     - react-native-webview
     - react-content-loader
