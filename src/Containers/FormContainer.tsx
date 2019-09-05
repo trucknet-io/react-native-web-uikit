@@ -1,10 +1,10 @@
 import * as React from "react";
 
 import { View, StyleSheet, KeyboardType, TextInput } from "react-native";
-import { colorTheme, ColorType } from "src/Themes/Colors";
-import Input from "src/Components/Input";
-import { GradientButton } from "src/Components/Buttons";
-import withTheme, { SetStyleParamsType, ThemeProps } from "src/Themes/withTheme";
+import { colorTheme, ColorType } from "../Themes/Colors";
+import Input from "../Components/Input";
+import { GradientButton } from "../Components/Buttons";
+import withTheme, { SetStyleParamsType, ThemeProps } from "../Themes/withTheme";
 
 type FieldsState = { [key: string]: { value?: string; isValid: boolean } };
 

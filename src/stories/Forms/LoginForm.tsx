@@ -1,9 +1,9 @@
 import React from "react";
 import { Alert } from "react-native";
-import Container from "src/stories/Container";
-import LoginFormContainer from "src/Containers/LoginFormContainer";
+import Container from "../Container";
+import LoginFormContainer from "../../Containers/LoginFormContainer";
 import { number, object } from "@storybook/addon-knobs/react";
-import { setRequiredProp, setOptionalProp, isEmailInvalid, switchButton } from "src/stories/Helpers";
+import { setRequiredProp, setOptionalProp, isEmailInvalid, switchButton } from "../Helpers";
 import { action } from "@storybook/addon-actions";
 
 const LoginForm = (props) => {

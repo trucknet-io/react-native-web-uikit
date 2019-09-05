@@ -1,5 +1,5 @@
 import React from "react";
-import withTheme from "src/Themes/withTheme";
+import withTheme from "../Themes/withTheme";
 
 type Props = {
   switchTheme: () => void;

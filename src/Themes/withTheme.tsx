@@ -2,7 +2,7 @@ import { getColor, ColorType, ColorThemeNames } from "./Colors";
 import * as React from "react";
 import getVariables, { VariablesType } from "./Variables";
 import { getFont, FontType } from "./Fonts";
-import { ThemeConsumer, ThemeProviderType } from "src/Contexts/ThemeContext";
+import { ThemeConsumer, ThemeProviderType } from "../Contexts/ThemeContext";
 
 export type ThemeType = ColorThemeNames;
 

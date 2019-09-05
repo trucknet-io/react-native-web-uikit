@@ -1,7 +1,7 @@
 import React from "react";
-import MapPlaceholder from "src/Components/Placeholders/Map";
+import MapPlaceholder from "../../Components/Placeholders/Map";
 import { number, select } from "@storybook/addon-knobs/react";
-import { setOptionalProp } from "src/stories/Helpers";
+import { setOptionalProp } from "../Helpers";
 
 const ParagraphStory = () => {
   return (

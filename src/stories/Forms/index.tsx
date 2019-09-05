@@ -1,7 +1,7 @@
 import { storiesOf } from "@storybook/react-native";
 import LoginForm from "./LoginForm";
 import Form from "./Form";
-import { importInfo } from "src/stories/Helpers";
+import { importInfo } from "../Helpers";
 
 const stories = storiesOf("Forms", module);
 stories.add("LoginForm", LoginForm, importInfo("LoginForm"));

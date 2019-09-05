@@ -1,6 +1,6 @@
 import * as React from "react";
 import { View } from "react-native";
-import Subscriber, { modalPropertiesType } from "src/Subscriber";
+import Subscriber, { modalPropertiesType } from "../Subscriber";
 
 interface ModalProps extends modalPropertiesType {
   component: React.ReactNode;

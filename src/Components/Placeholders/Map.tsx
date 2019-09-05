@@ -1,8 +1,8 @@
 import * as React from "react";
 import { StyleSheet, View } from "react-native";
-import MapPlaceholderIcon from "src/Components/Icons/MapPlaceholderIcon";
+import MapPlaceholderIcon from "../Icons/MapPlaceholderIcon";
 import Paragraph from "./Paragraph";
-import { colorTheme } from "src/Themes/Colors";
+import { colorTheme } from "../../Themes/Colors";
 
 interface Props {
   lines: number;

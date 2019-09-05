@@ -1,8 +1,8 @@
 import React from "react";
 import { Button } from "react-native";
 import { number, object } from "@storybook/addon-knobs/react";
-import RootWrapper from "src/Wrappers/RootWrapper";
-import Modal from "src/Components/Modal";
+import RootWrapper from "../../Wrappers/RootWrapper";
+import Modal from "../../Components/Modal";
 import ModalViewMobile from "./ModalViewMobile";
 
 class ModalContainer extends React.PureComponent<{}> {

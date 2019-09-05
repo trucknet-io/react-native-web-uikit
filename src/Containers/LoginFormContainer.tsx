@@ -1,11 +1,11 @@
 import * as React from "react";
 
 import { View, StyleSheet, Text, Animated, Keyboard } from "react-native";
-import * as Icons from "src/Components/Icons";
-import Colors, { colorTheme } from "src/Themes/Colors";
-import { TransparentButton } from "src/Components/Buttons";
+import * as Icons from "../Components/Icons";
+import Colors, { colorTheme } from "../Themes/Colors";
+import { TransparentButton } from "../Components/Buttons";
 import FormContainer from "./FormContainer";
-import withTheme, { SetStyleParamsType, ThemeProps } from "src/Themes/withTheme";
+import withTheme, { SetStyleParamsType, ThemeProps } from "../Themes/withTheme";
 
 type Style = ReturnType<typeof setStyle>;
 interface Props extends ThemeProps<Style> {

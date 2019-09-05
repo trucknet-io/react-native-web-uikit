@@ -1,9 +1,9 @@
 import * as React from "react";
 import { View } from "react-native";
-import SignatureModal from "src/Components/SignatureModal";
-import { GradientButton } from "src/Components/Buttons";
-import { isWeb } from "src/Helpers/platform";
-import { ParsedDataUrlType } from "src/Helpers/regexHelpers";
+import SignatureModal from "../Components/SignatureModal";
+import { GradientButton } from "../Components/Buttons";
+import { isWeb } from "../Helpers/platform";
+import { ParsedDataUrlType } from "../Helpers/regexHelpers";
 
 type Props = {
   isVisible: boolean;

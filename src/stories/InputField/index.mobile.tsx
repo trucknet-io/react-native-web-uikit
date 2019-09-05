@@ -1,5 +1,5 @@
 import { storiesOf } from "@storybook/react-native";
-import { importInfo } from "src/stories/Helpers";
+import { importInfo } from "../Helpers";
 import InputField from "./InputField";
 import { withKnobs } from "@storybook/addon-knobs/react";
 

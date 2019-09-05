@@ -1,10 +1,10 @@
 import React from "react";
-import { TransparentButton } from "src/Components/Buttons";
+import { TransparentButton } from "../../Components/Buttons";
 import { text, color } from "@storybook/addon-knobs/react";
-import { setRequiredProp, setOptionalProp } from "src/stories/Helpers";
+import { setRequiredProp, setOptionalProp } from "../Helpers";
 import buttonProps from "./buttonCommonProps";
-import Container from "src/stories/Container";
-import Colors from "src/Themes/Colors";
+import Container from "../Container";
+import Colors from "../../Themes/Colors";
 
 const GradientButtonStory = () => (
   <Container>

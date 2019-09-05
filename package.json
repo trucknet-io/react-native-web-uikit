@@ -9,13 +9,13 @@
     "type": "git",
     "url": "git@github.com:trucknet-io/react-native-web-uikit.git"
   },
-  "main": "dist/index.lib.js",
+  "main": "src/index.lib.js",
   "version": "2.4.2",
   "private": false,
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
-    "ios": "react-native run-ios",
-    "android": "react-native run-android",
+    "ios": "npm run clean && react-native run-ios",
+    "android": "npm run clean && react-native run-android",
     "android:release": "react-native run-android --variant=release",
     "commit": "commit-prompt --no-verify",
     "precommit": "lint-staged && npm run lint",
@@ -27,8 +27,8 @@
     "test:unit": "jest --detectOpenHandles --testPathPattern \"src/.+spec.tsx?$\"",
     "test:e2e": "jest --detectOpenHandles --testPathPattern \"__tests__/.+.tsx?\"",
     "test:ci": "jest --detectOpenHandles --coverage",
-    "build": "npm run clean && tsc -p tsconfig.json && tscpaths -p tsconfig.json -s ./src -o ./src/**/*.js",
-    "storybook": "start-storybook -p 9009 -s public",
+    "build": "npm run clean && tsc -p tsconfig.json",
+    "storybook": "npm run clean && start-storybook -p 9009 -s public",
     "build-storybook": "build-storybook -s public",
     "prepublishOnly": "npm run build",
     "postrelease": "npm publish",
@@ -133,12 +133,17 @@
   "files": [
     "src/**/*.js",
     "src/**/*.d.ts",
+    "!src/App.js",
+    "!src/App.d.ts",
     "!src/index.js",
     "!src/react-app-env.d.ts",
     "!src/registerServiceWorker.js",
     "!src/stories/*",
-    "!Wrappers/StoryWrapper",
-    "!Containers/IconsContainer",
-    "!Containers/SignatureModalContainer"
+    "!Wrappers/StoryWrapper.js",
+    "!Wrappers/StoryWrapper.d.ts",
+    "!Containers/IconsContainer.js",
+    "!Containers/IconsContainer.d.ts",
+    "!Containers/SignatureModalContainer.js",
+    "!Containers/SignatureModalContainer.d.ts"
   ]
 }

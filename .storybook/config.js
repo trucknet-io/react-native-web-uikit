@@ -3,8 +3,8 @@ import { configure, addDecorator } from "@storybook/react";
 import "./addons";
 import { withKnobs } from "@storybook/addon-knobs/react";
 import { withInfo } from "@storybook/addon-info";
-import ThemeProviderWrapper from "src/Wrappers/ThemeProviderWrapper";
-import StoryWrapper from "src/Wrappers/StoryWrapper";
+import ThemeProviderWrapper from "../src/Wrappers/ThemeProviderWrapper";
+import StoryWrapper from "../src/Wrappers/StoryWrapper";
 
 addDecorator(withKnobs);
 addDecorator(withInfo);

@@ -1,11 +1,11 @@
 import React from "react";
 import { View } from "react-native";
-import Input from "src/Components/Input";
+import Input from "../../Components/Input";
 import { boolean, color, text, number } from "@storybook/addon-knobs/react";
-import { setRequiredProp, setOptionalProp } from "src/stories/Helpers";
-import Container from "src/stories/Container";
-import Colors from "src/Themes/Colors";
-import { isWeb } from "src/Helpers/platform";
+import { setRequiredProp, setOptionalProp } from "../Helpers";
+import Container from "../Container";
+import Colors from "../../Themes/Colors";
+import { isWeb } from "../../Helpers/platform";
 
 const InputFieldStory = () => (
   <Container>

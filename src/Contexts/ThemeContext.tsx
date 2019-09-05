@@ -1,6 +1,6 @@
-import { ColorThemeNames } from "src/Themes/Colors";
+import { ColorThemeNames } from "../Themes/Colors";
 import * as React from "react";
-import { WindowSizeType, initialWindowSize } from "src/Themes/Variables";
+import { WindowSizeType, initialWindowSize } from "../Themes/Variables";
 
 export type ThemeProviderType = {
   theme: ColorThemeNames;

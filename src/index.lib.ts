@@ -14,11 +14,11 @@ import InputField from "./Components/Input";
 import Form from "./Containers/FormContainer";
 import LoginForm from "./Containers/LoginFormContainer";
 import SignatureModal from "./Components/SignatureModal";
-import { getColor, ColorType, ColorThemeNames } from "./Themes/Colors";
+import { getColor, ColorType, ColorThemeNames, colorTheme } from "./Themes/Colors";
 import { getFont, FontType, FontNames } from "./Themes/Fonts";
 import getVariables, { VariablesType } from "./Themes/Variables";
 import { ThemeProviderType } from "./Contexts/ThemeContext";
-import withTheme, { SetStyleParamsType, ThemeType } from "./Themes/withTheme";
+import withTheme, { SetStyleParamsType, ThemeType, ThemeProps } from "./Themes/withTheme";
 import ThemeProviderWrapper from "./Wrappers/ThemeProviderWrapper";
 import CardsPlaceholder from "./Components/Placeholders/Cards";
 import MapPlaceholder from "./Components/Placeholders/Map";
@@ -44,6 +44,7 @@ export {
   getColor,
   ColorThemeNames,
   ColorType,
+  colorTheme,
   getFont,
   FontType,
   FontNames,
@@ -56,5 +57,6 @@ export {
   ThemeProviderType,
   withTheme,
   ThemeType,
+  ThemeProps,
   SetStyleParamsType,
 };

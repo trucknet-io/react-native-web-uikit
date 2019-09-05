@@ -1,10 +1,10 @@
 import React from "react";
-import { GradientButton } from "src/Components/Buttons";
-import Colors from "src/Themes/Colors";
+import { GradientButton } from "../../Components/Buttons";
+import Colors from "../../Themes/Colors";
 import { text, color } from "@storybook/addon-knobs/react";
-import { setRequiredProp } from "src/stories/Helpers";
+import { setRequiredProp } from "../Helpers";
 import buttonProps from "./buttonCommonProps";
-import Container from "src/stories/Container";
+import Container from "../Container";
 
 const GradientButtonStory = () => (
   <Container>

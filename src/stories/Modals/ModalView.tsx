@@ -1,9 +1,9 @@
 import React from "react";
 import { View, StyleSheet } from "react-native";
-import Colors from "src/Themes/Colors";
-import Subscriber from "src/Subscriber";
-import { TransparentButtonWithChildren } from "src/Components/Buttons";
-import { ChevronRight, ChevronLeft, ChevronUp, ChevronDown } from "src/Components/Icons";
+import Colors from "../../Themes/Colors";
+import Subscriber from "../../Subscriber";
+import { TransparentButtonWithChildren } from "../../Components/Buttons";
+import { ChevronRight, ChevronLeft, ChevronUp, ChevronDown } from "../../Components/Icons";
 import { action } from "@storybook/addon-actions";
 
 type ModalViewProps = {

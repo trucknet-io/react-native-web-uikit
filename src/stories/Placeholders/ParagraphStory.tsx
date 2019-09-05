@@ -1,8 +1,8 @@
 import React from "react";
-import Paragraph from "src/Components/Placeholders/Paragraph";
+import Paragraph from "../../Components/Placeholders/Paragraph";
 import { number, select } from "@storybook/addon-knobs/react";
-import { setOptionalProp } from "src/stories/Helpers";
-import Container from "src/stories/Container";
+import { setOptionalProp } from "../Helpers";
+import Container from "../Container";
 
 const ParagraphStory = () => {
   return (

@@ -6,7 +6,7 @@ import TransparentButtonWithChildrenStory from "./TransparentButtonWithChildren"
 import TransparentButtonWithLinkStory from "./TransparentButtonWithLink";
 import { withKnobs } from "@storybook/addon-knobs/react";
 import { withInfo } from "@storybook/addon-info";
-import { importInfo } from "src/stories/Helpers";
+import { importInfo } from "../Helpers";
 
 const stories = storiesOf("Buttons", module);
 

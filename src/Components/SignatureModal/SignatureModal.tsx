@@ -1,13 +1,13 @@
-import Colors, { colorTheme, ColorType } from "src/Themes/Colors";
-import { parseDataUrl, ParsedDataUrlType } from "src/Helpers/regexHelpers";
+import Colors, { colorTheme, ColorType } from "../../Themes/Colors";
+import { parseDataUrl, ParsedDataUrlType } from "../../Helpers/regexHelpers";
 import * as React from "react";
 import { Text, View, StyleSheet } from "react-native";
 import Modal from "react-native-modal";
-import { TransparentButtonWithChildren } from "src/Components/Buttons";
+import { TransparentButtonWithChildren } from "../Buttons";
 import { canvasHTML } from "./canvasHTML";
 import WebView from "react-native-webview";
-import { isWeb } from "src/Helpers/platform";
-import withTheme, { SetStyleParamsType } from "src/Themes/withTheme";
+import { isWeb } from "../../Helpers/platform";
+import withTheme, { SetStyleParamsType } from "../../Themes/withTheme";
 
 type Style = ReturnType<typeof setStyle>;
 

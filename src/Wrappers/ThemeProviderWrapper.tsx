@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Dimensions } from "react-native";
-import { initialWindowSize } from "src/Themes/Variables";
-import { ThemeProvider } from "src/Contexts/ThemeContext";
+import { initialWindowSize } from "../Themes/Variables";
+import { ThemeProvider } from "../Contexts/ThemeContext";
 
 class ThemeProviderWrapper extends React.PureComponent {
   public state = {

@@ -3,7 +3,7 @@ import { withKnobs } from "@storybook/addon-knobs/react";
 import { withInfo } from "@storybook/addon-info";
 import ModalStory from "./ModalsContainerWeb";
 import TableComponent from "./InfoTableComponent";
-import { importInfo } from "src/stories/Helpers";
+import { importInfo } from "../Helpers";
 
 const stories = storiesOf("Modals", module);
 

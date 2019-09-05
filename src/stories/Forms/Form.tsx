@@ -1,8 +1,8 @@
 import React from "react";
-import Container from "src/stories/Container";
-import FormContainer from "src/Containers/FormContainer";
+import Container from "../Container";
+import FormContainer from "../../Containers/FormContainer";
 import { object } from "@storybook/addon-knobs/react";
-import { setRequiredProp, isEmailInvalid, switchButton } from "src/stories/Helpers";
+import { setRequiredProp, isEmailInvalid, switchButton } from "../Helpers";
 import { action } from "@storybook/addon-actions";
 
 const LoginForm = (props) => {
