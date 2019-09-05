@@ -25,6 +25,8 @@ project.xcworkspace
 #
 build/
 dist
+src/**/*.js
+src/**/*.d.ts
 .idea
 .gradle
 local.properties

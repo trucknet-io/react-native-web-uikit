@@ -15,7 +15,7 @@
     "forceConsistentCasingInFileNames": true,
     "module": "esnext",
     "resolveJsonModule": true,
-    "outDir": "dist",
+    "outDir": "src",
     "baseUrl": ".",
     "declaration": true,
     "strictNullChecks": true,

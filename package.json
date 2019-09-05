@@ -9,9 +9,6 @@
     "type": "git",
     "url": "git@github.com:trucknet-io/react-native-web-uikit.git"
   },
-  "files": [
-    "dist/**/*"
-  ],
   "main": "dist/index.lib.js",
   "version": "2.4.2",
   "private": false,
@@ -30,12 +27,13 @@
     "test:unit": "jest --detectOpenHandles --testPathPattern \"src/.+spec.tsx?$\"",
     "test:e2e": "jest --detectOpenHandles --testPathPattern \"__tests__/.+.tsx?\"",
     "test:ci": "jest --detectOpenHandles --coverage",
-    "build": "rimraf dist/ && tsc -p tsconfig.json && tscpaths -p tsconfig.json -s ./src -o ./dist",
+    "build": "npm run clean && tsc -p tsconfig.json && tscpaths -p tsconfig.json -s ./src -o ./src",
     "storybook": "start-storybook -p 9009 -s public",
     "build-storybook": "build-storybook -s public",
     "prepublishOnly": "npm run build",
     "postrelease": "npm publish",
-    "release": "./extra/release.sh"
+    "release": "./extra/release.sh",
+    "clean": "rimraf src/**/*.js && rimraf src/**/*.d.ts"
   },
   "dependencies": {
     "react-native-device-info": "^2.3.2"
@@ -131,5 +129,16 @@
     "react-native-web-modal",
     "react-native-web-drawer",
     "react-native-web-storybook-uikit"
+  ],
+  "files": [
+    "src/**/*.js",
+    "src/**/*.d.ts",
+    "!src/index.js",
+    "!src/react-app-env.d.ts",
+    "!src/registerServiceWorker.js",
+    "!src/stories/*",
+    "!Wrappers/StoryWrapper",
+    "!Containers/IconsContainer",
+    "!Containers/SignatureModalContainer"
   ]
 }
