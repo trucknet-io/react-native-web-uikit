@@ -138,7 +138,6 @@ android {
 
 dependencies {
     implementation project(':react-native-webview')
-    implementation project(':react-native-vector-icons')
     implementation project(':react-native-svg')
     implementation project(':react-native-linear-gradient')
     implementation fileTree(dir: "libs", include: ["*.jar"])
