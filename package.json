@@ -33,7 +33,7 @@
     "prepublishOnly": "npm run build",
     "postrelease": "npm publish",
     "release": "./extra/release.sh",
-    "clean": "rimraf src/**/*.js && rimraf src/**/*.d.ts && rimraf src/**/*.js && rimraf src/**/*.d.ts"
+    "clean": "rimraf src/**/*.js src/**/*.d.ts && rimraf src/**/*.js src/**/*.d.ts"
   },
   "dependencies": {
     "react-native-device-info": "^2.3.2"
@@ -89,7 +89,7 @@
     "react-native-webview": "^6.8.1",
     "react-scripts": "^2.1.8",
     "react-test-renderer": "16.6.3",
-    "rimraf": "^2.6.3",
+    "rimraf": "^3.0.0",
     "storybook-addon-smart-knobs": "^4.1.0",
     "trucknet-commit": "^1.4.0",
     "tscpaths": "0.0.9",
