@@ -27,13 +27,13 @@
     "test:unit": "jest --detectOpenHandles --testPathPattern \"src/.+spec.tsx?$\"",
     "test:e2e": "jest --detectOpenHandles --testPathPattern \"__tests__/.+.tsx?\"",
     "test:ci": "jest --detectOpenHandles --coverage",
-    "build": "npm run clean && tsc -p tsconfig.json && tscpaths -p tsconfig.json -s ./src -o ./src",
+    "build": "npm run clean && tsc -p tsconfig.json && tscpaths -p tsconfig.json -s ./src -o ./src/**/*.js",
     "storybook": "start-storybook -p 9009 -s public",
     "build-storybook": "build-storybook -s public",
     "prepublishOnly": "npm run build",
     "postrelease": "npm publish",
     "release": "./extra/release.sh",
-    "clean": "rimraf src/**/*.js && rimraf src/**/*.d.ts"
+    "clean": "rimraf src/**/*.js && rimraf src/**/*.d.ts && rimraf src/**/*.js && rimraf src/**/*.d.ts"
   },
   "dependencies": {
     "react-native-device-info": "^2.3.2"
