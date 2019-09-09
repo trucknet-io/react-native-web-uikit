@@ -33,7 +33,7 @@
     "prepublishOnly": "npm run build",
     "postrelease": "npm publish",
     "release": "./extra/release.sh",
-    "clean": "rimraf src/**/*.js src/**/*.d.ts && rimraf src/**/*.js src/**/*.d.ts"
+    "clean": "rimraf src/**/*.js src/**/*.d.ts rimraf src/**/*.js src/**/*.d.ts"
   },
   "dependencies": {
     "react-native-device-info": "^2.3.2"
