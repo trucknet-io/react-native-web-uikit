@@ -1,7 +1,13 @@
 {
   "files.exclude": {
     "{src,test}/**/*.js": false,
-    "{src,test}/**/*.js.map": false
+    "{src,test}/**/*.js.map": false,
+    "**/*.js": {
+      "when": "$(basename).tsx"
+    },
+    "**/*.d.ts": {
+      "when": "$(basename).ts"
+    }
   },
   "tslint.autoFixOnSave": true,
   "editor.formatOnSave": true
