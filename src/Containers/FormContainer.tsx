@@ -13,7 +13,7 @@ interface Props {
     [key: string]: {
       label: string;
       initialValue?: string;
-      validate?(value?: string): string | undefined;
+      validate?(value?: string): string | void | undefined;
       secureTextEntry?: boolean;
       keyboardType?: KeyboardType;
     };
