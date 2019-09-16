@@ -1,8 +1,8 @@
 import * as React from "react";
 
-import { View, StyleSheet, Text, Animated, Keyboard } from "react-native";
+import { View, StyleSheet, Animated, Keyboard } from "react-native";
 import * as Icons from "src/Components/Icons";
-import Colors, { colorTheme } from "src/Themes/Colors";
+import { colorTheme } from "src/Themes/Colors";
 import { TransparentButton } from "src/Components/Buttons";
 import FormContainer from "./FormContainer";
 
@@ -22,13 +22,10 @@ type Props = {
   callback: {
     handleSubmit(res: { email: string; password: string }): void;
     onForgotPasswordPress?(): void;
-    onRegistrationPress?(): void;
   };
   text: {
     submitLabel: string;
     forgotPasswordButtonLabel: string;
-    registrationButtonLabel: string;
-    separatorText: string;
   };
   theme: "light" | "dark";
   componentsSizeRatio: number;
@@ -48,8 +45,6 @@ class LoginFormContainer extends React.PureComponent<Props, State> {
     text: {
       submitLabel: "sign in",
       forgotPasswordButtonLabel: "Forgot your passport?",
-      registrationButtonLabel: "call for registration",
-      separatorText: "or",
       theme: "light",
     },
     componentsSizeRatio: 1,
@@ -95,11 +90,7 @@ class LoginFormContainer extends React.PureComponent<Props, State> {
           submitLabel={this.props.text.submitLabel}
           key={formKey}
         />
-        <View style={styles.buttonsContainer}>
-          {this.renderForgotPasswordButton()}
-          {this.renderSeparationLine()}
-          {this.renderRegistrationButton()}
-        </View>
+        <View style={styles.buttonsContainer}>{this.renderForgotPasswordButton()}</View>
       </View>
     );
   }
@@ -156,44 +147,6 @@ class LoginFormContainer extends React.PureComponent<Props, State> {
     }
     return <View />;
   };
-  private renderSeparationLine = () => {
-    if (this.props.text.separatorText) {
-      return (
-        <Animated.View style={[styles.separatorContainer, { opacity: this.state.subElementsOpacity }]}>
-          <View style={[styles.line, { backgroundColor: this.setSeparatorLineColor() }]} />
-          <Text style={[styles.separatorText, { color: this.setSeparatorTextColor() }]}>
-            {this.props.text.separatorText}
-          </Text>
-          <View style={[styles.line, { backgroundColor: this.setSeparatorLineColor() }]} />
-        </Animated.View>
-      );
-    }
-    return <View />;
-  };
-  private setSeparatorTextColor = () => {
-    const theme = this.state.colors[this.props.theme];
-    return `${theme.defaultText}80`;
-  };
-  private setSeparatorLineColor = () => {
-    const theme = this.state.colors[this.props.theme];
-    return `${theme.palette.veryLightGray}`;
-  };
-  private renderRegistrationButton = () => {
-    const theme = this.state.colors[this.props.theme];
-    if (this.props.callback.onRegistrationPress) {
-      return (
-        <TransparentButton
-          label={this.props.text.registrationButtonLabel.toUpperCase()}
-          height={40 * this.props.componentsSizeRatio}
-          borderWidth={1}
-          borderColor={theme.themeColor}
-          textColor={theme.themeColor}
-          onPress={this.props.callback.onRegistrationPress}
-        />
-      );
-    }
-    return <View />;
-  };
 }
 
 const styles = StyleSheet.create({
@@ -206,22 +159,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   buttonsContainer: { flex: 1, width: "100%", justifyContent: "space-around" },
-  separatorContainer: {
-    flexDirection: "row",
-    width: "100%",
-    height: 32,
-    justifyContent: "space-between",
-    alignItems: "center",
-  },
-  line: {
-    marginTop: 2,
-    height: 1,
-    backgroundColor: Colors.palette.veryLightGray,
-    width: "45%",
-  },
-  separatorText: {
-    color: Colors.palette.lightGray,
-  },
 });
 
 export default LoginFormContainer;
