@@ -24,7 +24,7 @@ type Props = {
   onSuccessInputFieldColor: string;
   textColor: string;
   secureTextEntry: boolean;
-  validateValue?(value?: string): string | undefined;
+  validateValue?(value?: string): string | void;
   initialValue?: string;
   onFocus?(e: NativeSyntheticEvent<TextInputFocusEventData>): void;
   onBlur?(e: NativeSyntheticEvent<TargetedEvent>): void;
@@ -58,7 +58,7 @@ type State = {
   labelFontSize: Animated.Value;
   labelMarginBottom: Animated.Value;
   value?: string;
-  error?: string;
+  error: string | void;
 };
 
 class Input extends React.PureComponent<Props, State> {
