@@ -11,12 +11,12 @@ type Props = {
     email: {
       label: string;
       initialValue?: string;
-      validate?(value: string): string | undefined;
+      validate?(value: string): string | void;
     };
     password: {
       label: string;
       initialValue?: string;
-      validate?(value: string): string | undefined;
+      validate?(value: string): string | void;
     };
   };
   callback: {
