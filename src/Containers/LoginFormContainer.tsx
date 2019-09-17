@@ -158,7 +158,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-around",
     alignItems: "center",
   },
-  buttonsContainer: { flex: 1, width: "100%", justifyContent: "space-around" },
+  buttonsContainer: { flex: 0.3, width: "100%", justifyContent: "space-around" },
 });
 
 export default LoginFormContainer;
