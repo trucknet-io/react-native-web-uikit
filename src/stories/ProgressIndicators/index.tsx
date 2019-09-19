@@ -6,11 +6,17 @@ import MapPlaceholderStory from "./MapPlaceholderStory";
 import ParagraphStory from "./ParagraphStory";
 import CardsStory from "./CardsStory";
 import ProgressBarStory from "./ProgressBarStory";
+import * as ProgressBarReadme from "src/Components/ProgressBar/README.md";
 
 const stories = storiesOf("Progress Indicators", module);
 
 stories.addDecorator(withKnobs);
 stories.addDecorator(withInfo);
+stories.addParameters({
+  readme: {
+    sidebar: ProgressBarReadme,
+  },
+});
 
 stories.add("Paragraph", ParagraphStory, importInfo("ParagraphPlaceholder"));
 stories.add("Cards", CardsStory, importInfo("CardsPlaceholder"));

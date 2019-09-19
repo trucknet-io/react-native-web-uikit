@@ -33,7 +33,7 @@ class ProgressBar extends React.PureComponent<IProps, IState> {
     return (
       <View
         style={{
-          width: "100%",
+          width: this.state.windowWidth,
           height: this.props.height,
           backgroundColor: this.addTransparencyToColor(this.props.color),
         }}>
@@ -50,6 +50,7 @@ class ProgressBar extends React.PureComponent<IProps, IState> {
   }
   private setWindowWidth = () =>
     this.setState({ windowWidth: Dimensions.get("window").width }, this.animateProgressBar);
+
   private addTransparencyToColor = (color: string) => `${color}44`;
   private animateProgressBar = () => {
     Animated.loop(
