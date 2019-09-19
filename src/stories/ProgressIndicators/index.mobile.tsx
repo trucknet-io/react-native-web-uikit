@@ -1,6 +1,6 @@
 import { storiesOf } from "@storybook/react-native";
 import { withKnobs } from "@storybook/addon-knobs/react";
-import { importInfo } from "../Helpers";
+import { importInfo } from "src/stories/Helpers";
 import MapPlaceholderStory from "./MapPlaceholderStory";
 import ParagraphStory from "./ParagraphStory";
 import CardsStory from "./CardsStory";

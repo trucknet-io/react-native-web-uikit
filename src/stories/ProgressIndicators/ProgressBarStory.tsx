@@ -1,9 +1,9 @@
 import React from "react";
-import ProgressBar from "../../Components/ProgressBar";
-import Container from "../Container";
-import { setOptionalProp } from "../Helpers";
+import ProgressBar from "src/Components/ProgressBar";
+import Container from "src/stories/Container";
+import { setOptionalProp } from "src/stories/Helpers";
 import { number, color } from "@storybook/addon-knobs/react";
-import { colorTheme } from "../../Themes/Colors";
+import { colorTheme } from "src/Themes/Colors";
 
 const ParagraphStory = () => {
   return (

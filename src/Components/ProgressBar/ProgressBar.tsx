@@ -1,6 +1,6 @@
 import * as React from "react";
 import { View, Animated, Dimensions, Easing } from "react-native";
-import { colorTheme } from "../Themes/Colors";
+import { colorTheme } from "src/Themes/Colors";
 
 type IProps = {
   height: number;
@@ -11,28 +11,35 @@ type IState = {
   windowWidth: number;
 };
 
+const INDICATOR_WIDTH = 200;
+
 class ProgressBar extends React.PureComponent<IProps, IState> {
   static defaultProps = {
     color: colorTheme.light.themeColor,
     height: 5,
   };
-  private indicatorWidth = 200;
   public state = {
-    indicatorMargin: new Animated.Value(-this.indicatorWidth),
+    indicatorMargin: new Animated.Value(-INDICATOR_WIDTH),
     windowWidth: Dimensions.get("window").width,
   };
   public componentDidMount = () => {
-    Dimensions.addEventListener("change", (dim) => {
-      this.setState({ windowWidth: dim.window.width }, this.animateProgressBar);
-    });
+    Dimensions.addEventListener("change", this.setWindowWidth);
     this.animateProgressBar();
+  };
+  public componentWillUnmount = () => {
+    Dimensions.removeEventListener("change", this.setWindowWidth);
   };
   render() {
     return (
-      <View style={{ width: "100%", height: this.props.height, backgroundColor: `${this.props.color}44` }}>
+      <View
+        style={{
+          width: "100%",
+          height: this.props.height,
+          backgroundColor: this.addTransparencyToColor(this.props.color),
+        }}>
         <Animated.View
           style={{
-            width: this.indicatorWidth,
+            width: INDICATOR_WIDTH,
             height: this.props.height,
             backgroundColor: this.props.color,
             marginLeft: this.state.indicatorMargin,
@@ -41,6 +48,9 @@ class ProgressBar extends React.PureComponent<IProps, IState> {
       </View>
     );
   }
+  private setWindowWidth = () =>
+    this.setState({ windowWidth: Dimensions.get("window").width }, this.animateProgressBar);
+  private addTransparencyToColor = (color: string) => `${color}44`;
   private animateProgressBar = () => {
     Animated.loop(
       Animated.timing(this.state.indicatorMargin, {
