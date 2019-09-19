@@ -4,11 +4,10 @@
 
 ## Props
 
-  - _height_ number
-  - _color_ string
+- _height_ number
+- _color_ string
 
 ## ScreenShots
 
-![image](progressBarNotActive.png)
 ![image](progressBarActive.png)
-
+![image](progressBarNotActive.png)
