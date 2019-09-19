@@ -9,6 +9,6 @@
 
 ## ScreenShots
 
-![image](progressBarOff.png)
-![image](progressBarOn.png)
+![image](progressBarNotActive.png)
+![image](progressBarActive.png)
 
