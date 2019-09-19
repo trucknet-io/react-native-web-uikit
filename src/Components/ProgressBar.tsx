@@ -27,15 +27,6 @@ class ProgressBar extends React.PureComponent<IProps, IState> {
     });
     this.animateProgressBar();
   };
-  animateProgressBar = () => {
-    Animated.loop(
-      Animated.timing(this.state.indicatorMargin, {
-        toValue: this.state.windowWidth,
-        easing: Easing.linear,
-        duration: 2500,
-      }),
-    ).start();
-  };
   render() {
     return (
       <View style={{ width: "100%", height: this.props.height, backgroundColor: `${this.props.color}44` }}>
@@ -50,6 +41,15 @@ class ProgressBar extends React.PureComponent<IProps, IState> {
       </View>
     );
   }
+  private animateProgressBar = () => {
+    Animated.loop(
+      Animated.timing(this.state.indicatorMargin, {
+        toValue: this.state.windowWidth,
+        easing: Easing.linear,
+        duration: 2500,
+      }),
+    ).start();
+  };
 }
 
 export default ProgressBar;
