@@ -6,6 +6,6 @@ import * as Modals from "./Modals/index.mobile";
 import * as SignatureModal from "./SignatureModal/index.mobile";
 import * as InputField from "./InputField/index.mobile";
 import * as Forms from "./Forms/index.mobile";
-import * as Placeholders from "./Placeholders/index.mobile";
+import * as ProgressIndicators from "./ProgressIndicators/index.mobile";
 
-export { Gradient, Icons, Buttons, ColorsGallery, Modals, InputField, Forms, SignatureModal, Placeholders };
+export { Gradient, Icons, Buttons, ColorsGallery, Modals, InputField, Forms, SignatureModal, ProgressIndicators };

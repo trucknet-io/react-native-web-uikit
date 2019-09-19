@@ -18,6 +18,7 @@ import { colorTheme } from "./Themes/Colors";
 import CardsPlaceholder from "./Components/Placeholders/Cards";
 import MapPlaceholder from "./Components/Placeholders/Map";
 import ParagraphPlaceholder from "./Components/Placeholders/Paragraph";
+import ProgressBar from "./Components/ProgressBar";
 import setUikitWebpackSetting from "./Components/setUikitWebpackSetting/";
 
 export {
@@ -40,4 +41,5 @@ export {
   ParagraphPlaceholder,
   CardsPlaceholder,
   MapPlaceholder,
+  ProgressBar,
 };
