@@ -116,7 +116,11 @@ class LoginFormContainer extends React.PureComponent<Props, State> {
   };
 
   private renderLogoContainer = () => {
-    return <Animated.View style={{ opacity: this.state.subElementsOpacity }}>{this.renderLogo()}</Animated.View>;
+    return (
+      <Animated.View style={{ opacity: this.state.subElementsOpacity, marginTop: 30 }}>
+        {this.renderLogo()}
+      </Animated.View>
+    );
   };
 
   private renderLogo = () => {
