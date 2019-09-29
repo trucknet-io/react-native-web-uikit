@@ -167,6 +167,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     padding: 2,
     borderColor: Colors.palette.veryLightGray,
+    marginTop: 15,
   },
   webView: {
     flex: 1,
@@ -180,9 +181,11 @@ const styles = StyleSheet.create({
   },
   headerText: {
     ...Fonts.style.Title,
+    marginVertical: 5,
   },
   helperText: {
     ...Fonts.style.SubTitle2,
+    marginVertical: 5,
   },
   buttonText: {
     flex: 1,
