@@ -24,7 +24,7 @@ class ProgressBar extends React.PureComponent<IProps, IState> {
   };
   public componentDidMount = () => {
     Dimensions.addEventListener("change", this.setWindowWidth);
-    this.animateProgressBar();
+    this.indicatorAnimation.start();
   };
   public componentWillUnmount = () => {
     Dimensions.removeEventListener("change", this.setWindowWidth);
@@ -57,12 +57,9 @@ class ProgressBar extends React.PureComponent<IProps, IState> {
     }),
   );
   private setWindowWidth = () =>
-    this.setState({ windowWidth: Dimensions.get("window").width }, this.animateProgressBar);
+    this.setState({ windowWidth: Dimensions.get("window").width }, this.indicatorAnimation.start);
 
   private addTransparencyToColor = (color: string) => `${color}44`;
-  private animateProgressBar = () => {
-    this.indicatorAnimation.start();
-  };
 }
 
 export default ProgressBar;
