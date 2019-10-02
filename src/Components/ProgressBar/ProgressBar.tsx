@@ -1,5 +1,5 @@
 import * as React from "react";
-import { View, Animated, Dimensions, Easing } from "react-native";
+import { View, Animated, Easing, LayoutChangeEvent, StyleSheet } from "react-native";
 import { colorTheme } from "src/Themes/Colors";
 
 type IProps = {
@@ -8,7 +8,6 @@ type IProps = {
 };
 type IState = {
   indicatorMargin: Animated.Value;
-  windowWidth: number;
 };
 
 const INDICATOR_WIDTH = 200;
@@ -19,25 +18,23 @@ class ProgressBar extends React.PureComponent<IProps, IState> {
     height: 5,
   };
   public state = {
-    indicatorMargin: new Animated.Value(-INDICATOR_WIDTH),
-    windowWidth: Dimensions.get("window").width,
+    indicatorMargin: new Animated.Value(0),
   };
-  public componentDidMount = () => {
-    Dimensions.addEventListener("change", this.setWindowWidth);
-    this.indicatorAnimation.start();
-  };
+
   public componentWillUnmount = () => {
-    Dimensions.removeEventListener("change", this.setWindowWidth);
-    this.indicatorAnimation.stop();
+    this.animateIndicatorMargin(0).stop();
   };
   render() {
     return (
       <View
-        style={{
-          width: this.state.windowWidth,
-          height: this.props.height,
-          backgroundColor: this.addTransparencyToColor(this.props.color),
-        }}>
+        onLayout={this.setWindowWidth}
+        style={[
+          styles.container,
+          {
+            height: this.props.height,
+            backgroundColor: this.addTransparencyToColor(this.props.color),
+          },
+        ]}>
         <Animated.View
           style={{
             width: INDICATOR_WIDTH,
@@ -49,17 +46,24 @@ class ProgressBar extends React.PureComponent<IProps, IState> {
       </View>
     );
   }
-  private indicatorAnimation = Animated.loop(
-    Animated.timing(this.state.indicatorMargin, {
-      toValue: this.state.windowWidth,
-      easing: Easing.linear,
-      duration: 2500,
-    }),
-  );
-  private setWindowWidth = () =>
-    this.setState({ windowWidth: Dimensions.get("window").width }, this.indicatorAnimation.start);
-
+  private animateIndicatorMargin = (windowWidth: number) =>
+    Animated.loop(
+      Animated.timing(this.state.indicatorMargin, {
+        toValue: windowWidth,
+        easing: Easing.linear,
+        duration: 5000,
+      }),
+    );
+  private setWindowWidth = (e: LayoutChangeEvent) => {
+    this.animateIndicatorMargin(e.nativeEvent.layout.width).start();
+  };
   private addTransparencyToColor = (color: string) => `${color}44`;
 }
+
+const styles = StyleSheet.create({
+  container: {
+    width: "100%",
+  },
+});
 
 export default ProgressBar;
