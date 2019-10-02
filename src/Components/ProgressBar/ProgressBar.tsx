@@ -10,7 +10,7 @@ type IState = {
   indicatorMargin: Animated.Value;
 };
 
-const INDICATOR_WIDTH = 200;
+const INDICATOR_WIDTH = 80;
 
 class ProgressBar extends React.PureComponent<IProps, IState> {
   static defaultProps = {
