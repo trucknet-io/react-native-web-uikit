@@ -22,7 +22,7 @@ class ProgressBar extends React.PureComponent<IProps, IState> {
   };
 
   public componentWillUnmount = () => {
-    this.animateIndicatorMargin(0).stop();
+    this.animateIndicatorMargin().stop();
   };
   render() {
     return (
@@ -46,7 +46,7 @@ class ProgressBar extends React.PureComponent<IProps, IState> {
       </View>
     );
   }
-  private animateIndicatorMargin = (windowWidth: number) =>
+  private animateIndicatorMargin = (windowWidth: number = 0) =>
     Animated.loop(
       Animated.timing(this.state.indicatorMargin, {
         toValue: windowWidth,
