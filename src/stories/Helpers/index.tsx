@@ -11,6 +11,14 @@ export const importInfo = (...rest: Array<string>) => {
   };
 };
 
+export const setReadme = (readme) => {
+  return {
+    readme: {
+      sidebar: readme,
+    },
+  };
+};
+
 const emailRegex =
   // tslint:disable:max-line-length
   new RegExp(

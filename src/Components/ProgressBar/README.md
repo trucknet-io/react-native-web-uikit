@@ -2,12 +2,9 @@
 
 - use this component for indicate that load in progress
 
-## Props
-
-- _height_ number
-- _color_ string
-
 ## ScreenShots
 
-![image](progressBarActive.png)
-![image](progressBarNotActive.png)
+<img src="progressBarBeginLoad.png" width="300"/>
+<img src="progressBarActive.png" width="300"/>
+<img src="progressBarActive2.png" width="300"/>
+<img src="progressBarFinishLoad.png" width="300"/>
