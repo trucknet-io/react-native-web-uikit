@@ -5,7 +5,7 @@ import { setOptionalProp } from "src/stories/Helpers";
 import { number, color } from "@storybook/addon-knobs/react";
 import { colorTheme } from "src/Themes/Colors";
 
-const ParagraphStory = () => {
+const ProgressBarStory = () => {
   return (
     <Container>
       <ProgressBar
@@ -16,4 +16,4 @@ const ParagraphStory = () => {
   );
 };
 
-export default ParagraphStory;
+export default ProgressBarStory;
