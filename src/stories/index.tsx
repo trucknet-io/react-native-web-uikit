@@ -6,6 +6,6 @@ import * as Modals from "./Modals";
 import * as SignatureModal from "./SignatureModal";
 import * as InputField from "./InputField";
 import * as Forms from "./Forms";
-import * as Placeholders from "./Placeholders";
+import * as ProgressIndicators from "./ProgressIndicators";
 
-export { Gradient, Buttons, Icons, ColorsGallery, Modals, Placeholders, InputField, Forms, SignatureModal };
+export { Gradient, Buttons, Icons, ColorsGallery, Modals, ProgressIndicators, InputField, Forms, SignatureModal };
