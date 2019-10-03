@@ -27,7 +27,7 @@ class ProgressBar extends React.PureComponent<IProps, IState> {
   render() {
     return (
       <View
-        onLayout={this.setWindowWidth}
+        onLayout={this.startIndicatorAnimation}
         style={[
           styles.container,
           {
@@ -54,7 +54,7 @@ class ProgressBar extends React.PureComponent<IProps, IState> {
         duration: 5000,
       }),
     );
-  private setWindowWidth = (e: LayoutChangeEvent) => {
+  private startIndicatorAnimation = (e: LayoutChangeEvent) => {
     this.animateIndicatorMargin(e.nativeEvent.layout.width).start();
   };
   private addTransparencyToColor = (color: string) => `${color}44`;
