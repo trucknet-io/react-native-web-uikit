@@ -1,7 +1,18 @@
-const setUikitWebpackSetting = (config) => {
+import { Module, Resolve } from "webpack";
+
+const setUikitWebpackSetting = (config: { module: Module; resolve: Resolve }) => {
+  let defaultRules: Module["rules"] = [];
+
+  for (const rule of config.module.rules) {
+    if (!rule.test) defaultRules.push(rule);
+    if (rule.test && rule.test.toString() !== /\.md$/.toString()) {
+      defaultRules.push(rule);
+    }
+  }
+
   const moduleRulesChanges = {
     rules: [
-      ...config.module.rules,
+      ...defaultRules,
       // https://github.com/react-native-web-community/react-native-web-webview#getting-started
       {
         test: /postMock.html$/,
@@ -27,10 +38,27 @@ const setUikitWebpackSetting = (config) => {
           },
         ],
       },
+      {
+        test: /\.md$/,
+        use: [
+          {
+            loader: require.resolve("html-loader"),
+          },
+          {
+            loader: require.resolve("markdown-loader"),
+          },
+        ],
+      },
     ],
   };
+  const getDefaultExtensions = () => {
+    if (config.resolve.extensions) {
+      return config.resolve.extensions;
+    }
+    return [];
+  };
   const resolveChanges = {
-    extensions: [...config.resolve.extensions, ".ts", ".tsx"],
+    extensions: [...getDefaultExtensions(), ".ts", ".tsx"],
     alias: {
       "react-native": "react-native-web",
       "react-native-linear-gradient": "react-native-web-linear-gradient",
