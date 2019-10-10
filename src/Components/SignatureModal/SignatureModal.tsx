@@ -2,7 +2,7 @@ import Colors, { colorTheme } from "src/Themes/Colors";
 import Fonts from "src/Themes/Fonts";
 import { parseDataUrl, ParsedDataUrlType } from "src/Helpers/regexHelpers";
 import * as React from "react";
-import { Text, View, StyleSheet } from "react-native";
+import { Text, View, StyleSheet, ActivityIndicator } from "react-native";
 import Modal from "react-native-modal";
 import { TransparentButtonWithChildren } from "src/Components/Buttons";
 import { canvasHTML } from "./canvasHTML";
@@ -49,25 +49,42 @@ class SignatureModal extends React.PureComponent<Props> {
   }
 
   private renderButtons = () => {
+    return (
+      <View style={styles.buttonsContainer}>
+        {this.state.isSignSubmitted ? this.renderActivityIndicator() : this.renderCancelButton()}
+        {this.renderSubmitButton()}
+      </View>
+    );
+  };
+  private renderActivityIndicator = () => (
+    <View style={styles.activityIndicatorContainer}>
+      <ActivityIndicator />
+    </View>
+  );
+
+  private renderCancelButton = () => {
+    const theme = this.state.colors[this.props.theme];
+    return (
+      <TransparentButtonWithChildren onPress={this.resetWebView} width={60}>
+        <Text style={[styles.buttonText, { color: theme.defaultText, width: 60 }]}>
+          {this.props.cancelButtonLabel.toUpperCase()}
+        </Text>
+      </TransparentButtonWithChildren>
+    );
+  };
+
+  private renderSubmitButton = () => {
     const theme = this.state.colors[this.props.theme];
     const isDisabled = this.state.isSignSubmitted || !this.state.signatureData;
     const submitButtonTextColor = isDisabled ? theme.palette.lightGray : theme.themeColor;
     return (
-      <View style={styles.buttonsContainer}>
-        <TransparentButtonWithChildren onPress={this.resetWebView} width={60}>
-          <Text style={[styles.buttonText, { color: theme.defaultText, width: 60 }]}>
-            {this.props.cancelButtonLabel.toUpperCase()}
-          </Text>
-        </TransparentButtonWithChildren>
-        <TransparentButtonWithChildren disabled={isDisabled} onPress={this.sendSignature} width={40}>
-          <Text style={[styles.buttonText, { color: submitButtonTextColor, width: 40 }]}>
-            {this.props.submitButtonLabel.toUpperCase()}
-          </Text>
-        </TransparentButtonWithChildren>
-      </View>
+      <TransparentButtonWithChildren disabled={isDisabled} onPress={this.sendSignature} width={40}>
+        <Text style={[styles.buttonText, { color: submitButtonTextColor, width: 40 }]}>
+          {this.props.submitButtonLabel.toUpperCase()}
+        </Text>
+      </TransparentButtonWithChildren>
     );
   };
-
   private renderNativeModal = () => (
     <Modal
       isVisible={this.props.isVisible}
@@ -161,6 +178,9 @@ const styles = StyleSheet.create({
     paddingTop: 10,
     borderRadius: 5,
   },
+  activityIndicatorContainer: {
+    height: 48,
+  },
   webViewContainer: {
     flex: 1,
     borderWidth: 1,
@@ -176,7 +196,7 @@ const styles = StyleSheet.create({
     marginTop: 25,
     flexDirection: "row",
     justifyContent: "flex-end",
-    alignItems: "flex-end",
+    alignItems: "center",
   },
   headerText: {
     ...Fonts.style.Title,
