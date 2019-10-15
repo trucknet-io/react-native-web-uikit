@@ -13,8 +13,8 @@ type Props = {
   isVisible: boolean;
   onBackdropPress(): void;
   onSignApply(data: ParsedDataUrlType): void;
-  submitButtonLabel: string;
-  cancelButtonLabel: string;
+  submitButtonLabel: string | React.ReactNode;
+  cancelButtonLabel: string | React.ReactNode;
   headerText?: string;
   helperText?: string;
   theme: "light" | "dark";
@@ -66,9 +66,7 @@ class SignatureModal extends React.PureComponent<Props> {
     const theme = this.state.colors[this.props.theme];
     return (
       <TransparentButtonWithChildren onPress={this.resetWebView} width={60}>
-        <Text style={[styles.buttonText, { color: theme.defaultText, width: 60 }]}>
-          {this.props.cancelButtonLabel.toUpperCase()}
-        </Text>
+        <Text style={[styles.buttonText, { color: theme.defaultText }]}>{this.props.cancelButtonLabel}</Text>
       </TransparentButtonWithChildren>
     );
   };
@@ -79,9 +77,7 @@ class SignatureModal extends React.PureComponent<Props> {
     const submitButtonTextColor = isDisabled ? theme.palette.lightGray : theme.themeColor;
     return (
       <TransparentButtonWithChildren disabled={isDisabled} onPress={this.sendSignature} width={40}>
-        <Text style={[styles.buttonText, { color: submitButtonTextColor, width: 40 }]}>
-          {this.props.submitButtonLabel.toUpperCase()}
-        </Text>
+        <Text style={[styles.buttonText, { color: submitButtonTextColor }]}>{this.props.submitButtonLabel}</Text>
       </TransparentButtonWithChildren>
     );
   };
@@ -208,5 +204,6 @@ const styles = StyleSheet.create({
     flex: 1,
     ...Fonts.style.Button,
     textAlign: "right",
+    textTransform: "uppercase",
   },
 });
