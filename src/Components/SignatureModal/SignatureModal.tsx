@@ -13,10 +13,10 @@ type Props = {
   isVisible: boolean;
   onBackdropPress(): void;
   onSignApply(data: ParsedDataUrlType): void;
-  submitButtonLabel: string | React.ReactNode;
-  cancelButtonLabel: string | React.ReactNode;
-  headerText?: string;
-  helperText?: string;
+  submitButtonLabel: React.ReactNode;
+  cancelButtonLabel: React.ReactNode;
+  headerText?: React.ReactNode;
+  helperText?: React.ReactNode;
   theme: "light" | "dark";
 };
 
