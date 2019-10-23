@@ -18,7 +18,7 @@ export interface TargetedEvent {
 
 type Props = {
   label: string;
-  onChange(res: { value: string | undefined; isValid: boolean }): void;
+  onChangeTextValidated(res: { value: string | undefined; isValid: boolean }): void;
   width: number | string;
   height: number;
   onSuccessInputFieldColor: string;
@@ -116,7 +116,7 @@ class Input extends React.PureComponent<Props, State> {
           onFocus={this.onFocus}
           onBlur={this.onBlur}
           onSubmitEditing={this.onSubmitEditing}
-          onChangeText={this.onChangeText}
+          onChangeText={this.handleChangeText}
           inputBorderColor={this.getFieldColor()}
           nativeTextInputProps={this.props.nativeTextInputProps}
           initialValue={this.props.initialValue}
@@ -136,7 +136,7 @@ class Input extends React.PureComponent<Props, State> {
     this.textInput = el;
   };
 
-  private onChangeText = (value: string) => {
+  private handleChangeText = (value: string) => {
     this.setState({ value }, this.validate);
   };
 
@@ -150,7 +150,7 @@ class Input extends React.PureComponent<Props, State> {
   };
 
   private setValue = () => {
-    this.props.onChange({ value: this.state.value, isValid: !this.state.error });
+    this.props.onChangeTextValidated({ value: this.state.value, isValid: !this.state.error });
   };
 
   private onFocus = (event: NativeSyntheticEvent<TextInputFocusEventData>) => {

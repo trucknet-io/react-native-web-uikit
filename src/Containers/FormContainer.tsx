@@ -85,7 +85,7 @@ class LoginFormContainer extends React.PureComponent<Props, State> {
           label={field.label}
           secureTextEntry={field.secureTextEntry}
           validateValue={field.validate}
-          onChange={this.setValue(fieldName)}
+          onChangeTextValidated={this.setValue(fieldName)}
           onSuccessInputFieldColor={theme.themeColor}
           textColor={theme.defaultText}
           keyboardType={field.keyboardType}
