@@ -12,7 +12,7 @@ const InputFieldStory = () => (
     <View style={{ width: "100%", padding: "15%" }}>
       <Input
         label={text(setRequiredProp("label"), "label")}
-        onChange={(value) => console.log(value)}
+        onChangeTextValidated={(value) => console.log(value)}
         width={text(setOptionalProp("width"), "100%")}
         height={number(setOptionalProp("height"), 84)}
         initialValue={text(setOptionalProp("initialValue"), "lol")}
