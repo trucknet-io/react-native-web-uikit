@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Platform, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Platform, StyleSheet, Text, TouchableOpacity, View, ViewStyle } from "react-native";
 import Colors from "src/Themes/Colors";
 import createShadow from "src/Themes/Shadow";
 
@@ -26,6 +26,7 @@ interface ButtonProps extends ButtonContainerStylesProps {
   onLongPress?: () => void;
   onPressIn?: () => void;
   onPressOut?: () => void;
+  style?: ViewStyle;
 }
 
 const linearGradientStyles = (props: LinearGradientStylesProps) => {
@@ -43,16 +44,19 @@ const linearGradientStyles = (props: LinearGradientStylesProps) => {
   return commonStyles;
 };
 
-const buttonContainerStyles = (props: ButtonContainerStylesProps) => ({
-  width: props.width || "100%",
-  height: props.height || 44,
-  borderRadius: props.borderRadius || 4,
-  borderWidth: props.borderWidth,
-  borderColor: props.borderColor,
-  marginVertical: props.marginVertical,
-  marginHorizontal: props.marginHorizontal,
-});
-
+const buttonContainerStyles = (props: ButtonProps) => {
+  const customStyles = props.style || {};
+  return {
+    width: props.width || "100%",
+    height: props.height || 44,
+    borderRadius: props.borderRadius || 4,
+    borderWidth: props.borderWidth,
+    borderColor: props.borderColor,
+    marginVertical: props.marginVertical,
+    marginHorizontal: props.marginHorizontal,
+    ...customStyles,
+  };
+};
 interface GradientButtonWithChildrenProps extends ButtonProps {
   gradientStartColor: string;
   gradientEndColor: string;
