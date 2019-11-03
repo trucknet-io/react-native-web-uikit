@@ -65,7 +65,7 @@ class SignatureModal extends React.PureComponent<Props> {
   private renderCancelButton = () => {
     const theme = this.state.colors[this.props.theme];
     return (
-      <TransparentButtonWithChildren onPress={this.resetWebView} width={60}>
+      <TransparentButtonWithChildren onPress={this.resetWebView} width={100}>
         <Text style={[styles.buttonText, { color: theme.defaultText }]}>{this.props.cancelButtonLabel}</Text>
       </TransparentButtonWithChildren>
     );
@@ -76,7 +76,7 @@ class SignatureModal extends React.PureComponent<Props> {
     const isDisabled = this.state.isSignSubmitted || !this.state.signatureData;
     const submitButtonTextColor = isDisabled ? theme.palette.lightGray : theme.themeColor;
     return (
-      <TransparentButtonWithChildren disabled={isDisabled} onPress={this.sendSignature} width={40}>
+      <TransparentButtonWithChildren disabled={isDisabled} onPress={this.sendSignature} width={100}>
         <Text style={[styles.buttonText, { color: submitButtonTextColor }]}>{this.props.submitButtonLabel}</Text>
       </TransparentButtonWithChildren>
     );
