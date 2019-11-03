@@ -79,6 +79,7 @@ class SignatureModal extends React.PureComponent<Props> {
       <TransparentButtonWithChildren
         disabled={isDisabled}
         onPress={this.sendSignature}
+        marginHorizontal={4}
         style={styles.buttonTextContainer}>
         <Text style={[styles.buttonText, { color: submitButtonTextColor }]}>{this.props.submitButtonLabel}</Text>
       </TransparentButtonWithChildren>
@@ -208,8 +209,6 @@ const styles = StyleSheet.create({
   },
   buttonTextContainer: {
     width: undefined,
-    marginHorizontal: 4,
-    height: 44,
   },
   buttonText: {
     ...Fonts.style.Button,
