@@ -207,6 +207,7 @@ const styles = StyleSheet.create({
     marginVertical: 5,
   },
   buttonTextContainer: {
+    width: undefined,
     marginHorizontal: 4,
     height: 44,
   },

@@ -45,9 +45,7 @@ const linearGradientStyles = (props: LinearGradientStylesProps) => {
 };
 
 const buttonContainerStyles = (props: ButtonProps) => {
-  if (props.style) {
-    return props.style;
-  }
+  const defaultStyles = props.style || {};
   return {
     width: props.width || "100%",
     height: props.height || 44,
@@ -56,6 +54,7 @@ const buttonContainerStyles = (props: ButtonProps) => {
     borderColor: props.borderColor,
     marginVertical: props.marginVertical,
     marginHorizontal: props.marginHorizontal,
+    ...defaultStyles,
   };
 };
 interface GradientButtonWithChildrenProps extends ButtonProps {
