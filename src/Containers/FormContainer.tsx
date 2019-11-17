@@ -22,6 +22,7 @@ interface Props {
   theme: "light" | "dark";
   paddingTop: string | number;
   paddingHorizontal: string | number;
+  onChangeTextValidated?(res: FieldsState): void;
 }
 
 interface State {
@@ -85,7 +86,7 @@ class LoginFormContainer extends React.PureComponent<Props, State> {
           label={field.label}
           secureTextEntry={field.secureTextEntry}
           validateValue={field.validate}
-          onChangeTextValidated={this.setValue(fieldName)}
+          onChangeTextValidated={this.handleChangeText(fieldName)}
           onSuccessInputFieldColor={theme.themeColor}
           textColor={theme.defaultText}
           keyboardType={field.keyboardType}
@@ -108,8 +109,12 @@ class LoginFormContainer extends React.PureComponent<Props, State> {
     }
   };
 
-  private setValue = (fieldName: string) => (value) => {
-    this.setState({ fields: { ...this.state.fields, [fieldName]: value } });
+  private handleChangeText = (fieldName: string) => (value) => {
+    this.setState({ fields: { ...this.state.fields, [fieldName]: value } }, () => {
+      if (this.props.onChangeTextValidated) {
+        this.props.onChangeTextValidated(this.state.fields);
+      }
+    });
   };
   private handleSubmit = () => {
     this.props.handleSubmit(this.state.fields);
