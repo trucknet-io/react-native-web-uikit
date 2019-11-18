@@ -6,14 +6,12 @@ import Input from "src/Components/Input";
 import { GradientButton } from "src/Components/Buttons";
 
 type FieldValue = { value?: string; isValid: boolean };
-type PreValidateFieldValue = { value?: string; isValid: undefined };
 type FieldsState = { [key: string]: FieldValue };
-type PreValidateFieldsState = { [key: string]: FieldValue | PreValidateFieldValue };
 
 type Field = {
   label: string;
   initialValue?: string;
-  validate?(value?: string, fieldsState?: PreValidateFieldsState): string | void | undefined;
+  validate?(value?: string, fieldsState?: FieldsState): string | void | undefined;
   secureTextEntry?: boolean;
   keyboardType?: KeyboardType;
 };
@@ -102,7 +100,7 @@ class LoginFormContainer extends React.PureComponent<Props, State> {
     const field = this.props.fields[fieldName];
     const preValidateFieldsState = {
       ...this.state.fields,
-      [fieldName]: { value, isValid: undefined },
+      [fieldName]: { value, isValid: false },
     };
     if (field.validate) {
       return field.validate(value, preValidateFieldsState);
