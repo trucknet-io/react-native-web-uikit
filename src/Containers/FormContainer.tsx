@@ -98,11 +98,11 @@ class LoginFormContainer extends React.PureComponent<Props, State> {
   };
   private validateValue = (fieldName: string) => (value?: string) => {
     const field = this.props.fields[fieldName];
-    const preValidateFieldsState = {
-      ...this.state.fields,
-      [fieldName]: { value, isValid: false },
-    };
     if (field.validate) {
+      const preValidateFieldsState = {
+        ...this.state.fields,
+        [fieldName]: { value, isValid: false },
+      };
       return field.validate(value, preValidateFieldsState);
     }
   };
