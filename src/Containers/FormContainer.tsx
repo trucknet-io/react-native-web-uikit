@@ -5,24 +5,26 @@ import { colorTheme } from "src/Themes/Colors";
 import Input from "src/Components/Input";
 import { GradientButton } from "src/Components/Buttons";
 
-type FieldsState = { [key: string]: { value?: string; isValid: boolean } };
+type FieldValue = { value?: string; isValid: boolean };
+type PreValidateFieldValue = { value?: string; isValid: undefined };
+type FieldsState = { [key: string]: FieldValue };
+type PreValidateFieldsState = { [key: string]: FieldValue | PreValidateFieldValue };
+
+type Field = {
+  label: string;
+  initialValue?: string;
+  validate?(value?: string, fieldsState?: PreValidateFieldsState): string | void | undefined;
+  secureTextEntry?: boolean;
+  keyboardType?: KeyboardType;
+};
 
 interface Props {
   handleSubmit(res: FieldsState): void;
-  fields: {
-    [key: string]: {
-      label: string;
-      initialValue?: string;
-      validate?(value?: string): string | void | undefined;
-      secureTextEntry?: boolean;
-      keyboardType?: KeyboardType;
-    };
-  };
+  fields: { [key: string]: Field };
   submitLabel: string;
   theme: "light" | "dark";
   paddingTop: string | number;
   paddingHorizontal: string | number;
-  onChangeTextValidated?(res: FieldsState): void;
 }
 
 interface State {
@@ -85,21 +87,34 @@ class LoginFormContainer extends React.PureComponent<Props, State> {
           key={fieldName}
           label={field.label}
           secureTextEntry={field.secureTextEntry}
-          validateValue={field.validate}
-          onChangeTextValidated={this.handleChangeText(fieldName)}
+          validateValue={this.validateValue(fieldName)}
+          onChangeTextValidated={this.setValue(fieldName)}
           onSuccessInputFieldColor={theme.themeColor}
           textColor={theme.defaultText}
           keyboardType={field.keyboardType}
           initialValue={field.initialValue}
-          onSubmitEditing={this.onCurrentInputSubmit(nextInputName)}
+          onSubmitEditing={this.handleInputSubmit(nextInputName)}
         />
       );
     });
   };
+  private validateValue = (fieldName: string) => (value?: string) => {
+    const field = this.props.fields[fieldName];
+    const preValidateFieldsState = {
+      ...this.state.fields,
+      [fieldName]: { value, isValid: undefined },
+    };
+    if (field.validate) {
+      return field.validate(value, preValidateFieldsState);
+    }
+  };
+  private setValue = (fieldName: string) => (value: FieldValue) => {
+    this.setState({ fields: { ...this.state.fields, [fieldName]: value } });
+  };
 
   private setFieldRef = (fieldName) => (field) => (this.nextInput[fieldName] = field);
 
-  private onCurrentInputSubmit = (nextInputName?: string) => () => {
+  private handleInputSubmit = (nextInputName?: string) => () => {
     if (nextInputName && this.nextInput[nextInputName]) {
       const textInput = this.nextInput[nextInputName] as TextInput;
       return textInput.focus();
@@ -109,13 +124,6 @@ class LoginFormContainer extends React.PureComponent<Props, State> {
     }
   };
 
-  private handleChangeText = (fieldName: string) => (value) => {
-    this.setState({ fields: { ...this.state.fields, [fieldName]: value } }, () => {
-      if (this.props.onChangeTextValidated) {
-        this.props.onChangeTextValidated(this.state.fields);
-      }
-    });
-  };
   private handleSubmit = () => {
     this.props.handleSubmit(this.state.fields);
   };
