@@ -45,7 +45,7 @@ class SignatureModal extends React.PureComponent<Props> {
     resetCount: 0,
   };
   public render() {
-    return <View>{isWeb ? this.renderWebModal() : this.renderNativeModal()}</View>;
+    return <View>{this.renderModal()}</View>;
   }
 
   private renderButtons = () => {
@@ -84,7 +84,7 @@ class SignatureModal extends React.PureComponent<Props> {
       </TransparentButtonWithChildren>
     );
   };
-  private renderNativeModal = () => (
+  private renderModal = () => (
     <Modal
       isVisible={this.props.isVisible}
       onBackdropPress={this.props.onBackdropPress}
@@ -93,18 +93,11 @@ class SignatureModal extends React.PureComponent<Props> {
     </Modal>
   );
 
-  private renderWebModal = () => (
-    // @ts-ignore: visible right name for prop if import from modal-react-native-web
-    <Modal
-      visible={this.props.isVisible}
-      onBackdropPress={this.props.onBackdropPress}
-      onModalShow={this.unSubmitSignApply}>
-      {this.renderSignView()}
-    </Modal>
-  );
-
   renderSignView = () => {
     const theme = this.state.colors[this.props.theme];
+    if (!this.props.isVisible) {
+      return null;
+    }
     return (
       <View style={[styles.container, { backgroundColor: theme.background }]}>
         {this.renderHeaderText()}
