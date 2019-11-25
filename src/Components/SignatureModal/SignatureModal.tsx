@@ -4,7 +4,7 @@ import { parseDataUrl, ParsedDataUrlType } from "src/Helpers/regexHelpers";
 import * as React from "react";
 import { Text, View, StyleSheet, ActivityIndicator } from "react-native";
 import Modal from "react-native-modal";
-import { TransparentButtonWithChildren } from "src/Components/Buttons";
+import { TransparentButton } from "src/Components/Buttons";
 import { canvasHTML } from "./canvasHTML";
 import WebView from "react-native-webview";
 import { isWeb } from "src/Helpers/platform";
@@ -65,9 +65,9 @@ class SignatureModal extends React.PureComponent<Props> {
   private renderCancelButton = () => {
     const theme = this.state.colors[this.props.theme];
     return (
-      <TransparentButtonWithChildren onPress={this.resetWebView} style={styles.buttonTextContainer}>
+      <TransparentButton onPress={this.resetWebView} style={styles.buttonTextContainer}>
         <Text style={[styles.buttonText, { color: theme.defaultText }]}>{this.props.cancelButtonLabel}</Text>
-      </TransparentButtonWithChildren>
+      </TransparentButton>
     );
   };
 
@@ -76,12 +76,9 @@ class SignatureModal extends React.PureComponent<Props> {
     const isDisabled = this.state.isSignSubmitted || !this.state.signatureData;
     const submitButtonTextColor = isDisabled ? theme.palette.lightGray : theme.themeColor;
     return (
-      <TransparentButtonWithChildren
-        disabled={isDisabled}
-        onPress={this.sendSignature}
-        style={styles.buttonTextContainer}>
+      <TransparentButton disabled={isDisabled} onPress={this.sendSignature} style={styles.buttonTextContainer}>
         <Text style={[styles.buttonText, { color: submitButtonTextColor }]}>{this.props.submitButtonLabel}</Text>
-      </TransparentButtonWithChildren>
+      </TransparentButton>
     );
   };
   private renderNativeModal = () => (
