@@ -8,11 +8,21 @@ import Colors from "src/Themes/Colors";
 
 const GradientButtonStory = () => (
   <Container>
-    <TransparentButton
-      label={text(setRequiredProp("label"), "Transparent Button")}
-      textColor={color(setOptionalProp("textColor"), Colors.defaultText)}
-      {...buttonProps()}
-    />
+    <React.Fragment>
+      <TransparentButton
+        label={text(setRequiredProp("label"), "Transparent Button")}
+        textColor={color(setOptionalProp("textColor"), Colors.defaultText)}
+        {...buttonProps()}
+      />
+
+      <TransparentButton
+        label={text(setRequiredProp("label"), "Transparent Button With ")}
+        link={text(setRequiredProp("link"), "Link")}
+        textColor={color(setOptionalProp("textColor"), Colors.defaultText)}
+        linkColor={color(setOptionalProp("linkColor"), Colors.palette.purpleDark)}
+        {...buttonProps()}
+      />
+    </React.Fragment>
   </Container>
 );
 

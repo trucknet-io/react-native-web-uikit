@@ -8,12 +8,14 @@ import Container from "src/stories/Container";
 
 const GradientButtonStory = () => (
   <Container>
-    <GradientButton
-      label={text(setRequiredProp("label"), "Gradient Button")}
-      gradientStartColor={color(setRequiredProp("gradientStartColor"), Colors.purpleGradient.gradientColor1)}
-      gradientEndColor={color(setRequiredProp("gradientEndColor"), Colors.purpleGradient.gradientColor2)}
-      {...buttonProps()}
-    />
+    <React.Fragment>
+      <GradientButton
+        label={text(setRequiredProp("label"), "Gradient Button")}
+        gradientStartColor={color(setRequiredProp("gradientStartColor"), Colors.purpleGradient.gradientColor1)}
+        gradientEndColor={color(setRequiredProp("gradientEndColor"), Colors.purpleGradient.gradientColor2)}
+        {...buttonProps()}
+      />
+    </React.Fragment>
   </Container>
 );
 
