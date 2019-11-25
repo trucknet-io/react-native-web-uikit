@@ -64,7 +64,7 @@ const setUikitWebpackSetting = (config: { module: Module; resolve: Resolve }) =>
       "react-native-linear-gradient": "react-native-web-linear-gradient",
       "react-native-svg": "react-native-svg-web",
       "react-native-webview": "react-native-web-webview",
-      "react-native-modal": "modal-enhanced-react-native-web",
+      "react-native-modal": "react-native-web",
       "react-native-shimmer-placeholder": "react-content-loader",
       "@storybook/react-native": "@storybook/react",
     },

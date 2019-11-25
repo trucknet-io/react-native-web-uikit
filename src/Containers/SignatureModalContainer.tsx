@@ -28,7 +28,7 @@ class SignatureModalContainer extends React.PureComponent<Props> {
   };
   public render() {
     return (
-      <View style={{ flex: 1 }}>
+      <React.Fragment>
         <GradientButton
           label="show signature modal"
           width={180}
@@ -41,7 +41,7 @@ class SignatureModalContainer extends React.PureComponent<Props> {
           onSignApply={this.onSignApply}
           onBackdropPress={this.onBackdropPress}
         />
-      </View>
+      </React.Fragment>
     );
   }
 
