@@ -20,6 +20,7 @@ import MapPlaceholder from "./Components/Placeholders/Map";
 import ParagraphPlaceholder from "./Components/Placeholders/Paragraph";
 import ProgressBar from "./Components/ProgressBar";
 import setUikitWebpackSetting from "./Components/setUikitWebpackSetting/";
+import SimpleModal from "./Components/SimpleModal";
 
 export {
   GradientButton,
@@ -42,4 +43,5 @@ export {
   CardsPlaceholder,
   MapPlaceholder,
   ProgressBar,
+  SimpleModal,
 };
