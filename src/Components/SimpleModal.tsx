@@ -5,6 +5,7 @@ import getShadowStyles from "src/Themes/Shadow";
 import { isWeb } from "src/Helpers/platform";
 import Colors from "src/Themes/Colors";
 import { Gateway } from "react-gateway";
+
 interface IProps {
   isVisible: ModalProps["isVisible"];
   children: ModalProps["children"];
