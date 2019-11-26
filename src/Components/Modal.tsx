@@ -1,57 +1,43 @@
 import * as React from "react";
-import { StyleSheet, TouchableOpacity, View } from "react-native";
-import Modal, { ModalProps } from "react-native-modal";
-import createShadowStyles from "src/Themes/Shadow";
-import { isWeb } from "src/Helpers/platform";
-import Colors from "src/Themes/Colors";
-interface IProps {
-  isVisible: ModalProps["isVisible"];
-  onBackdropPress: ModalProps["onBackdropPress"];
-  onModalShow: ModalProps["onModalShow"];
-  children: ModalProps["children"];
+import { View } from "react-native";
+import Subscriber, { modalPropertiesType } from "src/Subscriber";
+
+interface ModalProps extends modalPropertiesType {
+  component: React.ReactNode;
+  isModalOpen: boolean;
 }
 
-class ModalComponent extends React.PureComponent<IProps> {
-  public render() {
-    if (!isWeb) {
-      return <Modal {...this.props}>{this.props.children}</Modal>;
+class Modal extends React.PureComponent<ModalProps> {
+  componentDidMount = () => {
+    if (this.props.isModalOpen) {
+      setTimeout(this.showModal, 500);
     }
-    return this.renderWebModal();
+  };
+  componentWillReceiveProps = (nextProps: ModalProps) => {
+    if (!nextProps.isModalOpen) return this.hideAllModals();
+    if (nextProps.isModalOpen) {
+      return this.showModal();
+    }
+  };
+  render() {
+    return <View />;
   }
 
-  private renderWebModal = () => {
-    if (this.props.onModalShow && this.props.isVisible) {
-      this.props.onModalShow();
-    }
-    return (
-      <View style={[styles.container, { display: this.props.isVisible ? "flex" : "none" }]}>
-        <TouchableOpacity
-          onPress={this.props.onBackdropPress}
-          style={[styles.container, { backgroundColor: undefined }]}
-        />
-        <View style={styles.childrenContainer}>{this.props.children}</View>
-      </View>
-    );
+  showModal = () => {
+    Subscriber.showModal(this.props.component, {
+      id: this.props.id,
+      containerStyles: this.props.containerStyles,
+      shadow: this.props.shadow,
+      dontShowBackdrop: this.props.dontShowBackdrop,
+      verticalDirection: this.props.verticalDirection,
+      onBackdropPress: this.props.onBackdropPress,
+      initialPosition: this.props.initialPosition,
+    });
+  };
+
+  hideAllModals = () => {
+    Subscriber.hideModal();
   };
 }
 
-const styles = StyleSheet.create({
-  container: {
-    position: "absolute",
-    top: 0,
-    left: 0,
-    width: "100%",
-    height: "100%",
-    backgroundColor: Colors.shadow,
-    padding: "5%",
-    borderRadius: 4,
-    ...createShadowStyles(10),
-  },
-  childrenContainer: {
-    flex: 1,
-    backgroundColor: Colors.background,
-    ...createShadowStyles(12),
-  },
-});
-
-export default ModalComponent;
+export default Modal;
