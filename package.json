@@ -37,7 +37,9 @@
     "postrelease": "npm publish",
     "release": "./extra/release.sh"
   },
-  "dependencies": {},
+  "dependencies": {
+    "react-gateway": "^3.0.0"
+  },
   "devDependencies": {
     "@babel/core": "^7.5.5",
     "@babel/preset-flow": "^7.0.0",

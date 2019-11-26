@@ -1,23 +1,25 @@
 import React from "react";
 import SimpleModal from "src/Components/SimpleModal";
+import ModalContainer from "src/Components/ModalContainer";
 import { boolean } from "@storybook/addon-knobs/react";
 import { action } from "@storybook/addon-actions";
 import { setRequiredProp } from "src/stories/Helpers";
 import Container from "src/stories/Container";
 import { Text, View, StyleSheet } from "react-native";
 import Colors from "src/Themes/Colors";
-
 const SignatureModalStory = () => {
   return (
-    <Container>
-      <SimpleModal
-        isVisible={boolean(setRequiredProp(`isVisible`), true)}
-        onBackdropPress={() => action("onBackdropPress")}>
-        <View style={styles.container}>
-          <Text>Content</Text>
-        </View>
-      </SimpleModal>
-    </Container>
+    <ModalContainer>
+      <Container>
+        <SimpleModal
+          isVisible={boolean(setRequiredProp(`isVisible`), true)}
+          onBackdropPress={action("onBackdropPress")}>
+          <View style={styles.container}>
+            <Text>Content test</Text>
+          </View>
+        </SimpleModal>
+      </Container>
+    </ModalContainer>
   );
 };
 

@@ -4,11 +4,12 @@ import Modal, { ModalProps } from "react-native-modal";
 import getShadowStyles from "src/Themes/Shadow";
 import { isWeb } from "src/Helpers/platform";
 import Colors from "src/Themes/Colors";
+import { Gateway } from "react-gateway";
 interface IProps {
   isVisible: ModalProps["isVisible"];
-  onBackdropPress: ModalProps["onBackdropPress"];
-  onModalShow?: ModalProps["onModalShow"];
   children: ModalProps["children"];
+  onBackdropPress?: ModalProps["onBackdropPress"];
+  onModalShow?: ModalProps["onModalShow"];
 }
 
 class ModalComponent extends React.PureComponent<IProps> {
@@ -24,13 +25,15 @@ class ModalComponent extends React.PureComponent<IProps> {
       this.props.onModalShow();
     }
     return (
-      <View style={[styles.container, { display: this.props.isVisible ? "flex" : "none" }]}>
-        <TouchableOpacity
-          onPress={this.props.onBackdropPress}
-          style={[styles.container, { backgroundColor: undefined }]}
-        />
-        <View style={styles.childrenContainer}>{this.props.children}</View>
-      </View>
+      <Gateway into="global">
+        <View style={[styles.container, { display: this.props.isVisible ? "flex" : "none" }]}>
+          <TouchableOpacity
+            onPress={this.props.onBackdropPress}
+            style={[styles.container, { backgroundColor: undefined }]}
+          />
+          <View style={styles.childrenContainer}>{this.props.children}</View>
+        </View>
+      </Gateway>
     );
   };
 }
