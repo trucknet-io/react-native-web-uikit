@@ -1,14 +1,13 @@
 import * as React from "react";
 import { StyleSheet, Text, TouchableOpacity, ViewStyle, GestureResponderEvent, FlexAlignType } from "react-native";
 import Colors from "src/Themes/Colors";
-import createShadow from "src/Themes/Shadow";
+import getShadowStyle from "src/Themes/Shadow";
 
 import LinearGradient from "./LinearGradient";
 
 interface ButtonProps {
   borderRadius: number;
   width: string | number;
-  height: string | number;
   marginVertical: string | number;
   marginHorizontal: string | number;
   borderWidth: number;
@@ -31,11 +30,8 @@ interface GradientButtonProps extends ButtonProps {
 }
 
 const defaultButtonProps = {
-  gradientStartColor: Colors.themeGradient.gradientColor1,
-  gradientEndColor: Colors.themeGradient.gradientColor2,
   borderRadius: 4,
   width: "100%",
-  height: 44,
   marginVertical: 0,
   marginHorizontal: 0,
   alignItems: "center",
@@ -57,7 +53,7 @@ export class GradientButton extends React.PureComponent<GradientButtonProps> {
   };
 
   public state = {
-    shadow: this.setShadow(this.PRESS_OUT_SHADOW),
+    shadow: getShadowStyle(this.PRESS_OUT_SHADOW),
   };
 
   public render() {
@@ -68,7 +64,6 @@ export class GradientButton extends React.PureComponent<GradientButtonProps> {
       gradientStartColor,
       gradientEndColor,
       width,
-      height,
       marginVertical,
       marginHorizontal,
       borderRadius,
@@ -79,16 +74,16 @@ export class GradientButton extends React.PureComponent<GradientButtonProps> {
       <LinearGradient
         start={{ x: 0, y: 1 }}
         end={{ x: 1, y: 1 }}
-        gradientStartColor={this.setColor(gradientStartColor)}
-        gradientEndColor={this.setColor(gradientEndColor)}
+        gradientStartColor={this.getColor(gradientStartColor)}
+        gradientEndColor={this.getColor(gradientEndColor)}
         style={[
           styles.linearGradient,
-          { width, height, marginVertical, marginHorizontal, borderRadius, alignItems },
+          { width, marginVertical, marginHorizontal, borderRadius, alignItems },
           style,
           this.state.shadow,
         ]}>
         <TouchableOpacity
-          style={[styles.buttonContainer, { width, height, alignItems }, style]}
+          style={[styles.buttonContainer, { width, alignItems }, style]}
           onPress={onPress}
           onLongPress={onLongPress}
           onPressIn={this.handlePressIn}
@@ -100,38 +95,34 @@ export class GradientButton extends React.PureComponent<GradientButtonProps> {
     );
   }
 
-  private setShadow(size: number) {
-    createShadow(size);
-  }
-
   private renderChildren = () => {
     if (this.props.children) {
       return this.props.children;
     }
-    return <Text style={[styles.buttonLabel, { color: this.setTextColor() }]}>{this.props.label}</Text>;
+    return <Text style={[styles.buttonLabel, { color: this.getTextColor() }]}>{this.props.label}</Text>;
   };
 
-  private setTextColor = () => {
+  private getTextColor = () => {
     if (this.props.disabled) {
       return Colors.disable;
     }
     return this.props.textColor || Colors.buttonText;
   };
 
-  private setColor = (gradientColor: string) => {
+  private getColor = (gradientColor: string) => {
     if (this.props.disabled) return Colors.palette.veryVeryLightGray;
     return gradientColor;
   };
 
   private handlePressIn = (e: GestureResponderEvent) => {
-    this.setState({ shadow: this.setShadow(this.PRESS_IN_SHADOW) }, () => {
+    this.setState({ shadow: getShadowStyle(this.PRESS_IN_SHADOW) }, () => {
       if (this.props.onPressIn) {
         this.props.onPressIn(e);
       }
     });
   };
   private handlePressOut = (e: GestureResponderEvent) => {
-    this.setState({ shadow: this.setShadow(this.PRESS_OUT_SHADOW) }, () => {
+    this.setState({ shadow: getShadowStyle(this.PRESS_OUT_SHADOW) }, () => {
       if (this.props.onPressOut) {
         this.props.onPressOut(e);
       }
@@ -157,7 +148,6 @@ export class TransparentButton extends React.PureComponent<TransparentButtonProp
       onPressIn,
       onPressOut,
       width,
-      height,
       marginVertical,
       marginHorizontal,
       borderRadius,
@@ -171,11 +161,7 @@ export class TransparentButton extends React.PureComponent<TransparentButtonProp
         onPress={onPress}
         onPressOut={onPressOut}
         onLongPress={onLongPress}
-        style={[
-          styles.buttonContainer,
-          { width, height, marginVertical, marginHorizontal, borderRadius, alignItems },
-          style,
-        ]}>
+        style={[styles.buttonContainer, { width, marginVertical, marginHorizontal, borderRadius, alignItems }, style]}>
         {this.renderChildren()}
       </TouchableOpacity>
     );
@@ -198,12 +184,13 @@ export class TransparentButton extends React.PureComponent<TransparentButtonProp
 
 const styles = StyleSheet.create({
   linearGradient: {
-    ...createShadow(),
+    ...getShadowStyle(),
   },
   buttonContainer: {
     alignItems: "center",
     justifyContent: "center",
     flexDirection: "row",
+    paddingVertical: 12,
   },
   buttonText: {
     color: Colors.buttonText,
