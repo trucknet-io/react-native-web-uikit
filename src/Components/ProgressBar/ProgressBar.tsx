@@ -13,6 +13,7 @@ type IState = {
 const INDICATOR_WIDTH = 80;
 
 class ProgressBar extends React.PureComponent<IProps, IState> {
+  private animation;
   static defaultProps = {
     color: colorTheme.light.themeColor,
     height: 5,
@@ -22,7 +23,9 @@ class ProgressBar extends React.PureComponent<IProps, IState> {
   };
 
   public componentWillUnmount = () => {
-    this.animateIndicatorMargin().stop();
+    if (this.animation) {
+      this.animation.stop();
+    }
   };
   render() {
     return (
@@ -54,8 +57,10 @@ class ProgressBar extends React.PureComponent<IProps, IState> {
         duration: 5000,
       }),
     );
+
   private startIndicatorAnimation = (e: LayoutChangeEvent) => {
-    this.animateIndicatorMargin(e.nativeEvent.layout.width).start();
+    this.animation = this.animateIndicatorMargin(e.nativeEvent.layout.width);
+    this.animation.start();
   };
   private addTransparencyToColor = (color: string) => `${color}44`;
 }

@@ -2,7 +2,7 @@ import React from "react";
 import { View, StyleSheet, Text } from "react-native";
 import Colors from "src/Themes/Colors";
 import Subscriber from "src/Subscriber";
-import { TransparentButtonWithChildren } from "src/Components/Buttons";
+import { TransparentButton } from "src/Components/Buttons";
 import { ChevronRight, ChevronLeft, ChevronUp, ChevronDown } from "src/Components/Icons";
 
 type ModalViewProps = {
@@ -30,21 +30,21 @@ class ModalView extends React.PureComponent<ModalViewProps> {
   renderButtons = () => {
     return (
       <View style={[styles.buttonsContainer, { flexDirection: "row" }]}>
-        <TransparentButtonWithChildren
+        <TransparentButton
           width={this.props.buttonWidth}
           onPressIn={this.stretchModal}
           onPressOut={() => this.changeModalPosition("-60%")}>
           <ChevronLeft color={Colors.palette.white} />
-        </TransparentButtonWithChildren>
-        <TransparentButtonWithChildren width={150} onPress={this.renderVerticalModal}>
+        </TransparentButton>
+        <TransparentButton width={150} onPress={this.renderVerticalModal}>
           <Text style={{ color: Colors.palette.white }}>Show Vertical Modal</Text>
-        </TransparentButtonWithChildren>
-        <TransparentButtonWithChildren
+        </TransparentButton>
+        <TransparentButton
           width={this.props.buttonWidth}
           onPressIn={this.stretchModal}
           onPressOut={() => this.changeModalPosition("60%")}>
           <ChevronRight color={Colors.palette.white} />
-        </TransparentButtonWithChildren>
+        </TransparentButton>
       </View>
     );
   };
@@ -52,18 +52,18 @@ class ModalView extends React.PureComponent<ModalViewProps> {
   renderVerticalButtons = () => {
     return (
       <View style={[styles.buttonsContainer, { flexDirection: "column" }]}>
-        <TransparentButtonWithChildren
+        <TransparentButton
           width={this.props.buttonWidth}
           onPressIn={() => Subscriber.stretchModal("1", "10%")}
           onPressOut={() => Subscriber.changeModalPosition("1", "-50%")}>
           <ChevronUp color={Colors.palette.white} />
-        </TransparentButtonWithChildren>
-        <TransparentButtonWithChildren
+        </TransparentButton>
+        <TransparentButton
           width={this.props.buttonWidth}
           onPressIn={() => Subscriber.stretchModal("1", "10%")}
           onPressOut={() => Subscriber.changeModalPosition("1", "50%")}>
           <ChevronDown color={Colors.palette.white} />
-        </TransparentButtonWithChildren>
+        </TransparentButton>
       </View>
     );
   };
