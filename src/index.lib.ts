@@ -1,10 +1,4 @@
-import {
-  GradientButton,
-  GradientButtonWithChildren,
-  TransparentButton,
-  TransparentButtonWithChildren,
-  TransparentButtonWithLink,
-} from "./Components/Buttons";
+import { GradientButton, TransparentButton } from "./Components/Buttons";
 import * as Icons from "./Components/Icons";
 import Modal from "./Components/Modal";
 import LinearGradient from "./Components/LinearGradient";
@@ -23,10 +17,7 @@ import setUikitWebpackSetting from "./Components/setUikitWebpackSetting/";
 
 export {
   GradientButton,
-  GradientButtonWithChildren,
   TransparentButton,
-  TransparentButtonWithChildren,
-  TransparentButtonWithLink,
   Icons,
   Modal,
   LinearGradient,

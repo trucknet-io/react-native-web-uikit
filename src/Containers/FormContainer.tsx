@@ -129,7 +129,6 @@ class LoginFormContainer extends React.PureComponent<Props, State> {
     return (
       <GradientButton
         disabled={!this.isFormValid()}
-        height={40}
         label={this.props.submitLabel.toUpperCase()}
         onPress={this.handleSubmit}
       />

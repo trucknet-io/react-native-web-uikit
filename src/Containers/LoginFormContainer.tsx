@@ -142,7 +142,6 @@ class LoginFormContainer extends React.PureComponent<Props, State> {
     if (this.props.callback.onForgotPasswordPress) {
       return (
         <TransparentButton
-          height={32 * this.props.componentsSizeRatio}
           label={this.props.text.forgotPasswordButtonLabel}
           textColor={theme.defaultText}
           onPress={this.props.callback.onForgotPasswordPress}
