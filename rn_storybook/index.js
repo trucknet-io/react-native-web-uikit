@@ -1,10 +1,11 @@
+import * as React from "react";
 import { AppRegistry } from "react-native";
 import { getStorybookUI, configure, addDecorator } from "@storybook/react-native";
 import { name } from "../app.json";
-import stories from "src/stories/index.mobile";
+import stories from "src/stories";
 import StoryWrapper from "src/Wrappers/StoryWrapper";
-import { withKnobs } from "@storybook/addon-knobs/react";
 import "./rn-addons";
+import { withKnobs } from "@storybook/addon-knobs/react";
 
 addDecorator(withKnobs);
 addDecorator((story) => {
