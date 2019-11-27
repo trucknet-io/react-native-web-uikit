@@ -2,7 +2,7 @@ import React from "react";
 import { View, StyleSheet } from "react-native";
 import Colors from "src/Themes/Colors";
 import Subscriber from "src/Subscriber";
-import { TransparentButtonWithChildren } from "src/Components/Buttons";
+import { TransparentButton } from "src/Components/Buttons";
 import { ChevronRight, ChevronLeft, ChevronUp, ChevronDown } from "src/Components/Icons";
 import { action } from "@storybook/addon-actions";
 
@@ -38,35 +38,35 @@ class ModalView extends React.PureComponent<ModalViewProps> {
     if (!this.props.verticalDirection) {
       return (
         <View style={[styles.buttonsContainer, { flexDirection: "row" }]}>
-          <TransparentButtonWithChildren
+          <TransparentButton
             width={this.props.buttonWidth}
             onPressIn={this.stretchModal}
             onPressOut={() => this.changeModalPosition("-60%")}>
             <ChevronLeft color={Colors.palette.white} />
-          </TransparentButtonWithChildren>
-          <TransparentButtonWithChildren
+          </TransparentButton>
+          <TransparentButton
             width={this.props.buttonWidth}
             onPressIn={this.stretchModal}
             onPressOut={() => this.changeModalPosition("60%")}>
             <ChevronRight color={Colors.palette.white} />
-          </TransparentButtonWithChildren>
+          </TransparentButton>
         </View>
       );
     }
     return (
       <View style={[styles.buttonsContainer, { flexDirection: "column" }]}>
-        <TransparentButtonWithChildren
+        <TransparentButton
           width={this.props.buttonWidth}
           onPressIn={this.stretchModal}
           onPressOut={() => this.changeModalPosition("-50%")}>
           <ChevronUp color={Colors.palette.white} />
-        </TransparentButtonWithChildren>
-        <TransparentButtonWithChildren
+        </TransparentButton>
+        <TransparentButton
           width={this.props.buttonWidth}
           onPressIn={() => Subscriber.stretchModal(this.props.modalId, "10%")}
           onPressOut={() => this.changeModalPosition("50%")}>
           <ChevronDown color={Colors.palette.white} />
-        </TransparentButtonWithChildren>
+        </TransparentButton>
       </View>
     );
   };

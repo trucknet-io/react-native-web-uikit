@@ -1,7 +1,7 @@
 import { Platform } from "react-native";
 import Colors from "./Colors";
 
-const createShadowStyles = (size?: number) => {
+const getShadowStyle = (size?: number) => {
   const shadowSize = size || 4;
   if (Platform.OS === "android") return { elevation: shadowSize };
   if (Platform.OS === "web")
@@ -17,4 +17,4 @@ const createShadowStyles = (size?: number) => {
   };
 };
 
-export default createShadowStyles;
+export default getShadowStyle;
