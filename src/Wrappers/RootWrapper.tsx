@@ -8,6 +8,7 @@ type Props = {
   styles: any;
 };
 
+
 type modalType = {
   component: React.ReactNode;
   id: IdType;

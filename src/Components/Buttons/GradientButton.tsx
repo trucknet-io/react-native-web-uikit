@@ -1,5 +1,12 @@
 import * as React from "react";
-import { Text, TouchableOpacity, GestureResponderEvent } from "react-native";
+import {
+  Text,
+  TouchableOpacity,
+  GestureResponderEvent,
+  FlexAlignType,
+  TouchableOpacityProps,
+  TextStyle,
+} from "react-native";
 import Colors from "src/Themes/Colors";
 import getShadowStyle from "src/Themes/getShadowStyle";
 import { styles } from "./styles";
@@ -9,6 +16,14 @@ import { ButtonProps } from "./commonTypes";
 import LinearGradient from "src/Components/LinearGradient";
 
 interface GradientButtonProps extends ButtonProps {
+  borderRadius: number;
+  width: string | number;
+  marginVertical: string | number;
+  marginHorizontal: string | number;
+  textColor: string;
+  alignItems: FlexAlignType;
+  label?: React.ReactNode;
+  style?: TouchableOpacityProps["style"] & TextStyle;
   gradientStartColor: string;
   gradientEndColor: string;
 }
