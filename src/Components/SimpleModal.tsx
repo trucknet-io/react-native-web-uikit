@@ -1,7 +1,7 @@
 import * as React from "react";
 import { StyleSheet, TouchableOpacity, View } from "react-native";
 import Modal, { ModalProps } from "react-native-modal";
-import getShadowStyles from "src/Themes/Shadow";
+import getShadowStyles from "src/Themes/getShadowStyle";
 import { isWeb } from "src/Helpers/platform";
 import Colors from "src/Themes/Colors";
 import { Gateway } from "react-gateway";
