@@ -1,10 +1,12 @@
 import * as React from "react";
+import * as ReactDOM from "react-dom";
 import { StyleSheet, TouchableOpacity, View } from "react-native";
 import Modal, { ModalProps } from "react-native-modal";
 import getShadowStyles from "src/Themes/getShadowStyle";
 import { isWeb } from "src/Helpers/platform";
 import Colors from "src/Themes/Colors";
-import { Gateway } from "react-gateway";
+
+const root = document.getElementById("root");
 
 interface IProps {
   isVisible: ModalProps["isVisible"];
@@ -14,6 +16,23 @@ interface IProps {
 }
 
 class ModalComponent extends React.PureComponent<IProps> {
+  private el: Node;
+  constructor(props) {
+    super(props);
+    this.el = document.createElement("div");
+  }
+  componentDidMount() {
+    console.log(root);
+    if (root) {
+      root.appendChild(this.el);
+    }
+  }
+
+  componentWillUnmount() {
+    if (root) {
+      root.removeChild(this.el);
+    }
+  }
   public render() {
     if (!isWeb) {
       return <Modal {...this.props}>{this.props.children}</Modal>;
@@ -25,16 +44,15 @@ class ModalComponent extends React.PureComponent<IProps> {
     if (this.props.onModalShow && this.props.isVisible) {
       this.props.onModalShow();
     }
-    return (
-      <Gateway into="global">
-        <View style={[styles.container, { display: this.props.isVisible ? "flex" : "none" }]}>
-          <TouchableOpacity
-            onPress={this.props.onBackdropPress}
-            style={[styles.container, { backgroundColor: undefined }]}
-          />
-          <View style={styles.childrenContainer}>{this.props.children}</View>
-        </View>
-      </Gateway>
+    return ReactDOM.createPortal(
+      <View style={[styles.container, { display: this.props.isVisible ? "flex" : "none" }]}>
+        <TouchableOpacity
+          onPress={this.props.onBackdropPress}
+          style={[styles.container, { backgroundColor: undefined }]}
+        />
+        <View style={styles.childrenContainer}>{this.props.children}</View>
+      </View>,
+      this.el,
     );
   };
 }
