@@ -1,10 +1,6 @@
 # UI Kit
 
-> UI Kit for react-native and react-native-web apps with modal and drawer
-
-[UIKit Storybook Link](https://react-native-web-uikit.storybook.trucknet.io)
-
-![Modal/Drawer](docs/uikit_storybook.gif)
+> UI Kit for react-native and react-native-web
 
 ## StoryBook
 
