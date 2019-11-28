@@ -9,7 +9,7 @@ import Form from "./Containers/Forms/FormContainer";
 import LoginForm from "./Containers/Forms/LoginFormContainer";
 import SignatureModal from "./Components/SignatureModal";
 import { colorTheme } from "./Themes/Colors";
-import { CardsPlaceholder, MapPlaceholder, ParagraphPlaceholder, ProgressBar } from "./Components/ProgressIndicators";
+import { CardsPlaceholder, MapPlaceholder, ParagraphPlaceholder, ProgressBar } from "./Components/Placeholders";
 import setUikitWebpackSetting from "./Components/setUikitWebpackSetting/";
 
 export {
