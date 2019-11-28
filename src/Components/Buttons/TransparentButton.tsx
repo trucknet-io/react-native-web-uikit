@@ -21,7 +21,8 @@ interface TransparentButtonProps extends TouchableOpacityProps {
 
 export class TransparentButton extends React.PureComponent<TransparentButtonProps> {
   public static defaultProps = {
-    linkColor: Colors.buttonText,
+    linkColor: Colors.defaultText,
+    textColor: Colors.defaultText,
     borderWidth: 0,
     borderColor: Colors.defaultText,
     ...defaultButtonProps,

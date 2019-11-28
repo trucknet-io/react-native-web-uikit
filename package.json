@@ -47,9 +47,7 @@
       "outputFile": "./rn_storybook/storyLoader.js"
     }
   },
-  "dependencies": {
-    "storybook-addon-smart-knobs": "^6.0.0"
-  },
+  "dependencies": {},
   "devDependencies": {
     "@babel/core": "^7.5.5",
     "@babel/preset-flow": "^7.0.0",
@@ -58,6 +56,7 @@
     "@storybook/addon-knobs": "^5.2.6",
     "@storybook/addon-links": "^5.0.3",
     "@storybook/addon-notes": "^5.0.3",
+    "storybook-addon-smart-knobs": "^6.0.0",
     "@storybook/addon-ondevice-knobs": "^5.2.6",
     "@storybook/addon-ondevice-notes": "^5.2.6",
     "@storybook/addons": "^5.0.3",

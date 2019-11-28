@@ -34,6 +34,7 @@ export class GradientButton extends React.PureComponent<GradientButtonProps> {
   public static defaultProps = {
     gradientStartColor: Colors.themeGradient.gradientColor1,
     gradientEndColor: Colors.themeGradient.gradientColor2,
+    textColor: Colors.buttonText,
     ...defaultButtonProps,
   };
 

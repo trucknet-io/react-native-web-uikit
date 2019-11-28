@@ -6,7 +6,7 @@ import { withSmartKnobs } from "storybook-addon-smart-knobs";
 import { addReadme } from "storybook-readme";
 import { addReadmeToStory } from "./readmeDecorator";
 
-addDecorator(withSmartKnobs());
+addDecorator(withSmartKnobs({ ignoreProps: ["gradientStartColor", "gradientEndColor"] }));
 addDecorator(withKnobs);
 addDecorator(withInfo);
 addDecorator(addReadme);

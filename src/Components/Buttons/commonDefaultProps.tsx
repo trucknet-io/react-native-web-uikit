@@ -1,4 +1,3 @@
-import Colors from "src/Themes/Colors";
 import { styles } from "./styles";
 import { ButtonProps } from "./commonTypes";
 
@@ -9,6 +8,5 @@ export const defaultButtonProps: ButtonProps = {
   marginHorizontal: 0,
   alignItems: "center",
   disabled: false,
-  textColor: Colors.buttonText,
   style: styles.buttonDefaultStyles,
 };
