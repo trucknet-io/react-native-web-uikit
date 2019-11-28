@@ -6,7 +6,7 @@ import getShadowStyles from "src/Themes/getShadowStyle";
 import { isWeb } from "src/Helpers/platform";
 import Colors from "src/Themes/Colors";
 
-const root = document.getElementById("root");
+const documentBody = document.getElementsByTagName("body")[0];
 
 interface IProps {
   isVisible: ModalProps["isVisible"];
@@ -22,15 +22,14 @@ class ModalComponent extends React.PureComponent<IProps> {
     this.el = document.createElement("div");
   }
   componentDidMount() {
-    console.log(root);
-    if (root) {
-      root.appendChild(this.el);
+    if (documentBody) {
+      documentBody.appendChild(this.el);
     }
   }
 
   componentWillUnmount() {
-    if (root) {
-      root.removeChild(this.el);
+    if (documentBody) {
+      documentBody.removeChild(this.el);
     }
   }
   public render() {
