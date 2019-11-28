@@ -12,7 +12,7 @@
 - npm install
 - for adding story name file `ComponentName.story.tsx` in component folder
 - for adding readme name file `ComponentName.story.md` in component folder
-- stories and readme files will be find and load with script
+- stories and readme files will be found, loaded and added to storybook with script
 
 Try add to stories only required props, rest props will be added withSmartKnobs addon.
 SmartKnobs will not automatically create knobs for props whose name is in this array

@@ -1,18 +1,16 @@
 import * as React from "react";
 import { storiesOf } from "@storybook/react-native";
 import LinearGradient from "./LinearGradient";
-import { Text } from "react-native";
-import { StyleSheet } from "react-native";
+import { color, object } from "@storybook/addon-knobs/react";
+import Colors from "src/Themes/Colors";
 
 const stories = storiesOf("Gradient", module);
 stories.add("Gradient", () => (
-  <LinearGradient style={styles.container}>
-    <Text>Gradient</Text>
-  </LinearGradient>
+  <LinearGradient
+    style={object("style", { padding: "25%" })}
+    gradientStartColor={color("gradientStartColor", Colors.palette.ashLight)}
+    gradientEndColor={color("gradientEndColor", Colors.palette.ashDark)}
+  />
 ));
-
-const styles = StyleSheet.create({
-  container: { width: "100%", height: 800 },
-});
 
 export default stories;

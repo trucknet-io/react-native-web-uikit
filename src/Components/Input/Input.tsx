@@ -16,7 +16,7 @@ export interface TargetedEvent {
   target: number;
 }
 
-type Props = {
+interface Props extends TextInputProps {
   label: string;
   onChangeTextValidated(res: { value: string | undefined; isValid: boolean }): void;
   width: number | string;
@@ -51,8 +51,7 @@ type Props = {
   errorFontSize: 12;
   errorColor: string;
   borderBottomWidth: number;
-  nativeTextInputProps?: TextInputProps;
-};
+}
 
 type State = {
   labelFontSize: Animated.Value;
@@ -101,12 +100,13 @@ class Input extends React.PureComponent<Props, State> {
     const { labelFontSize, labelMarginBottom } = this.state;
     const { width, height, errorFontSize, errorColor } = this.props;
     return (
-      <Animated.View style={[styles.container, { width, height }]}>
+      <Animated.View style={[styles.container, { width, height }, this.props.style]}>
         <Animated.Text
           style={{ fontSize: labelFontSize, marginBottom: labelMarginBottom, color: this.getLabelColor() }}>
           {this.props.label}
         </Animated.Text>
         <Field
+          {...this.props}
           setInputRef={this.setInputRef}
           secureTextEntry={this.props.secureTextEntry}
           keyboardType={this.props.keyboardType}
@@ -118,7 +118,6 @@ class Input extends React.PureComponent<Props, State> {
           onSubmitEditing={this.onSubmitEditing}
           onChangeText={this.handleChangeText}
           inputBorderColor={this.getFieldColor()}
-          nativeTextInputProps={this.props.nativeTextInputProps}
           initialValue={this.props.initialValue}
         />
         <Text style={[styles.error, { fontSize: errorFontSize, color: errorColor }]}>{this.state.error}</Text>
@@ -248,7 +247,6 @@ class Field extends React.Component<FieldProps> {
       secureTextEntry,
       keyboardType,
       textColor,
-      nativeTextInputProps,
       borderBottomWidth,
       inputFontSize,
       onFocus,
@@ -260,6 +258,7 @@ class Field extends React.Component<FieldProps> {
     } = this.props;
     return (
       <TextInput
+        {...this.props}
         ref={setInputRef}
         defaultValue={initialValue}
         keyboardType={keyboardType}
@@ -272,7 +271,6 @@ class Field extends React.Component<FieldProps> {
         onBlur={onBlur}
         onChangeText={onChangeText}
         onSubmitEditing={onSubmitEditing}
-        {...nativeTextInputProps}
       />
     );
   }
