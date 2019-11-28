@@ -11,11 +11,10 @@ import Colors from "src/Themes/Colors";
 import getShadowStyle from "src/Themes/getShadowStyle";
 import { styles } from "./styles";
 import { defaultButtonProps } from "./commonDefaultProps";
-import { ButtonProps } from "./commonTypes";
 
-import LinearGradient from "src/Components/LinearGradient";
+import LinearGradient from "src/Components/LinearGradient/LinearGradient";
 
-interface GradientButtonProps extends ButtonProps {
+interface GradientButtonProps extends TouchableOpacityProps {
   borderRadius: number;
   width: string | number;
   marginVertical: string | number;

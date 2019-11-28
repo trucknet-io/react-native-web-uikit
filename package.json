@@ -16,7 +16,7 @@
   "version": "2.5.7",
   "private": false,
   "scripts": {
-    "start": "node node_modules/react-native/local-cli/cli.js start",
+    "start": "npm run find-stories && node node_modules/react-native/local-cli/cli.js start",
     "ios": "react-native run-ios",
     "android": "react-native run-android",
     "android:release": "react-native run-android --variant=release",
@@ -31,11 +31,21 @@
     "test:e2e": "jest --detectOpenHandles --testPathPattern \"__tests__/.+.tsx?\"",
     "test:ci": "jest --detectOpenHandles --coverage",
     "build": "rimraf dist/ && tsc -p tsconfig.build.json && tscpaths -p tsconfig.build.json -s ./src -o ./dist",
+    "find-stories": "rnstl",
     "storybook": "start-storybook -p 9009 -s public",
     "build-storybook": "build-storybook -s public",
     "prepublishOnly": "npm run build",
     "postrelease": "npm publish",
     "release": "./extra/release.sh"
+  },
+  "config": {
+    "react-native-storybook-loader": {
+      "searchDir": [
+        "./src"
+      ],
+      "pattern": "**/*.story.tsx",
+      "outputFile": "./rn_storybook/storyLoader.js"
+    }
   },
   "dependencies": {
     "storybook-addon-smart-knobs": "^6.0.0"
@@ -66,7 +76,7 @@
     "babel-plugin-react-docgen": "^3.2.0",
     "babel-preset-react-app": "^7.0.2",
     "babel-runtime": "^6.26.0",
-    "core-js": "^3.0.0",
+    "core-js": "^2.6.10",
     "file-loader": "^4.2.0",
     "html-loader": "^0.5.5",
     "jest": "23.6.0",
@@ -87,6 +97,7 @@
     "react-native-modal": "^11.3.1",
     "react-native-popup-menu": "^0.15.6",
     "react-native-shimmer-placeholder": "^1.0.35",
+    "react-native-storybook-loader": "^1.8.1",
     "react-native-svg": "^9.4.0",
     "react-native-svg-web": "^1.0.1",
     "react-native-web": "^0.10.1",
@@ -134,13 +145,5 @@
     "react-native-web-modal",
     "react-native-web-drawer",
     "react-native-web-storybook-uikit"
-  ],
-  "plugins": [
-    {
-      "name": "react-docgen-typescript-loader",
-      "option": {
-        "enable": true
-      }
-    }
   ]
 }
