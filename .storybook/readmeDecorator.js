@@ -1,7 +1,9 @@
+import React from "react";
 import { makeDecorator } from "@storybook/addons";
+import { View, Text } from "react-native";
+
 export const addReadmeToStory = makeDecorator({
   wrapper: (storyFn, context) => {
-    console.log(context);
     try {
       const folderPath = context.parameters.fileName.replace(/[A-Za-z.]*$/, "").replace("./src/", "");
       context.parameters["readme"] = {

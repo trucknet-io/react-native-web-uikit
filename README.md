@@ -8,8 +8,15 @@
 
 ## StoryBook
 
-    - git clone git@github.com:trucknet-io/react-native-web-uikit.git
-    - npm install
+- git clone git@github.com:trucknet-io/react-native-web-uikit.git
+- npm install
+- for adding story name file `ComponentName.story.tsx` in component folder
+- for adding readme name file `ComponentName.story.md` in component folder
+- stories and readme files will be find and load with script
+
+Try add to stories only required props, rest props will be added withSmartKnobs addon.
+SmartKnobs will not automatically create knobs for props whose name is in this array
+`addDecorator(withSmartKnobs({ ignoreProps: ["gradientStartColor", "gradientEndColor"] }))`
 
 ### Web
 
@@ -30,9 +37,10 @@ For show Modal Wrap Root Container with `RootWrapper` Component
 
 ## webpack config
 
-*web apps only*
+_web apps only_
 
 change your `webpack.config.js`
+
 ```
 const { setUikitWebpackSetting } = require("react-native-web-uikit");
 
@@ -66,4 +74,3 @@ module.exports = setUikitWebpackSetting(config?: webpackConfig);
     - react-native-web-webview,
     - modal-react-native-web,
     - react-content-loader,
-
