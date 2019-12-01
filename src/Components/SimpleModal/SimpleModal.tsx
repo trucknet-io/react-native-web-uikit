@@ -15,23 +15,28 @@ interface IProps {
   onModalShow?: ModalProps["onModalShow"];
 }
 
-class ModalComponent extends React.PureComponent<IProps> {
+export class SimpleModal extends React.PureComponent<IProps> {
   private el: Node;
   constructor(props) {
     super(props);
     this.el = document.createElement("div");
   }
-  componentDidMount() {
-    if (documentBody) {
-      documentBody.appendChild(this.el);
-    }
-  }
+  public componentDidMount = () => {
+    if (!documentBody) return;
+    documentBody.appendChild(this.el);
+    this.handleModalShow();
+  };
 
-  componentWillUnmount() {
-    if (documentBody) {
-      documentBody.removeChild(this.el);
+  public componentDidUpdate = (prevProps) => {
+    if (this.props.isVisible && prevProps.isVisible !== this.props.isVisible) {
+      this.handleModalShow();
     }
-  }
+  };
+
+  public componentWillUnmount = () => {
+    if (!documentBody) return;
+    documentBody.removeChild(this.el);
+  };
   public render() {
     if (!isWeb) {
       return <Modal {...this.props}>{this.props.children}</Modal>;
@@ -40,9 +45,6 @@ class ModalComponent extends React.PureComponent<IProps> {
   }
 
   private renderWebModal = () => {
-    if (this.props.onModalShow && this.props.isVisible) {
-      this.props.onModalShow();
-    }
     return ReactDOM.createPortal(
       <View style={[styles.container, { display: this.props.isVisible ? "flex" : "none" }]}>
         <TouchableOpacity
@@ -53,6 +55,11 @@ class ModalComponent extends React.PureComponent<IProps> {
       </View>,
       this.el,
     );
+  };
+
+  private handleModalShow = () => {
+    if (!this.props.onModalShow) return;
+    this.props.onModalShow();
   };
 }
 
@@ -74,5 +81,3 @@ const styles = StyleSheet.create({
     ...getShadowStyles(12),
   },
 });
-
-export default ModalComponent;

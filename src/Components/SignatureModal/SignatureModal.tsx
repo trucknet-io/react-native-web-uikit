@@ -3,7 +3,7 @@ import Fonts from "src/Themes/Fonts";
 import { parseDataUrl, ParsedDataUrlType } from "src/Helpers/regexHelpers";
 import * as React from "react";
 import { Text, View, StyleSheet, ActivityIndicator } from "react-native";
-import Modal from "src/Components/SimpleModal/SimpleModal";
+import { SimpleModal } from "src/Components/SimpleModal/SimpleModal";
 import { TransparentButton } from "src/Components/Buttons";
 import { canvasHTML } from "./canvasHTML";
 import WebView from "react-native-webview";
@@ -49,6 +49,7 @@ class SignatureModal extends React.PureComponent<Props> {
   }
 
   private renderButtons = () => {
+    console.log(this.state.isSignSubmitted, "this.state.isSignSubmitted");
     return (
       <View style={styles.buttonsContainer}>
         {this.state.isSignSubmitted ? this.renderActivityIndicator() : this.renderCancelButton()}
@@ -82,12 +83,12 @@ class SignatureModal extends React.PureComponent<Props> {
     );
   };
   private renderModal = () => (
-    <Modal
+    <SimpleModal
       isVisible={this.props.isVisible}
       onBackdropPress={this.props.onBackdropPress}
       onModalShow={this.unSubmitSignApply}>
       {this.renderSignView()}
-    </Modal>
+    </SimpleModal>
   );
 
   renderSignView = () => {

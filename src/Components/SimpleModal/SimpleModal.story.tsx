@@ -1,14 +1,14 @@
 import * as React from "react";
 import { storiesOf } from "@storybook/react-native";
-import SimpleModal from "src/Components/SimpleModal/SimpleModal";
-import { action, boolean } from "@storybook/addon-actions";
-import { View } from "react-native";
+import { SimpleModal } from "./SimpleModal";
+import { Text } from "react-native";
+import { boolean } from "@storybook/addon-knobs/react";
 
-const stories = storiesOf("Progress Bar", module);
+const stories = storiesOf("Modals", module);
 
-stories.add("ProgressBar", () => (
-  <SimpleModal isVisible={boolean(`isVisible`, true)} onBackdropPress={action("onBackdropPress")}>
-    <View />
+stories.add("Simple Modal", () => (
+  <SimpleModal isVisible={boolean("isVisible", true)}>
+    <Text>Simple Modal</Text>
   </SimpleModal>
 ));
 
