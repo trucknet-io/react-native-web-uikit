@@ -12,7 +12,7 @@ type IState = {
 
 const INDICATOR_WIDTH = 80;
 
-class ProgressBar extends React.PureComponent<IProps, IState> {
+export class ProgressBar extends React.PureComponent<IProps, IState> {
   private animation;
   static defaultProps = {
     color: colorTheme.light.themeColor,

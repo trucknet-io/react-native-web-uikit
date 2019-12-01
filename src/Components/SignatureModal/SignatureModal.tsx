@@ -3,7 +3,7 @@ import Fonts from "src/Themes/Fonts";
 import { parseDataUrl, ParsedDataUrlType } from "src/Helpers/regexHelpers";
 import * as React from "react";
 import { Text, View, StyleSheet, ActivityIndicator } from "react-native";
-import Modal from "src/Components/SimpleModal";
+import Modal from "src/Components/SimpleModal/SimpleModal";
 import { TransparentButton } from "src/Components/Buttons";
 import { canvasHTML } from "./canvasHTML";
 import WebView from "react-native-webview";

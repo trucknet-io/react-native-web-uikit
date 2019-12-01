@@ -1,12 +1,17 @@
+import * as React from "react";
 import { AppRegistry } from "react-native";
-import { getStorybookUI, configure } from "@storybook/react-native";
+import { getStorybookUI, configure, addDecorator } from "@storybook/react-native";
 import { name } from "../app.json";
-import stories from "../src/stories/index.mobile";
-
 import "./rn-addons";
+import { withKnobs } from "@storybook/addon-knobs/react";
+import { loadStories } from "./storyLoader";
+import StoryWrapper from "src/Wrappers/StoryWrapper";
 
-// import stories
-configure(() => stories, module);
+addDecorator(withKnobs);
+addDecorator((story) => <StoryWrapper>{story()}</StoryWrapper>);
+configure(() => {
+  loadStories();
+}, module);
 
 // Refer to https://github.com/storybooks/storybook/tree/master/app/react-native#start-command-parameters
 // To find allowed options for getStorybookUI

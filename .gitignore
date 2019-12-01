@@ -63,3 +63,6 @@ buck-out/
 
 # Cache
 /.awcache
+
+# rn stories paths
+rn_storybook/storyLoader.js
