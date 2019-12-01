@@ -1,0 +1,4 @@
+{
+  "extends": "./tsbaseconfig",
+  "include": ["src/index.lib.ts", "definitions/**/*.d.ts"]
+}

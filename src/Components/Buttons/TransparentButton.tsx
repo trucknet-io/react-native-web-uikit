@@ -1,11 +1,17 @@
 import * as React from "react";
-import { Text, TouchableOpacity } from "react-native";
+import { Text, TouchableOpacity, TouchableOpacityProps, FlexAlignType, TextStyle } from "react-native";
 import Colors from "src/Themes/Colors";
 import { styles } from "./styles";
-import { defaultButtonProps } from "./commonDefaultProps";
-import { ButtonProps } from "./commonTypes";
 
-interface TransparentButtonProps extends ButtonProps {
+interface TransparentButtonProps extends TouchableOpacityProps {
+  borderRadius: number;
+  width: string | number;
+  marginVertical: string | number;
+  marginHorizontal: string | number;
+  textColor: string;
+  alignItems: FlexAlignType;
+  label?: React.ReactNode;
+  style?: TouchableOpacityProps["style"] & TextStyle;
   linkColor: string;
   borderWidth: number;
   borderColor: string;
@@ -14,10 +20,17 @@ interface TransparentButtonProps extends ButtonProps {
 
 export class TransparentButton extends React.PureComponent<TransparentButtonProps> {
   public static defaultProps = {
-    linkColor: Colors.buttonText,
+    linkColor: Colors.defaultText,
+    textColor: Colors.defaultText,
     borderWidth: 0,
     borderColor: Colors.defaultText,
-    ...defaultButtonProps,
+    borderRadius: 4,
+    width: "100%",
+    marginVertical: 0,
+    marginHorizontal: 0,
+    alignItems: "center",
+    disabled: false,
+    style: {},
   };
   public render() {
     const {
