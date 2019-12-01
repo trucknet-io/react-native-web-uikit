@@ -6,12 +6,12 @@
 
 - `git clone git@github.com:trucknet-io/react-native-web-uikit.git`
 - `npm install`
-- for adding story name file `ComponentName.story.tsx` in component folder
+- to add a Storybook story, create a `ComponentName.story.tsx` file in component's folder
 - for adding readme name file `README.md` in component folder
 - stories and readme files will be found, loaded and added to storybook automatically
 
 Try to add to stories only required props, rest props will be added withSmartKnobs addon.
-SmartKnobs will not automatically create knobs for props whose name is in the `ignoreProps` array
+[SmartKnobs](https://github.com/storybookjs/addon-smart-knobs) will not automatically create knobs for props whose name is in the `ignoreProps` array
 `addDecorator(withSmartKnobs({ ignoreProps: ["gradientStartColor", "gradientEndColor"] }))`
 
 ### Web

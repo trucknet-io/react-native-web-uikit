@@ -10,7 +10,7 @@ export const addReadmeToStory = makeDecorator({
       };
     } catch (e) {
       if (!e.message.includes("Cannot find module")) {
-        console.log(e);
+        throw e;
       }
     }
     return storyFn(context);
