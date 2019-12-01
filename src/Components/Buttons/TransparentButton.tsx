@@ -2,7 +2,6 @@ import * as React from "react";
 import { Text, TouchableOpacity, TouchableOpacityProps, FlexAlignType, TextStyle } from "react-native";
 import Colors from "src/Themes/Colors";
 import { styles } from "./styles";
-import { defaultButtonProps } from "./commonDefaultProps";
 
 interface TransparentButtonProps extends TouchableOpacityProps {
   borderRadius: number;
@@ -25,7 +24,13 @@ export class TransparentButton extends React.PureComponent<TransparentButtonProp
     textColor: Colors.defaultText,
     borderWidth: 0,
     borderColor: Colors.defaultText,
-    ...defaultButtonProps,
+    borderRadius: 4,
+    width: "100%",
+    marginVertical: 0,
+    marginHorizontal: 0,
+    alignItems: "center",
+    disabled: false,
+    style: {},
   };
   public render() {
     const {

@@ -10,7 +10,6 @@ import {
 import Colors from "src/Themes/Colors";
 import getShadowStyle from "src/Themes/getShadowStyle";
 import { styles } from "./styles";
-import { defaultButtonProps } from "./commonDefaultProps";
 
 import LinearGradient from "src/Components/LinearGradient/LinearGradient";
 
@@ -35,7 +34,13 @@ export class GradientButton extends React.PureComponent<GradientButtonProps> {
     gradientStartColor: Colors.themeGradient.gradientColor1,
     gradientEndColor: Colors.themeGradient.gradientColor2,
     textColor: Colors.buttonText,
-    ...defaultButtonProps,
+    borderRadius: 4,
+    width: "100%",
+    marginVertical: 0,
+    marginHorizontal: 0,
+    alignItems: "center",
+    disabled: false,
+    style: {},
   };
 
   public state = {
