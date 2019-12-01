@@ -7,7 +7,7 @@
 - `git clone git@github.com:trucknet-io/react-native-web-uikit.git`
 - `npm install`
 - to add a Storybook story, create a `ComponentName.story.tsx` file in component's folder
-- for adding readme name file `README.md` in component folder
+- to add a readme name file `README.md` in a component folder
 - stories and readme files will be found, loaded and added to storybook automatically
 
 Try to add to stories only required props, rest props will be added withSmartKnobs addon.
