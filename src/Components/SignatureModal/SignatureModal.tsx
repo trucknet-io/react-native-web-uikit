@@ -49,7 +49,6 @@ class SignatureModal extends React.PureComponent<Props> {
   }
 
   private renderButtons = () => {
-    console.log(this.state.isSignSubmitted, "this.state.isSignSubmitted");
     return (
       <View style={styles.buttonsContainer}>
         {this.state.isSignSubmitted ? this.renderActivityIndicator() : this.renderCancelButton()}
