@@ -1,52 +1,40 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 import { StyleSheet, TouchableOpacity, View } from "react-native";
-import Modal, { ModalProps } from "react-native-modal";
+import { ModalProps } from "react-native-modal";
 import getShadowStyles from "src/Themes/getShadowStyle";
-import { isWeb } from "src/Helpers/platform";
 import Colors from "src/Themes/Colors";
 
-let documentBody: HTMLBodyElement;
-let el: any;
-
-if (isWeb) {
-  documentBody = document.getElementsByTagName("body")[0];
-  el = document.createElement("div");
+interface IWebModalProps extends ModalProps {
+  documentBody: HTMLBodyElement;
+  domElement: HTMLDivElement;
 }
 
-interface IProps extends ModalProps {}
-
-export class SimpleModal extends React.PureComponent<IProps> {
+class WebModal extends React.PureComponent<IWebModalProps> {
   static defaultProps = {
     style: {
       padding: "2%",
       backdropColor: Colors.shadow,
     },
   };
-  constructor(props: IProps) {
+  constructor(props: IWebModalProps) {
     super(props);
   }
   public componentDidMount = () => {
-    if (!isWeb) return;
-    documentBody.appendChild(el);
+    this.props.documentBody.appendChild(this.props.domElement);
     this.handleModalShow();
   };
 
-  public componentDidUpdate = (prevProps: IProps) => {
+  public componentDidUpdate = (prevProps: IWebModalProps) => {
     if (this.props.isVisible && prevProps.isVisible !== this.props.isVisible) {
       this.handleModalShow();
     }
   };
 
   public componentWillUnmount = () => {
-    if (!isWeb) return;
-    documentBody.removeChild(el);
+    this.props.documentBody.removeChild(this.props.domElement);
   };
   public render() {
-    if (!this.props.isVisible) return null;
-    if (!isWeb) {
-      return <Modal {...this.props}>{this.props.children}</Modal>;
-    }
     return this.renderWebModal();
   }
 
@@ -59,7 +47,7 @@ export class SimpleModal extends React.PureComponent<IProps> {
         />
         <View style={styles.childrenContainer}>{this.props.children}</View>
       </View>,
-      el,
+      this.props.domElement,
     );
   };
 
@@ -68,6 +56,8 @@ export class SimpleModal extends React.PureComponent<IProps> {
     this.props.onModalShow();
   };
 }
+
+export default WebModal;
 
 const styles = StyleSheet.create({
   container: {

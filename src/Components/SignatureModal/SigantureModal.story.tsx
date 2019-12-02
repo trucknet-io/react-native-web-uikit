@@ -7,7 +7,7 @@ import { action } from "@storybook/addon-actions";
 const stories = storiesOf("SignatureModal", module);
 stories.add("SignatureModal", () => (
   <SignatureModal
-    isVisible={boolean(`isVisible`, false)}
+    isVisible={boolean(`isVisible`, true)}
     onBackdropPress={action("BackdropPress")}
     onSignApply={action("onSignApply")}
   />

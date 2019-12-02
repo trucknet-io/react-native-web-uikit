@@ -1,6 +1,6 @@
 import * as React from "react";
 import { storiesOf } from "@storybook/react-native";
-import { SimpleModal } from "./SimpleModal";
+import Modal from "./Modal";
 import { Text, View } from "react-native";
 import { boolean } from "@storybook/addon-knobs/react";
 import Colors from "src/Themes/Colors";
@@ -8,12 +8,12 @@ import { StyleSheet } from "react-native";
 
 const stories = storiesOf("Modals", module);
 
-stories.add("Simple Modal", () => (
-  <SimpleModal isVisible={boolean("isVisible", true)} backdropColor={Colors.shadow}>
+stories.add("Modal", () => (
+  <Modal isVisible={boolean("isVisible", true)} backdropColor={Colors.shadow}>
     <View style={styles.container}>
-      <Text>Simple Modal</Text>
+      <Text>Modal</Text>
     </View>
-  </SimpleModal>
+  </Modal>
 ));
 
 const styles = StyleSheet.create({
