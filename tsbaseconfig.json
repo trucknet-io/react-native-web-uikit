@@ -6,7 +6,7 @@
     "noImplicitThis": true,
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
-    "jsx": "react-native",
+    "jsx": "react",
     "lib": ["es6", "dom"],
     "moduleResolution": "node",
     "strict": true,
