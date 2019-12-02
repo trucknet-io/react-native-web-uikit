@@ -7,9 +7,6 @@ module.exports = {
   },
   testPathIgnorePatterns: ["\\.snap$", "<rootDir>/node_modules/"],
   cacheDirectory: ".jest/cache",
-  coverageReporters: ["json-summary", "text", "html"],
-  collectCoverageFrom: ["src/**/*.ts", "src/**/*.tsx"],
-  testMatch: ["<rootDir>/src/**/__tests__/**/*.(js|ts|tsx)", "<rootDir>/src/**/?(*.)+(spec|test).(js|ts|tsx)"],
+  testMatch: ["<rootDir>/src/**/?(*.)+(spec|test).(js|ts|tsx)"],
   modulePaths: ["<rootDir>"],
-  transformIgnorePatterns: ["node_modules/(?!react-native)/"],
 };
