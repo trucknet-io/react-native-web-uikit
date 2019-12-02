@@ -8,13 +8,13 @@ type Props = {
     startTime: string;
     startDay: string;
     startCity: string;
-    startAdress?: string;
+    startAddress?: string;
   };
   destination: {
     endTime: string;
     endDay: string;
     endCity: string;
-    endAdress?: string;
+    endAddress?: string;
   };
   currentProgress?: number;
 };
@@ -86,8 +86,8 @@ export class RideProgressCard extends React.PureComponent<Props, State> {
     const { origin, destination } = this.props;
     return (
       <View style={styles.cityesContainer}>
-        {this.renderCity(origin.startCity, origin.startAdress)}
-        {this.renderCity(destination.endCity, destination.endAdress)}
+        {this.renderCity(origin.startCity, origin.startAddress)}
+        {this.renderCity(destination.endCity, destination.endAddress)}
       </View>
     );
   };
