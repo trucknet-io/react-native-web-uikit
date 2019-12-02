@@ -81,7 +81,7 @@ export const darkColors = {
   link: "#000",
   email: "#2979ff",
   themeColor: "#2cce62",
-  transperentThemeColor: "#2cc362",
+  transperentThemeColor: "#c4ecc9",
   themeGradient: {
     gradientColor1: "#2cceb3",
     gradientColor2: "#2cce62",
