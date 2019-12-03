@@ -5,18 +5,16 @@ import { ModalProps } from "react-native-modal";
 import getShadowStyles from "src/Themes/getShadowStyle";
 import Colors from "src/Themes/Colors";
 
-interface IWebModalProps extends ModalProps {}
-
-class WebModal extends React.PureComponent<IWebModalProps> {
+class WebModal extends React.PureComponent<ModalProps> {
   private documentBody = document.getElementsByTagName("body")[0];
   private domElement = document.createElement("div");
   static defaultProps = {
     style: {
       padding: "2%",
-      backdropColor: Colors.shadow,
     },
+    backdropColor: Colors.shadow,
   };
-  constructor(props: IWebModalProps) {
+  constructor(props: ModalProps) {
     super(props);
   }
   public componentDidMount = () => {
@@ -24,7 +22,7 @@ class WebModal extends React.PureComponent<IWebModalProps> {
     this.handleModalShow();
   };
 
-  public componentDidUpdate = (prevProps: IWebModalProps) => {
+  public componentDidUpdate = (prevProps: ModalProps) => {
     if (this.props.isVisible && prevProps.isVisible !== this.props.isVisible) {
       this.handleModalShow();
     }
@@ -39,12 +37,12 @@ class WebModal extends React.PureComponent<IWebModalProps> {
 
   private renderWebModal = () => {
     return ReactDOM.createPortal(
-      <View style={[styles.container, { backgroundColor: this.props.backdropColor }, this.props.style]}>
+      <View style={[styles.backdrop, { backgroundColor: this.props.backdropColor }, this.props.style]}>
         <TouchableOpacity
           onPress={this.props.onBackdropPress}
-          style={[styles.container, { backgroundColor: undefined }]}
+          style={[styles.backdrop, { backgroundColor: undefined }]}
         />
-        <View style={styles.childrenContainer}>{this.props.children}</View>
+        <View style={styles.content}>{this.props.children}</View>
       </View>,
       this.domElement,
     );
@@ -59,16 +57,17 @@ class WebModal extends React.PureComponent<IWebModalProps> {
 export default WebModal;
 
 const styles = StyleSheet.create({
-  container: {
+  backdrop: {
     position: "absolute",
     top: 0,
+    bottom: 0,
     left: 0,
-    width: "100%",
-    height: "100%",
+    right: 0,
     ...getShadowStyles(10),
   },
-  childrenContainer: {
+  content: {
     flex: 1,
+    justifyContent: "center",
     backgroundColor: Colors.background,
     ...getShadowStyles(12),
   },
