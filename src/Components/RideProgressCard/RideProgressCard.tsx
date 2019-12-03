@@ -118,10 +118,10 @@ const styles = StyleSheet.create({
   container: {
     flexGrow: 1,
     flexDirection: "row",
-    justifyContent: "space-between",
   },
   timeAndDateContainer: {
     minHeight: 100,
+    maxWidth: 100,
     flexDirection: "column",
     justifyContent: "space-between",
   },
@@ -141,10 +141,12 @@ const styles = StyleSheet.create({
   },
   cityesContainer: {
     minHeight: 100,
+    maxWidth: 200,
     flexDirection: "column",
     justifyContent: "space-between",
   },
   mainText: {
+    color: Colors.defaultText,
     ...Fonts.style.description,
   },
   secondaryText: {
