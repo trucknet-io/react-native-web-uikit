@@ -3,19 +3,16 @@ import { View, StyleSheet, Animated, Easing, Text } from "react-native";
 import Colors from "src/Themes/Colors";
 import Fonts from "src/Themes/Fonts";
 
+type RideCardProp = {
+  time: string;
+  day: string;
+  city: string;
+  address?: string;
+};
+
 type Props = {
-  origin: {
-    startTime: string;
-    startDay: string;
-    startCity: string;
-    startAddress?: string;
-  };
-  destination: {
-    endTime: string;
-    endDay: string;
-    endCity: string;
-    endAddress?: string;
-  };
+  origin: RideCardProp;
+  destination: RideCardProp;
   currentProgress?: number;
 };
 
@@ -29,11 +26,10 @@ export class RideProgressCard extends React.PureComponent<Props, State> {
     progress: new Animated.Value(0),
   };
 
-  public componentDidMount = () => this.startAnimation();
-
   public componentWillUnmount = () => this.animation.stop();
 
   public render() {
+    this.startAnimation();
     return (
       <View style={styles.container}>
         {this.renderTimeAndDate()}
@@ -47,8 +43,8 @@ export class RideProgressCard extends React.PureComponent<Props, State> {
     const { origin, destination } = this.props;
     return (
       <View style={styles.timeAndDateContainer}>
-        {this.renderPointInTime(origin.startTime, origin.startDay)}
-        {this.renderPointInTime(destination.endTime, destination.endDay)}
+        {this.renderPointInTime(origin.time, origin.day)}
+        {this.renderPointInTime(destination.time, destination.day)}
       </View>
     );
   };
@@ -86,8 +82,8 @@ export class RideProgressCard extends React.PureComponent<Props, State> {
     const { origin, destination } = this.props;
     return (
       <View style={styles.cityesContainer}>
-        {this.renderCity(origin.startCity, origin.startAddress)}
-        {this.renderCity(destination.endCity, destination.endAddress)}
+        {this.renderCity(origin.city, origin.address)}
+        {this.renderCity(destination.city, destination.address)}
       </View>
     );
   };
@@ -99,16 +95,22 @@ export class RideProgressCard extends React.PureComponent<Props, State> {
     </View>
   );
 
+  private startAnimation = () => {
+    this.animation = this.calcAnimation();
+    this.animation.start();
+  };
+
   private calcAnimation = () =>
     Animated.timing(this.state.progress, {
-      toValue: this.props.currentProgress || 0,
+      toValue: this.checkValue(this.props.currentProgress),
       easing: Easing.linear,
       duration: 700,
     });
 
-  private startAnimation = () => {
-    this.animation = this.calcAnimation();
-    this.animation.start();
+  private checkValue = (value?: number): number => {
+    if (!value) return 0;
+    if (value > 100) return 100;
+    return value;
   };
 }
 
