@@ -5,12 +5,11 @@ import { ModalProps } from "react-native-modal";
 import getShadowStyles from "src/Themes/getShadowStyle";
 import Colors from "src/Themes/Colors";
 
-interface IWebModalProps extends ModalProps {
-  documentBody: HTMLBodyElement;
-  domElement: HTMLDivElement;
-}
+interface IWebModalProps extends ModalProps {}
 
 class WebModal extends React.PureComponent<IWebModalProps> {
+  private documentBody = document.getElementsByTagName("body")[0];
+  private domElement = document.createElement("div");
   static defaultProps = {
     style: {
       padding: "2%",
@@ -21,7 +20,7 @@ class WebModal extends React.PureComponent<IWebModalProps> {
     super(props);
   }
   public componentDidMount = () => {
-    this.props.documentBody.appendChild(this.props.domElement);
+    this.documentBody.appendChild(this.domElement);
     this.handleModalShow();
   };
 
@@ -32,7 +31,7 @@ class WebModal extends React.PureComponent<IWebModalProps> {
   };
 
   public componentWillUnmount = () => {
-    this.props.documentBody.removeChild(this.props.domElement);
+    this.documentBody.removeChild(this.domElement);
   };
   public render() {
     return this.renderWebModal();
@@ -47,7 +46,7 @@ class WebModal extends React.PureComponent<IWebModalProps> {
         />
         <View style={styles.childrenContainer}>{this.props.children}</View>
       </View>,
-      this.props.domElement,
+      this.domElement,
     );
   };
 
