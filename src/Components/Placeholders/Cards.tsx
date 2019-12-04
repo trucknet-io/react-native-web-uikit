@@ -16,12 +16,12 @@ interface State {
   colors: typeof colorTheme;
 }
 
-class CardsPlaceholder extends React.PureComponent<Props, State> {
+export class CardsPlaceholder extends React.PureComponent<Props, State> {
   state = {
     colors: colorTheme,
   };
   public static defaultProps = {
-    lines: 5,
+    cards: 3,
     margin: 12,
     cardHeight: 250,
     theme: "light",
@@ -63,8 +63,6 @@ class CardsPlaceholder extends React.PureComponent<Props, State> {
     return placeholderCards;
   };
 }
-
-export default CardsPlaceholder;
 
 const styles = StyleSheet.create({
   container: {

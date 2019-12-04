@@ -1,23 +1,26 @@
 # UI Kit
 
-> UI Kit for react-native and react-native-web apps with modal and drawer
-
-[UIKit Storybook Link](https://react-native-web-uikit.storybook.trucknet.io)
-
-![Modal/Drawer](docs/uikit_storybook.gif)
+> UI Kit for react-native and react-native-web
 
 ## StoryBook
 
-    - git clone git@github.com:trucknet-io/react-native-web-uikit.git
-    - npm install
+- `git clone git@github.com:trucknet-io/react-native-web-uikit.git`
+- `npm install`
+- to add a Storybook story, create a `ComponentName.story.tsx` file in component's folder
+- to add a readme name file `README.md` in a component folder
+- stories and readme files will be found, loaded and added to storybook automatically
+
+Try to add to stories only required props, rest props will be added withSmartKnobs addon.
+[SmartKnobs](https://github.com/storybookjs/addon-smart-knobs) will not automatically create knobs for props whose name is in the `ignoreProps` array
+`addDecorator(withSmartKnobs({ ignoreProps: ["gradientStartColor", "gradientEndColor"] }))`
 
 ### Web
 
-    - npm run storybook
+    - `npm run storybook`
 
 ### Mobile
 
-    - npm run android
+    - `npm run android`
 
 ## Usage
 
@@ -30,9 +33,10 @@ For show Modal Wrap Root Container with `RootWrapper` Component
 
 ## webpack config
 
-*web apps only*
+_web apps only_
 
 change your `webpack.config.js`
+
 ```
 const { setUikitWebpackSetting } = require("react-native-web-uikit");
 
@@ -66,4 +70,3 @@ module.exports = setUikitWebpackSetting(config?: webpackConfig);
     - react-native-web-webview,
     - modal-react-native-web,
     - react-content-loader,
-

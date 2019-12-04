@@ -21,6 +21,7 @@ export const styles = StyleSheet.create({
   buttonLinkText: {
     textDecorationLine: "underline",
     color: Colors.buttonText,
+    marginHorizontal: 2,
   },
   text: {
     color: Colors.buttonText,

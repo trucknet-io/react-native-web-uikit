@@ -1,28 +1,4 @@
 {
-  "compilerOptions": {
-    "noImplicitAny": false,
-    "noUnusedLocals": true,
-    "noImplicitReturns": true,
-    "noImplicitThis": true,
-    "allowSyntheticDefaultImports": true,
-    "esModuleInterop": true,
-    "jsx": "react-native",
-    "lib": ["es6"],
-    "moduleResolution": "node",
-    "strict": true,
-    "target": "es5",
-    "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true,
-    "module": "esnext",
-    "resolveJsonModule": true,
-    "outDir": "dist",
-    "baseUrl": ".",
-    "declaration": true,
-    "strictNullChecks": true,
-    "paths": {
-      "src/*": ["./src/*"]
-    }
-  },
-  "exclude": ["node_modules"],
-  "include": ["src/index.lib.ts", "definitions/**/*.d.ts"]
+  "extends": "./tsbaseconfig",
+  "include": ["src/**/*", "definitions/**/*.d.ts"]
 }

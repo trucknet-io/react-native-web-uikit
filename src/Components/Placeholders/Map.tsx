@@ -1,7 +1,7 @@
 import * as React from "react";
 import { StyleSheet, View } from "react-native";
 import MapPlaceholderIcon from "src/Components/Icons/MapPlaceholderIcon";
-import Paragraph from "./Paragraph";
+import { ParagraphPlaceholder } from "./Paragraph";
 import { colorTheme } from "src/Themes/Colors";
 
 interface Props {
@@ -13,7 +13,7 @@ interface State {
   colors: typeof colorTheme;
 }
 
-class MapPlaceholder extends React.PureComponent<Props, State> {
+export class MapPlaceholder extends React.PureComponent<Props, State> {
   state = {
     colors: colorTheme,
   };
@@ -28,7 +28,7 @@ class MapPlaceholder extends React.PureComponent<Props, State> {
         <View style={styles.mapIconContainer}>
           <MapPlaceholderIcon color={theme.defaultText} width={150} height={150} />
         </View>
-        <Paragraph lines={this.props.lines} theme={this.props.theme} />
+        <ParagraphPlaceholder lines={this.props.lines} theme={this.props.theme} />
       </View>
     );
   }
@@ -47,5 +47,3 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
 });
-
-export default MapPlaceholder;

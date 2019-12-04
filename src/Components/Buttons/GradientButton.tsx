@@ -1,14 +1,27 @@
 import * as React from "react";
-import { Text, TouchableOpacity, GestureResponderEvent } from "react-native";
+import {
+  Text,
+  TouchableOpacity,
+  GestureResponderEvent,
+  FlexAlignType,
+  TouchableOpacityProps,
+  TextStyle,
+} from "react-native";
 import Colors from "src/Themes/Colors";
 import getShadowStyle from "src/Themes/getShadowStyle";
 import { styles } from "./styles";
-import { defaultButtonProps } from "./commonDefaultProps";
-import { ButtonProps } from "./commonTypes";
 
-import LinearGradient from "src/Components/LinearGradient";
+import LinearGradient from "src/Components/LinearGradient/LinearGradient";
 
-interface GradientButtonProps extends ButtonProps {
+interface GradientButtonProps extends TouchableOpacityProps {
+  borderRadius: number;
+  width: string | number;
+  marginVertical: string | number;
+  marginHorizontal: string | number;
+  textColor: string;
+  alignItems: FlexAlignType;
+  label?: React.ReactNode;
+  style?: TouchableOpacityProps["style"] & TextStyle;
   gradientStartColor: string;
   gradientEndColor: string;
 }
@@ -20,7 +33,14 @@ export class GradientButton extends React.PureComponent<GradientButtonProps> {
   public static defaultProps = {
     gradientStartColor: Colors.themeGradient.gradientColor1,
     gradientEndColor: Colors.themeGradient.gradientColor2,
-    ...defaultButtonProps,
+    textColor: Colors.buttonText,
+    borderRadius: 4,
+    width: "100%",
+    marginVertical: 0,
+    marginHorizontal: 0,
+    alignItems: "center",
+    disabled: false,
+    style: {},
   };
 
   public state = {

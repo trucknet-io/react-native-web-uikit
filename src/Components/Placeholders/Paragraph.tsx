@@ -14,7 +14,7 @@ interface State {
   colors: typeof colorTheme;
 }
 
-class ParagraphPlaceholder extends React.PureComponent<Props, State> {
+export class ParagraphPlaceholder extends React.PureComponent<Props, State> {
   state = {
     colors: colorTheme,
   };
@@ -51,8 +51,6 @@ class ParagraphPlaceholder extends React.PureComponent<Props, State> {
     return <Shimmer>{this.renderWebPlaceholderLines()}</Shimmer>;
   };
 }
-
-export default ParagraphPlaceholder;
 
 const styles = StyleSheet.create({
   container: {
