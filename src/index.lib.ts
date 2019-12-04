@@ -9,6 +9,7 @@ import { colorTheme } from "./Themes/Colors";
 import { ProgressBar } from "./Components/ProgressBar";
 import { CardsPlaceholder, MapPlaceholder, ParagraphPlaceholder } from "./Components/Placeholders";
 import setUikitWebpackSetting from "./Components/setUikitWebpackSetting/";
+import Modal from "./Components/Modal";
 
 export {
   GradientButton,
@@ -25,4 +26,5 @@ export {
   CardsPlaceholder,
   MapPlaceholder,
   ProgressBar,
+  Modal,
 };
