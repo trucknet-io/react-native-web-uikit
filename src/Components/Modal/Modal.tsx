@@ -3,14 +3,16 @@ import Modal, { ModalProps } from "react-native-modal";
 import { isWeb } from "src/Helpers/platform";
 import WebModal from "./WebModal";
 
-const HybridModal = (props: ModalProps) => {
-  if (!props.isVisible) return null;
+class HybridModal extends React.PureComponent<ModalProps> {
+  public render() {
+    if (!this.props.isVisible) return null;
 
-  if (!isWeb) {
-    return <Modal {...props}>{props.children}</Modal>;
+    if (!isWeb) {
+      return <Modal {...this.props}>{this.props.children}</Modal>;
+    }
+
+    return <WebModal {...this.props} />;
   }
+}
 
-  return <WebModal {...props} />;
-};
-
-export default React.memo(HybridModal);
+export default HybridModal;

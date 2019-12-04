@@ -92,9 +92,6 @@ class SignatureModal extends React.PureComponent<Props> {
 
   renderSignView = () => {
     const theme = this.state.colors[this.props.theme];
-    if (!this.props.isVisible) {
-      return null;
-    }
     return (
       <View style={[styles.container, { backgroundColor: theme.background }]}>
         {this.renderHeaderText()}

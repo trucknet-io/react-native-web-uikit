@@ -9,23 +9,12 @@ class WebModal extends React.PureComponent<ModalProps> {
   private documentBody = document.getElementsByTagName("body")[0];
   private domElement = document.createElement("div");
   static defaultProps = {
-    style: {
-      padding: "2%",
-    },
     backdropColor: Colors.shadow,
   };
-  constructor(props: ModalProps) {
-    super(props);
-  }
+
   public componentDidMount = () => {
     this.documentBody.appendChild(this.domElement);
     this.handleModalShow();
-  };
-
-  public componentDidUpdate = (prevProps: ModalProps) => {
-    if (this.props.isVisible && prevProps.isVisible !== this.props.isVisible) {
-      this.handleModalShow();
-    }
   };
 
   public componentWillUnmount = () => {
@@ -63,6 +52,7 @@ const styles = StyleSheet.create({
     bottom: 0,
     left: 0,
     right: 0,
+    padding: "2%",
     ...getShadowStyles(10),
   },
   content: {
