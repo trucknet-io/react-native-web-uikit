@@ -13,15 +13,11 @@ class ProgressLine extends React.PureComponent<Props> {
     const { currentProgress } = this.props;
     return (
       <View style={currentProgress ? styles.progressLine : styles.progressLineDisable}>
-        {this.renderHorizontalLine()}
+        <Animated.View style={[styles.horizontalLine, { width: this.props.interpolate() }]} />
         <Point currentProgress={currentProgress} />
       </View>
     );
   }
-
-  private renderHorizontalLine = () => (
-    <Animated.View style={[styles.horizontalLine, { width: this.props.interpolate() }]} />
-  );
 }
 
 export default ProgressLine;

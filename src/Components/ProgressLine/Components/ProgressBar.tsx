@@ -13,15 +13,11 @@ class ProgressBar extends React.PureComponent<Props> {
     const { currentProgress } = this.props;
     return (
       <View style={currentProgress ? styles.progressBar : styles.progressBarDisable}>
-        {this.renderVerticalLine()}
+        <Animated.View style={[styles.verticalLine, { height: this.props.interpolate() }]} />
         <Point currentProgress={currentProgress} />
       </View>
     );
   }
-
-  private renderVerticalLine = () => (
-    <Animated.View style={[styles.verticalLine, { height: this.props.interpolate() }]} />
-  );
 }
 
 export default ProgressBar;

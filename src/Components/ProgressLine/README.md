@@ -1,3 +1,3 @@
 # Progress Line
 
-This component exepts a number, transform it in to percent, and show it visiualy with line
+This component expects a number, transform it into percent, and show it visually with line

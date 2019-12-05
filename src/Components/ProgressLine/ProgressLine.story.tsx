@@ -1,6 +1,6 @@
 import * as React from "react";
 import { storiesOf } from "@storybook/react-native";
-import ProgressLine from "./ProgressLine";
+import ProgressLine from "./ProgressLineContainer";
 import { View } from "react-native";
 import { object } from "@storybook/addon-knobs/react";
 

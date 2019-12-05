@@ -1,8 +1,7 @@
 import * as React from "react";
-import { View, StyleSheet, Text } from "react-native";
-import Colors from "src/Themes/Colors";
-import Fonts from "src/Themes/Fonts";
+import { View, StyleSheet } from "react-native";
 import ProgressLine from "src/Components/ProgressLine";
+import Cell from "./Components/Cell";
 
 type Props = {
   origin: {
@@ -35,8 +34,8 @@ class RideProgressCard extends React.PureComponent<Props> {
     const { origin, destination } = this.props;
     return (
       <View style={styles.timeAndDateContainer}>
-        {this.renderCell(origin.time, origin.day)}
-        {this.renderCell(destination.time, destination.day)}
+        <Cell mainText={origin.time} secondaryText={origin.day} />
+        <Cell mainText={destination.time} secondaryText={destination.day} />
       </View>
     );
   };
@@ -45,18 +44,11 @@ class RideProgressCard extends React.PureComponent<Props> {
     const { origin, destination } = this.props;
     return (
       <View style={styles.citiesContainer}>
-        {this.renderCell(origin.city, origin.address)}
-        {this.renderCell(destination.city, destination.address)}
+        <Cell mainText={origin.city} secondaryText={origin.address} />
+        <Cell mainText={destination.city} secondaryText={destination.address} />
       </View>
     );
   };
-
-  private renderCell = (mainText: string, secondaryText?: string) => (
-    <View>
-      <Text style={styles.mainText}>{mainText}</Text>
-      <Text style={styles.secondaryText}>{secondaryText}</Text>
-    </View>
-  );
 }
 
 export default RideProgressCard;
@@ -77,13 +69,5 @@ const styles = StyleSheet.create({
     minHeight: 100,
     flexDirection: "column",
     justifyContent: "space-between",
-  },
-  mainText: {
-    color: Colors.defaultText,
-    ...Fonts.style.description,
-  },
-  secondaryText: {
-    color: Colors.secondaryText,
-    ...Fonts.style.small,
   },
 });
