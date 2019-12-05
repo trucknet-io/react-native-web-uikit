@@ -1,2 +1,2 @@
-import ProgressLine from "./ProgressLineContainer";
+import ProgressLine from "./ProgressLine";
 export default ProgressLine;

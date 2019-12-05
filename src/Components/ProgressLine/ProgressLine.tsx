@@ -1,18 +1,17 @@
 import * as React from "react";
-import { Animated, Easing } from "react-native";
-import ProgressBar from "./Components/ProgressBar";
-import ProgressLine from "./Components/ProgressLine";
+import { Animated, View, StyleSheet, Easing } from "react-native";
+import Colors from "src/Themes/Colors";
+import Point from "./Components/Point";
 
 type Props = {
   currentProgress?: number;
-  direction: "vertical" | "horizontal";
 };
 
 type State = {
   progress: Animated.Value;
 };
 
-class ProgressLineContainer extends React.PureComponent<Props, State> {
+class ProgressLine extends React.PureComponent<Props, State> {
   private animation;
   public state: State = {
     progress: new Animated.Value(0),
@@ -25,11 +24,17 @@ class ProgressLineContainer extends React.PureComponent<Props, State> {
   public componentWillUnmount = () => this.animation.stop();
 
   public render() {
-    const { direction, currentProgress } = this.props;
-    if (direction === "vertical") {
-      return <ProgressBar currentProgress={currentProgress} interpolate={this.interpolate} />;
-    }
-    return <ProgressLine currentProgress={currentProgress} interpolate={this.interpolate} />;
+    const { currentProgress } = this.props;
+    return (
+      <View
+        style={[
+          styles.progressBar,
+          { backgroundColor: currentProgress ? Colors.transperentThemeColor : Colors.disable },
+        ]}>
+        <Animated.View style={[styles.verticalLine, { height: this.interpolate() }]} />
+        <Point currentProgress={currentProgress} />
+      </View>
+    );
   }
 
   private interpolate = () =>
@@ -58,4 +63,17 @@ class ProgressLineContainer extends React.PureComponent<Props, State> {
   };
 }
 
-export default ProgressLineContainer;
+export default ProgressLine;
+
+const styles = StyleSheet.create({
+  progressBar: {
+    width: 2,
+    alignItems: "center",
+    marginHorizontal: 15,
+    flexDirection: "column",
+  },
+  verticalLine: {
+    width: 2,
+    backgroundColor: Colors.themeColor,
+  },
+});

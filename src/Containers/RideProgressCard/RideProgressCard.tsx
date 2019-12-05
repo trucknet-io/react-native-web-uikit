@@ -24,7 +24,7 @@ class RideProgressCard extends React.PureComponent<Props> {
     return (
       <View style={styles.container}>
         {this.renderTimeAndDate()}
-        <ProgressLine currentProgress={this.props.currentProgress} direction={"vertical"} />
+        <ProgressLine currentProgress={this.props.currentProgress} />
         {this.renderCities()}
       </View>
     );
