@@ -2,7 +2,7 @@ import * as React from "react";
 import { View, StyleSheet, Text } from "react-native";
 import Colors from "src/Themes/Colors";
 import Fonts from "src/Themes/Fonts";
-import { ProgressLine } from "./Components/ProgressLine";
+import ProgressLine from "src/Components/ProgressLine";
 
 type Props = {
   origin: {
@@ -20,12 +20,12 @@ type Props = {
   currentProgress?: number;
 };
 
-export class RideProgressCard extends React.PureComponent<Props> {
+class RideProgressCard extends React.PureComponent<Props> {
   public render() {
     return (
       <View style={styles.container}>
         {this.renderTimeAndDate()}
-        <ProgressLine currentProgress={this.props.currentProgress} />
+        <ProgressLine currentProgress={this.props.currentProgress} direction={"vertical"} />
         {this.renderCities()}
       </View>
     );
@@ -58,6 +58,8 @@ export class RideProgressCard extends React.PureComponent<Props> {
     </View>
   );
 }
+
+export default RideProgressCard;
 
 const styles = StyleSheet.create({
   container: {
