@@ -11,6 +11,7 @@ import { CardsPlaceholder, MapPlaceholder, ParagraphPlaceholder } from "./Compon
 import setUikitWebpackSetting from "./Components/setUikitWebpackSetting/";
 import RideProgressCard from "./Containers/RideProgressCard";
 import ProgressLine from "./Components/ProgressLine";
+import Modal from "./Components/Modal";
 
 export {
   GradientButton,
@@ -29,4 +30,5 @@ export {
   ProgressBar,
   RideProgressCard,
   ProgressLine,
+  Modal,
 };
