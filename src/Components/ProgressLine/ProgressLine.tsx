@@ -53,7 +53,6 @@ class ProgressLine extends React.PureComponent<Props, State> {
       toValue: this.getValidValue(this.props.currentProgress),
       easing: Easing.linear,
       duration: 700,
-      useNativeDriver: true,
     });
 
   private getValidValue = (value?: number): number => {
@@ -68,9 +67,9 @@ export default ProgressLine;
 const styles = StyleSheet.create({
   progressBar: {
     width: 2,
+    height: "100%",
     alignItems: "center",
     marginHorizontal: 15,
-    flexDirection: "column",
   },
   verticalLine: {
     width: 2,

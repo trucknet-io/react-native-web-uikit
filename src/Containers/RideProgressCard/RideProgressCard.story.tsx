@@ -6,7 +6,7 @@ import { object } from "@storybook/addon-knobs/react";
 
 const stories = storiesOf("Ride Progress Card", module);
 
-const defaultProps = [
+const fakeProps = [
   {
     time: "08:15",
     day: "10 November",
@@ -33,21 +33,21 @@ const defaultProps = [
 ];
 
 stories.add("No container", () => (
-  <RideProgressCard origin={defaultProps[0]} destination={defaultProps[1]} currentProgress={10} />
+  <RideProgressCard origin={fakeProps[0]} destination={fakeProps[1]} currentProgress={10} />
 ));
 stories.add("With container", () => (
   <View style={object("container", { height: 200, width: 300, borderWidth: 1 })}>
-    <RideProgressCard origin={defaultProps[0]} destination={defaultProps[1]} currentProgress={70} />
+    <RideProgressCard origin={fakeProps[0]} destination={fakeProps[1]} currentProgress={70} />
   </View>
 ));
 stories.add("Long names", () => (
-  <RideProgressCard origin={defaultProps[2]} destination={defaultProps[2]} currentProgress={40} />
+  <RideProgressCard origin={fakeProps[2]} destination={fakeProps[2]} currentProgress={40} />
 ));
 stories.add("Long names with container", () => (
   <View style={object("container", { height: 200, width: 400, borderWidth: 1 })}>
-    <RideProgressCard origin={defaultProps[2]} destination={defaultProps[2]} currentProgress={82} />
+    <RideProgressCard origin={fakeProps[2]} destination={fakeProps[2]} currentProgress={82} />
   </View>
 ));
-stories.add("Minimum props", () => <RideProgressCard origin={defaultProps[3]} destination={defaultProps[3]} />);
+stories.add("Minimum props", () => <RideProgressCard origin={fakeProps[3]} destination={fakeProps[3]} />);
 
 export default stories;
