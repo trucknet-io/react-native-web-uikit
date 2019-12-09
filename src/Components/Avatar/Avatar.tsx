@@ -1,5 +1,5 @@
 import * as React from "react";
-import { StyleSheet, Text, View, ViewStyle } from "react-native";
+import { StyleSheet, Text, View, ViewStyle, ImageURISource } from "react-native";
 import CloudinaryImage from "src/Components/CloudinaryImage";
 import Colors from "src/Themes/Colors";
 import Fonts from "src/Themes/Fonts";
@@ -17,6 +17,7 @@ interface IProps {
   imageId?: string;
   cloudinaryCloudName?: string;
   styles?: ViewStyle;
+  source?: ImageURISource;
 }
 
 class Avatar extends React.PureComponent<IProps> {
@@ -53,6 +54,7 @@ class Avatar extends React.PureComponent<IProps> {
         }}
         style={styles.avatarImageContainer}
         cloudinaryCloudName={this.props.cloudinaryCloudName}
+        source={this.props.source}
       />
     );
   };

@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Image, ImageProps } from "react-native";
+import { Image, ImageProps, ImageURISource } from "react-native";
 
 type CropMode = "c_scale" | "c_fit" | "c_crop";
 
@@ -46,6 +46,7 @@ interface IProps extends CloudinaryImageProps {
     rHeight?: number;
   };
   cloudinaryCloudName: string;
+  source?: ImageURISource;
 }
 class CloudinaryImage extends React.PureComponent<IProps> {
   public static defaultProps = {
@@ -69,16 +70,14 @@ class CloudinaryImage extends React.PureComponent<IProps> {
         accessible
         accessibilityLabel={this.props.accessibilityLabel}
         style={[{ width, height }, this.props.style]}
-        source={{
-          uri: this.getCloudinaryImageUri(),
-        }}
+        source={this.getCloudinaryImageSource()}
       />
     );
   }
 
-  private getCloudinaryImageUri = () => {
+  private getCloudinaryImageSource = (): ImageURISource => {
+    if (this.props.source) return this.props.source;
     const { imageId } = this.props;
-
     const optionsKeys = Object.keys(this.imageTransformationOptions) as KeyofOptions[];
     const optionsArray: string[] = [];
     for (const key of optionsKeys) {
@@ -87,9 +86,10 @@ class CloudinaryImage extends React.PureComponent<IProps> {
         optionsArray.push(option);
       }
     }
-    return `https://res.cloudinary.com/${this.props.cloudinaryCloudName}/image/upload/${optionsArray.join(
+    const uri = `https://res.cloudinary.com/${this.props.cloudinaryCloudName}/image/upload/${optionsArray.join(
       ",",
     )}/${imageId}`;
+    return { uri };
   };
 }
 

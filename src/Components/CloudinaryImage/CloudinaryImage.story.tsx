@@ -4,7 +4,7 @@ import CloudinaryImage from "./CloudinaryImage";
 import { View, StyleSheet } from "react-native";
 import { object } from "@storybook/addon-knobs/react";
 
-const stories = storiesOf("Cloudinary Image", module);
+const stories = storiesOf("Image", module);
 
 stories.add("Image", () => (
   <View style={styles.container}>
