@@ -20,7 +20,6 @@ interface Props extends TextInputProps {
   label: string;
   onChangeTextValidated(res: { value: string | undefined; isValid: boolean }): void;
   width: number | string;
-  height: number;
   onSuccessInputFieldColor: string;
   textColor: string;
   secureTextEntry: boolean;
@@ -31,8 +30,8 @@ interface Props extends TextInputProps {
   onSubmitEditing?(e: NativeSyntheticEvent<TextInputSubmitEditingEventData>): void;
   maxLabelFontSize: number;
   minLabelFontSize: number;
-  maxLabelMarginBottom: number;
-  minLabelMarginBottom: number;
+  maxLabelMargin: number;
+  minLabelMargin: number;
   keyboardType:
     | "default"
     | "email-address"
@@ -56,6 +55,7 @@ interface Props extends TextInputProps {
 type State = {
   labelFontSize: Animated.Value;
   labelMarginBottom: Animated.Value;
+  labelMarginTop: Animated.Value;
   value?: string;
   error: string | void;
 };
@@ -68,11 +68,10 @@ class Input extends React.PureComponent<Props, State> {
     secureTextEntry: false,
     keyboardType: "default",
     width: "100%",
-    height: 84,
     maxLabelFontSize: 14,
     minLabelFontSize: 12,
-    maxLabelMarginBottom: isWeb ? 16 : 0,
-    minLabelMarginBottom: isWeb ? -24 : isAndroid ? -34 : -28,
+    maxLabelMargin: isWeb ? 16 : -8,
+    minLabelMargin: isWeb ? -24 : isAndroid ? -34 : -28,
     inputFontSize: 14,
     errorFontSize: 12,
     errorColor: Colors.error,
@@ -86,8 +85,11 @@ class Input extends React.PureComponent<Props, State> {
       ? new Animated.Value(this.props.minLabelFontSize)
       : new Animated.Value(this.props.maxLabelFontSize),
     labelMarginBottom: this.props.initialValue
-      ? new Animated.Value(this.props.maxLabelFontSize)
-      : new Animated.Value(this.props.minLabelMarginBottom),
+      ? new Animated.Value(this.props.maxLabelMargin)
+      : new Animated.Value(this.props.minLabelMargin),
+    labelMarginTop: this.props.initialValue
+      ? new Animated.Value(this.props.minLabelMargin)
+      : new Animated.Value(this.props.maxLabelMargin),
   };
 
   public focus = () => {
@@ -97,12 +99,17 @@ class Input extends React.PureComponent<Props, State> {
   };
 
   public render() {
-    const { labelFontSize, labelMarginBottom } = this.state;
-    const { width, height, errorFontSize, errorColor } = this.props;
+    const { labelFontSize, labelMarginBottom, labelMarginTop } = this.state;
+    const { width, errorFontSize, errorColor } = this.props;
     return (
-      <Animated.View style={[styles.container, { width, height }, this.props.style]}>
+      <Animated.View style={[styles.container, { width }, this.props.style]}>
         <Animated.Text
-          style={{ fontSize: labelFontSize, marginBottom: labelMarginBottom, color: this.getLabelColor() }}>
+          style={{
+            fontSize: labelFontSize,
+            marginTop: labelMarginTop,
+            marginBottom: labelMarginBottom,
+            color: this.getLabelColor(),
+          }}>
           {this.props.label}
         </Animated.Text>
         <Field
@@ -169,7 +176,11 @@ class Input extends React.PureComponent<Props, State> {
         duration: 250,
       }),
       Animated.timing(this.state.labelMarginBottom, {
-        toValue: this.props.maxLabelMarginBottom,
+        toValue: this.props.maxLabelMargin,
+        duration: 250,
+      }),
+      Animated.timing(this.state.labelMarginTop, {
+        toValue: this.props.minLabelMargin,
         duration: 250,
       }),
     ]).start();
@@ -183,7 +194,11 @@ class Input extends React.PureComponent<Props, State> {
           duration: 250,
         }),
         Animated.timing(this.state.labelMarginBottom, {
-          toValue: this.props.minLabelMarginBottom,
+          toValue: this.props.minLabelMargin,
+          duration: 250,
+        }),
+        Animated.timing(this.state.labelMarginTop, {
+          toValue: this.props.maxLabelMargin,
           duration: 250,
         }),
       ]).start();
@@ -278,7 +293,7 @@ class Field extends React.Component<FieldProps> {
 
 const styles = StyleSheet.create({
   container: {
-    justifyContent: "flex-end",
+    marginTop: 16,
   },
   textInput: {
     borderBottomWidth: 1,
