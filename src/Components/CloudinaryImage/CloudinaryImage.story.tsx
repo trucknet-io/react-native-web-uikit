@@ -6,7 +6,7 @@ import { object } from "@storybook/addon-knobs/react";
 
 const stories = storiesOf("Cloudinary Image", module);
 
-stories.add("Cloudinary Image", () => (
+stories.add("Image", () => (
   <View style={styles.container}>
     <CloudinaryImage
       accessibilityLabel="image"
@@ -46,7 +46,7 @@ stories.add("Cloudinary Image", () => (
   </View>
 ));
 
-stories.add("Cloudinary with Custom Style", () => (
+stories.add("Image with custom styles", () => (
   <CloudinaryImage
     accessibilityLabel="image"
     cloudinaryCloudName="demo"

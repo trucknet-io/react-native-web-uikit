@@ -4,9 +4,9 @@ import Avatar from "./Avatar";
 import { View, StyleSheet } from "react-native";
 import { number, object } from "@storybook/addon-knobs/react";
 
-const stories = storiesOf("Avatar", module);
+const stories = storiesOf("Cloudinary Avatar", module);
 
-stories.add("Avatar With Letter", () => (
+stories.add("Avatar with letter", () => (
   <View style={styles.container}>
     <Avatar accessibilityLabel="Avatar" size="small" name="avatar" />
     <Avatar accessibilityLabel="Avatar" size="medium" name="avatar" />
@@ -14,7 +14,7 @@ stories.add("Avatar With Letter", () => (
   </View>
 ));
 
-stories.add("Avatar With Image", () => (
+stories.add("Avatar with image", () => (
   <View style={styles.container}>
     <Avatar accessibilityLabel="Avatar" size="small" name="avatar" cloudinaryCloudName="demo" imageId="lady" />
     <Avatar accessibilityLabel="Avatar" size="medium" name="avatar" cloudinaryCloudName="demo" imageId="lady" />
@@ -22,7 +22,7 @@ stories.add("Avatar With Image", () => (
   </View>
 ));
 
-stories.add("Avatar Custom Size", () => (
+stories.add("Avatar custom size", () => (
   <Avatar
     accessibilityLabel="Avatar"
     size={number("size", 200)}
@@ -32,7 +32,7 @@ stories.add("Avatar Custom Size", () => (
     styles={object("style", {})}
   />
 ));
-stories.add("Avatar Custom Styles", () => (
+stories.add("Avatar custom styles", () => (
   <Avatar
     accessibilityLabel="Avatar"
     size={number("size", 200)}
