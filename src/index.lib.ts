@@ -10,6 +10,8 @@ import { ProgressBar } from "./Components/ProgressBar";
 import { CardsPlaceholder, MapPlaceholder, ParagraphPlaceholder } from "./Components/Placeholders";
 import setUikitWebpackSetting from "./Components/setUikitWebpackSetting/";
 import Modal from "./Components/Modal";
+import Avatar from "./Components/Avatar";
+import CloudinaryImage from "./Components/CloudinaryImage";
 
 export {
   GradientButton,
@@ -27,4 +29,6 @@ export {
   MapPlaceholder,
   ProgressBar,
   Modal,
+  Avatar,
+  CloudinaryImage,
 };
