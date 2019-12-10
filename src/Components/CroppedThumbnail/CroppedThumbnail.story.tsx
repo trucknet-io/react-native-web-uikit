@@ -97,7 +97,6 @@ stories.add("Thumbnail with custom styles", () => (
     uriCloudName="demo"
     imageId="sample"
     style={object("style", { width: 200, height: 200, borderWidth: 2, borderRadius: 10 })}
-    width={400}
   />
 ));
 
