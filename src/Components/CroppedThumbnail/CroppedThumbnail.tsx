@@ -1,13 +1,9 @@
 import * as React from "react";
 import { Image, ImageProps, ImageURISource, StyleSheet } from "react-native";
 
-type CropMode = "scale" | "fit" | "crop";
-
-type FetchFormat = "auto" | "png";
-
 interface IOptions {
-  fetchFormat?: FetchFormat;
-  crop?: CropMode;
+  fetchFormat?: "auto" | "png";
+  crop?: "scale" | "fit" | "crop";
   width?: number;
   height?: number;
 }
@@ -22,13 +18,9 @@ interface IImageTransformationOptions {
 type KeyofOptions = keyof IOptions;
 export type CroppedThumbnailProps = Omit<ImageProps, "source">;
 
-interface IProps extends CroppedThumbnailProps {
+interface IProps extends CroppedThumbnailProps, IOptions {
   accessibilityLabel: string;
   imageId: string;
-  fetchFormat?: "auto" | "png";
-  crop?: "scale" | "fit" | "crop";
-  width?: number;
-  height?: number;
   uriCloudName: string;
   source?: ImageURISource;
 }

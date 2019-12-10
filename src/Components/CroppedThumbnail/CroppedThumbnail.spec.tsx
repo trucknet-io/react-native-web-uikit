@@ -20,7 +20,7 @@ it("should render CroppedThumbnail", async () => {
   style={
     Array [
       Object {
-        "flex": 1,
+        "flexGrow": 1,
       },
       Object {
         "height": undefined,
@@ -49,7 +49,7 @@ it("should render CroppedThumbnail with width 200", async () => {
   style={
     Array [
       Object {
-        "flex": 1,
+        "flexGrow": 1,
       },
       Object {
         "height": undefined,
@@ -80,7 +80,7 @@ it("should render CroppedThumbnail with width and height 400", async () => {
   style={
     Array [
       Object {
-        "flex": 1,
+        "flexGrow": 1,
       },
       Object {
         "height": 400,
