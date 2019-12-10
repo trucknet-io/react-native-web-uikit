@@ -20,9 +20,6 @@ interface IImageTransformationOptions {
   crop?: IOptions["crop"];
   width?: string;
   height?: string;
-  rWidth?: string;
-  rHeight?: string;
-  face?: "g_face";
 }
 
 export const cloudinaryDefaults: IOptions = {
@@ -41,9 +38,6 @@ interface IProps extends CloudinaryImageProps {
     crop?: "c_scale" | "c_fit" | "c_crop";
     width?: number;
     height?: number;
-    face?: "g_face";
-    rWidth?: number;
-    rHeight?: number;
   };
   cloudinaryCloudName: string;
   source?: ImageURISource;
@@ -58,8 +52,6 @@ class CloudinaryImage extends React.PureComponent<IProps> {
     ...this.props.options,
     width: this.props.options.width ? `w_${this.props.options.width}` : undefined,
     height: this.props.options.height ? `h_${this.props.options.height}` : undefined,
-    rWidth: this.props.options.rWidth ? `r_max/w_${this.props.options.rWidth}` : undefined,
-    rHeight: this.props.options.rHeight ? `r_max/h_${this.props.options.rHeight}` : undefined,
   };
 
   public render() {

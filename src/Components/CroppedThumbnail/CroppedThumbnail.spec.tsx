@@ -1,11 +1,11 @@
 import { render } from "@testing-library/react-native";
 import * as React from "react";
-import CloudinaryImage from "./CloudinaryImage";
+import CroppedThumbnail from "./CroppedThumbnail";
 
 it("should render cloudinaryImage", async () => {
   const imageId = "dk7o2yxitrwcsjz98fvk";
   const { findByLabelText } = render(
-    <CloudinaryImage imageId={imageId} options={{ width: 200 }} accessibilityLabel="image" />,
+    <CroppedThumbnail imageId={imageId} options={{ width: 200 }} accessibilityLabel="image" />,
   );
   const image = await findByLabelText("image");
   expect(image).toMatchInlineSnapshot(`

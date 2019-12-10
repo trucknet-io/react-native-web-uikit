@@ -11,7 +11,7 @@ import { CardsPlaceholder, MapPlaceholder, ParagraphPlaceholder } from "./Compon
 import setUikitWebpackSetting from "./Components/setUikitWebpackSetting/";
 import Modal from "./Components/Modal";
 import Avatar from "./Components/Avatar";
-import CloudinaryImage from "./Components/CloudinaryImage";
+import CloudinaryImage from "./Components/CroppedThumbnail";
 
 export {
   GradientButton,

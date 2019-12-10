@@ -1,53 +1,46 @@
 import * as React from "react";
 import { storiesOf } from "@storybook/react-native";
-import CloudinaryImage from "./CloudinaryImage";
+import CroppedThumbnail from "./CroppedThumbnail";
 import { View, StyleSheet } from "react-native";
 import { object } from "@storybook/addon-knobs/react";
 
-const stories = storiesOf("Image", module);
+const stories = storiesOf("Cropped Thumbnail", module);
 
-stories.add("Image", () => (
+stories.add("Thumbnail", () => (
   <View style={styles.container}>
-    <CloudinaryImage
+    <CroppedThumbnail
       accessibilityLabel="image"
       cloudinaryCloudName="demo"
       imageId="sample"
       style={styles.image}
       options={{ width: 50 }}
     />
-    <CloudinaryImage
+    <CroppedThumbnail
       accessibilityLabel="image"
       cloudinaryCloudName="demo"
       imageId="sample"
       style={styles.image}
       options={{ width: 100 }}
     />
-    <CloudinaryImage
+    <CroppedThumbnail
       accessibilityLabel="image"
       cloudinaryCloudName="demo"
       imageId="sample"
       style={styles.image}
       options={{ width: 200 }}
     />
-    <CloudinaryImage
+    <CroppedThumbnail
       accessibilityLabel="image"
       cloudinaryCloudName="demo"
       imageId="sample"
       style={styles.image}
       options={{ width: 400 }}
     />
-    <CloudinaryImage
-      accessibilityLabel="image"
-      cloudinaryCloudName="demo"
-      imageId="sample"
-      style={styles.image}
-      options={{ rWidth: 400 }}
-    />
   </View>
 ));
 
-stories.add("Image with custom styles", () => (
-  <CloudinaryImage
+stories.add("Thumbnail with custom styles", () => (
+  <CroppedThumbnail
     accessibilityLabel="image"
     cloudinaryCloudName="demo"
     imageId="sample"
@@ -57,7 +50,7 @@ stories.add("Image with custom styles", () => (
 ));
 
 const styles = StyleSheet.create({
-  container: { flexDirection: "row", alignItems: "center", justifyContent: "space-between" },
+  container: { flexDirection: "row", alignItems: "center", justifyContent: "space-around", flexWrap: "wrap" },
   image: { width: 200, height: 200 },
 });
 

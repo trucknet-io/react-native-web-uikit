@@ -1,6 +1,6 @@
 import * as React from "react";
 import { StyleSheet, Text, View, ViewStyle, ImageURISource } from "react-native";
-import CloudinaryImage from "src/Components/CloudinaryImage";
+import CloudinaryImage from "src/Components/CroppedThumbnail";
 import Colors from "src/Themes/Colors";
 import Fonts from "src/Themes/Fonts";
 
@@ -48,9 +48,8 @@ class Avatar extends React.PureComponent<IProps> {
         imageId={imageId}
         accessibilityLabel={this.props.accessibilityLabel}
         options={{
-          crop: "c_crop",
-          face: "g_face",
-          rHeight: avatarSize,
+          crop: "c_fit",
+          width: avatarSize,
         }}
         style={styles.avatarImageContainer}
         cloudinaryCloudName={this.props.cloudinaryCloudName}
@@ -89,6 +88,7 @@ const styles = StyleSheet.create({
   letter: {
     ...Fonts.style.ThinTitle,
     textTransform: "uppercase",
+    color: Colors.defaultText,
   },
   avatarImageContainer: {
     height: "100%",
