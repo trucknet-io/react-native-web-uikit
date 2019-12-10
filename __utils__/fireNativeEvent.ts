@@ -14,8 +14,8 @@ const findEventHandler = (element: NativeTestInstance, eventName: string, callsi
   if (element.parent === null || element.parent.parent === null) {
     throw new Error(`No handler function found for event: "${eventName}"`);
   }
-  // @ts-ignore
-  return findEventHandler(element.parent, eventName, callsite);
+
+  return findEventHandler(element.parentNode, eventName, callsite);
 };
 
 const invokeEvent = (element: NativeTestInstance, eventName: string, callsite?: any, ...data: any[]) => {
