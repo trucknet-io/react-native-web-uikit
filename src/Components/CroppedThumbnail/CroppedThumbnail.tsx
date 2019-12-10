@@ -22,15 +22,15 @@ interface IImageTransformationOptions {
   height?: string;
 }
 
-export const cloudinaryDefaults: IOptions = {
+export const croppedThumbnailDefaults: IOptions = {
   fetch_format: "f_auto",
   crop: "c_fit",
 };
 
 type KeyofOptions = keyof IOptions;
-type CloudinaryImageProps = Omit<ImageProps, "source">;
+type CroppedThumbnailProps = Omit<ImageProps, "source">;
 
-interface IProps extends CloudinaryImageProps {
+interface IProps extends CroppedThumbnailProps {
   accessibilityLabel: string;
   imageId: string;
   options: {
@@ -39,16 +39,16 @@ interface IProps extends CloudinaryImageProps {
     width?: number;
     height?: number;
   };
-  cloudinaryCloudName: string;
+  cloudName: string;
   source?: ImageURISource;
 }
-class CloudinaryImage extends React.PureComponent<IProps> {
+class CroppedThumbnail extends React.PureComponent<IProps> {
   public static defaultProps = {
     options: {},
-    cloudinaryCloudName: "trucknet",
+    cloudName: "trucknet",
   };
   private imageTransformationOptions: IImageTransformationOptions = {
-    ...cloudinaryDefaults,
+    ...croppedThumbnailDefaults,
     ...this.props.options,
     width: this.props.options.width ? `w_${this.props.options.width}` : undefined,
     height: this.props.options.height ? `h_${this.props.options.height}` : undefined,
@@ -62,12 +62,12 @@ class CloudinaryImage extends React.PureComponent<IProps> {
         accessible
         accessibilityLabel={this.props.accessibilityLabel}
         style={[{ width, height }, this.props.style]}
-        source={this.getCloudinaryImageSource()}
+        source={this.getImageSource()}
       />
     );
   }
 
-  private getCloudinaryImageSource = (): ImageURISource => {
+  private getImageSource = (): ImageURISource => {
     if (this.props.source) return this.props.source;
     const { imageId } = this.props;
     const optionsKeys = Object.keys(this.imageTransformationOptions) as KeyofOptions[];
@@ -78,11 +78,9 @@ class CloudinaryImage extends React.PureComponent<IProps> {
         optionsArray.push(option);
       }
     }
-    const uri = `https://res.cloudinary.com/${this.props.cloudinaryCloudName}/image/upload/${optionsArray.join(
-      ",",
-    )}/${imageId}`;
+    const uri = `https://res.cloudinary.com/${this.props.cloudName}/image/upload/${optionsArray.join(",")}/${imageId}`;
     return { uri };
   };
 }
 
-export default CloudinaryImage;
+export default CroppedThumbnail;

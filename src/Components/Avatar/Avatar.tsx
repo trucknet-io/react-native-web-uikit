@@ -1,6 +1,6 @@
 import * as React from "react";
 import { StyleSheet, Text, View, ViewStyle, ImageURISource } from "react-native";
-import CloudinaryImage from "src/Components/CroppedThumbnail";
+import CroppedThumbnail from "src/Components/CroppedThumbnail";
 import Colors from "src/Themes/Colors";
 import Fonts from "src/Themes/Fonts";
 
@@ -15,7 +15,7 @@ interface IProps {
   accessibilityLabel: string;
   name: string;
   imageId?: string;
-  cloudinaryCloudName?: string;
+  cloudName?: string;
   styles?: ViewStyle;
   source?: ImageURISource;
 }
@@ -44,7 +44,7 @@ class Avatar extends React.PureComponent<IProps> {
     const imageId = this.props.imageId as string;
     const avatarSize = this.getAvatarSize();
     return (
-      <CloudinaryImage
+      <CroppedThumbnail
         imageId={imageId}
         accessibilityLabel={this.props.accessibilityLabel}
         options={{
@@ -52,7 +52,7 @@ class Avatar extends React.PureComponent<IProps> {
           width: avatarSize,
         }}
         style={styles.avatarImageContainer}
-        cloudinaryCloudName={this.props.cloudinaryCloudName}
+        cloudName={this.props.cloudName}
         source={this.props.source}
       />
     );

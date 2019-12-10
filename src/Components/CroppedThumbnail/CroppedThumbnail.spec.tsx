@@ -2,7 +2,7 @@ import { render } from "@testing-library/react-native";
 import * as React from "react";
 import CroppedThumbnail from "./CroppedThumbnail";
 
-it("should render cloudinaryImage", async () => {
+it("should render CroppedThumbnail", async () => {
   const imageId = "dk7o2yxitrwcsjz98fvk";
   const { findByLabelText } = render(
     <CroppedThumbnail imageId={imageId} options={{ width: 200 }} accessibilityLabel="image" />,
@@ -12,7 +12,7 @@ it("should render cloudinaryImage", async () => {
 <Image
   accessibilityLabel="image"
   accessible={true}
-  cloudinaryCloudName="trucknet"
+  cloudName="trucknet"
   imageId="dk7o2yxitrwcsjz98fvk"
   options={
     Object {
