@@ -1,6 +1,6 @@
 import * as React from "react";
-import { StyleSheet, Text, View, ViewStyle, ImageURISource } from "react-native";
-import CroppedThumbnail from "src/Components/CroppedThumbnail";
+import { StyleSheet, Text, View, ImageURISource } from "react-native";
+import CroppedThumbnail, { CroppedThumbnailProps } from "src/Components/CroppedThumbnail";
 import Colors from "src/Themes/Colors";
 import Fonts from "src/Themes/Fonts";
 
@@ -10,13 +10,12 @@ const AVATAR_SIZES = {
   large: 44,
 };
 
-interface IProps {
+interface IProps extends CroppedThumbnailProps {
   size: keyof typeof AVATAR_SIZES | number;
   accessibilityLabel: string;
   name: string;
   imageId?: string;
   uriCloudName?: string;
-  style?: ViewStyle;
   source?: ImageURISource;
 }
 
@@ -45,15 +44,13 @@ class Avatar extends React.PureComponent<IProps> {
     const avatarSize = this.getAvatarSize();
     return (
       <CroppedThumbnail
+        {...this.props}
         imageId={imageId}
-        accessibilityLabel={this.props.accessibilityLabel}
         options={{
           crop: "c_fit",
           width: avatarSize,
         }}
         style={styles.avatarImageContainer}
-        uriCloudName={this.props.uriCloudName}
-        source={this.props.source}
       />
     );
   };

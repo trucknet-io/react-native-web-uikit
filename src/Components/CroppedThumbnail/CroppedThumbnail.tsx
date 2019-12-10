@@ -28,7 +28,7 @@ export const croppedThumbnailDefaults: IOptions = {
 };
 
 type KeyofOptions = keyof IOptions;
-type CroppedThumbnailProps = Omit<ImageProps, "source">;
+export type CroppedThumbnailProps = Omit<ImageProps, "source">;
 
 interface IProps extends CroppedThumbnailProps {
   accessibilityLabel: string;
