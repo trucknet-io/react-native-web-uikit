@@ -16,9 +16,9 @@ stories.add("Avatar with letter", () => (
 
 stories.add("Avatar with image", () => (
   <View style={styles.container}>
-    <Avatar accessibilityLabel="Avatar" size="small" name="avatar" cloudName="demo" imageId="lady" />
-    <Avatar accessibilityLabel="Avatar" size="medium" name="avatar" cloudName="demo" imageId="lady" />
-    <Avatar accessibilityLabel="Avatar" size="large" name="avatar" cloudName="demo" imageId="lady" />
+    <Avatar accessibilityLabel="Avatar" size="small" name="avatar" uriCloudName="demo" imageId="lady" />
+    <Avatar accessibilityLabel="Avatar" size="medium" name="avatar" uriCloudName="demo" imageId="lady" />
+    <Avatar accessibilityLabel="Avatar" size="large" name="avatar" uriCloudName="demo" imageId="lady" />
   </View>
 ));
 
@@ -27,9 +27,9 @@ stories.add("Avatar custom size", () => (
     accessibilityLabel="Avatar"
     size={number("size", 200)}
     name="avatar"
-    cloudName="demo"
+    uriCloudName="demo"
     imageId="lady"
-    styles={object("style", {})}
+    style={object("style", {})}
   />
 ));
 stories.add("Avatar custom styles", () => (
@@ -37,7 +37,7 @@ stories.add("Avatar custom styles", () => (
     accessibilityLabel="Avatar"
     size={number("size", 200)}
     name="avatar"
-    styles={object("style", { borderWidth: 10, borderRadius: 50 })}
+    style={object("style", { borderWidth: 10, borderRadius: 50 })}
   />
 ));
 

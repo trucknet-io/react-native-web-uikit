@@ -10,28 +10,28 @@ stories.add("Thumbnail", () => (
   <View style={styles.container}>
     <CroppedThumbnail
       accessibilityLabel="image"
-      cloudName="demo"
+      uriCloudName="demo"
       imageId="sample"
       style={styles.image}
       options={{ width: 50 }}
     />
     <CroppedThumbnail
       accessibilityLabel="image"
-      cloudName="demo"
+      uriCloudName="demo"
       imageId="sample"
       style={styles.image}
       options={{ width: 100 }}
     />
     <CroppedThumbnail
       accessibilityLabel="image"
-      cloudName="demo"
+      uriCloudName="demo"
       imageId="sample"
       style={styles.image}
       options={{ width: 200 }}
     />
     <CroppedThumbnail
       accessibilityLabel="image"
-      cloudName="demo"
+      uriCloudName="demo"
       imageId="sample"
       style={styles.image}
       options={{ width: 400 }}
@@ -42,7 +42,7 @@ stories.add("Thumbnail", () => (
 stories.add("Thumbnail with custom styles", () => (
   <CroppedThumbnail
     accessibilityLabel="image"
-    cloudName="demo"
+    uriCloudName="demo"
     imageId="sample"
     style={object("style", { width: 200, height: 200, borderWidth: 2, borderRadius: 10 })}
     options={object("options", { width: 400 })}

@@ -15,8 +15,8 @@ interface IProps {
   accessibilityLabel: string;
   name: string;
   imageId?: string;
-  cloudName?: string;
-  styles?: ViewStyle;
+  uriCloudName?: string;
+  style?: ViewStyle;
   source?: ImageURISource;
 }
 
@@ -29,7 +29,7 @@ class Avatar extends React.PureComponent<IProps> {
   public render() {
     const avatarStyles = this.getAvatarStyles();
     return (
-      <View style={[avatarStyles, styles.container, this.props.styles]}>
+      <View style={[avatarStyles, styles.container, this.props.style]}>
         {this.props.imageId ? this.renderImage() : this.renderNameFirstLetter()}
       </View>
     );
@@ -52,7 +52,7 @@ class Avatar extends React.PureComponent<IProps> {
           width: avatarSize,
         }}
         style={styles.avatarImageContainer}
-        cloudName={this.props.cloudName}
+        uriCloudName={this.props.uriCloudName}
         source={this.props.source}
       />
     );

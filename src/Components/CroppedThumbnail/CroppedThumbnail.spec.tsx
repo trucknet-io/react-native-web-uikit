@@ -12,7 +12,6 @@ it("should render CroppedThumbnail", async () => {
 <Image
   accessibilityLabel="image"
   accessible={true}
-  cloudName="trucknet"
   imageId="dk7o2yxitrwcsjz98fvk"
   options={
     Object {
@@ -33,6 +32,7 @@ it("should render CroppedThumbnail", async () => {
       undefined,
     ]
   }
+  uriCloudName="trucknet"
 />
 `);
 });

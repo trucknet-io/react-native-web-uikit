@@ -39,13 +39,13 @@ interface IProps extends CroppedThumbnailProps {
     width?: number;
     height?: number;
   };
-  cloudName: string;
+  uriCloudName: string;
   source?: ImageURISource;
 }
 class CroppedThumbnail extends React.PureComponent<IProps> {
   public static defaultProps = {
     options: {},
-    cloudName: "trucknet",
+    uriCloudName: "trucknet",
   };
   private imageTransformationOptions: IImageTransformationOptions = {
     ...croppedThumbnailDefaults,
@@ -78,7 +78,9 @@ class CroppedThumbnail extends React.PureComponent<IProps> {
         optionsArray.push(option);
       }
     }
-    const uri = `https://res.cloudinary.com/${this.props.cloudName}/image/upload/${optionsArray.join(",")}/${imageId}`;
+    const uri = `https://res.cloudinary.com/${this.props.uriCloudName}/image/upload/${optionsArray.join(
+      ",",
+    )}/${imageId}`;
     return { uri };
   };
 }
