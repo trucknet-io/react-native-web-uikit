@@ -21,13 +21,14 @@ type InputTextStyle = Omit<TextStyle, "paddingVertical">;
 interface IFieldTextStyle extends InputTextStyle {
   paddingVertical: number;
 }
-interface Props extends TextInputProps {
+interface Props {
   label: string;
   onChangeTextValidated(res: { value: string | undefined; isValid: boolean }): void;
   width: number | string;
   onSuccessInputFieldColor: string;
   textColor: string;
   validateValue?(value?: string): string | void;
+  secureTextEntry: boolean;
   initialValue?: string;
   onFocus?(e: NativeSyntheticEvent<TextInputFocusEventData>): void;
   onBlur?(e: NativeSyntheticEvent<TargetedEvent>): void;

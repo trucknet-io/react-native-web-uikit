@@ -3,20 +3,23 @@ import * as React from "react";
 import Modal from "./Modal";
 import { Text } from "react-native";
 
-it("should not render modal if isVisible prop equal false", async () => {
+jest.useFakeTimers();
+it("should not render modal if isVisible prop equal false", () => {
   const { queryByText } = render(
     <Modal isVisible={false}>
       <Text>Modal</Text>
     </Modal>,
   );
-  expect(queryByText("Modal", { exact: false })).toBeNull();
+  const modalText = queryByText("Modal", { exact: false });
+  expect(modalText).toBeNull();
 });
 
-it("should render modal if isVisible prop equal true", async () => {
+it("should render modal if isVisible prop equal true", () => {
   const { getAllByText } = render(
     <Modal isVisible={true}>
       <Text>Modal</Text>
     </Modal>,
   );
-  expect(getAllByText("Modal")).toHaveLength(1);
+  const modalText = getAllByText("Modal");
+  expect(modalText).toHaveLength(1);
 });
