@@ -12,6 +12,8 @@ import setUikitWebpackSetting from "./Components/setUikitWebpackSetting/";
 import RideProgressCard from "./Containers/RideProgressCard";
 import ProgressLine from "./Components/ProgressLine";
 import Modal from "./Components/Modal";
+import Avatar from "./Components/Avatar";
+import CroppedThumbnail from "./Components/CroppedThumbnail";
 
 export {
   GradientButton,
@@ -31,4 +33,6 @@ export {
   RideProgressCard,
   ProgressLine,
   Modal,
+  Avatar,
+  CroppedThumbnail,
 };

@@ -1,5 +1,4 @@
 import React from "react";
-import { View } from "react-native";
 import { configure, addDecorator } from "@storybook/react";
 import "./addons";
 import { withKnobs } from "@storybook/addon-knobs/react";
