@@ -1,9 +1,9 @@
 import * as React from "react";
-import { Image, ImageProps, ImageURISource } from "react-native";
+import { Image, ImageProps, ImageURISource, StyleSheet } from "react-native";
 
-type CropMode = "c_scale" | "c_fit" | "c_crop";
+type CropMode = "scale" | "fit" | "crop";
 
-type FetchFormat = "f_auto" | "f_png";
+type FetchFormat = "auto" | "png";
 
 interface IOptions {
   fetchFormat?: FetchFormat;
@@ -13,16 +13,11 @@ interface IOptions {
 }
 
 interface IImageTransformationOptions {
-  fetchFormat?: IOptions["fetchFormat"];
-  crop?: IOptions["crop"];
+  fetchFormat: string;
+  crop: string;
   width?: string;
   height?: string;
 }
-
-export const croppedThumbnailDefaults: IOptions = {
-  fetchFormat: "f_auto",
-  crop: "c_fit",
-};
 
 type KeyofOptions = keyof IOptions;
 export type CroppedThumbnailProps = Omit<ImageProps, "source">;
@@ -30,35 +25,34 @@ export type CroppedThumbnailProps = Omit<ImageProps, "source">;
 interface IProps extends CroppedThumbnailProps {
   accessibilityLabel: string;
   imageId: string;
-  options: {
-    fetch_format?: "f_auto" | "f_png";
-    crop?: "c_scale" | "c_fit" | "c_crop";
-    width?: number;
-    height?: number;
-  };
+  fetchFormat?: "auto" | "png";
+  crop?: "scale" | "fit" | "crop";
+  width?: number;
+  height?: number;
   uriCloudName: string;
   source?: ImageURISource;
 }
 class CroppedThumbnail extends React.PureComponent<IProps> {
   public static defaultProps = {
-    options: {},
     uriCloudName: "trucknet",
+    fetchFormat: "auto",
+    crop: "fit",
   };
+
   private imageTransformationOptions: IImageTransformationOptions = {
-    ...croppedThumbnailDefaults,
-    ...this.props.options,
-    width: this.props.options.width ? `w_${this.props.options.width}` : undefined,
-    height: this.props.options.height ? `h_${this.props.options.height}` : undefined,
+    fetchFormat: `f_${this.props.fetchFormat}`,
+    crop: `c_${this.props.crop}`,
+    width: this.props.width ? `w_${this.props.width}` : undefined,
+    height: this.props.height ? `h_${this.props.height}` : undefined,
   };
 
   public render() {
-    const { width, height } = this.props.options;
+    const { width, height, imageId, crop, fetchFormat, uriCloudName, ...rest } = this.props;
     return (
       <Image
-        {...this.props}
+        {...rest}
         accessible
-        accessibilityLabel={this.props.accessibilityLabel}
-        style={[{ width, height }, this.props.style]}
+        style={[styles.imageContainer, { width, height }, rest.style]}
         source={this.getImageSource()}
       />
     );
@@ -81,5 +75,9 @@ class CroppedThumbnail extends React.PureComponent<IProps> {
     return { uri };
   };
 }
+
+const styles = StyleSheet.create({
+  imageContainer: { flex: 1 },
+});
 
 export default CroppedThumbnail;

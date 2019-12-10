@@ -2,39 +2,77 @@ import * as React from "react";
 import { storiesOf } from "@storybook/react-native";
 import CroppedThumbnail from "./CroppedThumbnail";
 import { View, StyleSheet } from "react-native";
-import { object } from "@storybook/addon-knobs/react";
+import { object, number } from "@storybook/addon-knobs/react";
 
 const stories = storiesOf("Cropped Thumbnail", module);
 
-stories.add("Thumbnail", () => (
-  <View style={styles.container}>
+stories.add("Resize to small thumbnail by width", () => (
+  <View style={styles.smallImageContainer}>
     <CroppedThumbnail
       accessibilityLabel="image"
       uriCloudName="demo"
       imageId="sample"
-      style={styles.image}
-      options={{ width: 50 }}
+      width={number("width", 100)}
+      crop="fit"
     />
+  </View>
+));
+
+stories.add("Resize to big thumbnail by width", () => (
+  <View style={styles.bigImageContainer}>
     <CroppedThumbnail
       accessibilityLabel="image"
       uriCloudName="demo"
       imageId="sample"
-      style={styles.image}
-      options={{ width: 100 }}
+      width={number("width", 400)}
+      crop="fit"
     />
+  </View>
+));
+
+stories.add("Resize to small thumbnail by height", () => (
+  <View style={styles.smallImageContainer}>
     <CroppedThumbnail
       accessibilityLabel="image"
       uriCloudName="demo"
       imageId="sample"
-      style={styles.image}
-      options={{ width: 200 }}
+      height={number("height", 100)}
+      crop="fit"
     />
+  </View>
+));
+
+stories.add("Resize to big thumbnail by height", () => (
+  <View style={styles.bigImageContainer}>
     <CroppedThumbnail
       accessibilityLabel="image"
       uriCloudName="demo"
       imageId="sample"
-      style={styles.image}
-      options={{ width: 400 }}
+      height={number("height", 400)}
+      crop="fit"
+    />
+  </View>
+));
+stories.add("Crop to Small Thumbnail by width", () => (
+  <View style={styles.smallImageContainer}>
+    <CroppedThumbnail
+      accessibilityLabel="image"
+      uriCloudName="demo"
+      imageId="sample"
+      width={number("width", 100)}
+      crop="crop"
+    />
+  </View>
+));
+
+stories.add("Crop to Big Thumbnail by width", () => (
+  <View style={styles.bigImageContainer}>
+    <CroppedThumbnail
+      accessibilityLabel="image"
+      uriCloudName="demo"
+      imageId="sample"
+      width={number("width", 400)}
+      crop="crop"
     />
   </View>
 ));
@@ -45,13 +83,13 @@ stories.add("Thumbnail with custom styles", () => (
     uriCloudName="demo"
     imageId="sample"
     style={object("style", { width: 200, height: 200, borderWidth: 2, borderRadius: 10 })}
-    options={object("options", { width: 400 })}
+    width={400}
   />
 ));
 
 const styles = StyleSheet.create({
-  container: { flexDirection: "row", alignItems: "center", justifyContent: "space-around", flexWrap: "wrap" },
-  image: { width: 200, height: 200 },
+  smallImageContainer: { width: 100, height: 100 },
+  bigImageContainer: { width: 400, height: 400 },
 });
 
 export default stories;

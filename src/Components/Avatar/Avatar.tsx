@@ -43,15 +43,7 @@ class Avatar extends React.PureComponent<IProps> {
     const imageId = this.props.imageId as string;
     const avatarSize = this.getAvatarSize();
     return (
-      <CroppedThumbnail
-        {...this.props}
-        imageId={imageId}
-        options={{
-          crop: "c_fit",
-          width: avatarSize,
-        }}
-        style={styles.avatarImageContainer}
-      />
+      <CroppedThumbnail {...this.props} imageId={imageId} width={avatarSize} style={styles.avatarImageContainer} />
     );
   };
 
