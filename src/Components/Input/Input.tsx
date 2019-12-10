@@ -27,7 +27,6 @@ interface Props extends TextInputProps {
   width: number | string;
   onSuccessInputFieldColor: string;
   textColor: string;
-  secureTextEntry: boolean;
   validateValue?(value?: string): string | void;
   initialValue?: string;
   onFocus?(e: NativeSyntheticEvent<TextInputFocusEventData>): void;
@@ -50,6 +49,7 @@ interface Props extends TextInputProps {
   errorFontSize: 12;
   errorColor: string;
   style?: IFieldTextStyle;
+  textInputProps?: TextInputProps;
 }
 
 type State = {
@@ -65,6 +65,9 @@ const DEFAULT_INPUT_PADDING_VERTICAL = 2;
 
 class Input extends React.PureComponent<Props, State> {
   private textInput?: TextInput;
+  private animationLabelUp;
+  private animationLabelDown;
+
   static defaultProps = {
     onSuccessInputFieldColor: Colors.themeColor,
     textColor: Colors.defaultText,
@@ -95,6 +98,11 @@ class Input extends React.PureComponent<Props, State> {
     }
   };
 
+  public componentWillUnmount = () => {
+    this.animationLabelUp.stop();
+    this.animationLabelDown.stop();
+  };
+
   public render() {
     const { labelFontSize, labelMarginBottom, labelMarginTop } = this.state;
     const { width, errorFontSize, errorColor } = this.props;
@@ -110,6 +118,7 @@ class Input extends React.PureComponent<Props, State> {
           {this.props.label}
         </Animated.Text>
         <Field
+          textInputProps={this.props.textInputProps}
           setInputRef={this.setInputRef}
           secureTextEntry={this.props.secureTextEntry}
           keyboardType={this.props.keyboardType}
@@ -167,7 +176,7 @@ class Input extends React.PureComponent<Props, State> {
   };
 
   private animateLabelUp = () => {
-    Animated.parallel([
+    this.animationLabelUp = Animated.parallel([
       Animated.timing(this.state.labelFontSize, {
         toValue: this.inputFontSize - 2,
         duration: 250,
@@ -180,12 +189,13 @@ class Input extends React.PureComponent<Props, State> {
         toValue: this.labelInitialMargin,
         duration: 250,
       }),
-    ]).start();
+    ]);
+    this.animationLabelUp.start();
   };
 
   private animateLabelDown = () => {
     if (!this.state.value) {
-      Animated.parallel([
+      this.animationLabelDown = Animated.parallel([
         Animated.timing(this.state.labelFontSize, {
           toValue: this.inputFontSize,
           duration: 250,
@@ -198,7 +208,8 @@ class Input extends React.PureComponent<Props, State> {
           toValue: 0,
           duration: 250,
         }),
-      ]).start();
+      ]);
+      this.animationLabelDown.start();
     }
   };
 
@@ -240,6 +251,7 @@ class Input extends React.PureComponent<Props, State> {
 }
 
 type FieldProps = {
+  textInputProps?: TextInputProps;
   onChangeText(value: string): void;
   borderBottomColor: string;
   setInputRef(TextInput): void;
@@ -284,9 +296,12 @@ class Field extends React.Component<FieldProps> {
       setInputRef,
       paddingVertical,
       fontSize,
+      textInputProps,
     } = this.props;
     return (
       <TextInput
+        {...textInputProps}
+        accessible
         ref={setInputRef}
         defaultValue={initialValue}
         keyboardType={keyboardType}
