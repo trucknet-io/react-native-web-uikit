@@ -8,7 +8,7 @@ import { addReadme } from "storybook-readme";
 import { addReadmeToStory } from "./readmeDecorator";
 import StoryWrapper from "src/Wrappers/StoryWrapper";
 
-addDecorator(withSmartKnobs({ ignoreProps: ["gradientStartColor", "gradientEndColor", "options"] }));
+addDecorator(withSmartKnobs({ ignoreProps: ["gradientStartColor", "gradientEndColor"] }));
 addDecorator(withKnobs);
 addDecorator(withInfo);
 addDecorator(addReadme);
