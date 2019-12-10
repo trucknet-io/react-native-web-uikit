@@ -53,7 +53,20 @@ stories.add("Resize to big thumbnail by height", () => (
     />
   </View>
 ));
-stories.add("Crop to Small Thumbnail by width", () => (
+
+stories.add("Resize to big thumbnail in png format by height", () => (
+  <View style={styles.bigImageContainer}>
+    <CroppedThumbnail
+      accessibilityLabel="image"
+      uriCloudName="demo"
+      imageId="sample"
+      height={number("height", 400)}
+      fetchFormat="png"
+      crop="fit"
+    />
+  </View>
+));
+stories.add("Crop to small Thumbnail by width", () => (
   <View style={styles.smallImageContainer}>
     <CroppedThumbnail
       accessibilityLabel="image"
@@ -65,7 +78,7 @@ stories.add("Crop to Small Thumbnail by width", () => (
   </View>
 ));
 
-stories.add("Crop to Big Thumbnail by width", () => (
+stories.add("Crop to big Thumbnail by width", () => (
   <View style={styles.bigImageContainer}>
     <CroppedThumbnail
       accessibilityLabel="image"
