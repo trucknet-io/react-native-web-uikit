@@ -49,7 +49,6 @@ interface Props extends TextInputProps {
     | "web-search";
   errorFontSize: 12;
   errorColor: string;
-  borderBottomWidth: number;
   style?: IFieldTextStyle;
 }
 
@@ -74,7 +73,6 @@ class Input extends React.PureComponent<Props, State> {
     width: "100%",
     errorFontSize: 12,
     errorColor: Colors.error,
-    borderBottomWidth: 1,
   };
 
   private inputFontSize = this.getInputFontSize();
@@ -115,7 +113,6 @@ class Input extends React.PureComponent<Props, State> {
           setInputRef={this.setInputRef}
           secureTextEntry={this.props.secureTextEntry}
           keyboardType={this.props.keyboardType}
-          borderBottomWidth={this.props.borderBottomWidth}
           style={this.props.style}
           onFocus={this.onFocus}
           onBlur={this.onBlur}
@@ -172,7 +169,7 @@ class Input extends React.PureComponent<Props, State> {
   private animateLabelUp = () => {
     Animated.parallel([
       Animated.timing(this.state.labelFontSize, {
-        toValue: 12,
+        toValue: this.inputFontSize - 2,
         duration: 250,
       }),
       Animated.timing(this.state.labelMarginBottom, {
@@ -180,7 +177,7 @@ class Input extends React.PureComponent<Props, State> {
         duration: 250,
       }),
       Animated.timing(this.state.labelMarginTop, {
-        toValue: -16,
+        toValue: this.labelInitialMargin,
         duration: 250,
       }),
     ]).start();
@@ -190,11 +187,11 @@ class Input extends React.PureComponent<Props, State> {
     if (!this.state.value) {
       Animated.parallel([
         Animated.timing(this.state.labelFontSize, {
-          toValue: 14,
+          toValue: this.inputFontSize,
           duration: 250,
         }),
         Animated.timing(this.state.labelMarginBottom, {
-          toValue: -16,
+          toValue: this.labelInitialMargin,
           duration: 250,
         }),
         Animated.timing(this.state.labelMarginTop, {
@@ -246,7 +243,6 @@ type FieldProps = {
   onChangeText(value: string): void;
   borderBottomColor: string;
   setInputRef(TextInput): void;
-  borderBottomWidth: number;
   fontSize: number;
   onSubmitEditing(e: NativeSyntheticEvent<TextInputSubmitEditingEventData>): void;
   initialValue?: string;
@@ -280,7 +276,6 @@ class Field extends React.Component<FieldProps> {
       secureTextEntry,
       keyboardType,
       color,
-      borderBottomWidth,
       onFocus,
       onBlur,
       onChangeText,
@@ -300,7 +295,6 @@ class Field extends React.Component<FieldProps> {
           {
             fontSize,
             borderBottomColor,
-            borderBottomWidth,
             paddingVertical,
             color,
           },
