@@ -6,24 +6,21 @@ type CropMode = "c_scale" | "c_fit" | "c_crop";
 type FetchFormat = "f_auto" | "f_png";
 
 interface IOptions {
-  fetch_format?: FetchFormat;
+  fetchFormat?: FetchFormat;
   crop?: CropMode;
   width?: number;
   height?: number;
-  rWidth?: number;
-  rHeight?: number;
-  face?: "g_face";
 }
 
 interface IImageTransformationOptions {
-  fetch_format?: IOptions["fetch_format"];
+  fetchFormat?: IOptions["fetchFormat"];
   crop?: IOptions["crop"];
   width?: string;
   height?: string;
 }
 
 export const croppedThumbnailDefaults: IOptions = {
-  fetch_format: "f_auto",
+  fetchFormat: "f_auto",
   crop: "c_fit",
 };
 
