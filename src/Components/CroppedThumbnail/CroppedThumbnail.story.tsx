@@ -66,6 +66,7 @@ stories.add("Resize to big thumbnail in png format by height", () => (
     />
   </View>
 ));
+
 stories.add("Crop to small Thumbnail by width", () => (
   <View style={styles.smallImageContainer}>
     <CroppedThumbnail

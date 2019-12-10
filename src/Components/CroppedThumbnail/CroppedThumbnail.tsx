@@ -77,7 +77,7 @@ class CroppedThumbnail extends React.PureComponent<IProps> {
 }
 
 const styles = StyleSheet.create({
-  imageContainer: { flex: 1 },
+  imageContainer: { flexGrow: 1 },
 });
 
 export default CroppedThumbnail;

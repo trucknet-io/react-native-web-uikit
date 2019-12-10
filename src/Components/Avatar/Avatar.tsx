@@ -80,8 +80,7 @@ const styles = StyleSheet.create({
     color: Colors.defaultText,
   },
   avatarImageContainer: {
-    height: "100%",
-    width: "100%",
+    flexGrow: 1,
   },
 });
 
