@@ -25,7 +25,7 @@ class RideProgressCard extends React.PureComponent<Props> {
     return (
       <View style={styles.container}>
         <RideInfoColumn
-          styles={styles.timeAndDateContainer}
+          style={styles.timeAndDateContainer}
           firstBlockTitle={origin.time}
           firstBlockText={origin.day}
           secondBlockTitle={destination.time}
@@ -35,7 +35,7 @@ class RideProgressCard extends React.PureComponent<Props> {
           <ProgressLine currentProgress={this.props.currentProgress} />
         </View>
         <RideInfoColumn
-          styles={styles.citiesContainer}
+          style={styles.citiesContainer}
           firstBlockTitle={origin.city}
           firstBlockText={origin.address}
           secondBlockTitle={destination.city}

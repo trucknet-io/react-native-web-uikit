@@ -4,7 +4,7 @@ import Colors from "src/Themes/Colors";
 import Fonts from "src/Themes/Fonts";
 
 type Props = {
-  styles: ViewStyle;
+  style: ViewStyle;
   firstBlockTitle: string;
   firstBlockText?: string;
   secondBlockTitle: string;
@@ -15,7 +15,7 @@ class RideInfoColumn extends React.PureComponent<Props> {
   render() {
     const { firstBlockTitle, firstBlockText, secondBlockTitle, secondBlockText } = this.props;
     return (
-      <View style={this.props.styles}>
+      <View style={this.props.style}>
         <View>
           <Text style={styles.mainText}>{firstBlockTitle}</Text>
           <Text style={styles.secondaryText}>{firstBlockText}</Text>
