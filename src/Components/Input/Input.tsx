@@ -22,7 +22,7 @@ interface IFieldTextStyle extends InputTextStyle {
   paddingVertical: number;
 }
 interface Props extends TextInputProps {
-  label: React.ReactNode;
+  label: string;
   onChangeTextValidated(res: { value: string | undefined; isValid: boolean }): void;
   width: number | string;
   onSuccessInputFieldColor: string;
