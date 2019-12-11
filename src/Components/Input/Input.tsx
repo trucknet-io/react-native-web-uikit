@@ -10,7 +10,7 @@ import {
   TextStyle,
   View,
   TouchableWithoutFeedback,
-  GestureResponderEvent,
+  KeyboardType,
 } from "react-native";
 import Colors from "src/Themes/Colors";
 import InputField, { TargetedEvent } from "./InputField";
@@ -32,21 +32,8 @@ interface Props {
   onFocus?(e: NativeSyntheticEvent<TextInputFocusEventData>): void;
   onBlur?(e: NativeSyntheticEvent<TargetedEvent>): void;
   onSubmitEditing?(e: NativeSyntheticEvent<TextInputSubmitEditingEventData>): void;
-  keyboardType:
-    | "default"
-    | "email-address"
-    | "numeric"
-    | "phone-pad"
-    | "visible-password"
-    | "ascii-capable"
-    | "numbers-and-punctuation"
-    | "url"
-    | "number-pad"
-    | "name-phone-pad"
-    | "decimal-pad"
-    | "twitter"
-    | "web-search";
-  errorFontSize: 12;
+  keyboardType: KeyboardType;
+  errorFontSize: number;
   errorColor: string;
   style?: IFieldTextStyle;
   textInputProps?: TextInputProps;
@@ -117,7 +104,7 @@ class Input extends React.PureComponent<Props, State> {
     );
   }
 
-  private handleLabelPress = (event: GestureResponderEvent) => {
+  private handleLabelPress = () => {
     if (this.textInput) this.textInput.focus();
   };
 

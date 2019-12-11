@@ -7,6 +7,7 @@ import {
   TextInputProps,
   TextInputSubmitEditingEventData,
   ViewStyle,
+  KeyboardType,
 } from "react-native";
 
 export interface TargetedEvent {
@@ -26,20 +27,7 @@ type FieldProps = {
   onFocus?(e: NativeSyntheticEvent<TextInputFocusEventData>): void;
   onBlur?(e: NativeSyntheticEvent<TargetedEvent>): void;
   style?: ViewStyle;
-  keyboardType:
-    | "default"
-    | "email-address"
-    | "numeric"
-    | "phone-pad"
-    | "visible-password"
-    | "ascii-capable"
-    | "numbers-and-punctuation"
-    | "url"
-    | "number-pad"
-    | "name-phone-pad"
-    | "decimal-pad"
-    | "twitter"
-    | "web-search";
+  keyboardType: KeyboardType;
 };
 
 class InputField extends React.Component<FieldProps> {
@@ -58,11 +46,9 @@ class InputField extends React.Component<FieldProps> {
     return (
       <TextInput
         {...textInputProps}
-        accessible
         ref={setInputRef}
         defaultValue={initialValue}
         keyboardType={keyboardType}
-        allowFontScaling={false}
         style={[
           styles.textInput,
           {
