@@ -33,7 +33,7 @@ interface Props {
   validateValue?(value?: string): React.ReactNode | void;
   secureTextEntry: boolean;
   initialValue?: string;
-  onFocus?(e: GestureResponderEvent | NativeSyntheticEvent<TextInputFocusEventData>): void;
+  onFocus?(e: NativeSyntheticEvent<TextInputFocusEventData>): void;
   onBlur?(e: NativeSyntheticEvent<TargetedEvent>): void;
   onSubmitEditing?(e: NativeSyntheticEvent<TextInputSubmitEditingEventData>): void;
   keyboardType:
@@ -90,7 +90,7 @@ class Input extends React.PureComponent<Props, State> {
     const { width, errorFontSize, errorColor } = this.props;
     return (
       <View style={[styles.container, { width }, this.props.style]}>
-        <TouchableWithoutFeedback onPress={this.handleFocus}>
+        <TouchableWithoutFeedback onPress={this.handleLabelPress}>
           <Text
             style={[
               styles.label,
@@ -121,9 +121,12 @@ class Input extends React.PureComponent<Props, State> {
     );
   }
 
-  private handleFocus = (event: GestureResponderEvent | NativeSyntheticEvent<TextInputFocusEventData>) => {
-    if (this.props.onFocus) this.props.onFocus(event);
+  private handleLabelPress = (event: GestureResponderEvent) => {
     if (this.textInput) this.textInput.focus();
+  };
+
+  private handleFocus = (event: NativeSyntheticEvent<TextInputFocusEventData>) => {
+    if (this.props.onFocus) this.props.onFocus(event);
   };
 
   private handleBlur = (event: NativeSyntheticEvent<TargetedEvent>) => {
