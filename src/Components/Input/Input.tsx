@@ -8,16 +8,12 @@ import {
   TextInputProps,
   TextInputSubmitEditingEventData,
   TextStyle,
-  ViewStyle,
   View,
   TouchableWithoutFeedback,
   GestureResponderEvent,
 } from "react-native";
 import Colors from "src/Themes/Colors";
-
-export interface TargetedEvent {
-  target: number;
-}
+import InputField, { TargetedEvent } from "./InputField";
 
 type InputTextStyle = Omit<TextStyle, "paddingVertical">;
 interface IFieldTextStyle extends InputTextStyle {
@@ -102,7 +98,7 @@ class Input extends React.PureComponent<Props, State> {
             {this.props.label}
           </Text>
         </TouchableWithoutFeedback>
-        <Field
+        <InputField
           textInputProps={this.props.textInputProps}
           setInputRef={this.setInputRef}
           secureTextEntry={this.props.secureTextEntry}
@@ -181,89 +177,11 @@ class Input extends React.PureComponent<Props, State> {
   };
 }
 
-type FieldProps = {
-  textInputProps?: TextInputProps;
-  onChangeText(value: string): void;
-  borderBottomColor: string;
-  setInputRef(TextInput): void;
-  onSubmitEditing(e: NativeSyntheticEvent<TextInputSubmitEditingEventData>): void;
-  initialValue?: string;
-  secureTextEntry?: boolean;
-  color?: string;
-  nativeTextInputProps?: TextInputProps;
-  onFocus?(e: NativeSyntheticEvent<TextInputFocusEventData>): void;
-  onBlur?(e: NativeSyntheticEvent<TargetedEvent>): void;
-  style?: ViewStyle;
-  keyboardType:
-    | "default"
-    | "email-address"
-    | "numeric"
-    | "phone-pad"
-    | "visible-password"
-    | "ascii-capable"
-    | "numbers-and-punctuation"
-    | "url"
-    | "number-pad"
-    | "name-phone-pad"
-    | "decimal-pad"
-    | "twitter"
-    | "web-search";
-};
-
-class Field extends React.Component<FieldProps> {
-  state = {
-    value: this.props.initialValue,
-    error: undefined,
-  };
-
-  render() {
-    const {
-      initialValue,
-      secureTextEntry,
-      keyboardType,
-      color,
-      onChangeText,
-      borderBottomColor,
-      onSubmitEditing,
-      setInputRef,
-      textInputProps,
-    } = this.props;
-    return (
-      <TextInput
-        {...textInputProps}
-        accessible
-        ref={setInputRef}
-        defaultValue={initialValue}
-        keyboardType={keyboardType}
-        allowFontScaling={false}
-        style={[
-          styles.textInput,
-          {
-            borderBottomColor,
-            color,
-          },
-          this.props.style,
-        ]}
-        secureTextEntry={secureTextEntry}
-        onFocus={this.props.onFocus}
-        onBlur={this.props.onBlur}
-        onChangeText={onChangeText}
-        onSubmitEditing={onSubmitEditing}
-      />
-    );
-  }
-}
-
 const styles = StyleSheet.create({
   container: {
     marginTop: 16,
     flex: 1,
     justifyContent: "flex-end",
-  },
-  textInput: {
-    paddingHorizontal: 0,
-    borderBottomWidth: 1,
-    paddingVertical: 4,
   },
   error: {
     height: 24,

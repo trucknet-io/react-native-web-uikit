@@ -3,6 +3,7 @@ import * as React from "react";
 import Modal from "./Modal";
 import { Text } from "react-native";
 
+jest.useFakeTimers();
 it("should not render modal if isVisible prop equal false", () => {
   const { queryByText } = render(
     <Modal isVisible={false}>
