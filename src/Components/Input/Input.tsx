@@ -260,6 +260,7 @@ const styles = StyleSheet.create({
   textInput: {
     paddingHorizontal: 0,
     borderBottomWidth: 1,
+    paddingVertical: 4,
   },
   error: {
     height: 24,
