@@ -15,10 +15,6 @@ import {
 import Colors from "src/Themes/Colors";
 import InputField, { TargetedEvent } from "./InputField";
 
-type InputTextStyle = Omit<TextStyle, "paddingVertical">;
-interface IFieldTextStyle extends InputTextStyle {
-  paddingVertical: number;
-}
 interface Props {
   label: React.ReactNode;
   labelFontSize?: number;
@@ -35,7 +31,7 @@ interface Props {
   keyboardType: KeyboardType;
   errorFontSize: number;
   errorColor: string;
-  style?: IFieldTextStyle;
+  style?: TextStyle;
   textInputProps?: TextInputProps;
 }
 
