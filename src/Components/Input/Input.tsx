@@ -3,13 +3,15 @@ import {
   StyleSheet,
   Text,
   TextInput,
-  Animated,
   NativeSyntheticEvent,
   TextInputFocusEventData,
   TextInputProps,
   TextInputSubmitEditingEventData,
   TextStyle,
   ViewStyle,
+  View,
+  TouchableWithoutFeedback,
+  GestureResponderEvent,
 } from "react-native";
 import Colors from "src/Themes/Colors";
 
@@ -23,14 +25,15 @@ interface IFieldTextStyle extends InputTextStyle {
 }
 interface Props {
   label: string;
+  labelFontSize?: number;
   onChangeTextValidated(res: { value: string | undefined; isValid: boolean }): void;
   width: number | string;
   onSuccessInputFieldColor: string;
   textColor: string;
-  validateValue?(value?: string): string | void;
+  validateValue?(value?: string): React.ReactNode | void;
   secureTextEntry: boolean;
   initialValue?: string;
-  onFocus?(e: NativeSyntheticEvent<TextInputFocusEventData>): void;
+  onFocus?(e: GestureResponderEvent | NativeSyntheticEvent<TextInputFocusEventData>): void;
   onBlur?(e: NativeSyntheticEvent<TargetedEvent>): void;
   onSubmitEditing?(e: NativeSyntheticEvent<TextInputSubmitEditingEventData>): void;
   keyboardType:
@@ -54,20 +57,12 @@ interface Props {
 }
 
 type State = {
-  labelFontSize: Animated.Value;
-  labelMarginBottom: Animated.Value;
-  labelMarginTop: Animated.Value;
   value?: string;
-  error: string | void;
+  error: React.ReactNode | void;
 };
-
-const DEFAULT_INPUT_FONT_SIZE = 14;
-const DEFAULT_INPUT_PADDING_VERTICAL = 2;
 
 class Input extends React.PureComponent<Props, State> {
   private textInput?: TextInput;
-  private animationLabelUp;
-  private animationLabelDown;
 
   static defaultProps = {
     onSuccessInputFieldColor: Colors.themeColor,
@@ -77,20 +72,12 @@ class Input extends React.PureComponent<Props, State> {
     width: "100%",
     errorFontSize: 12,
     errorColor: Colors.error,
+    labelFontSize: 14,
   };
-
-  private inputFontSize = this.getInputFontSize();
-  private inputPaddingVertical = this.getInputPaddingVertical();
-  private labelInitialMargin = -(this.inputFontSize + this.inputPaddingVertical);
 
   state = {
     value: this.props.initialValue,
     error: undefined,
-    labelFontSize: this.props.initialValue
-      ? new Animated.Value(this.inputFontSize - 2)
-      : new Animated.Value(this.inputFontSize),
-    labelMarginBottom: this.props.initialValue ? new Animated.Value(0) : new Animated.Value(this.labelInitialMargin),
-    labelMarginTop: this.props.initialValue ? new Animated.Value(this.labelInitialMargin) : new Animated.Value(0),
   };
 
   public focus = () => {
@@ -99,45 +86,49 @@ class Input extends React.PureComponent<Props, State> {
     }
   };
 
-  public componentWillUnmount = () => {
-    this.animationLabelUp.stop();
-    this.animationLabelDown.stop();
-  };
-
   public render() {
-    const { labelFontSize, labelMarginBottom, labelMarginTop } = this.state;
     const { width, errorFontSize, errorColor } = this.props;
     return (
-      <Animated.View style={[styles.container, { width }, this.props.style]}>
-        <Animated.Text
-          style={{
-            fontSize: labelFontSize,
-            marginTop: labelMarginTop,
-            marginBottom: labelMarginBottom,
-            color: this.getLabelColor(),
-          }}>
-          {this.props.label}
-        </Animated.Text>
+      <View style={[styles.container, { width }, this.props.style]}>
+        <TouchableWithoutFeedback onPress={this.handleFocus}>
+          <Text
+            style={[
+              styles.label,
+              {
+                fontSize: this.props.labelFontSize,
+                color: this.getLabelColor(),
+              },
+            ]}>
+            {this.props.label}
+          </Text>
+        </TouchableWithoutFeedback>
         <Field
           textInputProps={this.props.textInputProps}
           setInputRef={this.setInputRef}
           secureTextEntry={this.props.secureTextEntry}
           keyboardType={this.props.keyboardType}
           style={this.props.style}
-          onFocus={this.onFocus}
-          onBlur={this.onBlur}
+          onFocus={this.handleFocus}
+          onBlur={this.handleBlur}
           onSubmitEditing={this.onSubmitEditing}
           onChangeText={this.handleChangeText}
           borderBottomColor={this.getFieldColor()}
           color={this.props.textColor}
           initialValue={this.props.initialValue}
-          paddingVertical={this.inputPaddingVertical}
-          fontSize={this.inputFontSize}
         />
         <Text style={[styles.error, { fontSize: errorFontSize, color: errorColor }]}>{this.state.error}</Text>
-      </Animated.View>
+      </View>
     );
   }
+
+  private handleFocus = (event: GestureResponderEvent | NativeSyntheticEvent<TextInputFocusEventData>) => {
+    if (this.props.onFocus) this.props.onFocus(event);
+    if (this.textInput) this.textInput.focus();
+  };
+
+  private handleBlur = (event: NativeSyntheticEvent<TargetedEvent>) => {
+    if (this.props.onBlur) this.props.onBlur(event);
+  };
 
   private onSubmitEditing = (e) => {
     if (this.props.onSubmitEditing) {
@@ -166,54 +157,6 @@ class Input extends React.PureComponent<Props, State> {
     this.props.onChangeTextValidated({ value: this.state.value, isValid: !this.state.error });
   };
 
-  private onFocus = (event: NativeSyntheticEvent<TextInputFocusEventData>) => {
-    if (this.props.onFocus) this.props.onFocus(event);
-    this.animateLabelUp();
-  };
-
-  private onBlur = (event: NativeSyntheticEvent<TargetedEvent>) => {
-    if (this.props.onBlur) this.props.onBlur(event);
-    this.animateLabelDown();
-  };
-
-  private animateLabelUp = () => {
-    this.animationLabelUp = Animated.parallel([
-      Animated.timing(this.state.labelFontSize, {
-        toValue: this.inputFontSize - 2,
-        duration: 250,
-      }),
-      Animated.timing(this.state.labelMarginBottom, {
-        toValue: 0,
-        duration: 250,
-      }),
-      Animated.timing(this.state.labelMarginTop, {
-        toValue: this.labelInitialMargin,
-        duration: 250,
-      }),
-    ]);
-    this.animationLabelUp.start();
-  };
-
-  private animateLabelDown = () => {
-    if (!this.state.value) {
-      this.animationLabelDown = Animated.parallel([
-        Animated.timing(this.state.labelFontSize, {
-          toValue: this.inputFontSize,
-          duration: 250,
-        }),
-        Animated.timing(this.state.labelMarginBottom, {
-          toValue: this.labelInitialMargin,
-          duration: 250,
-        }),
-        Animated.timing(this.state.labelMarginTop, {
-          toValue: 0,
-          duration: 250,
-        }),
-      ]);
-      this.animationLabelDown.start();
-    }
-  };
-
   private getLabelColor = () => {
     if (!this.state.value) {
       return Colors.palette.lightGray;
@@ -233,22 +176,6 @@ class Input extends React.PureComponent<Props, State> {
     }
     return this.props.onSuccessInputFieldColor;
   };
-
-  private getInputFontSize() {
-    const { style } = this.props;
-    if (style && style.fontSize) {
-      return style.fontSize;
-    }
-    return DEFAULT_INPUT_FONT_SIZE;
-  }
-
-  private getInputPaddingVertical() {
-    const { style } = this.props;
-    if (style && style.paddingVertical) {
-      return style.paddingVertical;
-    }
-    return DEFAULT_INPUT_PADDING_VERTICAL;
-  }
 }
 
 type FieldProps = {
@@ -256,7 +183,6 @@ type FieldProps = {
   onChangeText(value: string): void;
   borderBottomColor: string;
   setInputRef(TextInput): void;
-  fontSize: number;
   onSubmitEditing(e: NativeSyntheticEvent<TextInputSubmitEditingEventData>): void;
   initialValue?: string;
   secureTextEntry?: boolean;
@@ -265,7 +191,6 @@ type FieldProps = {
   onFocus?(e: NativeSyntheticEvent<TextInputFocusEventData>): void;
   onBlur?(e: NativeSyntheticEvent<TargetedEvent>): void;
   style?: ViewStyle;
-  paddingVertical: number;
   keyboardType:
     | "default"
     | "email-address"
@@ -283,20 +208,21 @@ type FieldProps = {
 };
 
 class Field extends React.Component<FieldProps> {
+  state = {
+    value: this.props.initialValue,
+    error: undefined,
+  };
+
   render() {
     const {
       initialValue,
       secureTextEntry,
       keyboardType,
       color,
-      onFocus,
-      onBlur,
       onChangeText,
       borderBottomColor,
       onSubmitEditing,
       setInputRef,
-      paddingVertical,
-      fontSize,
       textInputProps,
     } = this.props;
     return (
@@ -306,19 +232,18 @@ class Field extends React.Component<FieldProps> {
         ref={setInputRef}
         defaultValue={initialValue}
         keyboardType={keyboardType}
+        allowFontScaling={false}
         style={[
           styles.textInput,
           {
-            fontSize,
             borderBottomColor,
-            paddingVertical,
             color,
           },
           this.props.style,
         ]}
         secureTextEntry={secureTextEntry}
-        onFocus={onFocus}
-        onBlur={onBlur}
+        onFocus={this.props.onFocus}
+        onBlur={this.props.onBlur}
         onChangeText={onChangeText}
         onSubmitEditing={onSubmitEditing}
       />
@@ -329,14 +254,18 @@ class Field extends React.Component<FieldProps> {
 const styles = StyleSheet.create({
   container: {
     marginTop: 16,
+    flex: 1,
+    justifyContent: "flex-end",
   },
   textInput: {
-    borderBottomWidth: 1,
     paddingHorizontal: 0,
-    paddingVertical: 8,
+    borderBottomWidth: 1,
   },
   error: {
     height: 24,
+  },
+  label: {
+    paddingBottom: 4,
   },
 });
 
