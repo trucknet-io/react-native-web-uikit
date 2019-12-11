@@ -1,33 +1,34 @@
-import { render } from "@testing-library/react-native";
+import { render, fireEvent } from "@testing-library/react-native";
 import * as React from "react";
 import Input from "./Input";
-import fireEvent from "__utils__/fireNativeEvent";
 
-type Response = { value: string | undefined; isValid: boolean };
 it("should render Input with error text component", async () => {
   const { getByText, findByLabelText, queryByText } = render(
     <Input
       label="email"
-      onChangeTextValidated={(res: Response) => (res.value && res.value.length < 3 ? "error" : undefined)}
-      textInputProps={{ accessibilityLabel: "input" }}
+      onChangeTextValidated={jest.fn()}
+      validateValue={(value: string) => (value.length < 4 ? "error" : undefined)}
+      textInputProps={{ accessibilityLabel: "email" }}
     />,
   );
   expect(getByText("email")).toBeDefined();
-  const input = await findByLabelText("input");
-  fireEvent(input, "onChangeText", "inp");
-  expect(queryByText("error")).toBeDefined();
+  const input = await findByLabelText("email");
+  fireEvent.changeText(input, "inp");
+  const error = await queryByText("error");
+  expect(error).toBeDefined();
 });
 
 it("should render Input without error text component", async () => {
   const { getByText, findByLabelText, queryByText } = render(
     <Input
       label="email"
-      onChangeTextValidated={(res: Response) => (res.value && res.value.length < 3 ? "error" : undefined)}
-      textInputProps={{ accessibilityLabel: "input" }}
+      onChangeTextValidated={jest.fn()}
+      validateValue={(value: string) => (value.length < 4 ? "error" : undefined)}
+      textInputProps={{ accessibilityLabel: "email" }}
     />,
   );
   expect(getByText("email")).toBeDefined();
-  const input = await findByLabelText("input");
-  fireEvent(input, "onChangeText", "input");
+  const input = await findByLabelText("email");
+  fireEvent.changeText(input, "onChangeText");
   expect(queryByText("error")).toBeNull();
 });
