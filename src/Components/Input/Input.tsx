@@ -89,7 +89,7 @@ class Input extends React.PureComponent<Props, State> {
           style={this.props.style}
           onFocus={this.handleFocus}
           onBlur={this.handleBlur}
-          onSubmitEditing={this.onSubmitEditing}
+          onSubmitEditing={this.handleSubmitEditing}
           onChangeText={this.handleChangeText}
           borderBottomColor={this.getFieldColor()}
           color={this.props.textColor}
@@ -112,7 +112,7 @@ class Input extends React.PureComponent<Props, State> {
     if (this.props.onBlur) this.props.onBlur(event);
   };
 
-  private onSubmitEditing = (e) => {
+  private handleSubmitEditing = (e) => {
     if (this.props.onSubmitEditing) {
       this.props.onSubmitEditing(e);
     }
