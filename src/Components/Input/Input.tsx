@@ -14,10 +14,11 @@ import {
 } from "react-native";
 import Colors from "src/Themes/Colors";
 import InputField, { TargetedEvent } from "./InputField";
+import Fonts from "src/Themes/Fonts";
 
 interface Props {
   label: React.ReactNode;
-  labelFontSize?: number;
+  labelStyle?: TextStyle;
   onChangeTextValidated(res: { value: string | undefined; isValid: boolean }): void;
   width: number | string;
   onSuccessInputFieldColor: string;
@@ -31,7 +32,7 @@ interface Props {
   keyboardType: KeyboardType;
   errorFontSize: number;
   errorColor: string;
-  style?: TextStyle;
+  textInputStyle?: TextStyle;
   textInputProps?: TextInputProps;
 }
 
@@ -51,7 +52,6 @@ class Input extends React.PureComponent<Props, State> {
     width: "100%",
     errorFontSize: 12,
     errorColor: Colors.error,
-    labelFontSize: 14,
   };
 
   state = {
@@ -68,15 +68,15 @@ class Input extends React.PureComponent<Props, State> {
   public render() {
     const { width, errorFontSize, errorColor } = this.props;
     return (
-      <View style={[styles.container, { width }, this.props.style]}>
+      <View style={[styles.container, { width }]}>
         <TouchableWithoutFeedback onPress={this.handleLabelPress}>
           <Text
             style={[
               styles.label,
               {
-                fontSize: this.props.labelFontSize,
                 color: this.getLabelColor(),
               },
+              this.props.labelStyle,
             ]}>
             {this.props.label}
           </Text>
@@ -86,7 +86,7 @@ class Input extends React.PureComponent<Props, State> {
           setInputRef={this.setInputRef}
           secureTextEntry={this.props.secureTextEntry}
           keyboardType={this.props.keyboardType}
-          style={this.props.style}
+          style={this.props.textInputStyle}
           onFocus={this.handleFocus}
           onBlur={this.handleBlur}
           onSubmitEditing={this.handleSubmitEditing}
@@ -169,9 +169,7 @@ const styles = StyleSheet.create({
   error: {
     height: 24,
   },
-  label: {
-    paddingBottom: 4,
-  },
+  label: Fonts.style.BodyRegular,
 });
 
 export default Input;

@@ -18,7 +18,11 @@ stories.add("Input Field with custom styles", () => (
     label="input"
     onChangeTextValidated={action("onChangeTextValidated")}
     validateValue={(value: string) => (value.length > 6 ? undefined : "value must be more than 6 symbols")}
-    style={object("style", {
+    labelStyle={object("style", {
+      fontSize: 24,
+      paddingVertical: 2,
+    })}
+    textInputStyle={object("style", {
       fontSize: 30,
       paddingVertical: 8,
     })}
