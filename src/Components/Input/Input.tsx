@@ -163,7 +163,7 @@ class Input extends React.PureComponent<Props, State> {
 const styles = StyleSheet.create({
   container: {
     marginTop: 16,
-    flex: 1,
+    flexGrow: 1,
     justifyContent: "flex-end",
   },
   error: {
