@@ -8,5 +8,5 @@ export default class StoryWrapper extends React.PureComponent {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, marginVertical: 16, marginHorizontal: 16 },
+  container: { flexGrow: 1, marginVertical: 16, marginHorizontal: 16 },
 });
