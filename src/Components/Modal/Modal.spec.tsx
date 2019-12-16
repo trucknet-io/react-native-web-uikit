@@ -1,15 +1,16 @@
-import { render } from "@testing-library/react-native";
+import { render, waitForElement } from "@testing-library/react-native";
 import * as React from "react";
 import Modal from "./Modal";
 import { Text } from "react-native";
 
 it("should not render modal if isVisible prop equal false", async () => {
   const { queryByText } = render(
-    <Modal isVisible={false}>
+    <Modal isVisible={false} animationInTiming={0}>
       <Text>Modal</Text>
     </Modal>,
   );
-  expect(queryByText("Modal", { exact: false })).toBeNull();
+  const modalText = queryByText("Modal", { exact: false });
+  expect(modalText).toBeNull();
 });
 
 it("should render modal if isVisible prop equal true", async () => {
@@ -18,5 +19,7 @@ it("should render modal if isVisible prop equal true", async () => {
       <Text>Modal</Text>
     </Modal>,
   );
-  expect(getAllByText("Modal")).toHaveLength(1);
+
+  const modalText = await waitForElement(() => getAllByText("Modal"));
+  expect(modalText).toHaveLength(1);
 });

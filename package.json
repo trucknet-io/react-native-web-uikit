@@ -13,7 +13,7 @@
     "dist/**/*"
   ],
   "main": "dist/index.lib.js",
-  "version": "2.6.0",
+  "version": "2.7.0",
   "private": false,
   "scripts": {
     "start": "npm run find-stories && node node_modules/react-native/local-cli/cli.js start",
@@ -65,7 +65,7 @@
     "@types/jest": "23.3.10",
     "@types/react": "16.7.18",
     "@types/react-native": "0.57.23",
-    "@types/react-test-renderer": "16.0.3",
+    "@types/react-test-renderer": "16.8.3",
     "@types/webpack": "^4.39.2",
     "app-icon": "^0.6.3",
     "awesome-typescript-loader": "^5.2.1",
@@ -102,7 +102,7 @@
     "react-native-web-webview": "^0.2.8",
     "react-native-webview": "^6.8.1",
     "react-scripts": "^2.1.8",
-    "react-test-renderer": "16.6.3",
+    "react-test-renderer": "16.8.3",
     "rimraf": "^2.6.3",
     "storybook-addon-smart-knobs": "^6.0.0",
     "storybook-readme": "^5.0.8",
