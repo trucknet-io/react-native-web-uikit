@@ -8,7 +8,6 @@ import SignatureModal from "./Components/SignatureModal";
 import { colorTheme } from "./Themes/Colors";
 import { ProgressBar } from "./Components/ProgressBar";
 import { CardsPlaceholder, MapPlaceholder, ParagraphPlaceholder } from "./Components/Placeholders";
-import setUikitWebpackSetting from "./Components/setUikitWebpackSetting/";
 import RideProgressCard from "./Containers/RideProgressCard";
 import ProgressLine from "./Components/ProgressLine";
 import Modal from "./Components/Modal";
@@ -23,7 +22,6 @@ export {
   InputField,
   Form,
   LoginForm,
-  setUikitWebpackSetting,
   SignatureModal,
   colorTheme,
   ParagraphPlaceholder,
