@@ -1,7 +1,7 @@
 const path = require("path");
-import { Module, Resolve } from "webpack";
+import { Module } from "webpack";
 
-const getUikitWebpackConfig = (config: { module: Module; resolve: Resolve }) => {
+module.exports = ({ config }) => {
   let defaultRules: Module["rules"] = [];
 
   for (const rule of config.module.rules) {
@@ -84,8 +84,4 @@ const getUikitWebpackConfig = (config: { module: Module; resolve: Resolve }) => 
     module: moduleRulesChanges,
     resolve: resolveChanges,
   };
-};
-
-module.exports = ({ config }) => {
-  return getUikitWebpackConfig(config);
 };
