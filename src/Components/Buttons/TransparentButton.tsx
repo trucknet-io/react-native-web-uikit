@@ -3,7 +3,7 @@ import { Text, TouchableOpacity, TouchableOpacityProps, FlexAlignType, TextStyle
 import Colors from "src/Themes/Colors";
 import { styles } from "./styles";
 
-interface TransparentButtonProps extends TouchableOpacityProps {
+interface Props extends TouchableOpacityProps {
   borderRadius: number;
   width: string | number;
   marginVertical: string | number;
@@ -18,7 +18,11 @@ interface TransparentButtonProps extends TouchableOpacityProps {
   link?: string;
 }
 
-export class TransparentButton extends React.PureComponent<TransparentButtonProps> {
+type DefaultProps = typeof TransparentButton.defaultProps;
+
+export type TransparentButtonProps = Omit<Props, keyof DefaultProps> & Partial<DefaultProps>;
+
+export class TransparentButton extends React.PureComponent<Props> {
   public static defaultProps = {
     linkColor: Colors.defaultText,
     textColor: Colors.defaultText,
