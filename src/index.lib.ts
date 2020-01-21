@@ -1,4 +1,4 @@
-import { GradientButton, TransparentButton } from "./Components/Buttons";
+import { GradientButton, TransparentButton, GradientButtonProps, TransparentButtonProps } from "./Components/Buttons";
 import * as Icons from "./Components/Icons";
 import LinearGradient from "./Components/LinearGradient/LinearGradient";
 import InputField from "./Components/Input/Input";
@@ -17,6 +17,8 @@ import CroppedThumbnail from "./Components/CroppedThumbnail";
 export {
   GradientButton,
   TransparentButton,
+  GradientButtonProps,
+  TransparentButtonProps,
   Icons,
   LinearGradient,
   InputField,

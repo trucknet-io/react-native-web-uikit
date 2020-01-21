@@ -13,7 +13,7 @@ import { styles } from "./styles";
 
 import LinearGradient from "src/Components/LinearGradient/LinearGradient";
 
-interface GradientButtonProps extends TouchableOpacityProps {
+interface Props extends TouchableOpacityProps {
   borderRadius: number;
   width: string | number;
   marginVertical: string | number;
@@ -26,7 +26,11 @@ interface GradientButtonProps extends TouchableOpacityProps {
   gradientEndColor: string;
 }
 
-export class GradientButton extends React.PureComponent<GradientButtonProps> {
+type DefaultProps = typeof GradientButton.defaultProps;
+
+export type GradientButtonProps = Omit<Props, keyof DefaultProps> & Partial<DefaultProps>;
+
+export class GradientButton extends React.PureComponent<Props> {
   private PRESS_IN_SHADOW = 1;
   private PRESS_OUT_SHADOW = 4;
 
