@@ -13,7 +13,7 @@
     "dist/**/*"
   ],
   "main": "dist/index.lib.js",
-  "version": "2.7.2",
+  "version": "2.7.3",
   "private": false,
   "scripts": {
     "start": "npm run find-stories && node node_modules/react-native/local-cli/cli.js start",

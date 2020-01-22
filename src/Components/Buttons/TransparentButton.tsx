@@ -1,24 +1,24 @@
 import * as React from "react";
-import { Text, TouchableOpacity, TouchableOpacityProps, FlexAlignType, TextStyle } from "react-native";
+import { Text, TouchableOpacity, TouchableOpacityProps, FlexAlignType } from "react-native";
 import Colors from "src/Themes/Colors";
 import { styles } from "./styles";
 
-interface Props extends TouchableOpacityProps {
+interface DefaultProps {
+  linkColor: string;
+  textColor: string;
+  borderWidth: 0;
+  borderColor: string;
   borderRadius: number;
   width: string | number;
   marginVertical: string | number;
   marginHorizontal: string | number;
-  textColor: string;
   alignItems: FlexAlignType;
+}
+interface Props extends DefaultProps, TouchableOpacityProps {
   label?: React.ReactNode;
-  style?: TouchableOpacityProps["style"] & TextStyle;
   linkColor: string;
-  borderWidth: number;
-  borderColor: string;
   link?: string;
 }
-
-type DefaultProps = typeof TransparentButton.defaultProps;
 
 export type TransparentButtonProps = Omit<Props, keyof DefaultProps> & Partial<DefaultProps>;
 
