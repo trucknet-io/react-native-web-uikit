@@ -1,32 +1,27 @@
 import * as React from "react";
-import {
-  Text,
-  TouchableOpacity,
-  GestureResponderEvent,
-  FlexAlignType,
-  TouchableOpacityProps,
-  TextStyle,
-} from "react-native";
+import { Text, TouchableOpacity, GestureResponderEvent, FlexAlignType, TouchableOpacityProps } from "react-native";
 import Colors from "src/Themes/Colors";
 import getShadowStyle from "src/Themes/getShadowStyle";
 import { styles } from "./styles";
 
 import LinearGradient from "src/Components/LinearGradient/LinearGradient";
 
-interface Props extends TouchableOpacityProps {
+interface DefaultProps {
+  gradientStartColor: string;
+  gradientEndColor: string;
+  textColor: string;
   borderRadius: number;
   width: string | number;
   marginVertical: string | number;
   marginHorizontal: string | number;
-  textColor: string;
-  alignItems: FlexAlignType;
-  label?: React.ReactNode;
-  style?: TouchableOpacityProps["style"] & TextStyle;
-  gradientStartColor: string;
-  gradientEndColor: string;
+  alignItems?: FlexAlignType;
 }
 
-type DefaultProps = typeof GradientButton.defaultProps;
+interface Props extends TouchableOpacityProps, DefaultProps {
+  label?: React.ReactNode;
+  borderWidth?: 0;
+  borderColor?: string;
+}
 
 export type GradientButtonProps = Omit<Props, keyof DefaultProps> & Partial<DefaultProps>;
 
