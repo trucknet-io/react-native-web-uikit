@@ -5,6 +5,7 @@ import Point from "./Components/Point";
 
 type Props = {
   currentProgress?: number;
+  isHorizontal?: boolean;
 };
 
 type State = {
@@ -25,17 +26,36 @@ class ProgressLine extends React.PureComponent<Props, State> {
 
   public render() {
     const { currentProgress } = this.props;
+    const progressLineStyles = this.getProgressLineStyles();
     return (
-      <View
-        style={[
-          styles.progressBar,
-          { backgroundColor: currentProgress ? Colors.transperentThemeColor : Colors.disable },
-        ]}>
-        <Animated.View style={[styles.verticalLine, { height: this.interpolate() }]} />
-        <Point currentProgress={currentProgress} />
+      <View style={progressLineStyles.container}>
+        <View
+          style={[
+            progressLineStyles.progressBarContainer,
+            { backgroundColor: currentProgress ? Colors.transperentThemeColor : Colors.disable },
+          ]}>
+          <Animated.View style={progressLineStyles.line} />
+          <Point currentProgress={currentProgress} />
+        </View>
+        <Point currentProgress={currentProgress} isHollowPoint />
       </View>
     );
   }
+
+  private getProgressLineStyles = () => {
+    if (this.props.isHorizontal) {
+      return {
+        container: styles.horizontalContainer,
+        progressBarContainer: styles.horizontalProgressBarContainer,
+        line: [styles.horizontalLine, { width: this.interpolate() }],
+      };
+    }
+    return {
+      container: styles.verticalContainer,
+      progressBarContainer: styles.verticalProgressBarContainer,
+      line: [styles.verticalLine, { height: this.interpolate() }],
+    };
+  };
 
   private interpolate = () =>
     this.state.progress.interpolate({
@@ -65,11 +85,24 @@ class ProgressLine extends React.PureComponent<Props, State> {
 export default ProgressLine;
 
 const styles = StyleSheet.create({
-  progressBar: {
-    width: 2,
-    height: "100%",
+  horizontalContainer: { flexDirection: "row", alignItems: "center" },
+  verticalContainer: { justifyContent: "center", alignItems: "center" },
+  horizontalProgressBarContainer: {
+    height: 2,
+    width: "99%",
     alignItems: "center",
-    marginHorizontal: 15,
+    marginVertical: 10,
+    flexDirection: "row",
+  },
+  horizontalLine: {
+    height: 2,
+    backgroundColor: Colors.themeColor,
+  },
+  verticalProgressBarContainer: {
+    width: 2,
+    height: "95%",
+    alignItems: "center",
+    marginHorizontal: 10,
   },
   verticalLine: {
     width: 2,

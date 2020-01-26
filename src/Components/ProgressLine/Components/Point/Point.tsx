@@ -4,21 +4,31 @@ import Colors from "src/Themes/Colors";
 
 type Props = {
   currentProgress?: number;
+  isHollowPoint?: boolean;
 };
 
-class Point extends React.PureComponent<Props> {
+export default class Point extends React.PureComponent<Props> {
   render() {
-    const { currentProgress } = this.props;
-    return <View style={[styles.point, { backgroundColor: currentProgress ? Colors.themeColor : Colors.disable }]} />;
+    const { currentProgress, isHollowPoint } = this.props;
+    const pointColor = currentProgress ? Colors.themeColor : Colors.disable;
+    const pointStyles = isHollowPoint
+      ? [styles.hollowPointContainer, { borderColor: pointColor }]
+      : [styles.pointContainer, { backgroundColor: pointColor }];
+    return <View style={pointStyles} />;
   }
 }
 
-export default Point;
-
 const styles = StyleSheet.create({
-  point: {
+  pointContainer: {
     width: 7,
     height: 7,
     borderRadius: 7,
+  },
+  hollowPointContainer: {
+    width: 10,
+    height: 10,
+    borderRadius: 5,
+    backgroundColor: Colors.background,
+    borderWidth: 2,
   },
 });

@@ -1,45 +1,50 @@
 import * as React from "react";
 import { View, StyleSheet } from "react-native";
 import ProgressLine from "src/Components/ProgressLine";
-import RideInfoColumn from "./Components/RideInformationColumn";
+import RideInfo from "./Components/RideInfo";
+import { getFormatedDate, getProgress } from "src/Helpers/progressCardHelpers";
 
 type Props = {
   origin: {
-    time: string;
-    day: string;
-    city: string;
-    address?: string;
+    date: Date;
+    city: React.ReactNode;
+    address?: React.ReactNode;
   };
   destination: {
-    time: string;
-    day: string;
-    city: string;
-    address?: string;
+    date: Date;
+    city: React.ReactNode;
+    address?: React.ReactNode;
   };
+  timeInfo?: React.ReactNode;
+  distanceInfo?: React.ReactNode;
   currentProgress?: number;
+  isHorizontal?: boolean;
 };
 
 class RideProgressCard extends React.PureComponent<Props> {
   public render() {
-    const { origin, destination } = this.props;
+    const { origin, destination, isHorizontal, currentProgress, timeInfo, distanceInfo } = this.props;
+    const progress = getProgress(origin.date, destination.date, currentProgress);
+    const originFormatedDate = getFormatedDate(origin.date);
+    const destinationFormatedDate = getFormatedDate(destination.date);
     return (
-      <View style={styles.container}>
-        <RideInfoColumn
-          style={styles.timeAndDateContainer}
-          firstBlockTitle={origin.time}
-          firstBlockText={origin.day}
-          secondBlockTitle={destination.time}
-          secondBlockText={destination.day}
+      <View style={[styles.container, { flexDirection: isHorizontal ? "column-reverse" : "row" }]}>
+        <RideInfo
+          originPrimaryText={originFormatedDate.time}
+          originSecondaryText={originFormatedDate.day}
+          destinationPrimaryText={destinationFormatedDate.time}
+          destinationSecondaryText={destinationFormatedDate.day}
+          extraRideInfo={distanceInfo}
+          isHorizontal={isHorizontal}
         />
-        <View>
-          <ProgressLine currentProgress={this.props.currentProgress} />
-        </View>
-        <RideInfoColumn
-          style={styles.citiesContainer}
-          firstBlockTitle={origin.city}
-          firstBlockText={origin.address}
-          secondBlockTitle={destination.city}
-          secondBlockText={destination.address}
+        <ProgressLine currentProgress={progress} isHorizontal={isHorizontal} />
+        <RideInfo
+          originPrimaryText={origin.city}
+          originSecondaryText={origin.address}
+          destinationPrimaryText={destination.city}
+          destinationSecondaryText={destination.address}
+          extraRideInfo={timeInfo}
+          isHorizontal={isHorizontal}
         />
       </View>
     );
@@ -52,15 +57,5 @@ const styles = StyleSheet.create({
   container: {
     flexGrow: 1,
     flexDirection: "row",
-  },
-  timeAndDateContainer: {
-    minHeight: 100,
-    maxWidth: 100,
-    justifyContent: "space-between",
-  },
-  citiesContainer: {
-    flexShrink: 1,
-    minHeight: 100,
-    justifyContent: "space-between",
   },
 });
