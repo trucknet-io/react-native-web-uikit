@@ -1,5 +1,5 @@
 import * as React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View, ViewStyle } from "react-native";
 import Point from "src/Components/Point";
 import colors, { getTransparentColor } from "src/Themes/Colors";
 import fonts from "src/Themes/Fonts";
@@ -8,6 +8,7 @@ interface IProps {
   color: string;
   primaryText: React.ReactNode;
   secondaryText?: React.ReactNode;
+  style?: ViewStyle;
 }
 
 class RideHeader extends React.PureComponent<IProps> {
@@ -20,6 +21,7 @@ class RideHeader extends React.PureComponent<IProps> {
           {
             backgroundColor: getTransparentColor(color),
           },
+          this.props.style,
         ]}>
         <View style={styles.textContainer}>
           <Point color={color} />
