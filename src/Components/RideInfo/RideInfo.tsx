@@ -9,7 +9,7 @@ interface IProps {
   style?: ViewStyle;
 }
 
-class CargoComponent extends React.Component<IProps> {
+class RideInfo extends React.Component<IProps> {
   public render() {
     const { properties } = this.props;
     return (
@@ -49,4 +49,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default CargoComponent;
+export default RideInfo;

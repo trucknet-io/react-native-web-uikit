@@ -13,6 +13,7 @@ import ProgressLine from "./Components/ProgressLine";
 import Modal from "./Components/Modal";
 import Avatar from "./Components/Avatar";
 import CroppedThumbnail from "./Components/CroppedThumbnail";
+import RideInfo from "./Components/RideInfo";
 
 export {
   GradientButton,
@@ -35,4 +36,5 @@ export {
   Modal,
   Avatar,
   CroppedThumbnail,
+  RideInfo,
 };
