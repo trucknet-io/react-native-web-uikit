@@ -16,7 +16,9 @@ class RideInfo extends React.Component<IProps> {
       <View style={[styles.container, this.props.style]}>
         <View style={styles.propertiesRawContainer}>
           {properties.map((property, index) => (
-            <RideProperty key={index.toString()} label={property.label}>
+            <RideProperty
+              key={typeof property.label === "string" ? property.label : index.toString()}
+              label={property.label}>
               <Text numberOfLines={1} style={styles.property}>
                 {property.content}
               </Text>
