@@ -6,15 +6,15 @@ import { action } from "@storybook/addon-actions";
 
 const stories = storiesOf("Calendar", module);
 
-stories.add("Calendar", () => (
-  <View style={{ width: 400 }}>
+stories.add("Calendar Light Theme", () => (
+  <View style={{ width: 300 }}>
     <Calendar isVisible onDayPress={action("onDayPress")} />
   </View>
 ));
 
-stories.add("Calendar 2", () => (
+stories.add("Calendar Dark Theme", () => (
   <View style={{ width: 300 }}>
-    <Calendar isVisible onDayPress={action("onDayPress")} />
+    <Calendar isVisible onDayPress={action("onDayPress")} theme="dark" />
   </View>
 ));
 
