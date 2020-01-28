@@ -1,10 +1,11 @@
 import * as React from "react";
-import { View, Text, StyleSheet, ViewStyle } from "react-native";
+import { View, Text, StyleSheet, ViewStyle, TextStyle } from "react-native";
 import { TransparentButton } from "src/Components/Buttons";
 import moment from "moment";
 import getShadowStyle from "src/Themes/getShadowStyle";
 import { ChevronLeft, ChevronRight } from "src/Components/Icons";
 import colors, { colorTheme } from "src/Themes/Colors";
+import { CalendarDay } from "./CalendarDay";
 
 interface Props {
   isVisible: Boolean;
@@ -13,16 +14,13 @@ interface Props {
   onPreviousMonthPress?(): void;
   currentDate: Date;
   style?: ViewStyle;
+  dayNumberFontStyle?: TextStyle;
+  dayNameFontsStyle?: TextStyle;
+  headerTextFontsStyle?: TextStyle;
   theme: "light" | "dark";
 }
 
-export type Day = {
-  day: string;
-  name: string;
-  date: Date;
-};
-
-class Calendar extends React.PureComponent<Props> {
+class MonthCalendar extends React.PureComponent<Props> {
   static defaultProps = {
     currentDate: new Date(),
     theme: "light",
@@ -34,13 +32,19 @@ class Calendar extends React.PureComponent<Props> {
       <View style={[styles.container, { backgroundColor: themeColors.background }, this.props.style]}>
         <View style={styles.headerContainer}>
           <View style={styles.monthContainer}>
-            <Text style={{ color: themeColors.defaultText }}>{moment(this.props.currentDate).format("MMMM Y")}</Text>
+            <Text style={[{ color: themeColors.defaultText }, this.props.headerTextFontsStyle]}>
+              {moment(this.props.currentDate).format("MMMM Y")}
+            </Text>
           </View>
           <View style={styles.switchMonthButtonsContainer}>
-            <TransparentButton style={{ width: undefined }} onPress={this.props.onPreviousMonthPress}>
+            <TransparentButton
+              style={[{ width: undefined }, this.props.headerTextFontsStyle]}
+              onPress={this.props.onPreviousMonthPress}>
               <ChevronLeft color={themeColors.defaultText} />
             </TransparentButton>
-            <TransparentButton style={{ width: undefined }} onPress={this.props.onNextMonthPress}>
+            <TransparentButton
+              style={[{ width: undefined }, this.props.headerTextFontsStyle]}
+              onPress={this.props.onNextMonthPress}>
               <ChevronRight color={themeColors.defaultText} />
             </TransparentButton>
           </View>
@@ -56,7 +60,7 @@ class Calendar extends React.PureComponent<Props> {
     for (let i = 0; i < 7; i++) {
       weekDayNames.push(
         <View style={styles.dayContainer}>
-          <Text style={styles.weekDay}>
+          <Text style={[styles.weekDay, this.props.dayNameFontsStyle]}>
             {moment(this.props.currentDate)
               .startOf("week")
               .add(i, "days")
@@ -80,49 +84,19 @@ class Calendar extends React.PureComponent<Props> {
     while (!day.isAfter(this.props.currentDate, "month")) {
       day = moment(startDay).add(i, "days");
       days.push(
-        <TransparentButton style={styles.dayContainer} onPress={this.handleDayPress(day)}>
-          {day.isSame(this.props.currentDate, "month") ? (
-            <Text
-              style={[
-                styles.monthDay,
-                { backgroundColor: this.getDayBackgroundColor(day), color: this.getDayTextColor(day) },
-              ]}>
-              {moment(day).date()}
-            </Text>
-          ) : null}
-        </TransparentButton>,
+        <CalendarDay
+          day={new Date(day.toString())}
+          currentDate={this.props.currentDate}
+          theme={this.props.theme}
+          onDayPress={this.props.onDayPress}
+          dayNumberFontStyle={this.props.dayNumberFontStyle}
+        />,
       );
 
       i++;
     }
     return days;
   };
-
-  private getDayBackgroundColor = (day) => {
-    const themeColors = colorTheme[this.props.theme];
-    if (day.isSame(this.props.currentDate, "day")) {
-      return themeColors.defaultText;
-    }
-    if (day.isSame(moment(), "day")) {
-      return themeColors.palette.veryLightGray;
-    }
-
-    return;
-  };
-
-  private getDayTextColor = (day) => {
-    const themeColors = colorTheme[this.props.theme];
-    if (day.isSame(this.props.currentDate, "day")) {
-      return themeColors.background;
-    }
-    if (day.isSame(moment(), "day")) {
-      return themeColors.background;
-    }
-
-    return themeColors.defaultText;
-  };
-
-  private handleDayPress = (day) => () => this.props.onDayPress(day);
 }
 
 const styles = StyleSheet.create({
@@ -131,7 +105,7 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     ...getShadowStyle(12),
   },
-  headerContainer: { flexDirection: "row", justifyContent: "space-between", paddingHorizontal: "5%" },
+  headerContainer: { flexDirection: "row", justifyContent: "space-between", paddingHorizontal: "7%" },
   monthContainer: { flex: 3, paddingVertical: 12 },
   switchMonthButtonsContainer: { flex: 1, flexDirection: "row", justifyContent: "space-between" },
   weekDaysContainer: { flexDirection: "row" },
@@ -153,4 +127,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Calendar;
+export default MonthCalendar;
