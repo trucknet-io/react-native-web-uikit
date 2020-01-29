@@ -1,6 +1,6 @@
 import React from "react";
 import { View, ViewStyle, StyleSheet, TextStyle } from "react-native";
-import { CalendarDay } from "src/Components/MonthCalendar";
+import CalendarDay from "src/Components/CalendarDay";
 import moment from "moment";
 import { colorTheme } from "src/Themes/Colors";
 
@@ -9,7 +9,7 @@ type Props = {
   onDayPress(date: Date): void;
   theme: "dark" | "light";
   style?: ViewStyle;
-  daySize: number;
+  fontSize: number;
   dayNumberFontStyle?: TextStyle;
   dayNameFontsStyle?: TextStyle;
 };
@@ -18,7 +18,7 @@ class Calendar extends React.PureComponent<Props> {
   static defaultProps = {
     currentDate: new Date(),
     theme: "light",
-    daySize: 28,
+    fontSize: 14,
   };
 
   public render() {
@@ -40,9 +40,7 @@ class Calendar extends React.PureComponent<Props> {
         onDayPress={this.props.onDayPress}
         theme={this.props.theme}
         type="week"
-        size={this.props.daySize}
-        dayNameFontsStyle={this.props.dayNameFontsStyle}
-        dayNumberFontStyle={this.props.dayNumberFontStyle}
+        fontSize={this.props.fontSize}
       />
     );
   };

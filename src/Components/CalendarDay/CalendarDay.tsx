@@ -1,6 +1,6 @@
 import moment from "moment";
 import React from "react";
-import { Text, StyleSheet, View, TextStyle } from "react-native";
+import { Text, StyleSheet } from "react-native";
 import { TransparentButton } from "src/Components/Buttons";
 import colors, { colorTheme } from "src/Themes/Colors";
 
@@ -9,48 +9,41 @@ type Props = {
   day: Date;
   onDayPress(date: Date): void;
   theme: "light" | "dark";
-  size: number;
+  fontSize: number;
   type: "month" | "week";
-  dayNumberFontStyle?: TextStyle;
-  dayNameFontsStyle?: TextStyle;
 };
 
-export class CalendarDay extends React.PureComponent<Props> {
+export default class CalendarDay extends React.PureComponent<Props> {
   static defaultProps = {
-    size: 28,
     type: "month",
+    theme: "light",
+    fontSize: 14,
   };
   public render() {
-    const { day, size, type } = this.props;
+    const { day, fontSize, type } = this.props;
     return (
       <TransparentButton style={styles.dayContainer} onPress={this.handleDayPress}>
-        <View style={{ alignItems: "center", justifyContent: "center" }}>
-          {this.renderDayName()}
-          {moment(day).isSame(this.props.currentDate, type) ? (
-            <Text
-              style={[
-                styles.day,
-                {
-                  minWidth: size,
-                  minHeight: size,
-                  lineHeight: size,
-                  borderRadius: size / 2,
-                },
-                { backgroundColor: this.getDayBackgroundColor(), color: this.getDayTextColor() },
-                this.props.dayNumberFontStyle,
-              ]}>
-              {moment(day).date()}
-            </Text>
-          ) : null}
-        </View>
+        {moment(day).isSame(this.props.currentDate, type) ? (
+          <Text
+            style={[
+              styles.day,
+              {
+                minWidth: fontSize * 2,
+                minHeight: fontSize * 2,
+                lineHeight: fontSize * 2,
+                borderRadius: fontSize,
+                fontSize,
+              },
+              { backgroundColor: this.getDayBackgroundColor(), color: this.getDayTextColor() },
+            ]}>
+            {moment(day)
+              .date()
+              .toString()}
+          </Text>
+        ) : null}
       </TransparentButton>
     );
   }
-
-  private renderDayName = () => {
-    if (!(this.props.type === "week")) return null;
-    return <Text style={[styles.day, this.props.dayNameFontsStyle]}>{moment(this.props.day).format("dd")}</Text>;
-  };
 
   private getDayBackgroundColor = () => {
     const themeColors = colorTheme[this.props.theme];
@@ -83,7 +76,7 @@ export class CalendarDay extends React.PureComponent<Props> {
 
 const styles = StyleSheet.create({
   dayContainer: {
-    width: `${100 / 7}%`,
+    flexBasis: `${100 / 7}%`,
     alignItems: "center",
     justifyContent: "center",
     paddingVertical: 12,

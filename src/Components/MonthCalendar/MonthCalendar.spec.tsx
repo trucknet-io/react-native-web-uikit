@@ -2,24 +2,11 @@ import { render, waitForElement } from "@testing-library/react-native";
 import * as React from "react";
 import MonthCalendar from "./MonthCalendar";
 
-it("should render not Calendar", async () => {
-  const { queryByText } = render(
-    <MonthCalendar isVisible={false} currentDate={new Date("04/20/2020")} onDayPress={() => {}} />,
-  );
-  const CalendarText = queryByText("April", { exact: false });
-  expect(CalendarText).toBeNull();
-});
-
 it("should render April Calendar", async () => {
-  const { queryByText } = render(
-    <MonthCalendar isVisible currentDate={new Date("04/20/2020")} onDayPress={() => {}} />,
-  );
-  const monthName = queryByText("April", { exact: false });
-  expect(monthName).toBeTruthy();
-  const dayName = waitForElement(() => queryByText("Mo"));
-  expect(dayName).toBeTruthy();
-  const firstDay = waitForElement(() => queryByText("1"));
+  const { getByText } = render(<MonthCalendar currentDate={new Date("04/20/2020")} onDayPress={() => {}} />);
+
+  const firstDay = await waitForElement(() => getByText("1"));
   expect(firstDay).toBeTruthy();
-  const lastDay = waitForElement(() => queryByText("31"));
+  const lastDay = await waitForElement(() => getByText("30"));
   expect(lastDay).toBeTruthy();
 });
