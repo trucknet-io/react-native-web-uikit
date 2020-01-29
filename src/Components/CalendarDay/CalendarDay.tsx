@@ -1,17 +1,17 @@
 import moment from "moment";
 import React from "react";
 import { Text, StyleSheet } from "react-native";
-import { TransparentButton } from "src/Components/Buttons";
+import { TransparentButton, TransparentButtonProps } from "src/Components/Buttons";
 import colors, { colorTheme } from "src/Themes/Colors";
 
-type Props = {
+interface Props extends TransparentButtonProps {
   currentDate: Date;
   day: Date;
   onDayPress(date: Date): void;
   theme: "light" | "dark";
   fontSize: number;
   type: "month" | "week";
-};
+}
 
 export default class CalendarDay extends React.PureComponent<Props> {
   static defaultProps = {
@@ -20,9 +20,9 @@ export default class CalendarDay extends React.PureComponent<Props> {
     fontSize: 14,
   };
   public render() {
-    const { day, fontSize, type } = this.props;
+    const { day, fontSize, type, ...rest } = this.props;
     return (
-      <TransparentButton style={styles.dayContainer} onPress={this.handleDayPress}>
+      <TransparentButton style={styles.dayContainer} onPress={this.handleDayPress} {...rest}>
         {moment(day).isSame(this.props.currentDate, type) ? (
           <Text
             style={[

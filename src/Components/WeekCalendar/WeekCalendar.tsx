@@ -1,5 +1,5 @@
 import React from "react";
-import { View, ViewStyle, StyleSheet, TextStyle } from "react-native";
+import { View, ViewStyle, StyleSheet } from "react-native";
 import CalendarDay from "src/Components/CalendarDay";
 import moment from "moment";
 import { colorTheme } from "src/Themes/Colors";
@@ -10,8 +10,6 @@ type Props = {
   theme: "dark" | "light";
   style?: ViewStyle;
   fontSize: number;
-  dayNumberFontStyle?: TextStyle;
-  dayNameFontsStyle?: TextStyle;
 };
 
 class Calendar extends React.PureComponent<Props> {

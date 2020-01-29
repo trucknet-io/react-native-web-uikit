@@ -6,12 +6,10 @@ import { action } from "@storybook/addon-actions";
 
 const stories = storiesOf("WeekCalendar", module);
 
-stories.add("WeekCalendar Light Theme", () => (
-  <WeekCalendar onDayPress={action("onDayPress")} fontSize={20} dayNumberFontStyle={{ fontSize: 24 }} />
-));
+stories.add("WeekCalendar Light Theme", () => <WeekCalendar onDayPress={action("onDayPress")} fontSize={20} />);
 
 stories.add("WeekCalendar Dark Theme", () => (
-  <WeekCalendar onDayPress={action("onDayPress")} theme="dark" fontSize={20} dayNumberFontStyle={{ fontSize: 24 }} />
+  <WeekCalendar onDayPress={action("onDayPress")} theme="dark" fontSize={20} />
 ));
 
 stories.add("WeekCalendar in container Light Theme", () => (

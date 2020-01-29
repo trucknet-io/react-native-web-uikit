@@ -59,14 +59,22 @@ class CalendarContainer extends React.PureComponent<Props, State> {
           {this.renderSwitchMonthButtons()}
         </View>
         <View style={styles.weekDaysContainer}>{this.renderWeekDayNames()}</View>
-        {this.state.isMonthCalendarOpen ? (
-          <MonthCalendar {...this.props} currentDate={this.state.currentDate} onDayPress={this.handleDayPress} />
-        ) : (
-          <WeekCalendar {...this.props} currentDate={this.state.currentDate} onDayPress={this.handleDayPress} />
-        )}
+        {this.renderCalendar()}
       </View>
     );
   }
+
+  private renderCalendar = () => {
+    const calendarProps = {
+      style: this.props.style,
+      theme: this.props.theme,
+      currentDate: this.state.currentDate,
+      onDayPress: this.handleDayPress,
+    };
+
+    if (this.state.isMonthCalendarOpen) return <MonthCalendar {...calendarProps} />;
+    return <WeekCalendar {...calendarProps} />;
+  };
 
   private toggleCalendar = () => this.setState({ isMonthCalendarOpen: !this.state.isMonthCalendarOpen });
   private handleDayPress = (date: Date) => this.setState({ currentDate: date }, this.handleDateChange);
