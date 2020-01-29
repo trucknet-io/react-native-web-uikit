@@ -3,7 +3,7 @@ import { View, StyleSheet, ViewStyle } from "react-native";
 import moment from "moment";
 import { colorTheme } from "src/Themes/Colors";
 import CalendarDay from "src/Components/CalendarDay";
-
+import getShadowStyle from "src/Themes/getShadowStyle";
 interface Props {
   onDayPress(day: Date): void;
   currentDate: Date;
@@ -21,8 +21,10 @@ class MonthCalendar extends React.PureComponent<Props> {
   public render() {
     const themeColors = colorTheme[this.props.theme];
     return (
-      <View style={[styles.container, { backgroundColor: themeColors.background }, this.props.style]}>
-        <View style={styles.monthDaysContainer}>{this.renderMonthDayNumbers()}</View>
+      <View style={styles.container}>
+        <View style={[styles.monthDaysContainer, { backgroundColor: themeColors.background }, this.props.style]}>
+          {this.renderMonthDayNumbers()}
+        </View>
       </View>
     );
   }
@@ -56,13 +58,12 @@ class MonthCalendar extends React.PureComponent<Props> {
 
 const styles = StyleSheet.create({
   container: {
-    flexGrow: 1,
-    borderRadius: 4,
+    height: 0,
   },
   headerContainer: { flexDirection: "row", justifyContent: "space-between", paddingHorizontal: "7%" },
   monthContainer: { flex: 3, paddingVertical: 12 },
   switchMonthButtonsContainer: { flex: 1, flexDirection: "row", justifyContent: "space-between" },
-  monthDaysContainer: { flexDirection: "row", flexWrap: "wrap" },
+  monthDaysContainer: { flexDirection: "row", flexWrap: "wrap", ...getShadowStyle(4) },
   dayContainer: {
     width: `${100 / 7}%`,
     alignItems: "center",

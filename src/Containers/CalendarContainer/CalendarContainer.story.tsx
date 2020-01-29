@@ -6,7 +6,11 @@ import { action } from "@storybook/addon-actions";
 
 const stories = storiesOf("Calendar", module);
 
-stories.add("Calendar Light Theme", () => <CalendarContainer onDateChange={action("onDayPress")} fontSize={20} />);
+stories.add("Calendar Light Theme", () => (
+  <View>
+    <CalendarContainer onDateChange={action("onDayPress")} fontSize={20} />
+  </View>
+));
 
 stories.add("Calendar Dark Theme", () => (
   <CalendarContainer onDateChange={action("onDayPress")} theme="dark" fontSize={20} />

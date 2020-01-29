@@ -66,7 +66,6 @@ class CalendarContainer extends React.PureComponent<Props, State> {
 
   private renderCalendar = () => {
     const calendarProps = {
-      style: this.props.style,
       theme: this.props.theme,
       currentDate: this.state.currentDate,
       onDayPress: this.handleDayPress,
@@ -146,9 +145,8 @@ class CalendarContainer extends React.PureComponent<Props, State> {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    ...getShadowStyle(6),
-  },
+  container: getShadowStyle(4),
+
   headerContainer: {
     flexDirection: "row",
     justifyContent: "space-between",
