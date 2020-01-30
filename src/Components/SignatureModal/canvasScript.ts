@@ -1,4 +1,4 @@
-var canvasScript = `
+export var canvasScript = `
   var bodyWidth = document.body.clientWidth;
   var bodyHeight = document.body.clientHeight;
   if (!bodyWidth) {
@@ -75,5 +75,3 @@ var canvasScript = `
     e.preventDefault();
     window.ReactNativeWebView.postMessage(canvas.toDataURL());
   });`;
-
-module.exports = { canvasScript: canvasScript };
