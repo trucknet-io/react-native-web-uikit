@@ -2,7 +2,7 @@ import React from "react";
 import { View, ViewStyle, StyleSheet } from "react-native";
 import MonthCalendar from "src/Containers/Calendar/Components/MonthCalendar";
 import WeekCalendar from "src/Containers/Calendar/Components/WeekCalendar";
-import { colorTheme } from "src/Themes/Colors";
+import colors, { colorTheme } from "src/Themes/Colors";
 import CurrentMonth from "../../Components/CurrentMonth";
 import SwitchMonthButtons from "../../Components/SwitchMonthButtons";
 import WeekDays from "../../Components/WeekDays";
@@ -96,6 +96,7 @@ const styles = StyleSheet.create({
     zIndex: 100,
     top: "101%",
     width: "100%",
+    backgroundColor: colors.background,
     ...getShadowStyle(),
   },
 });

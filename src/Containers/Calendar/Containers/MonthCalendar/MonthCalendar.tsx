@@ -57,10 +57,10 @@ class MonthCalendarContainer extends React.PureComponent<Props, State> {
             style={{ width: undefined }}
             marginHorizontal={8}
             accessibilityLabel="cancel">
-            <Text>{this.props.cancel.cancelLabel}</Text>
+            <Text style={{ color: themeColors.defaultText }}>{this.props.cancel.cancelLabel}</Text>
           </TransparentButton>
           <TransparentButton onPress={this.handleSubmit} style={{ width: undefined }} accessibilityLabel="submit">
-            <Text>{this.props.submit.submitLabel}</Text>
+            <Text style={{ color: themeColors.defaultText }}>{this.props.submit.submitLabel}</Text>
           </TransparentButton>
         </View>
       </View>

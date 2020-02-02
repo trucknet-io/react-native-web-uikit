@@ -1,7 +1,7 @@
 import * as React from "react";
 import { storiesOf } from "@storybook/react-native";
 import MonthCalendar from "./MonthCalendar";
-import { View, Text } from "react-native";
+import { View } from "react-native";
 import { action } from "@storybook/addon-actions";
 import { darkColors } from "src/Themes/Colors";
 import getShadowStyle from "src/Themes/getShadowStyle";
@@ -21,10 +21,10 @@ stories.add("Month Calendar container Light Theme", () => (
 stories.add("Month Calendar container Dark Theme", () => (
   <View style={{ width: 450 }}>
     <MonthCalendar
-      submit={{ onSubmit: action("onSubmit"), submitLabel: <Text style={{ color: darkColors.defaultText }}>Ok</Text> }}
+      submit={{ onSubmit: action("onSubmit"), submitLabel: "Ok" }}
       cancel={{
         onCancel: action("onCancel"),
-        cancelLabel: <Text style={{ color: darkColors.defaultText }}>Cancel</Text>,
+        cancelLabel: "Cancel",
       }}
       theme="dark"
       style={{ backgroundColor: darkColors.background, ...getShadowStyle() }}
