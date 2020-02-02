@@ -14,8 +14,9 @@ import Modal from "./Components/Modal";
 import Avatar from "./Components/Avatar";
 import CroppedThumbnail from "./Components/CroppedThumbnail";
 import {
-  CalendarContainerMobile,
-  CalendarContainerTablet,
+  CalendarContainer,
+  Calendar,
+  CalendarTablet,
   MonthCalendar,
   CalendarDay,
   WeekCalendar,
@@ -46,7 +47,8 @@ export {
   CalendarDay,
   WeekCalendar,
   MonthCalendar,
-  CalendarContainerMobile,
-  CalendarContainerTablet,
+  CalendarContainer,
+  Calendar,
+  CalendarTablet,
   MonthCalendarContainer,
 };

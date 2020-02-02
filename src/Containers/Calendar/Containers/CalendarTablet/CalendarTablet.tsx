@@ -11,8 +11,8 @@ type Props = {
   currentDate: Date;
   onDateChange(date: Date): void;
   theme: "dark" | "light";
-  submitLabel: React.ReactNode;
-  cancelLabel: React.ReactNode;
+  submitLabel?: React.ReactNode;
+  cancelLabel?: React.ReactNode;
   style?: ViewStyle;
   calendarStyle?: ViewStyle;
 };
@@ -22,7 +22,7 @@ type State = {
   currentDate: Date;
 };
 
-class CalendarContainerTablet extends React.PureComponent<Props, State> {
+class CalendarTablet extends React.PureComponent<Props, State> {
   static defaultProps = {
     currentDate: new Date(),
     theme: "light",
@@ -102,4 +102,4 @@ const styles = StyleSheet.create({
   month: { paddingHorizontal: 8 },
 });
 
-export default CalendarContainerTablet;
+export default CalendarTablet;

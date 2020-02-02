@@ -47,7 +47,9 @@
       "outputFile": "./rn_storybook/storyLoader.js"
     }
   },
-  "dependencies": {},
+  "dependencies": {
+    "react-native-device-info": "^5.4.4"
+  },
   "devDependencies": {
     "@babel/core": "^7.5.5",
     "@babel/preset-flow": "^7.0.0",

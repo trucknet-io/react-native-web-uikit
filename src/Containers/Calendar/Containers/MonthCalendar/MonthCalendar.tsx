@@ -10,11 +10,11 @@ type Props = {
   currentDate: Date;
   submit: {
     onSubmit(date: Date): void;
-    submitLabel: React.ReactNode;
+    submitLabel?: React.ReactNode;
   };
   cancel: {
     onCancel(): void;
-    cancelLabel: React.ReactNode;
+    cancelLabel?: React.ReactNode;
   };
   theme: "dark" | "light";
   style?: ViewStyle;
@@ -41,7 +41,7 @@ class MonthCalendarContainer extends React.PureComponent<Props, State> {
       <View style={[styles.container, style]}>
         <View style={styles.headerContainer}>
           <View style={styles.monthContainer}>
-            <Text style={[{ color: themeColors.defaultText }]}>{moment(this.state.currentDate).format("MMMM Y")}</Text>
+            <Text style={{ color: themeColors.defaultText }}>{moment(this.state.currentDate).format("MMMM Y")}</Text>
           </View>
           <SwitchMonthButtons
             style={styles.switchButtonsContainer}
@@ -57,10 +57,10 @@ class MonthCalendarContainer extends React.PureComponent<Props, State> {
             style={{ width: undefined }}
             marginHorizontal={8}
             accessibilityLabel="cancel">
-            <Text style={{ color: themeColors.defaultText }}>{this.props.cancel.cancelLabel}</Text>
+            <Text style={{ color: themeColors.defaultText }}>{this.props.cancel.cancelLabel || "Cancel"}</Text>
           </TransparentButton>
           <TransparentButton onPress={this.handleSubmit} style={{ width: undefined }} accessibilityLabel="submit">
-            <Text style={{ color: themeColors.defaultText }}>{this.props.submit.submitLabel}</Text>
+            <Text style={{ color: themeColors.defaultText }}>{this.props.submit.submitLabel || "Ok"}</Text>
           </TransparentButton>
         </View>
       </View>

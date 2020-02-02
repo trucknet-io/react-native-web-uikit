@@ -1,11 +1,16 @@
 import { render, waitForElement, fireEvent } from "@testing-library/react-native";
 import * as React from "react";
-import CalendarContainerMobile from "./CalendarContainerMobile";
+import CalendarTablet from "./CalendarTablet";
 
 it("should render Week Calendar", async () => {
   const onDateChange = jest.fn();
   const { queryByText } = render(
-    <CalendarContainerMobile currentDate={new Date("04/21/2020")} onDateChange={onDateChange} />,
+    <CalendarTablet
+      currentDate={new Date("04/21/2020")}
+      onDateChange={onDateChange}
+      submitLabel="Ok"
+      cancelLabel="cancel"
+    />,
   );
   const firstDay = await waitForElement(() => queryByText("Su"));
   expect(firstDay).toBeTruthy();
@@ -16,7 +21,12 @@ it("should render Week Calendar", async () => {
 it("should toggle Month Calendar", async () => {
   const onDateChange = jest.fn();
   const { getByLabelText, getByText } = render(
-    <CalendarContainerMobile currentDate={new Date("04/21/2020")} onDateChange={onDateChange} />,
+    <CalendarTablet
+      currentDate={new Date("04/21/2020")}
+      onDateChange={onDateChange}
+      submitLabel="Ok"
+      cancelLabel="cancel"
+    />,
   );
   const ToggleMonthButton = getByLabelText("toggleMonthCalendar");
   fireEvent.press(ToggleMonthButton);
@@ -29,12 +39,21 @@ it("should toggle Month Calendar", async () => {
 it("should switch to next month", async () => {
   const onDateChange = jest.fn();
   const { getByLabelText, getByText } = render(
-    <CalendarContainerMobile currentDate={new Date("04/21/2020")} onDateChange={onDateChange} />,
+    <CalendarTablet
+      currentDate={new Date("04/21/2020")}
+      onDateChange={onDateChange}
+      submitLabel="Ok"
+      cancelLabel="cancel"
+    />,
   );
+
   const ToggleMonthButton = getByLabelText("toggleMonthCalendar");
   fireEvent.press(ToggleMonthButton);
   const NextMonthButton = getByLabelText("nextMonth");
   fireEvent.press(NextMonthButton);
+  expect(onDateChange).toHaveBeenCalledTimes(0);
+  const SubmitButton = getByLabelText("submit");
+  fireEvent.press(SubmitButton);
   expect(onDateChange).toHaveBeenCalledTimes(1);
   const month = await waitForElement(() => getByText("May", { exact: false }));
   expect(month).toBeTruthy();
@@ -43,13 +62,40 @@ it("should switch to next month", async () => {
 it("should switch to previous month", async () => {
   const onDateChange = jest.fn();
   const { getByLabelText, getByText } = render(
-    <CalendarContainerMobile currentDate={new Date("04/21/2020")} onDateChange={onDateChange} />,
+    <CalendarTablet
+      currentDate={new Date("04/21/2020")}
+      onDateChange={onDateChange}
+      submitLabel="Ok"
+      cancelLabel="cancel"
+    />,
   );
+
   const ToggleMonthButton = getByLabelText("toggleMonthCalendar");
   fireEvent.press(ToggleMonthButton);
   const PrevMonthButton = getByLabelText("prevMonth");
   fireEvent.press(PrevMonthButton);
+  const SubmitButton = getByLabelText("submit");
+  fireEvent.press(SubmitButton);
   expect(onDateChange).toHaveBeenCalledTimes(1);
   const month = await waitForElement(() => getByText("March", { exact: false }));
   expect(month).toBeTruthy();
+});
+
+it("should not change data on cancel", async () => {
+  const onDateChange = jest.fn();
+  const { getByLabelText, getByText } = render(
+    <CalendarTablet
+      currentDate={new Date("04/21/2020")}
+      onDateChange={onDateChange}
+      submitLabel="Ok"
+      cancelLabel="cancel"
+    />,
+  );
+  const ToggleMonthButton = getByLabelText("toggleMonthCalendar");
+  fireEvent.press(ToggleMonthButton);
+  const day = await waitForElement(() => getByText("1"));
+  fireEvent.press(day);
+  const CancelButton = getByLabelText("cancel");
+  fireEvent.press(CancelButton);
+  expect(onDateChange).toHaveBeenCalledTimes(0);
 });
