@@ -4,7 +4,7 @@ import RideProgressCard from "./RideProgressCard";
 import { View } from "react-native";
 import { object } from "@storybook/addon-knobs/react";
 
-const stories = storiesOf("Ride Progress Card", module);
+const stories = storiesOf("Ride|Ride Progress Card", module);
 
 const fakeProps = [
   {

@@ -4,7 +4,7 @@ import LinearGradient from "./LinearGradient";
 import { color, object } from "@storybook/addon-knobs/react";
 import Colors from "src/Themes/Colors";
 
-const stories = storiesOf("Gradient", module);
+const stories = storiesOf("Colors|Gradient", module);
 stories.add("Gradient", () => (
   <LinearGradient
     style={object("style", { padding: "25%" })}

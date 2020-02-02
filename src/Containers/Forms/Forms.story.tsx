@@ -5,8 +5,8 @@ import Form from "./FormContainer";
 import { object, select } from "@storybook/addon-knobs/react";
 import { action } from "@storybook/addon-actions";
 
-const stories = storiesOf("Forms", module);
-stories.add("LoginForm", () => (
+const loginFormStories = storiesOf("Forms|Login Form", module);
+loginFormStories.add("Login Form", () => (
   <LoginForm
     callback={object("callback", {
       handleSubmit: action("Submit"),
@@ -29,7 +29,9 @@ stories.add("LoginForm", () => (
   />
 ));
 
-stories.add("Form", () => (
+const formStories = storiesOf("Forms|Form", module);
+
+formStories.add("Form", () => (
   <Form
     handleSubmit={action("Submit")}
     fields={object("fields", {
@@ -42,4 +44,4 @@ stories.add("Form", () => (
   />
 ));
 
-export default stories;
+export default { loginFormStories, formStories };

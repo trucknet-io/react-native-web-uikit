@@ -4,7 +4,7 @@ import CroppedThumbnail from "./CroppedThumbnail";
 import { View, StyleSheet } from "react-native";
 import { object, number } from "@storybook/addon-knobs/react";
 
-const stories = storiesOf("Cropped Thumbnail", module);
+const stories = storiesOf("Thumbnail|Cropped Thumbnail", module);
 
 stories.add("Resize to small thumbnail by width", () => (
   <View style={styles.smallImageContainer}>

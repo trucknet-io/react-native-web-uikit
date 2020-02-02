@@ -4,8 +4,8 @@ import SignatureModal from "./SignatureModal";
 import { boolean } from "@storybook/addon-knobs/react";
 import { action } from "@storybook/addon-actions";
 
-const stories = storiesOf("SignatureModal", module);
-stories.add("SignatureModal", () => (
+const stories = storiesOf("Modals|Signature Modal", module);
+stories.add("Signature Modal", () => (
   <SignatureModal
     isVisible={boolean(`isVisible`, true)}
     onBackdropPress={action("BackdropPress")}

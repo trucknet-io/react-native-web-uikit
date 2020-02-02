@@ -6,7 +6,7 @@ import { boolean, object } from "@storybook/addon-knobs/react";
 import Colors from "src/Themes/Colors";
 import { StyleSheet } from "react-native";
 
-const stories = storiesOf("Modals", module);
+const stories = storiesOf("Modals|Modal", module);
 
 stories.add("Modal", () => (
   <Modal isVisible={boolean("isVisible", true)} style={object("styles", { padding: "2%" })}>

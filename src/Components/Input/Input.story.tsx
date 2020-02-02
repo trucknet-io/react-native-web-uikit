@@ -4,7 +4,7 @@ import InputField from "./Input";
 import { action } from "@storybook/addon-actions";
 import { object } from "@storybook/addon-knobs/react";
 
-const stories = storiesOf("InputField", module);
+const stories = storiesOf("Forms|Input Field", module);
 stories.add("Input Field", () => (
   <InputField
     label="input"

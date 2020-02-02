@@ -4,7 +4,7 @@ import Avatar from "./Avatar";
 import { View, StyleSheet } from "react-native";
 import { number, object } from "@storybook/addon-knobs/react";
 
-const stories = storiesOf("Avatar", module);
+const stories = storiesOf("Thumbnail|Avatar", module);
 
 stories.add("Avatar with letter", () => (
   <View style={styles.container}>

@@ -6,7 +6,7 @@ import { styles } from "./styles";
 interface DefaultProps {
   linkColor: string;
   textColor: string;
-  borderWidth: 0;
+  borderWidth: number;
   borderColor: string;
   borderRadius: number;
   width: string | number;

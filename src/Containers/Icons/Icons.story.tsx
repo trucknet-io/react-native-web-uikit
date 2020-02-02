@@ -4,7 +4,7 @@ import IconsContainer from "./IconsContainer";
 
 const Icons = () => <IconsContainer />;
 
-const stories = storiesOf("Icons", module);
+const stories = storiesOf("Icons|Icons", module);
 
 stories.add("Icons", Icons);
 
