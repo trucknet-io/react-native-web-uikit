@@ -37,9 +37,7 @@ class CalendarContainerMobile extends React.PureComponent<Props, State> {
     const { theme } = this.props;
     return (
       <View>
-        <View
-          key={this.props.currentDate.toString()}
-          style={[{ backgroundColor: themeColors.background }, this.props.style]}>
+        <View style={[{ backgroundColor: themeColors.background }, this.props.style]}>
           <View style={styles.headerContainer}>
             <CurrentMonth
               theme={theme}

@@ -8,8 +8,14 @@ import { TransparentButton } from "src/Components/Buttons/TransparentButton";
 
 type Props = {
   currentDate: Date;
-  onSubmit(date: Date): void;
-  onCancel(): void;
+  submit: {
+    onSubmit(date: Date): void;
+    submitLabel: React.ReactNode;
+  };
+  cancel: {
+    onCancel(): void;
+    cancelLabel: React.ReactNode;
+  };
   theme: "dark" | "light";
   style?: ViewStyle;
 };
@@ -18,7 +24,7 @@ type State = {
   currentDate: Date;
 };
 
-class MonthCalendarTablet extends React.PureComponent<Props, State> {
+class MonthCalendarContainer extends React.PureComponent<Props, State> {
   static defaultProps = {
     currentDate: new Date(),
     theme: "light",
@@ -32,7 +38,7 @@ class MonthCalendarTablet extends React.PureComponent<Props, State> {
     const themeColors = colorTheme[this.props.theme];
     const { theme, style } = this.props;
     return (
-      <View style={[styles.container, style]} key={this.props.currentDate.toString()}>
+      <View style={[styles.container, style]}>
         <View style={styles.headerContainer}>
           <View style={styles.monthContainer}>
             <Text style={[{ color: themeColors.defaultText }]}>{moment(this.state.currentDate).format("MMMM Y")}</Text>
@@ -47,21 +53,21 @@ class MonthCalendarTablet extends React.PureComponent<Props, State> {
         <MonthCalendar currentDate={this.state.currentDate} theme={theme} onDayPress={this.handleDateChange} />
         <View style={styles.footerContainer}>
           <TransparentButton
-            onPress={this.props.onCancel}
+            onPress={this.props.cancel.onCancel}
             style={{ width: undefined }}
             marginHorizontal={8}
             accessibilityLabel="cancel">
-            <Text>Cancel</Text>
+            <Text>{this.props.cancel.cancelLabel}</Text>
           </TransparentButton>
           <TransparentButton onPress={this.handleSubmit} style={{ width: undefined }} accessibilityLabel="submit">
-            <Text>Ok</Text>
+            <Text>{this.props.submit.submitLabel}</Text>
           </TransparentButton>
         </View>
       </View>
     );
   }
 
-  private handleSubmit = () => this.props.onSubmit(this.state.currentDate);
+  private handleSubmit = () => this.props.submit.onSubmit(this.state.currentDate);
   private handleDateChange = (date: Date) => this.setState({ currentDate: date });
 }
 
@@ -79,4 +85,4 @@ const styles = StyleSheet.create({
   footerContainer: { flexDirection: "row", paddingHorizontal: "6%" },
 });
 
-export default MonthCalendarTablet;
+export default MonthCalendarContainer;

@@ -1,6 +1,6 @@
 import React from "react";
 import { View, ViewStyle, StyleSheet } from "react-native";
-import MonthCalendarTablet from "../MonthCalendar";
+import MonthCalendar from "../MonthCalendar";
 import WeekCalendar from "src/Containers/Calendar/Components/WeekCalendar";
 import { colorTheme } from "src/Themes/Colors";
 import CurrentMonth from "../../Components/CurrentMonth";
@@ -11,6 +11,8 @@ type Props = {
   currentDate: Date;
   onDateChange(date: Date): void;
   theme: "dark" | "light";
+  submitLabel: React.ReactNode;
+  cancelLabel: React.ReactNode;
   style?: ViewStyle;
   calendarStyle?: ViewStyle;
 };
@@ -36,9 +38,7 @@ class CalendarContainerTablet extends React.PureComponent<Props, State> {
     const { theme } = this.props;
     return (
       <View>
-        <View
-          key={this.props.currentDate.toString()}
-          style={[{ backgroundColor: themeColors.background }, this.props.style]}>
+        <View style={[{ backgroundColor: themeColors.background }, this.props.style]}>
           <View style={styles.headerContainer}>
             <CurrentMonth
               theme={theme}
@@ -58,10 +58,11 @@ class CalendarContainerTablet extends React.PureComponent<Props, State> {
         </View>
         <View style={[styles.calendarContainer, { backgroundColor: themeColors.background }, this.props.calendarStyle]}>
           {this.state.isMonthCalendarOpen ? (
-            <MonthCalendarTablet
+            <MonthCalendar
+              key={this.state.currentDate.toString()}
               currentDate={this.state.currentDate}
-              onSubmit={this.handleCalendarDateChange}
-              onCancel={this.toggleCalendar}
+              submit={{ onSubmit: this.handleCalendarDateChange, submitLabel: this.props.submitLabel }}
+              cancel={{ onCancel: this.toggleCalendar, cancelLabel: this.props.cancelLabel }}
               theme={theme}
             />
           ) : null}

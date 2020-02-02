@@ -26,7 +26,7 @@ class Calendar extends React.PureComponent<Props> {
   private renderDay = (day) => {
     return (
       <CalendarDay
-        day={day}
+        day={new Date(day.toString())}
         key={day.toString()}
         currentDate={this.props.currentDate}
         onDayPress={this.props.onDayPress}
