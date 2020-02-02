@@ -71,7 +71,9 @@ export default class CalendarDay extends React.PureComponent<Props> {
     return themeColors.defaultText;
   };
 
-  private handleDayPress = () => this.props.onDayPress(this.props.day);
+  private handleDayPress = () => {
+    this.props.onDayPress(this.props.day);
+  };
 }
 
 const styles = StyleSheet.create({

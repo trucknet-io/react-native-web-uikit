@@ -5,7 +5,7 @@ import { action } from "@storybook/addon-actions";
 import { View } from "react-native";
 import { darkColors } from "src/Themes/Colors";
 
-const stories = storiesOf("CalendarDay", module);
+const stories = storiesOf("Calendar|Calendar Day", module);
 
 stories.add("Calendar Day Light Theme", () => (
   <CalendarDay

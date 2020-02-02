@@ -1,8 +1,7 @@
 import React from "react";
 import { View, ViewStyle, StyleSheet } from "react-native";
-import CalendarDay from "src/Components/CalendarDay";
+import CalendarDay from "src/Containers/Calendar/Components/CalendarDay";
 import moment from "moment";
-import { colorTheme } from "src/Themes/Colors";
 
 type Props = {
   currentDate: Date;
@@ -21,12 +20,7 @@ class Calendar extends React.PureComponent<Props> {
 
   public render() {
     const weekDays = this.getWeekDays();
-    const themeColors = colorTheme[this.props.theme];
-    return (
-      <View style={[styles.container, { backgroundColor: themeColors.background }, this.props.style]}>
-        {weekDays.map(this.renderDay)}
-      </View>
-    );
+    return <View style={[styles.container, this.props.style]}>{weekDays.map(this.renderDay)}</View>;
   }
 
   private renderDay = (day) => {
