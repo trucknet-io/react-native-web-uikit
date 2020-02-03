@@ -2,11 +2,19 @@ import * as React from "react";
 
 import { View, StyleSheet, Animated, Keyboard } from "react-native";
 import * as Icons from "src/Components/Icons";
-import { colorTheme } from "src/Themes/Colors";
 import { TransparentButton } from "src/Components/Buttons";
 import FormContainer from "./FormContainer";
+import withTheme, { ThemeProps } from "src/Themes/withTheme";
 
-type Props = {
+interface DefaultProps {
+  text: {
+    submitLabel: string;
+    forgotPasswordButtonLabel: string;
+  };
+  componentsSizeRatio: number;
+}
+
+interface Props extends ThemeProps, DefaultProps {
   fields: {
     email: {
       label: string;
@@ -23,36 +31,27 @@ type Props = {
     handleSubmit(res: { email: string; password: string }): void;
     onForgotPasswordPress?(): void;
   };
-  text: {
-    submitLabel: string;
-    forgotPasswordButtonLabel: string;
-  };
-  theme: "light" | "dark";
-  componentsSizeRatio: number;
   logo?: React.ReactNode;
-};
+}
 
 type State = {
   subElementsOpacity: Animated.Value;
-  colors: typeof colorTheme;
 };
 
 class LoginFormContainer extends React.PureComponent<Props, State> {
   keyboardDidShowListener;
   keyboardDidHideListener;
 
-  static defaultProps = {
+  static defaultProps: DefaultProps = {
     text: {
       submitLabel: "sign in",
       forgotPasswordButtonLabel: "Forgot your passport?",
     },
-    theme: "light",
     componentsSizeRatio: 1,
   };
 
   state = {
     subElementsOpacity: new Animated.Value(1),
-    colors: colorTheme,
   };
 
   public componentDidMount() {
@@ -66,11 +65,10 @@ class LoginFormContainer extends React.PureComponent<Props, State> {
   }
 
   public render() {
-    const { fields } = this.props;
-    const theme = this.state.colors[this.props.theme];
+    const { fields, colors } = this.props;
     const formKey = `${fields.email.initialValue}${fields.password.initialValue}`;
     return (
-      <View style={[styles.container, { backgroundColor: theme.background }]}>
+      <View style={[styles.container, { backgroundColor: colors.containerBackground }]}>
         {this.renderLogoContainer()}
         <FormContainer
           fields={{
@@ -83,7 +81,6 @@ class LoginFormContainer extends React.PureComponent<Props, State> {
               secureTextEntry: true,
             },
           }}
-          theme={this.props.theme}
           handleSubmit={this.handleSubmit}
           paddingHorizontal={0}
           paddingTop={84}
@@ -124,13 +121,12 @@ class LoginFormContainer extends React.PureComponent<Props, State> {
   };
 
   private renderLogo = () => {
-    const theme = this.state.colors[this.props.theme];
     if (this.props.logo) {
       return this.props.logo;
     }
     return (
       <Icons.TrucknetLogo
-        color={theme.defaultText}
+        color={this.props.colors.defaultText}
         height={24 * this.props.componentsSizeRatio}
         width={182 * this.props.componentsSizeRatio}
       />
@@ -162,4 +158,4 @@ const styles = StyleSheet.create({
   buttonsContainer: { flex: 0.3, width: "100%", justifyContent: "space-around" },
 });
 
-export default LoginFormContainer;
+export default withTheme<Props, DefaultProps>()(LoginFormContainer);

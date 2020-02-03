@@ -17,7 +17,7 @@ class Placeholder extends React.PureComponent<Props> {
   };
   public render() {
     return (
-      <View style={[styles.container, { backgroundColor: this.props.colors.background }]}>
+      <View style={[styles.container, { backgroundColor: this.props.colors.containerBackground }]}>
         {isWeb ? this.renderWebPlaceholder() : this.renderNativePlaceholderLines()}
       </View>
     );

@@ -1,7 +1,7 @@
 import Colors from "src/Themes/Colors";
 import { parseDataUrl, ParsedDataUrlType } from "src/Helpers/regexHelpers";
 import * as React from "react";
-import { Text, View, StyleSheet, ActivityIndicator } from "react-native";
+import { Text, View, StyleSheet, ActivityIndicator, ViewStyle } from "react-native";
 import Modal from "src/Components/Modal";
 import { TransparentButton } from "src/Components/Buttons";
 import { canvasHTML } from "./canvasHTML";
@@ -22,6 +22,7 @@ interface Props extends DefaultProps, ThemeProps<Styles> {
   onSignApply(data: ParsedDataUrlType): void;
   headerText?: React.ReactNode;
   helperText?: React.ReactNode;
+  style?: ViewStyle;
 }
 
 type State = {
@@ -91,6 +92,7 @@ class SignatureModal extends React.PureComponent<Props> {
   };
   private renderModal = () => (
     <Modal
+      style={this.props.style}
       isVisible={this.props.isVisible}
       onBackdropPress={this.props.onBackdropPress}
       onModalShow={this.unSubmitSignApply}>
@@ -99,16 +101,15 @@ class SignatureModal extends React.PureComponent<Props> {
   );
 
   renderSignView = () => {
-    const { colors } = this.props;
     return (
-      <View style={[this.props.styles.container, { backgroundColor: colors.background }]}>
+      <View style={this.props.styles.container}>
         {this.renderHeaderText()}
         {this.renderHelperText()}
-        <View style={[this.props.styles.webViewContainer, { backgroundColor: colors.webViewBackground }]}>
+        <View style={this.props.styles.webViewContainer}>
           <WebView
             ref={this.setWebViewRef}
             onMessage={this.onMessage}
-            style={[this.props.styles.webView, { backgroundColor: colors.webViewBackground }]}
+            style={this.props.styles.webView}
             automaticallyAdjustContentInsets={false}
             javaScriptEnabled={true}
             source={{ html: canvasHTML }}
@@ -122,16 +123,14 @@ class SignatureModal extends React.PureComponent<Props> {
     );
   };
   private renderHeaderText = () => {
-    const { colors } = this.props;
     if (this.props.headerText) {
-      return <Text style={[this.props.styles.headerText, { color: colors.defaultText }]}>{this.props.headerText}</Text>;
+      return <Text style={this.props.styles.headerText}>{this.props.headerText}</Text>;
     }
     return;
   };
   private renderHelperText = () => {
-    const { colors } = this.props;
     if (this.props.helperText) {
-      return <Text style={[this.props.styles.helperText, { color: colors.defaultText }]}>{this.props.helperText}</Text>;
+      return <Text style={this.props.styles.helperText}>{this.props.helperText}</Text>;
     }
     return;
   };
@@ -170,7 +169,7 @@ const getStyles = ({ colors, fonts }: ThemeParamsType) =>
       flex: 1,
       paddingHorizontal: 20,
       paddingTop: 10,
-      borderRadius: 5,
+      backgroundColor: colors.background,
     },
     activityIndicatorContainer: {
       height: 48,
@@ -182,10 +181,12 @@ const getStyles = ({ colors, fonts }: ThemeParamsType) =>
       padding: 2,
       borderColor: colors.palette.veryLightGray,
       marginTop: 15,
+      backgroundColor: colors.webViewBackground,
     },
     webView: {
       flex: 1,
       borderRadius: 5,
+      backgroundColor: colors.webViewBackground,
     },
     buttonsContainer: {
       marginTop: 25,
@@ -196,10 +197,12 @@ const getStyles = ({ colors, fonts }: ThemeParamsType) =>
     headerText: {
       ...fonts.Title,
       marginVertical: 5,
+      color: colors.defaultText,
     },
     helperText: {
       ...fonts.MTitle,
       marginVertical: 5,
+      color: colors.defaultText,
     },
     buttonTextContainer: {
       marginHorizontal: 4,

@@ -1,9 +1,15 @@
 import * as React from "react";
 import { ThemeProvider } from "src/Contexts/ThemeContext";
+import { ThemeType } from "src/Themes/withTheme";
 
-class ThemeProviderWrapper extends React.PureComponent {
-  public state = {
-    theme: "light" as "light",
+type Props = { children: React.ReactChild };
+type State = {
+  theme: ThemeType;
+};
+
+class ThemeProviderWrapper extends React.PureComponent<Props, State> {
+  public state: State = {
+    theme: "light",
   };
 
   render() {

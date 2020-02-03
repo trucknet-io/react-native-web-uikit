@@ -16,7 +16,7 @@ class Placeholder extends React.PureComponent<Props> {
   };
   public render() {
     return (
-      <View style={[styles.container, { backgroundColor: this.props.colors.background }]}>
+      <View style={[styles.container, { backgroundColor: this.props.colors.containerBackground }]}>
         <View style={styles.mapIconContainer}>
           <MapPlaceholderIcon color={this.props.colors.defaultText} width={150} height={150} />
         </View>

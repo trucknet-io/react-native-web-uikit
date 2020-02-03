@@ -2,8 +2,9 @@ import * as React from "react";
 import { storiesOf } from "@storybook/react-native";
 import LoginForm from "./LoginFormContainer";
 import Form from "./FormContainer";
-import { object, select } from "@storybook/addon-knobs/react";
+import { object } from "@storybook/addon-knobs/react";
 import { action } from "@storybook/addon-actions";
+import { validateEmail, validatePassword } from "src/Helpers/validateHelpers";
 
 const loginFormStories = storiesOf("Forms|Login Form", module);
 loginFormStories.add("Login Form", () => (
@@ -17,15 +18,14 @@ loginFormStories.add("Login Form", () => (
       email: {
         label: "Email",
         initialValue: "lol@lol.ru",
-        validate: action("validate email"),
+        validate: validateEmail,
       },
       password: {
         label: "Password",
         initialValue: "123123123",
-        validate: action("validate password"),
+        validate: validatePassword,
       },
     })}
-    theme={select("theme", { light: "light", dark: "dark" })}
   />
 ));
 
@@ -35,12 +35,11 @@ formStories.add("Form", () => (
   <Form
     handleSubmit={action("Submit")}
     fields={object("fields", {
-      email: { label: "email", validate: action("validateEmail"), keyboardType: "email-address" },
-      pass: { label: "pass", validate: action("validatePassword"), secureTextEntry: true },
+      email: { label: "email", validate: validateEmail, keyboardType: "email-address" },
+      pass: { label: "pass", validate: validatePassword, secureTextEntry: true },
       phone: { label: "phone", keyboardType: "phone-pad" },
     })}
     submitLabel="Sign in"
-    theme={select("theme", { light: "light", dark: "dark" })}
   />
 ));
 

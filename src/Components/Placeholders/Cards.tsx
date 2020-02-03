@@ -20,7 +20,7 @@ export class Placeholder extends React.PureComponent<Props> {
   };
   public render() {
     return (
-      <View style={[styles.container, { backgroundColor: this.props.colors.background }]}>
+      <View style={[styles.container, { backgroundColor: this.props.colors.containerBackground }]}>
         <FlatList
           style={{ width: "100%" }}
           data={this.renderPlaceholderLines()}

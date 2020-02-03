@@ -22,6 +22,8 @@ import {
   WeekCalendar,
   MonthCalendarContainer,
 } from "./Containers/Calendar";
+import ThemeProviderWrapper from "src/Wrappers/ThemeProviderWrapper";
+import withTheme, { ThemeProps, ThemeParamsType, ThemeType } from "src/Themes/withTheme";
 
 export {
   GradientButton,
@@ -51,4 +53,9 @@ export {
   Calendar,
   CalendarTablet,
   MonthCalendarContainer,
+  ThemeProviderWrapper,
+  withTheme,
+  ThemeProps,
+  ThemeParamsType,
+  ThemeType,
 };

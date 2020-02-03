@@ -12,11 +12,10 @@ class ToggleThemeWrapper extends React.PureComponent<Props> {
       <View style={this.props.styles.container}>
         <TransparentButton
           label="Toggle Theme"
-          borderWidth={1}
           onPress={this.props.toggleTheme}
           style={this.props.styles.buttonStyle}
         />
-        {this.props.children}
+        <View style={this.props.styles.childrenContainer}>{this.props.children}</View>
       </View>
     );
   }
@@ -24,11 +23,13 @@ class ToggleThemeWrapper extends React.PureComponent<Props> {
 
 const getStyles = ({ colors, variables }: ThemeParamsType) =>
   StyleSheet.create({
-    container: { backgroundColor: colors.containerBackground, height: "100%", padding: variables.size.m },
+    container: { backgroundColor: colors.containerBackground, height: "100%" },
+    childrenContainer: { padding: variables.size.s },
     buttonStyle: {
-      width: undefined,
       padding: variables.size.m,
       marginBottom: variables.size.m,
+      borderWidth: 1,
+      borderRadius: 0,
     },
   });
 

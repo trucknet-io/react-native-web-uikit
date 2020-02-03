@@ -85,4 +85,4 @@ const getStyles = ({ colors }: ThemeParamsType) =>
     footerContainer: { flexDirection: "row", paddingHorizontal: "6%" },
   });
 
-export default withTheme<Props, DefaultProps>()(MonthCalendarContainer);
+export default withTheme<Props, DefaultProps>(getStyles)(MonthCalendarContainer);

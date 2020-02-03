@@ -2,17 +2,18 @@ import * as React from "react";
 import { StyleSheet, View, Text, ScrollView } from "react-native";
 import Colors from "src/Themes/Colors";
 import { isWeb } from "src/Helpers/platform";
-import withTheme, { ThemeProps } from "src/Themes/withTheme";
+import withTheme, { ThemeProps, ThemeParamsType } from "src/Themes/withTheme";
 
-interface Props extends ThemeProps<typeof styles> {}
+type Styles = ReturnType<typeof getStyles>;
+interface Props extends ThemeProps<Styles> {}
 
 class ColorsGallery extends React.PureComponent<Props> {
   public render() {
     return (
-      <ScrollView style={styles.container}>
-        <View style={styles.colorViewContainer}>
+      <ScrollView style={this.props.styles.container}>
+        <View style={this.props.styles.colorViewContainer}>
           {this.renderColors()}
-          <Text style={[styles.text, { fontSize: 18 }]}>Palette Colors</Text>
+          <Text style={[this.props.styles.text, { fontSize: 18 }]}>Palette Colors</Text>
           {this.renderPaletteColors()}
         </View>
       </ScrollView>
@@ -25,8 +26,8 @@ class ColorsGallery extends React.PureComponent<Props> {
     return colorNames.map((colorName) => {
       return (
         <View>
-          <Text style={styles.text}>{colorName}</Text>
-          <View style={[styles.colorView, { backgroundColor: theme[colorName] }]} />
+          <Text style={this.props.styles.text}>{colorName}</Text>
+          <View style={[this.props.styles.colorView, { backgroundColor: theme[colorName] }]} />
         </View>
       );
     });
@@ -38,38 +39,40 @@ class ColorsGallery extends React.PureComponent<Props> {
       if (color === "palette" || typeof this.props.colors[color] !== "string") return <View />;
       return (
         <View>
-          <Text style={styles.text}>{color}</Text>
-          <View style={[styles.colorView, { backgroundColor: this.props.colors[color] }]} />
+          <Text style={this.props.styles.text}>{color}</Text>
+          <View style={[this.props.styles.colorView, { backgroundColor: this.props.colors[color] }]} />
         </View>
       );
     });
   };
 }
 
-const styles = StyleSheet.create({
-  container: {
-    backgroundColor: Colors.palette.veryVeryLightGray,
-    padding: 50,
-    width: "100%",
-  },
-  text: {
-    margin: 2,
-    marginTop: 10,
-  },
-  colorViewContainer: {
-    flex: 1,
-    width: "100%",
-    alignItems: "center",
-    justifyContent: "center",
-    margin: 5,
-  },
-  colorView: {
-    width: isWeb ? 450 : 200,
-    height: 65,
-    borderRadius: 4,
-    borderColor: Colors.borderColor,
-    borderWidth: 1,
-  },
-});
+const getStyles = ({ colors }: ThemeParamsType) =>
+  StyleSheet.create({
+    container: {
+      backgroundColor: colors.containerBackground,
+      padding: 50,
+      width: "100%",
+    },
+    text: {
+      margin: 2,
+      marginTop: 10,
+      color: colors.defaultText,
+    },
+    colorViewContainer: {
+      flex: 1,
+      width: "100%",
+      alignItems: "center",
+      justifyContent: "center",
+      margin: 5,
+    },
+    colorView: {
+      width: isWeb ? 450 : 200,
+      height: 65,
+      borderRadius: 4,
+      borderColor: colors.borderColor,
+      borderWidth: 1,
+    },
+  });
 
-export default withTheme<Props>()(ColorsGallery);
+export default withTheme<Props>(getStyles)(ColorsGallery);
