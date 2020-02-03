@@ -6,8 +6,8 @@ import { withInfo } from "@storybook/addon-info";
 import { withSmartKnobs } from "storybook-addon-smart-knobs";
 import { addReadme } from "storybook-readme";
 import { addReadmeToStory } from "./readmeDecorator";
-import { setOptions } from "@storybook/addon-options";
 import StoryWrapper from "src/Wrappers/StoryWrapper";
+import { setOptions } from "@storybook/addon-options";
 
 setOptions({
   hierarchySeparator: /\/|\./,

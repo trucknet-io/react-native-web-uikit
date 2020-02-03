@@ -1,16 +1,12 @@
 import * as React from "react";
 import { StyleSheet, View, Text, ScrollView } from "react-native";
-import Colors, { colorTheme } from "src/Themes/Colors";
-import LinearGradient from "src/Components/LinearGradient/LinearGradient";
+import Colors from "src/Themes/Colors";
 import { isWeb } from "src/Helpers/platform";
-type Props = {
-  theme: "light" | "dark";
-};
+import withTheme, { ThemeProps } from "src/Themes/withTheme";
+
+interface Props extends ThemeProps<typeof styles> {}
 
 class ColorsGallery extends React.PureComponent<Props> {
-  static defaultProps = {
-    theme: "light",
-  };
   public render() {
     return (
       <ScrollView style={styles.container}>
@@ -24,7 +20,7 @@ class ColorsGallery extends React.PureComponent<Props> {
   }
 
   renderPaletteColors = () => {
-    const theme = colorTheme[this.props.theme].palette;
+    const theme = this.props.colors.palette;
     const colorNames = Object.keys(Colors.palette);
     return colorNames.map((colorName) => {
       return (
@@ -37,30 +33,15 @@ class ColorsGallery extends React.PureComponent<Props> {
   };
 
   renderColors = () => {
-    const theme = colorTheme[this.props.theme];
-    const colorNames = Object.keys(Colors);
-    return colorNames.map((colorName) => {
-      if (colorName !== "palette") {
-        if (typeof theme[colorName] === "string") {
-          return (
-            <View>
-              <Text style={styles.text}>{colorName}</Text>
-              <View style={[styles.colorView, { backgroundColor: theme[colorName] }]} />
-            </View>
-          );
-        }
-        return (
-          <View>
-            <Text style={styles.text}>{colorName}</Text>
-            <LinearGradient
-              style={styles.colorView}
-              gradientStartColor={theme[colorName].gradientColor1}
-              gradientEndColor={theme[colorName].gradientColor2}
-            />
-          </View>
-        );
-      }
-      return <View />;
+    const colorNames = Object.keys(this.props.colors);
+    return colorNames.map((color) => {
+      if (color === "palette" || typeof this.props.colors[color] !== "string") return <View />;
+      return (
+        <View>
+          <Text style={styles.text}>{color}</Text>
+          <View style={[styles.colorView, { backgroundColor: this.props.colors[color] }]} />
+        </View>
+      );
     });
   };
 }
@@ -91,4 +72,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ColorsGallery;
+export default withTheme<Props>()(ColorsGallery);

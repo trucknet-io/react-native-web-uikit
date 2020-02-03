@@ -2,33 +2,25 @@ import * as React from "react";
 import { StyleSheet, View } from "react-native";
 import MapPlaceholderIcon from "src/Components/Icons/MapPlaceholderIcon";
 import { ParagraphPlaceholder } from "./Paragraph";
-import { colorTheme } from "src/Themes/Colors";
+import withTheme, { ThemeProps } from "src/Themes/withTheme";
 
-interface Props {
+interface DefaultProps {
   lines: number;
-  theme: "light" | "dark";
 }
 
-interface State {
-  colors: typeof colorTheme;
-}
+interface Props extends DefaultProps, ThemeProps {}
 
-export class MapPlaceholder extends React.PureComponent<Props, State> {
-  state = {
-    colors: colorTheme,
-  };
-  public static defaultProps = {
+class Placeholder extends React.PureComponent<Props> {
+  public static defaultProps: DefaultProps = {
     lines: 5,
-    theme: "light",
   };
   public render() {
-    const theme = this.state.colors[this.props.theme];
     return (
-      <View style={[styles.container, { backgroundColor: theme.background }]}>
+      <View style={[styles.container, { backgroundColor: this.props.colors.background }]}>
         <View style={styles.mapIconContainer}>
-          <MapPlaceholderIcon color={theme.defaultText} width={150} height={150} />
+          <MapPlaceholderIcon color={this.props.colors.defaultText} width={150} height={150} />
         </View>
-        <ParagraphPlaceholder lines={this.props.lines} theme={this.props.theme} />
+        <ParagraphPlaceholder lines={this.props.lines} />
       </View>
     );
   }
@@ -47,3 +39,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
 });
+
+let MapPlaceholder = withTheme<Props, DefaultProps>()(Placeholder);
+
+export { MapPlaceholder };

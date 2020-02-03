@@ -1,8 +1,8 @@
 import * as React from "react";
 import { StyleSheet, Text, View, ImageURISource } from "react-native";
 import CroppedThumbnail, { CroppedThumbnailProps } from "src/Components/CroppedThumbnail";
-import Colors from "src/Themes/Colors";
 import Fonts from "src/Themes/Fonts";
+import withTheme, { ThemeProps, ThemeParamsType } from "src/Themes/withTheme";
 
 const AVATAR_SIZES = {
   small: 28,
@@ -10,17 +10,22 @@ const AVATAR_SIZES = {
   large: 44,
 };
 
-interface IProps extends CroppedThumbnailProps {
+type Style = ReturnType<typeof getStyle>;
+
+interface DefaultProps {
   size: keyof typeof AVATAR_SIZES | number;
-  accessibilityLabel: string;
   name: string;
+}
+
+interface Props extends CroppedThumbnailProps, DefaultProps, ThemeProps<Style> {
+  accessibilityLabel: string;
   imageId?: string;
   uriCloudName?: string;
   source?: ImageURISource;
 }
 
-class Avatar extends React.PureComponent<IProps> {
-  public static defaultProps = {
+class Avatar extends React.PureComponent<Props> {
+  public static defaultProps: DefaultProps = {
     size: "medium",
     name: "?",
   };
@@ -28,7 +33,7 @@ class Avatar extends React.PureComponent<IProps> {
   public render() {
     const avatarStyles = this.getAvatarStyles();
     return (
-      <View style={[avatarStyles, styles.container, this.props.style]}>
+      <View style={[avatarStyles, this.props.styles.container, this.props.style]}>
         {this.props.imageId ? this.renderImage() : this.renderNameFirstLetter()}
       </View>
     );
@@ -36,14 +41,19 @@ class Avatar extends React.PureComponent<IProps> {
 
   private renderNameFirstLetter = () => {
     const avatarSize = this.getAvatarSize();
-    return <Text style={[styles.letter, { fontSize: avatarSize / 2 }]}>{this.props.name.charAt(0)}</Text>;
+    return <Text style={[this.props.styles.letter, { fontSize: avatarSize / 2 }]}>{this.props.name.charAt(0)}</Text>;
   };
 
   private renderImage = () => {
     const imageId = this.props.imageId as string;
     const avatarSize = this.getAvatarSize();
     return (
-      <CroppedThumbnail {...this.props} imageId={imageId} width={avatarSize} style={styles.avatarImageContainer} />
+      <CroppedThumbnail
+        {...this.props}
+        imageId={imageId}
+        width={avatarSize}
+        style={this.props.styles.avatarImageContainer}
+      />
     );
   };
 
@@ -64,24 +74,25 @@ class Avatar extends React.PureComponent<IProps> {
   };
 }
 
-const styles = StyleSheet.create({
-  container: {
-    alignItems: "center",
-    justifyContent: "center",
-    margin: 2,
-    backgroundColor: Colors.subBackground,
-    borderColor: Colors.defaultText,
-    overflow: "hidden",
-    borderWidth: 1,
-  },
-  letter: {
-    ...Fonts.style.ThinTitle,
-    textTransform: "uppercase",
-    color: Colors.defaultText,
-  },
-  avatarImageContainer: {
-    flexGrow: 1,
-  },
-});
+const getStyle = ({ colors }: ThemeParamsType) =>
+  StyleSheet.create({
+    container: {
+      alignItems: "center",
+      justifyContent: "center",
+      margin: 2,
+      backgroundColor: colors.subBackground,
+      borderColor: colors.defaultText,
+      overflow: "hidden",
+      borderWidth: 1,
+    },
+    letter: {
+      ...Fonts.BodyRegular,
+      textTransform: "uppercase",
+      color: colors.defaultText,
+    },
+    avatarImageContainer: {
+      flexGrow: 1,
+    },
+  });
 
-export default Avatar;
+export default withTheme<Props, DefaultProps>(getStyle)(Avatar);

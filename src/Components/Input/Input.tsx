@@ -12,26 +12,26 @@ import {
   TouchableWithoutFeedback,
   KeyboardType,
 } from "react-native";
-import Colors from "src/Themes/Colors";
 import InputField, { TargetedEvent } from "./InputField";
-import Fonts from "src/Themes/Fonts";
+import withTheme, { ThemeProps, ThemeParamsType } from "src/Themes/withTheme";
 
-interface Props {
+type Style = ReturnType<typeof getStyle>;
+
+interface DefaultProps {
+  secureTextEntry: boolean;
+  keyboardType: KeyboardType;
+  width: number | string;
+}
+
+interface Props extends ThemeProps<Style>, DefaultProps {
   label: React.ReactNode;
   labelStyle?: TextStyle;
   onChangeTextValidated(res: { value: string | undefined; isValid: boolean }): void;
-  width: number | string;
-  onSuccessInputFieldColor: string;
-  textColor: string;
   validateValue?(value?: string): React.ReactNode | void;
-  secureTextEntry: boolean;
   initialValue?: string;
   onFocus?(e: NativeSyntheticEvent<TextInputFocusEventData>): void;
   onBlur?(e: NativeSyntheticEvent<TargetedEvent>): void;
   onSubmitEditing?(e: NativeSyntheticEvent<TextInputSubmitEditingEventData>): void;
-  keyboardType: KeyboardType;
-  errorFontSize: number;
-  errorColor: string;
   textInputStyle?: TextStyle;
   textInputProps?: TextInputProps;
 }
@@ -44,14 +44,10 @@ type State = {
 class Input extends React.PureComponent<Props, State> {
   private textInput?: TextInput;
 
-  static defaultProps = {
-    onSuccessInputFieldColor: Colors.themeColor,
-    textColor: Colors.defaultText,
+  static defaultProps: DefaultProps = {
     secureTextEntry: false,
     keyboardType: "default",
     width: "100%",
-    errorFontSize: 12,
-    errorColor: Colors.error,
   };
 
   state = {
@@ -66,7 +62,7 @@ class Input extends React.PureComponent<Props, State> {
   };
 
   public render() {
-    const { width, errorFontSize, errorColor } = this.props;
+    const { width, styles, colors, fonts } = this.props;
     return (
       <View style={[styles.container, { width }]}>
         <TouchableWithoutFeedback onPress={this.handleLabelPress}>
@@ -92,10 +88,10 @@ class Input extends React.PureComponent<Props, State> {
           onSubmitEditing={this.handleSubmitEditing}
           onChangeText={this.handleChangeText}
           borderBottomColor={this.getFieldColor()}
-          color={this.props.textColor}
+          color={this.props.colors.defaultText}
           initialValue={this.props.initialValue}
         />
-        <Text style={[styles.error, { fontSize: errorFontSize, color: errorColor }]}>{this.state.error}</Text>
+        <Text style={[styles.error, { ...fonts.BodySmall, color: colors.error }]}>{this.state.error}</Text>
       </View>
     );
   }
@@ -141,35 +137,37 @@ class Input extends React.PureComponent<Props, State> {
 
   private getLabelColor = () => {
     if (!this.state.value) {
-      return Colors.palette.lightGray;
+      return this.props.colors.palette.lightGray;
     }
     if (this.state.error) {
-      return this.props.errorColor;
+      return this.props.colors.error;
     }
-    return this.props.textColor;
+    return this.props.colors.defaultText;
   };
 
   private getFieldColor = () => {
     if (!this.state.value) {
-      return Colors.palette.lightGray;
+      return this.props.colors.palette.lightGray;
     }
     if (this.state.error) {
-      return this.props.errorColor;
+      return this.props.colors.error;
     }
-    return this.props.onSuccessInputFieldColor;
+    return this.props.colors.themeColor;
   };
 }
 
-const styles = StyleSheet.create({
-  container: {
-    marginTop: 16,
-    flexGrow: 1,
-    justifyContent: "flex-end",
-  },
-  error: {
-    height: 24,
-  },
-  label: Fonts.style.BodyRegular,
-});
+const getStyle = ({ fonts }: ThemeParamsType) => {
+  return StyleSheet.create({
+    container: {
+      marginTop: 16,
+      flexGrow: 1,
+      justifyContent: "flex-end",
+    },
+    error: {
+      height: 24,
+    },
+    label: fonts.BodyRegular,
+  });
+};
 
-export default Input;
+export default withTheme<Props, DefaultProps>(getStyle)(Input);

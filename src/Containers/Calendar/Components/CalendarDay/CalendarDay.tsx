@@ -2,21 +2,22 @@ import moment from "moment";
 import React from "react";
 import { Text, StyleSheet } from "react-native";
 import { TransparentButton, TransparentButtonProps } from "src/Components/Buttons";
-import colors, { colorTheme } from "src/Themes/Colors";
+import withTheme, { ThemeProps } from "src/Themes/withTheme";
 
-interface Props extends TransparentButtonProps {
-  currentDate: Date;
-  day: Date;
-  onDayPress(date: Date): void;
-  theme: "light" | "dark";
+interface DefaultProps {
   fontSize: number;
   type: "month" | "week";
 }
 
-export default class CalendarDay extends React.PureComponent<Props> {
-  static defaultProps = {
+interface Props extends DefaultProps, ThemeProps, TransparentButtonProps {
+  currentDate: Date;
+  day: Date;
+  onDayPress(date: Date): void;
+}
+
+class CalendarDay extends React.PureComponent<Props> {
+  static defaultProps: DefaultProps = {
     type: "month",
-    theme: "light",
     fontSize: 14,
   };
   public render() {
@@ -46,29 +47,27 @@ export default class CalendarDay extends React.PureComponent<Props> {
   }
 
   private getDayBackgroundColor = () => {
-    const themeColors = colorTheme[this.props.theme];
     const day = moment(this.props.day);
     if (day.isSame(this.props.currentDate, "day")) {
-      return themeColors.defaultText;
+      return this.props.colors.defaultText;
     }
     if (day.isSame(moment(), "day")) {
-      return themeColors.palette.veryLightGray;
+      return this.props.colors.palette.veryLightGray;
     }
 
     return;
   };
 
   private getDayTextColor = () => {
-    const themeColors = colorTheme[this.props.theme];
     const day = moment(this.props.day);
     if (day.isSame(this.props.currentDate, "day")) {
-      return themeColors.background;
+      return this.props.colors.background;
     }
     if (day.isSame(moment(), "day")) {
-      return themeColors.background;
+      return this.props.colors.background;
     }
 
-    return themeColors.defaultText;
+    return this.props.colors.defaultText;
   };
 
   private handleDayPress = () => {
@@ -85,6 +84,7 @@ const styles = StyleSheet.create({
   },
   day: {
     textAlign: "center",
-    color: colors.subtitle,
   },
 });
+
+export default withTheme<Props, DefaultProps>()(CalendarDay);

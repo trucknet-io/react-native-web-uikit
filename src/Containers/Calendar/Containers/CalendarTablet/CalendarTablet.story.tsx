@@ -6,15 +6,9 @@ import { action } from "@storybook/addon-actions";
 
 const stories = storiesOf("Calendar|Calendar Tablet", module);
 
-stories.add("Tablet Calendar Light Theme", () => (
+stories.add("Tablet Calendar", () => (
   <View style={{ width: 650 }}>
     <CalendarTablet onDateChange={action("onDayPress")} submitLabel="Ok" cancelLabel="Cancel" />
-  </View>
-));
-
-stories.add("Tablet Calendar Dark Theme", () => (
-  <View style={{ width: 650 }}>
-    <CalendarTablet onDateChange={action("onDayPress")} theme="dark" cancelLabel="Cancel" submitLabel="Ok" />
   </View>
 ));
 

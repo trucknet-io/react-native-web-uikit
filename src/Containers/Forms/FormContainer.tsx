@@ -74,7 +74,6 @@ class LoginFormContainer extends React.PureComponent<Props, State> {
   }
 
   private renderInputs = () => {
-    const theme = this.state.colors[this.props.theme];
     const fieldNames = Object.keys(this.props.fields);
 
     return fieldNames.map((fieldName, index) => {
@@ -88,8 +87,6 @@ class LoginFormContainer extends React.PureComponent<Props, State> {
           secureTextEntry={field.secureTextEntry}
           validateValue={this.validateValue(fieldName)}
           onChangeTextValidated={this.setValue(fieldName)}
-          onSuccessInputFieldColor={theme.themeColor}
-          textColor={theme.defaultText}
           keyboardType={field.keyboardType}
           initialValue={field.initialValue}
           onSubmitEditing={this.handleInputSubmit(nextInputName)}

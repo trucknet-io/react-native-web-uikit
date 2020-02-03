@@ -3,13 +3,13 @@ import { Text, TouchableOpacity, GestureResponderEvent, FlexAlignType, Touchable
 import Colors from "src/Themes/Colors";
 import getShadowStyle from "src/Themes/getShadowStyle";
 import { styles } from "./styles";
+import withTheme, { ThemeProps } from "src/Themes/withTheme";
 
 import LinearGradient from "src/Components/LinearGradient/LinearGradient";
 
 interface DefaultProps {
   gradientStartColor: string;
   gradientEndColor: string;
-  textColor: string;
   borderRadius: number;
   width: string | number;
   marginVertical: string | number;
@@ -17,7 +17,7 @@ interface DefaultProps {
   alignItems?: FlexAlignType;
 }
 
-interface Props extends TouchableOpacityProps, DefaultProps {
+interface Props extends TouchableOpacityProps, DefaultProps, ThemeProps {
   label?: React.ReactNode;
   borderWidth?: 0;
   borderColor?: string;
@@ -25,21 +25,18 @@ interface Props extends TouchableOpacityProps, DefaultProps {
 
 export type GradientButtonProps = Omit<Props, keyof DefaultProps> & Partial<DefaultProps>;
 
-export class GradientButton extends React.PureComponent<Props> {
+class Button extends React.PureComponent<Props> {
   private PRESS_IN_SHADOW = 1;
   private PRESS_OUT_SHADOW = 4;
 
-  public static defaultProps = {
+  public static defaultProps: DefaultProps = {
     gradientStartColor: Colors.themeGradient.gradientColor1,
     gradientEndColor: Colors.themeGradient.gradientColor2,
-    textColor: Colors.buttonText,
     borderRadius: 4,
     width: "100%",
     marginVertical: 0,
     marginHorizontal: 0,
     alignItems: "center",
-    disabled: false,
-    style: {},
   };
 
   public state = {
@@ -91,7 +88,7 @@ export class GradientButton extends React.PureComponent<Props> {
     if (this.props.disabled) {
       return Colors.disable;
     }
-    return this.props.textColor || Colors.buttonText;
+    return this.props.colors.buttonText;
   };
 
   private getColor = (gradientColor: string) => {
@@ -114,3 +111,7 @@ export class GradientButton extends React.PureComponent<Props> {
     });
   };
 }
+
+const GradientButton = withTheme<Props, DefaultProps>()(Button);
+
+export { GradientButton };

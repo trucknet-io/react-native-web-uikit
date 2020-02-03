@@ -1,58 +1,48 @@
 import * as React from "react";
 import { Text, TouchableOpacity, TouchableOpacityProps, FlexAlignType } from "react-native";
-import Colors from "src/Themes/Colors";
 import { styles } from "./styles";
+import withTheme, { ThemeProps } from "src/Themes/withTheme";
 
 interface DefaultProps {
-  linkColor: string;
-  textColor: string;
   borderWidth: number;
-  borderColor: string;
   borderRadius: number;
   width: string | number;
   marginVertical: string | number;
   marginHorizontal: string | number;
   alignItems: FlexAlignType;
 }
-interface Props extends DefaultProps, TouchableOpacityProps {
+interface Props extends ThemeProps, DefaultProps, TouchableOpacityProps {
   label?: React.ReactNode;
-  linkColor: string;
-  link?: string;
+  link?: React.ReactNode;
 }
 
 export type TransparentButtonProps = Omit<Props, keyof DefaultProps> & Partial<DefaultProps>;
 
-export class TransparentButton extends React.PureComponent<Props> {
-  public static defaultProps = {
-    linkColor: Colors.defaultText,
-    textColor: Colors.defaultText,
+class Button extends React.PureComponent<Props> {
+  public static defaultProps: DefaultProps = {
     borderWidth: 0,
-    borderColor: Colors.defaultText,
     borderRadius: 4,
     width: "100%",
     marginVertical: 0,
     marginHorizontal: 0,
     alignItems: "center",
-    disabled: false,
-    style: {},
   };
   public render() {
-    const {
-      width,
-      marginVertical,
-      marginHorizontal,
-      borderRadius,
-      alignItems,
-      style,
-      borderWidth,
-      borderColor,
-    } = this.props;
+    const { width, marginVertical, marginHorizontal, borderRadius, alignItems, style, borderWidth } = this.props;
     return (
       <TouchableOpacity
         {...this.props}
         style={[
           styles.buttonContainer,
-          { width, marginVertical, marginHorizontal, borderRadius, alignItems, borderWidth, borderColor },
+          {
+            width,
+            marginVertical,
+            marginHorizontal,
+            borderRadius,
+            alignItems,
+            borderWidth,
+            borderColor: this.props.colors.defaultText,
+          },
           style,
         ]}>
         {this.renderChildren()}
@@ -66,11 +56,15 @@ export class TransparentButton extends React.PureComponent<Props> {
     if (this.props.link) {
       return (
         <React.Fragment>
-          <Text style={[styles.buttonText, { color: this.props.textColor }]}>{this.props.label}</Text>
-          <Text style={[styles.buttonLinkText, { color: this.props.linkColor }]}>{this.props.link}</Text>
+          <Text style={[styles.buttonText, { color: this.props.colors.defaultText }]}>{this.props.label}</Text>
+          <Text style={[styles.buttonLinkText, { color: this.props.colors.link }]}>{this.props.link}</Text>
         </React.Fragment>
       );
     }
-    return <Text style={[styles.buttonLabel, { color: this.props.textColor }]}>{this.props.label}</Text>;
+    return <Text style={[styles.buttonLabel, { color: this.props.colors.defaultText }]}>{this.props.label}</Text>;
   };
 }
+
+const TransparentButton = withTheme<Props, DefaultProps>()(Button);
+
+export { TransparentButton };

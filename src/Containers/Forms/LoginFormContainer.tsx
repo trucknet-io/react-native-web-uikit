@@ -138,12 +138,10 @@ class LoginFormContainer extends React.PureComponent<Props, State> {
   };
 
   private renderForgotPasswordButton = () => {
-    const theme = this.state.colors[this.props.theme];
     if (this.props.callback.onForgotPasswordPress) {
       return (
         <TransparentButton
           label={this.props.text.forgotPasswordButtonLabel}
-          textColor={theme.defaultText}
           onPress={this.props.callback.onForgotPasswordPress}
         />
       );

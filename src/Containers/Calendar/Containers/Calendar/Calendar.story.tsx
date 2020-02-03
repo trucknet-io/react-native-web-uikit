@@ -6,10 +6,6 @@ import getShadowStyle from "src/Themes/getShadowStyle";
 
 const stories = storiesOf("Calendar|Calendar", module);
 
-stories.add("Calendar Light Theme", () => <Calendar onDateChange={action("onDayPress")} style={getShadowStyle()} />);
-
-stories.add("Calendar Dark Theme", () => (
-  <Calendar onDateChange={action("onDayPress")} theme="dark" style={getShadowStyle()} />
-));
+stories.add("Calendar", () => <Calendar onDateChange={action("onDayPress")} style={getShadowStyle()} />);
 
 export default stories;

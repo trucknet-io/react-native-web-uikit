@@ -3,29 +3,21 @@ import { StyleSheet, View } from "react-native";
 // tslint:disable-next-line:import-name
 import Shimmer from "react-native-shimmer-placeholder";
 import { isWeb } from "src/Helpers/platform";
-import { colorTheme } from "src/Themes/Colors";
+import withTheme, { ThemeProps } from "src/Themes/withTheme";
 
-interface Props {
+interface DefaultProps {
   lines: number;
-  theme: "light" | "dark";
 }
 
-interface State {
-  colors: typeof colorTheme;
-}
+interface Props extends DefaultProps, ThemeProps {}
 
-export class ParagraphPlaceholder extends React.PureComponent<Props, State> {
-  state = {
-    colors: colorTheme,
-  };
-  public static defaultProps = {
+class Placeholder extends React.PureComponent<Props> {
+  public static defaultProps: DefaultProps = {
     lines: 5,
-    theme: "light",
   };
   public render() {
-    const theme = this.state.colors[this.props.theme];
     return (
-      <View style={[styles.container, { backgroundColor: theme.background }]}>
+      <View style={[styles.container, { backgroundColor: this.props.colors.background }]}>
         {isWeb ? this.renderWebPlaceholder() : this.renderNativePlaceholderLines()}
       </View>
     );
@@ -66,3 +58,7 @@ const styles = StyleSheet.create({
     margin: 8,
   },
 });
+
+let ParagraphPlaceholder = withTheme<Props, DefaultProps>()(Placeholder);
+
+export { ParagraphPlaceholder };

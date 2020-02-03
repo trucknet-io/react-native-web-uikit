@@ -2,19 +2,21 @@ import React from "react";
 import { View, ViewStyle, StyleSheet } from "react-native";
 import CalendarDay from "src/Containers/Calendar/Components/CalendarDay";
 import moment from "moment";
+import withTheme, { ThemeProps } from "src/Themes/withTheme";
 
-type Props = {
+interface DefaultProps {
   currentDate: Date;
-  onDayPress(date: Date): void;
-  theme: "dark" | "light";
-  style?: ViewStyle;
   fontSize: number;
-};
+}
+
+interface Props extends DefaultProps, ThemeProps {
+  onDayPress(date: Date): void;
+  style?: ViewStyle;
+}
 
 class Calendar extends React.PureComponent<Props> {
-  static defaultProps = {
+  static defaultProps: DefaultProps = {
     currentDate: new Date(),
-    theme: "light",
     fontSize: 14,
   };
 
@@ -30,7 +32,6 @@ class Calendar extends React.PureComponent<Props> {
         key={day.toString()}
         currentDate={this.props.currentDate}
         onDayPress={this.props.onDayPress}
-        theme={this.props.theme}
         type="week"
         fontSize={this.props.fontSize}
       />
@@ -49,4 +50,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Calendar;
+export default withTheme<Props, DefaultProps>()(Calendar);

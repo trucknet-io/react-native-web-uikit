@@ -3,33 +3,24 @@ import { FlatList, StyleSheet, View } from "react-native";
 // tslint:disable-next-line:import-name
 import Shimmer from "react-native-shimmer-placeholder";
 import { isWeb } from "src/Helpers/platform";
-import { colorTheme } from "src/Themes/Colors";
+import withTheme, { ThemeProps } from "src/Themes/withTheme";
 
-interface Props {
+interface DefaultProps {
   cards: number;
   margin: string | number;
   cardHeight: number;
-  theme: "light" | "dark";
 }
+interface Props extends DefaultProps, ThemeProps {}
 
-interface State {
-  colors: typeof colorTheme;
-}
-
-export class CardsPlaceholder extends React.PureComponent<Props, State> {
-  state = {
-    colors: colorTheme,
-  };
+export class Placeholder extends React.PureComponent<Props> {
   public static defaultProps = {
     cards: 3,
     margin: 12,
     cardHeight: 250,
-    theme: "light",
   };
   public render() {
-    const theme = this.state.colors[this.props.theme];
     return (
-      <View style={[styles.container, { backgroundColor: theme.background }]}>
+      <View style={[styles.container, { backgroundColor: this.props.colors.background }]}>
         <FlatList
           style={{ width: "100%" }}
           data={this.renderPlaceholderLines()}
@@ -76,3 +67,7 @@ const styles = StyleSheet.create({
     width: "100%",
   },
 });
+
+let CardsPlaceholder = withTheme<Props, DefaultProps>()(Placeholder);
+
+export { CardsPlaceholder };

@@ -2,19 +2,21 @@ import React from "react";
 import { View, ViewStyle, StyleSheet } from "react-native";
 import MonthCalendar from "src/Containers/Calendar/Components/MonthCalendar";
 import WeekCalendar from "src/Containers/Calendar/Components/WeekCalendar";
-import colors, { colorTheme } from "src/Themes/Colors";
 import CurrentMonth from "../../Components/CurrentMonth";
 import SwitchMonthButtons from "../../Components/SwitchMonthButtons";
 import WeekDays from "../../Components/WeekDays";
-import getShadowStyle from "src/Themes/getShadowStyle";
+import withTheme, { ThemeProps, ThemeParamsType } from "src/Themes/withTheme";
 
-type Props = {
+interface DefaultProps {
   currentDate: Date;
+}
+
+type Styles = ReturnType<typeof getStyles>;
+interface Props extends ThemeProps<Styles>, DefaultProps {
   onDateChange(date: Date): void;
-  theme: "dark" | "light";
   style?: ViewStyle;
   calendarStyle?: ViewStyle;
-};
+}
 
 type State = {
   isMonthCalendarOpen: Boolean;
@@ -24,7 +26,6 @@ type State = {
 class CalendarContainerMobile extends React.PureComponent<Props, State> {
   static defaultProps = {
     currentDate: new Date(),
-    theme: "light",
   };
 
   public state = {
@@ -33,14 +34,12 @@ class CalendarContainerMobile extends React.PureComponent<Props, State> {
   };
 
   public render() {
-    const themeColors = colorTheme[this.props.theme];
-    const { theme } = this.props;
+    const { styles } = this.props;
     return (
       <View>
-        <View style={[{ backgroundColor: themeColors.background }, this.props.style]}>
+        <View style={[styles.container, this.props.style]}>
           <View style={styles.headerContainer}>
             <CurrentMonth
-              theme={theme}
               currentDate={this.state.currentDate}
               onPress={this.toggleCalendar}
               isMonthCalendarOpen={this.state.isMonthCalendarOpen}
@@ -49,7 +48,6 @@ class CalendarContainerMobile extends React.PureComponent<Props, State> {
             {this.state.isMonthCalendarOpen ? (
               <SwitchMonthButtons
                 style={styles.switchButtonsContainer}
-                theme={theme}
                 currentDate={this.state.currentDate}
                 onMonthChange={this.handleDayPress}
               />
@@ -57,9 +55,7 @@ class CalendarContainerMobile extends React.PureComponent<Props, State> {
           </View>
           <WeekDays currentDate={this.state.currentDate} />
         </View>
-        <View style={[styles.calendarContainer, { backgroundColor: themeColors.background }, this.props.calendarStyle]}>
-          {this.renderCalendar()}
-        </View>
+        <View style={[styles.calendarContainer, this.props.calendarStyle]}>{this.renderCalendar()}</View>
       </View>
     );
   }
@@ -81,24 +77,25 @@ class CalendarContainerMobile extends React.PureComponent<Props, State> {
   private handleDateChange = () => this.props.onDateChange(this.state.currentDate);
 }
 
-const styles = StyleSheet.create({
-  container: getShadowStyle(),
-  headerContainer: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    paddingVertical: 14,
-    paddingHorizontal: "6%",
-  },
-  monthContainer: { flex: 3 },
-  switchButtonsContainer: { flex: 1 },
-  calendarContainer: {
-    position: "absolute",
-    zIndex: 100,
-    top: "101%",
-    width: "100%",
-    backgroundColor: colors.background,
-    ...getShadowStyle(),
-  },
-});
+const getStyles = ({ colors, variables }: ThemeParamsType) =>
+  StyleSheet.create({
+    container: { backgroundColor: colors.background },
+    headerContainer: {
+      flexDirection: "row",
+      justifyContent: "space-between",
+      paddingVertical: 14,
+      paddingHorizontal: "6%",
+    },
+    monthContainer: { flex: 3 },
+    switchButtonsContainer: { flex: 1 },
+    calendarContainer: {
+      position: "absolute",
+      zIndex: 100,
+      top: "101%",
+      width: "100%",
+      backgroundColor: colors.background,
+      ...variables.shadow,
+    },
+  });
 
-export default CalendarContainerMobile;
+export default withTheme<Props, DefaultProps>(getStyles)(CalendarContainerMobile);

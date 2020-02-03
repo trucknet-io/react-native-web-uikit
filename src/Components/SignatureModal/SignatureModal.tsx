@@ -1,5 +1,4 @@
-import Colors, { colorTheme } from "src/Themes/Colors";
-import Fonts from "src/Themes/Fonts";
+import Colors from "src/Themes/Colors";
 import { parseDataUrl, ParsedDataUrlType } from "src/Helpers/regexHelpers";
 import * as React from "react";
 import { Text, View, StyleSheet, ActivityIndicator } from "react-native";
@@ -8,22 +7,26 @@ import { TransparentButton } from "src/Components/Buttons";
 import { canvasHTML } from "./canvasHTML";
 import WebView from "react-native-webview";
 import { isWeb } from "src/Helpers/platform";
+import withTheme, { ThemeProps, ThemeParamsType } from "src/Themes/withTheme";
 
-type Props = {
+type DefaultProps = {
+  submitButtonLabel: React.ReactNode;
+  cancelButtonLabel: React.ReactNode;
+};
+
+type Styles = ReturnType<typeof getStyles>;
+
+interface Props extends DefaultProps, ThemeProps<Styles> {
   isVisible: boolean;
   onBackdropPress(): void;
   onSignApply(data: ParsedDataUrlType): void;
-  submitButtonLabel: React.ReactNode;
-  cancelButtonLabel: React.ReactNode;
   headerText?: React.ReactNode;
   helperText?: React.ReactNode;
-  theme: "light" | "dark";
-};
+}
 
 type State = {
   signatureData?: ParsedDataUrlType;
   isSignSubmitted: boolean;
-  colors: typeof colorTheme;
   /**
    * Change it to rerender webview, when reset is needed
    */
@@ -35,13 +38,11 @@ class SignatureModal extends React.PureComponent<Props> {
     backgroundColor: Colors.palette.white,
     submitButtonLabel: "ok",
     cancelButtonLabel: "cancel",
-    theme: "light",
   };
   private webView;
   public state: State = {
     signatureData: undefined,
     isSignSubmitted: false,
-    colors: colorTheme,
     resetCount: 0,
   };
   public render() {
@@ -50,34 +51,41 @@ class SignatureModal extends React.PureComponent<Props> {
 
   private renderButtons = () => {
     return (
-      <View style={styles.buttonsContainer}>
+      <View style={this.props.styles.buttonsContainer}>
         {this.state.isSignSubmitted ? this.renderActivityIndicator() : this.renderCancelButton()}
         {this.renderSubmitButton()}
       </View>
     );
   };
   private renderActivityIndicator = () => (
-    <View style={styles.activityIndicatorContainer}>
+    <View style={this.props.styles.activityIndicatorContainer}>
       <ActivityIndicator />
     </View>
   );
 
   private renderCancelButton = () => {
-    const theme = this.state.colors[this.props.theme];
+    const { colors } = this.props;
     return (
-      <TransparentButton onPress={this.resetWebView} style={styles.buttonTextContainer}>
-        <Text style={[styles.buttonText, { color: theme.defaultText }]}>{this.props.cancelButtonLabel}</Text>
+      <TransparentButton onPress={this.resetWebView} style={this.props.styles.buttonTextContainer}>
+        <Text style={[this.props.styles.buttonText, { color: colors.defaultText }]}>
+          {this.props.cancelButtonLabel}
+        </Text>
       </TransparentButton>
     );
   };
 
   private renderSubmitButton = () => {
-    const theme = this.state.colors[this.props.theme];
+    const { colors } = this.props;
     const isDisabled = this.state.isSignSubmitted || !this.state.signatureData;
-    const submitButtonTextColor = isDisabled ? theme.palette.lightGray : theme.themeColor;
+    const submitButtonTextColor = isDisabled ? colors.palette.lightGray : colors.themeColor;
     return (
-      <TransparentButton disabled={isDisabled} onPress={this.sendSignature} style={styles.buttonTextContainer}>
-        <Text style={[styles.buttonText, { color: submitButtonTextColor }]}>{this.props.submitButtonLabel}</Text>
+      <TransparentButton
+        disabled={isDisabled}
+        onPress={this.sendSignature}
+        style={this.props.styles.buttonTextContainer}>
+        <Text style={[this.props.styles.buttonText, { color: submitButtonTextColor }]}>
+          {this.props.submitButtonLabel}
+        </Text>
       </TransparentButton>
     );
   };
@@ -91,16 +99,16 @@ class SignatureModal extends React.PureComponent<Props> {
   );
 
   renderSignView = () => {
-    const theme = this.state.colors[this.props.theme];
+    const { colors } = this.props;
     return (
-      <View style={[styles.container, { backgroundColor: theme.background }]}>
+      <View style={[this.props.styles.container, { backgroundColor: colors.background }]}>
         {this.renderHeaderText()}
         {this.renderHelperText()}
-        <View style={[styles.webViewContainer, { backgroundColor: theme.webViewBackground }]}>
+        <View style={[this.props.styles.webViewContainer, { backgroundColor: colors.webViewBackground }]}>
           <WebView
             ref={this.setWebViewRef}
             onMessage={this.onMessage}
-            style={[styles.webView, { backgroundColor: theme.webViewBackground }]}
+            style={[this.props.styles.webView, { backgroundColor: colors.webViewBackground }]}
             automaticallyAdjustContentInsets={false}
             javaScriptEnabled={true}
             source={{ html: canvasHTML }}
@@ -114,16 +122,16 @@ class SignatureModal extends React.PureComponent<Props> {
     );
   };
   private renderHeaderText = () => {
-    const theme = this.state.colors[this.props.theme];
+    const { colors } = this.props;
     if (this.props.headerText) {
-      return <Text style={[styles.headerText, { color: theme.defaultText }]}>{this.props.headerText}</Text>;
+      return <Text style={[this.props.styles.headerText, { color: colors.defaultText }]}>{this.props.headerText}</Text>;
     }
     return;
   };
   private renderHelperText = () => {
-    const theme = this.state.colors[this.props.theme];
+    const { colors } = this.props;
     if (this.props.helperText) {
-      return <Text style={[styles.helperText, { color: theme.defaultText }]}>{this.props.helperText}</Text>;
+      return <Text style={[this.props.styles.helperText, { color: colors.defaultText }]}>{this.props.helperText}</Text>;
     }
     return;
   };
@@ -155,51 +163,53 @@ class SignatureModal extends React.PureComponent<Props> {
     this.setState({ isSignSubmitted: false });
   };
 }
-export default SignatureModal;
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    paddingHorizontal: 20,
-    paddingTop: 10,
-    borderRadius: 5,
-  },
-  activityIndicatorContainer: {
-    height: 48,
-  },
-  webViewContainer: {
-    flex: 1,
-    borderWidth: 1,
-    borderRadius: 5,
-    padding: 2,
-    borderColor: Colors.palette.veryLightGray,
-    marginTop: 15,
-  },
-  webView: {
-    flex: 1,
-    borderRadius: 5,
-  },
-  buttonsContainer: {
-    marginTop: 25,
-    flexDirection: "row",
-    justifyContent: "flex-end",
-    alignItems: "center",
-  },
-  headerText: {
-    ...Fonts.style.Title,
-    marginVertical: 5,
-  },
-  helperText: {
-    ...Fonts.style.SubTitle2,
-    marginVertical: 5,
-  },
-  buttonTextContainer: {
-    marginHorizontal: 4,
-    width: undefined,
-  },
-  buttonText: {
-    ...Fonts.style.Button,
-    textAlign: "right",
-    textTransform: "uppercase",
-  },
-});
+const getStyles = ({ colors, fonts }: ThemeParamsType) =>
+  StyleSheet.create({
+    container: {
+      flex: 1,
+      paddingHorizontal: 20,
+      paddingTop: 10,
+      borderRadius: 5,
+    },
+    activityIndicatorContainer: {
+      height: 48,
+    },
+    webViewContainer: {
+      flex: 1,
+      borderWidth: 1,
+      borderRadius: 5,
+      padding: 2,
+      borderColor: colors.palette.veryLightGray,
+      marginTop: 15,
+    },
+    webView: {
+      flex: 1,
+      borderRadius: 5,
+    },
+    buttonsContainer: {
+      marginTop: 25,
+      flexDirection: "row",
+      justifyContent: "flex-end",
+      alignItems: "center",
+    },
+    headerText: {
+      ...fonts.Title,
+      marginVertical: 5,
+    },
+    helperText: {
+      ...fonts.MTitle,
+      marginVertical: 5,
+    },
+    buttonTextContainer: {
+      marginHorizontal: 4,
+      width: undefined,
+    },
+    buttonText: {
+      ...fonts.SubTitle,
+      textAlign: "right",
+      textTransform: "uppercase",
+    },
+  });
+
+export default withTheme<Props, DefaultProps>(getStyles)(SignatureModal);

@@ -7,13 +7,11 @@ interface Props {
   onDayPress(day: Date): void;
   currentDate: Date;
   style?: ViewStyle;
-  theme: "light" | "dark";
 }
 
 class MonthCalendar extends React.PureComponent<Props> {
   static defaultProps = {
     currentDate: new Date(),
-    theme: "light",
   };
   public render() {
     return <View style={[styles.container, this.props.style]}>{this.renderMonthDayNumbers()}</View>;
@@ -34,7 +32,6 @@ class MonthCalendar extends React.PureComponent<Props> {
           key={day.toString()}
           day={new Date(day.toString())}
           currentDate={this.props.currentDate}
-          theme={this.props.theme}
           onDayPress={this.props.onDayPress}
         />,
       );
