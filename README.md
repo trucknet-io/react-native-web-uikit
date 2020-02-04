@@ -1,7 +1,6 @@
 # UI Kit
 
-> UI Kit for react-native and react-native-web
-> [UIKit Storybook Link](https://react-native-web-uikit.storybook.trucknet.io)
+> [UI Kit for react-native and react-native-web](https://react-native-web-uikit.storybook.trucknet.io)
 
 ## StoryBook
 
