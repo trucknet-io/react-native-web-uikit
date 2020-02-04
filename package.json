@@ -2,8 +2,8 @@
   "name": "react-native-web-uikit",
   "description": "UI Kit for react-native and react-native-web",
   "engines": {
-    "node": "~10.14.0",
-    "npm": "~6.9.0"
+    "node": "~12.14.0",
+    "npm": "~6.13.4"
   },
   "repository": {
     "type": "git",
