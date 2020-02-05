@@ -3,6 +3,7 @@ import { storiesOf } from "@storybook/react-native";
 import RideInfo from "./RideInfo";
 import { View, Text } from "react-native";
 import Avatar from "src/Components/Avatar";
+import { Phone } from "src/Components/Icons";
 
 const stories = storiesOf("RideInfo", module);
 const cargoProperties = [
@@ -35,6 +36,43 @@ const driverProperties = [
   },
 ];
 
+const callCustomerProperties = [
+  {
+    label: "Sender",
+    content: (
+      <View
+        style={{
+          flexGrow: 1,
+          justifyContent: "space-between",
+          flexDirection: "row",
+        }}>
+        <View style={{ flexDirection: "row", alignItems: "center" }}>
+          <Avatar accessibilityLabel="avatar" name="driver" size="small" />
+          <Text>Sam Cooper</Text>
+        </View>
+        <Phone color="black" />
+      </View>
+    ),
+  },
+  {
+    label: "Receiver",
+    content: (
+      <View
+        style={{
+          flexGrow: 1,
+          justifyContent: "space-between",
+          flexDirection: "row",
+        }}>
+        <View style={{ flexDirection: "row", alignItems: "center" }}>
+          <Avatar accessibilityLabel="avatar" name="driver" size="small" />
+          <Text>Sam Cooper</Text>
+        </View>
+        <Phone color="black" />
+      </View>
+    ),
+  },
+];
+
 stories.add("Cargo Info Big Card", () => (
   <View style={{ width: 800 }}>
     <RideInfo properties={cargoProperties} />
@@ -64,5 +102,7 @@ stories.add("Driver Info Small Card", () => (
     <RideInfo properties={driverProperties} />
   </View>
 ));
+
+stories.add("Customer Info Card", () => <RideInfo properties={callCustomerProperties} />);
 
 export default stories;

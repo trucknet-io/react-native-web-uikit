@@ -19,9 +19,13 @@ class RideInfo extends React.Component<IProps> {
             <RideProperty
               key={typeof property.label === "string" ? property.label : index.toString()}
               label={property.label}>
-              <Text numberOfLines={1} style={styles.property}>
-                {property.content}
-              </Text>
+              {typeof property.content === "string" ? (
+                <Text numberOfLines={1} style={styles.textProperty}>
+                  {property.content}
+                </Text>
+              ) : (
+                <View style={styles.viewProperty}>{property.content}</View>
+              )}
             </RideProperty>
           ))}
         </View>
@@ -43,11 +47,17 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     flexWrap: "wrap",
   },
-  property: {
+  textProperty: {
     ...fonts.style.BodyRegular,
     color: colors.defaultText,
     marginTop: 8,
     flexWrap: "wrap",
+  },
+  viewProperty: {
+    marginTop: 8,
+    flexWrap: "wrap",
+    flexDirection: "row",
+    alignItems: "center",
   },
 });
 

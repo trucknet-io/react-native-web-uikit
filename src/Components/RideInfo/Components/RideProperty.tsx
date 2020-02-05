@@ -17,7 +17,7 @@ const RideProperty = ({ label, children }: IProps) => (
 
 const styles = StyleSheet.create({
   propertyContainer: {
-    flexShrink: 1,
+    flexGrow: 1,
     margin: 8,
   },
   label: {
