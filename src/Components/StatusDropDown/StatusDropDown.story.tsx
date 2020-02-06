@@ -1,0 +1,56 @@
+import * as React from "react";
+import { storiesOf } from "@storybook/react-native";
+import StatusDropDown from "./StatusDropDown";
+import colors from "src/Themes/Colors";
+import { Truck, Breakfast } from "src/Components/Icons";
+import { View } from "react-native";
+import { action } from "@storybook/addon-actions";
+import { StyleSheet } from "react-native";
+
+const stories = storiesOf("StatusDropDown", module);
+
+const statuses = [
+  { value: "On The Way", key: "onWay" },
+  { value: "On a Break", key: "onBreak" },
+  { value: "Broken", key: "broken" },
+];
+
+stories.add("StatusDropDown on the way", () => (
+  <View style={styles.container}>
+    <StatusDropDown
+      color={colors.themeColor}
+      currentStatus={statuses[0]}
+      statusIcon={<Truck color={colors.themeColor} width={34} height={18} />}
+      dropDownStatuses={statuses}
+      onStatusPress={action("onStatusPress")}
+    />
+  </View>
+));
+
+stories.add("StatusDropDown on a break", () => (
+  <View style={styles.container}>
+    <StatusDropDown
+      color={colors.palette.dodgerBlue}
+      currentStatus={statuses[1]}
+      statusIcon={<Breakfast color={colors.palette.dodgerBlue} width={18} height={18} />}
+      dropDownStatuses={statuses}
+      onStatusPress={action("onStatusPress")}
+    />
+  </View>
+));
+
+stories.add("StatusDropDown broken", () => (
+  <View style={styles.container}>
+    <StatusDropDown
+      color={colors.palette.torchRed}
+      currentStatus={statuses[2]}
+      dropDownStatuses={statuses}
+      onStatusPress={action("onStatusPress")}
+    />
+  </View>
+));
+
+const styles = StyleSheet.create({
+  container: { height: 300, justifyContent: "flex-end" },
+});
+export default stories;
