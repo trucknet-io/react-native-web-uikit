@@ -32,7 +32,7 @@ class StatusDropDown extends React.PureComponent<Props, State> {
           style={[styles.container, { backgroundColor: getTransparentColor(this.props.color) }, this.props.style]}>
           <View style={styles.statusContainer}>
             <Point color={this.props.color} width={6} height={6} />
-            <Text style={styles.statusIconContainer}>{this.props.statusIcon}</Text>
+            <View style={styles.statusIconContainer}>{this.props.statusIcon}</View>
             <Text style={[styles.statusText, { color: this.props.color }]}>{this.props.currentStatus.value}</Text>
           </View>
           {this.state.isOpen ? (
@@ -81,9 +81,9 @@ const styles = StyleSheet.create({
   container: {
     paddingVertical: 8,
     paddingHorizontal: 16,
-    borderRadius: 5,
+    borderRadius: 4,
     justifyContent: "space-between",
-    ...getShadowStyle(6),
+    ...getShadowStyle(4),
   },
   statusIconContainer: { marginHorizontal: 8 },
   statusContainer: { flexDirection: "row", alignItems: "center" },
@@ -93,7 +93,7 @@ const styles = StyleSheet.create({
     bottom: "110%",
     width: "98%",
     backgroundColor: colors.background,
-    ...getShadowStyle(8),
+    ...getShadowStyle(6),
   },
   dropDownButton: {
     alignItems: "flex-start",
