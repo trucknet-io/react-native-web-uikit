@@ -77,14 +77,14 @@ class CalendarContainerMobile extends React.PureComponent<Props, State> {
   private handleDateChange = () => this.props.onDateChange(this.state.currentDate);
 }
 
-const getStyles = ({ colors, variables }: ThemeParamsType) =>
+const getStyles = ({ colors, variables: { size, shadow } }: ThemeParamsType) =>
   StyleSheet.create({
     container: { backgroundColor: colors.background },
     headerContainer: {
       flexDirection: "row",
       justifyContent: "space-between",
       paddingVertical: 14,
-      paddingHorizontal: "6%",
+      paddingHorizontal: size.calendarPaddingHorizontal,
     },
     monthContainer: { flex: 3 },
     switchButtonsContainer: { flex: 1 },
@@ -94,7 +94,7 @@ const getStyles = ({ colors, variables }: ThemeParamsType) =>
       top: "101%",
       width: "100%",
       backgroundColor: colors.background,
-      ...variables.shadow,
+      ...shadow,
     },
   });
 

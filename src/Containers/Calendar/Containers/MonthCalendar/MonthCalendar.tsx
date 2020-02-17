@@ -70,7 +70,7 @@ class MonthCalendarContainer extends React.PureComponent<Props, State> {
   private handleDateChange = (date: Date) => this.setState({ currentDate: date });
 }
 
-const getStyles = ({ colors }: ThemeParamsType) =>
+const getStyles = ({ colors, variables: { size } }: ThemeParamsType) =>
   StyleSheet.create({
     container: { alignItems: "flex-end", backgroundColor: colors.background },
     headerContainer: {
@@ -78,11 +78,11 @@ const getStyles = ({ colors }: ThemeParamsType) =>
       justifyContent: "space-around",
       alignItems: "center",
       width: "100%",
-      paddingHorizontal: "6%",
+      paddingHorizontal: size.calendarPaddingHorizontal,
     },
     monthContainer: { flex: 3 },
     switchButtonsContainer: { flex: 1 },
-    footerContainer: { flexDirection: "row", paddingHorizontal: "6%" },
+    footerContainer: { flexDirection: "row", paddingHorizontal: size.calendarPaddingHorizontal },
   });
 
 export default withTheme<Props, DefaultProps>(getStyles)(MonthCalendarContainer);
