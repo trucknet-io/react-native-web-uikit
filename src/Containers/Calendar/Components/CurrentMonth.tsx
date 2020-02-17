@@ -3,16 +3,18 @@ import { ViewStyle, StyleSheet, Text } from "react-native";
 import moment from "moment";
 import { TransparentButton } from "src/Components/Buttons";
 import { ChevronDown, ChevronUp, Calendar } from "src/Components/Icons";
-import withTheme, { ThemeProps } from "src/Themes/withTheme";
+import withTheme, { ThemeProps, ThemeParamsType } from "src/Themes/withTheme";
+
+type Styles = ReturnType<typeof getStyles>;
 
 interface DefaultProps {
   currentDate: Date;
 }
 
-interface Props extends DefaultProps, ThemeProps {
+interface Props extends DefaultProps, ThemeProps<Styles> {
   onPress(): void;
   style?: ViewStyle;
-  isMonthCalendarOpen: boolean;
+  isOpen: boolean;
 }
 
 class CurrentMonth extends React.PureComponent<Props> {
@@ -21,35 +23,30 @@ class CurrentMonth extends React.PureComponent<Props> {
   };
 
   public render() {
-    const { colors } = this.props;
+    const { colors, styles } = this.props;
     return (
       <TransparentButton
         style={[styles.container, this.props.style]}
         onPress={this.props.onPress}
         accessibilityLabel="toggleMonthCalendar">
         <Calendar color={colors.defaultText} />
-        <Text style={[styles.month, { color: colors.defaultText }]}>
-          {moment(this.props.currentDate).format("MMMM Y")}
-        </Text>
-        {this.props.isMonthCalendarOpen ? (
-          <ChevronUp color={colors.defaultText} />
-        ) : (
-          <ChevronDown color={colors.defaultText} />
-        )}
+        <Text style={styles.month}>{moment(this.props.currentDate).format("LL")}</Text>
+        {this.props.isOpen ? <ChevronUp color={colors.defaultText} /> : <ChevronDown color={colors.defaultText} />}
       </TransparentButton>
     );
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    paddingVertical: 12,
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "flex-start",
-    width: undefined,
-  },
-  month: { marginHorizontal: 8 },
-});
+const getStyles = ({ colors }: ThemeParamsType) =>
+  StyleSheet.create({
+    container: {
+      paddingVertical: 12,
+      flexDirection: "row",
+      alignItems: "center",
+      justifyContent: "flex-start",
+      width: undefined,
+    },
+    month: { marginHorizontal: 8, color: colors.defaultText },
+  });
 
-export default withTheme<Props, DefaultProps>()(CurrentMonth);
+export default withTheme<Props, DefaultProps>(getStyles)(CurrentMonth);

@@ -133,6 +133,11 @@
     "react-content-loader": "^4.2.2",
     "react-native-shimmer-placeholder": "^1.0.35"
   },
+  "rnpm": {
+    "assets": [
+      "./assets/fonts/"
+    ]
+  },
   "browserslist": [
     ">0.2%",
     "not dead",

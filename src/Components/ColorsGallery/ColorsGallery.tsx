@@ -13,7 +13,7 @@ class ColorsGallery extends React.PureComponent<Props> {
       <ScrollView style={this.props.styles.container}>
         <View style={this.props.styles.colorViewContainer}>
           {this.renderColors()}
-          <Text style={[this.props.styles.text, { fontSize: 18 }]}>Palette Colors</Text>
+          <Text style={this.props.styles.text}>Palette Colors</Text>
           {this.renderPaletteColors()}
         </View>
       </ScrollView>
@@ -58,6 +58,7 @@ const getStyles = ({ colors }: ThemeParamsType) =>
       margin: 2,
       marginTop: 10,
       color: colors.defaultText,
+      fontSize: 18,
     },
     colorViewContainer: {
       flex: 1,

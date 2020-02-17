@@ -62,7 +62,7 @@ class Input extends React.PureComponent<Props, State> {
   };
 
   public render() {
-    const { width, styles, colors, fonts } = this.props;
+    const { width, styles } = this.props;
     return (
       <View style={[styles.container, { width }]}>
         <TouchableWithoutFeedback onPress={this.handleLabelPress}>
@@ -91,7 +91,7 @@ class Input extends React.PureComponent<Props, State> {
           color={this.props.colors.defaultText}
           initialValue={this.props.initialValue}
         />
-        <Text style={[styles.error, { ...fonts.BodySmall, color: colors.error }]}>{this.state.error}</Text>
+        <Text style={styles.error}>{this.state.error}</Text>
       </View>
     );
   }
@@ -156,7 +156,7 @@ class Input extends React.PureComponent<Props, State> {
   };
 }
 
-const getStyle = ({ fonts }: ThemeParamsType) => {
+const getStyle = ({ fonts, colors }: ThemeParamsType) => {
   return StyleSheet.create({
     container: {
       marginTop: 16,
@@ -165,6 +165,8 @@ const getStyle = ({ fonts }: ThemeParamsType) => {
     },
     error: {
       height: 24,
+      ...fonts.BodySmall,
+      color: colors.error,
     },
     label: fonts.BodyRegular,
   });

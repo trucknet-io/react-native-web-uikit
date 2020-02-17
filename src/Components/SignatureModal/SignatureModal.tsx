@@ -16,7 +16,7 @@ type DefaultProps = {
 
 type Styles = ReturnType<typeof getStyles>;
 
-interface Props extends DefaultProps, ThemeProps<Styles> {
+interface OwnProps extends DefaultProps {
   isVisible: boolean;
   onBackdropPress(): void;
   onSignApply(data: ParsedDataUrlType): void;
@@ -24,6 +24,8 @@ interface Props extends DefaultProps, ThemeProps<Styles> {
   helperText?: React.ReactNode;
   style?: ViewStyle;
 }
+
+interface Props extends OwnProps, ThemeProps<Styles> {}
 
 type State = {
   signatureData?: ParsedDataUrlType;
@@ -65,12 +67,9 @@ class SignatureModal extends React.PureComponent<Props> {
   );
 
   private renderCancelButton = () => {
-    const { colors } = this.props;
     return (
       <TransparentButton onPress={this.resetWebView} style={this.props.styles.buttonTextContainer}>
-        <Text style={[this.props.styles.buttonText, { color: colors.defaultText }]}>
-          {this.props.cancelButtonLabel}
-        </Text>
+        <Text style={this.props.styles.buttonText}>{this.props.cancelButtonLabel}</Text>
       </TransparentButton>
     );
   };
@@ -212,6 +211,7 @@ const getStyles = ({ colors, fonts }: ThemeParamsType) =>
       ...fonts.SubTitle,
       textAlign: "right",
       textTransform: "uppercase",
+      color: colors.defaultText,
     },
   });
 

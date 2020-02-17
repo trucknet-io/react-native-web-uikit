@@ -2,18 +2,24 @@ import moment from "moment";
 import React from "react";
 import { Text, StyleSheet } from "react-native";
 import { TransparentButton, TransparentButtonProps } from "src/Components/Buttons";
-import withTheme, { ThemeProps } from "src/Themes/withTheme";
+import withTheme, { ThemeProps, ThemeParamsType } from "src/Themes/withTheme";
+
+type Styles = ReturnType<typeof getStyles>;
 
 interface DefaultProps {
   fontSize: number;
   type: "month" | "week";
 }
 
-interface Props extends DefaultProps, ThemeProps, TransparentButtonProps {
+type ButtonProps = Omit<TransparentButtonProps, keyof ThemeProps>;
+
+interface OwnProps extends DefaultProps {
   currentDate: Date;
   day: Date;
   onDayPress(date: Date): void;
 }
+
+interface Props extends ThemeProps<Styles>, OwnProps, ButtonProps {}
 
 class CalendarDay extends React.PureComponent<Props> {
   static defaultProps: DefaultProps = {
@@ -21,70 +27,62 @@ class CalendarDay extends React.PureComponent<Props> {
     fontSize: 14,
   };
   public render() {
-    const { day, fontSize, type, ...rest } = this.props;
+    const { day, type, styles, ...rest } = this.props;
     return (
       <TransparentButton style={styles.dayContainer} onPress={this.handleDayPress} {...rest}>
         {moment(day).isSame(this.props.currentDate, type) ? (
-          <Text
-            style={[
-              styles.day,
-              {
-                minWidth: fontSize * 2,
-                minHeight: fontSize * 2,
-                lineHeight: fontSize * 2,
-                borderRadius: fontSize,
-                fontSize,
-              },
-              { backgroundColor: this.getDayBackgroundColor(), color: this.getDayTextColor() },
-            ]}>
-            {moment(day)
-              .date()
-              .toString()}
-          </Text>
+          <Text style={styles.day}>{new Date(day).getDate()}</Text>
         ) : null}
       </TransparentButton>
     );
   }
-
-  private getDayBackgroundColor = () => {
-    const day = moment(this.props.day);
-    if (day.isSame(this.props.currentDate, "day")) {
-      return this.props.colors.defaultText;
-    }
-    if (day.isSame(moment(), "day")) {
-      return this.props.colors.palette.veryLightGray;
-    }
-
-    return;
-  };
-
-  private getDayTextColor = () => {
-    const day = moment(this.props.day);
-    if (day.isSame(this.props.currentDate, "day")) {
-      return this.props.colors.background;
-    }
-    if (day.isSame(moment(), "day")) {
-      return this.props.colors.background;
-    }
-
-    return this.props.colors.defaultText;
-  };
 
   private handleDayPress = () => {
     this.props.onDayPress(this.props.day);
   };
 }
 
-const styles = StyleSheet.create({
-  dayContainer: {
-    flexBasis: `${100 / 7}%`,
-    alignItems: "center",
-    justifyContent: "center",
-    paddingVertical: 12,
-  },
-  day: {
-    textAlign: "center",
-  },
-});
+const getStyles = ({ props, colors }: ThemeParamsType<OwnProps>) => {
+  const getDayBackgroundColor = (props: OwnProps) => {
+    const day = moment(props.day);
+    if (day.isSame(props.currentDate, "day")) {
+      return colors.defaultText;
+    }
+    if (day.isSame(moment(), "day")) {
+      return colors.palette.veryLightGray;
+    }
 
-export default withTheme<Props, DefaultProps>()(CalendarDay);
+    return;
+  };
+
+  const getDayTextColor = (props: OwnProps) => {
+    const day = moment(props.day);
+    if (day.isSame(props.currentDate, "day")) {
+      return colors.background;
+    }
+    if (day.isSame(moment(), "day")) {
+      return colors.background;
+    }
+
+    return colors.defaultText;
+  };
+  return StyleSheet.create({
+    dayContainer: {
+      flexBasis: `${100 / 7}%`,
+      alignItems: "center",
+      justifyContent: "center",
+      paddingVertical: 12,
+    },
+    day: {
+      textAlign: "center",
+      minWidth: props.fontSize * 2,
+      minHeight: props.fontSize * 2,
+      lineHeight: props.fontSize * 2,
+      borderRadius: props.fontSize,
+      fontSize: props.fontSize,
+      backgroundColor: getDayBackgroundColor(props),
+      color: getDayTextColor(props),
+    },
+  });
+};
+export default withTheme<Props, DefaultProps>(getStyles)(CalendarDay);

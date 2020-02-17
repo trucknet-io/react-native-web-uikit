@@ -42,7 +42,7 @@ class CalendarContainerMobile extends React.PureComponent<Props, State> {
             <CurrentMonth
               currentDate={this.state.currentDate}
               onPress={this.toggleCalendar}
-              isMonthCalendarOpen={this.state.isMonthCalendarOpen}
+              isOpen={this.state.isMonthCalendarOpen}
               style={styles.monthContainer}
             />
             {this.state.isMonthCalendarOpen ? (

@@ -2,13 +2,15 @@ import * as React from "react";
 import { StyleSheet, View } from "react-native";
 import MapPlaceholderIcon from "src/Components/Icons/MapPlaceholderIcon";
 import { ParagraphPlaceholder } from "./Paragraph";
-import withTheme, { ThemeProps } from "src/Themes/withTheme";
+import withTheme, { ThemeProps, ThemeParamsType } from "src/Themes/withTheme";
+
+type Styles = ReturnType<typeof getStyles>;
 
 interface DefaultProps {
   lines: number;
 }
 
-interface Props extends DefaultProps, ThemeProps {}
+interface Props extends DefaultProps, ThemeProps<Styles> {}
 
 class Placeholder extends React.PureComponent<Props> {
   public static defaultProps: DefaultProps = {
@@ -16,8 +18,8 @@ class Placeholder extends React.PureComponent<Props> {
   };
   public render() {
     return (
-      <View style={[styles.container, { backgroundColor: this.props.colors.containerBackground }]}>
-        <View style={styles.mapIconContainer}>
+      <View style={this.props.styles.container}>
+        <View style={this.props.styles.mapIconContainer}>
           <MapPlaceholderIcon color={this.props.colors.defaultText} width={150} height={150} />
         </View>
         <ParagraphPlaceholder lines={this.props.lines} />
@@ -25,21 +27,22 @@ class Placeholder extends React.PureComponent<Props> {
     );
   }
 }
+const getStyles = ({ colors }: ThemeParamsType) =>
+  StyleSheet.create({
+    container: {
+      flex: 1,
+      alignItems: "center",
+      justifyContent: "space-around",
+      backgroundColor: colors.containerBackground,
+    },
+    mapIconContainer: {
+      flex: 1,
+      height: 300,
+      alignItems: "center",
+      justifyContent: "center",
+    },
+  });
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "space-around",
-  },
-  mapIconContainer: {
-    flex: 1,
-    height: 300,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});
-
-let MapPlaceholder = withTheme<Props, DefaultProps>()(Placeholder);
+let MapPlaceholder = withTheme<Props, DefaultProps>(getStyles)(Placeholder);
 
 export { MapPlaceholder };

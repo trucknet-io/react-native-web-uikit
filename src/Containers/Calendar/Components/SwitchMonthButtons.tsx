@@ -22,16 +22,10 @@ class SwitchMonthButtons extends React.PureComponent<Props> {
   public render() {
     return (
       <View style={[styles.container, this.props.style]}>
-        <TransparentButton
-          style={{ width: undefined }}
-          onPress={this.handlePreviousMonthPress}
-          accessibilityLabel="prevMonth">
+        <TransparentButton style={styles.button} onPress={this.handlePreviousMonthPress} accessibilityLabel="prevMonth">
           <ChevronLeft color={this.props.colors.defaultText} />
         </TransparentButton>
-        <TransparentButton
-          style={{ width: undefined }}
-          onPress={this.handleNextMonthPress}
-          accessibilityLabel="nextMonth">
+        <TransparentButton style={styles.button} onPress={this.handleNextMonthPress} accessibilityLabel="nextMonth">
           <ChevronRight color={this.props.colors.defaultText} />
         </TransparentButton>
       </View>
@@ -39,27 +33,24 @@ class SwitchMonthButtons extends React.PureComponent<Props> {
   }
 
   private handlePreviousMonthPress = () => {
-    const date = new Date(
-      moment(this.props.currentDate)
-        .add(-1, "month")
-        .startOf("month")
-        .toString(),
-    );
+    const date = moment(this.props.currentDate)
+      .add(-1, "month")
+      .startOf("month")
+      .toDate();
     this.props.onMonthChange(date);
   };
   private handleNextMonthPress = () => {
-    const date = new Date(
-      moment(this.props.currentDate)
-        .add(1, "month")
-        .startOf("month")
-        .toString(),
-    );
+    const date = moment(this.props.currentDate)
+      .add(1, "month")
+      .startOf("month")
+      .toDate();
     this.props.onMonthChange(date);
   };
 }
 
 const styles = StyleSheet.create({
   container: { flex: 1, flexDirection: "row", justifyContent: "space-between" },
+  button: { width: undefined },
 });
 
 export default withTheme<Props, DefaultProps>()(SwitchMonthButtons);

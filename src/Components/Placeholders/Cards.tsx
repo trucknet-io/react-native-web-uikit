@@ -3,14 +3,15 @@ import { FlatList, StyleSheet, View } from "react-native";
 // tslint:disable-next-line:import-name
 import Shimmer from "react-native-shimmer-placeholder";
 import { isWeb } from "src/Helpers/platform";
-import withTheme, { ThemeProps } from "src/Themes/withTheme";
+import withTheme, { ThemeProps, ThemeParamsType } from "src/Themes/withTheme";
 
+type Styles = ReturnType<typeof getStyles>;
 interface DefaultProps {
   cards: number;
   margin: string | number;
   cardHeight: number;
 }
-interface Props extends DefaultProps, ThemeProps {}
+interface Props extends DefaultProps, ThemeProps<Styles> {}
 
 export class Placeholder extends React.PureComponent<Props> {
   public static defaultProps = {
@@ -20,9 +21,9 @@ export class Placeholder extends React.PureComponent<Props> {
   };
   public render() {
     return (
-      <View style={[styles.container, { backgroundColor: this.props.colors.containerBackground }]}>
+      <View style={this.props.styles.container}>
         <FlatList
-          style={{ width: "100%" }}
+          style={this.props.styles.flatListContainer}
           data={this.renderPlaceholderLines()}
           renderItem={this.renderItem}
           showsVerticalScrollIndicator={false}
@@ -41,7 +42,7 @@ export class Placeholder extends React.PureComponent<Props> {
         </Shimmer>
       );
     }
-    return <Shimmer autoRun={true} style={[styles.card, { marginVertical: margin, height }]} />;
+    return <Shimmer autoRun={true} style={this.props.styles.card} />;
   };
 
   private renderPlaceholderLines = () => {
@@ -55,19 +56,24 @@ export class Placeholder extends React.PureComponent<Props> {
   };
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "space-between",
-    alignItems: "center",
-    paddingHorizontal: 16,
-    paddingVertical: 4,
-  },
-  card: {
-    width: "100%",
-  },
-});
+const getStyles = ({ colors, props: { margin, cardHeight } }: ThemeParamsType<DefaultProps>) =>
+  StyleSheet.create({
+    container: {
+      flex: 1,
+      justifyContent: "space-between",
+      alignItems: "center",
+      paddingHorizontal: 16,
+      paddingVertical: 4,
+      backgroundColor: colors.containerBackground,
+    },
+    flatListContainer: { width: "100%" },
+    card: {
+      width: "100%",
+      marginVertical: margin,
+      height: cardHeight,
+    },
+  });
 
-let CardsPlaceholder = withTheme<Props, DefaultProps>()(Placeholder);
+let CardsPlaceholder = withTheme<Props, DefaultProps>(getStyles)(Placeholder);
 
 export { CardsPlaceholder };

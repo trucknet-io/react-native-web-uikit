@@ -11,18 +11,23 @@ const AVATAR_SIZES = {
 };
 
 type Style = ReturnType<typeof getStyle>;
+type SizeType = keyof typeof AVATAR_SIZES | number;
 
 interface DefaultProps {
-  size: keyof typeof AVATAR_SIZES | number;
+  size: SizeType;
   name: string;
 }
 
-interface Props extends CroppedThumbnailProps, DefaultProps, ThemeProps<Style> {
+interface OwnProps extends CroppedThumbnailProps, DefaultProps {
   accessibilityLabel: string;
   imageId?: string;
   uriCloudName?: string;
   source?: ImageURISource;
 }
+
+interface Props extends OwnProps, ThemeProps<Style> {}
+
+const getAvatarSize = (size: SizeType) => (typeof size === "number" ? size : AVATAR_SIZES[size]);
 
 class Avatar extends React.PureComponent<Props> {
   public static defaultProps: DefaultProps = {
@@ -31,22 +36,20 @@ class Avatar extends React.PureComponent<Props> {
   };
 
   public render() {
-    const avatarStyles = this.getAvatarStyles();
     return (
-      <View style={[avatarStyles, this.props.styles.container, this.props.style]}>
+      <View style={[this.props.styles.container, this.props.style]}>
         {this.props.imageId ? this.renderImage() : this.renderNameFirstLetter()}
       </View>
     );
   }
 
   private renderNameFirstLetter = () => {
-    const avatarSize = this.getAvatarSize();
-    return <Text style={[this.props.styles.letter, { fontSize: avatarSize / 2 }]}>{this.props.name.charAt(0)}</Text>;
+    return <Text style={this.props.styles.letter}>{this.props.name.charAt(0)}</Text>;
   };
 
   private renderImage = () => {
     const imageId = this.props.imageId as string;
-    const avatarSize = this.getAvatarSize();
+    const avatarSize = getAvatarSize(this.props.size);
     return (
       <CroppedThumbnail
         {...this.props}
@@ -56,26 +59,11 @@ class Avatar extends React.PureComponent<Props> {
       />
     );
   };
-
-  private getAvatarSize = () => {
-    if (typeof this.props.size === "number") {
-      return this.props.size;
-    }
-    return AVATAR_SIZES[this.props.size];
-  };
-
-  private getAvatarStyles = () => {
-    const avatarSize = this.getAvatarSize();
-    return {
-      height: avatarSize,
-      width: avatarSize,
-      borderRadius: avatarSize / 2,
-    };
-  };
 }
 
-const getStyle = ({ colors }: ThemeParamsType) =>
-  StyleSheet.create({
+const getStyle = ({ colors, props: { size } }: ThemeParamsType<OwnProps>) => {
+  const avatarSize = getAvatarSize(size);
+  return StyleSheet.create({
     container: {
       alignItems: "center",
       justifyContent: "center",
@@ -84,15 +72,20 @@ const getStyle = ({ colors }: ThemeParamsType) =>
       borderColor: colors.defaultText,
       overflow: "hidden",
       borderWidth: 1,
+      height: avatarSize,
+      width: avatarSize,
+      borderRadius: avatarSize / 2,
     },
     letter: {
       ...Fonts.BodyRegular,
       textTransform: "uppercase",
       color: colors.defaultText,
+      fontSize: avatarSize / 2,
     },
     avatarImageContainer: {
       flexGrow: 1,
     },
   });
+};
 
 export default withTheme<Props, DefaultProps>(getStyle)(Avatar);

@@ -23,7 +23,7 @@ interface Props extends ThemeProps<Styles>, DefaultProps {
 }
 
 type State = {
-  isMonthCalendarOpen: Boolean;
+  isOpen: Boolean;
   currentDate: Date;
 };
 
@@ -33,7 +33,7 @@ class CalendarTablet extends React.PureComponent<Props, State> {
   };
 
   public state = {
-    isMonthCalendarOpen: false,
+    isOpen: false,
     currentDate: this.props.currentDate,
   };
 
@@ -46,7 +46,7 @@ class CalendarTablet extends React.PureComponent<Props, State> {
             <CurrentMonth
               currentDate={this.state.currentDate}
               onPress={this.toggleCalendar}
-              isMonthCalendarOpen={this.state.isMonthCalendarOpen}
+              isOpen={this.state.isOpen}
               style={styles.monthContainer}
             />
           </View>
@@ -54,7 +54,7 @@ class CalendarTablet extends React.PureComponent<Props, State> {
           <WeekCalendar currentDate={this.state.currentDate} onDayPress={this.handleDayPress} fontSize={18} />
         </View>
         <View style={[styles.calendarContainer, this.props.calendarStyle]}>
-          {this.state.isMonthCalendarOpen ? (
+          {this.state.isOpen ? (
             <MonthCalendar
               key={this.state.currentDate.toString()}
               currentDate={this.state.currentDate}
@@ -71,7 +71,7 @@ class CalendarTablet extends React.PureComponent<Props, State> {
     this.toggleCalendar();
     this.handleDayPress(date);
   };
-  private toggleCalendar = () => this.setState({ isMonthCalendarOpen: !this.state.isMonthCalendarOpen });
+  private toggleCalendar = () => this.setState({ isOpen: !this.state.isOpen });
   private handleDayPress = (date: Date) => this.setState({ currentDate: date }, this.handleDateChange);
   private handleDateChange = () => this.props.onDateChange(this.state.currentDate);
 }
@@ -87,12 +87,11 @@ const getStyles = ({ colors }: ThemeParamsType) =>
     },
     calendarContainer: {
       position: "absolute",
-      zIndex: 100,
       top: "25%",
       left: "105%",
       backgroundColor: colors.background,
       borderRadius: 6,
-      width: 328,
+      minWidth: 328,
       ...getShadowStyle(12),
     },
     monthContainer: { flex: 3 },

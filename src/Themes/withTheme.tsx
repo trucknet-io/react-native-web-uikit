@@ -7,13 +7,14 @@ import { StyleProp } from "react-native";
 
 export type ThemeType = ColorThemeNames;
 
-export type ThemeParamsType = {
+export interface ThemeParamsType<P = unknown> {
   colors: ColorType;
   fonts: FontType;
   variables: VariablesType;
-};
+  props: P;
+}
 
-export interface ThemeProps<S = {}> {
+export interface ThemeProps<S = unknown> {
   styles: S;
   theme: ThemeType;
   variables: VariablesType;
@@ -24,7 +25,7 @@ export interface ThemeProps<S = {}> {
 
 type WithOutProps<P, D> = Pick<P, Exclude<keyof P, keyof D>>;
 
-const withTheme = <P, D = {}>(getComponentStyle?: (p: ThemeParamsType) => { [key: string]: StyleProp<unknown> }) => (
+const withTheme = <P, D = {}>(getComponentStyle?: (p: ThemeParamsType<P>) => { [key: string]: StyleProp<unknown> }) => (
   Component: React.ComponentClass<P>,
 ) => {
   type ComponentProps = WithOutProps<WithOutProps<P, D> & Partial<D>, ThemeProps>;
@@ -37,11 +38,11 @@ const withTheme = <P, D = {}>(getComponentStyle?: (p: ThemeParamsType) => { [key
       const { theme, toggleTheme } = ctx;
       const colors = getColors(theme);
       const fonts = getFonts(theme);
-      const styles = getComponentStyle ? getComponentStyle({ colors, fonts, variables }) : undefined;
-      const componentOwnProps = this.props as P;
+      const props = { ...Component.defaultProps, ...this.props } as P;
+      const styles = getComponentStyle ? getComponentStyle({ colors, fonts, variables, props }) : undefined;
       return (
         <Component
-          {...componentOwnProps}
+          {...props}
           styles={styles}
           theme={theme}
           variables={variables}
