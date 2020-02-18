@@ -41,7 +41,7 @@ class MonthCalendarContainer extends React.PureComponent<Props, State> {
       <View style={[styles.container, this.props.style]}>
         <View style={styles.headerContainer}>
           <View style={styles.monthContainer}>
-            <Text style={{ color: colors.defaultText }}>{moment(this.state.currentDate).format("MMMM Y")}</Text>
+            <Text style={{ color: colors.defaultText }}>{moment(this.state.currentDate).format("LL")}</Text>
           </View>
           <SwitchMonthButtons
             style={styles.switchButtonsContainer}
