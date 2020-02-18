@@ -3,7 +3,7 @@ import getShadowStyle from "./getShadowStyle";
 import { Platform } from "react-native";
 import { normalize } from "../Helpers/sizeHelper";
 
-const sizeBase = Platform.OS === "web" ? normalize(2.3) : normalize(2);
+const sizeBase = normalize(2);
 
 export type WindowSizeType = {
   width: number;
@@ -12,13 +12,12 @@ export type WindowSizeType = {
 
 const size = {
   xxs: normalize(1),
-  xs: Math.pow(sizeBase, 2),
-  s: Math.pow(sizeBase, 3),
-  m: Math.pow(sizeBase, 4),
-  l: Math.pow(sizeBase, 5),
-  xl: Math.pow(sizeBase, 6),
-  xxl: Math.pow(sizeBase, 7),
-  xxxl: Math.pow(sizeBase, 8),
+  xs: sizeBase ** 2,
+  s: sizeBase ** 3,
+  m: sizeBase ** 4,
+  l: sizeBase ** 5,
+  xl: sizeBase ** 6,
+  xxl: sizeBase ** 7,
   /**
    * We have 7 days, all days aligned in the center, otherwise
    * we' ll have a problem with the right or left side. So 100 / 7 / 2 = ~7.14
