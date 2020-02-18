@@ -24,7 +24,7 @@ class ToggleThemeWrapper extends React.PureComponent<Props> {
 const getStyles = ({ colors, variables }: ThemeParamsType) =>
   StyleSheet.create({
     container: { backgroundColor: colors.containerBackground, height: "100%" },
-    childrenContainer: { padding: variables.size.s },
+    childrenContainer: { padding: variables.size.s, flex: 1 },
     buttonStyle: {
       padding: variables.size.m,
       marginBottom: variables.size.m,
