@@ -56,6 +56,7 @@ class Button extends React.PureComponent<Props> {
 }
 
 const getStyles = ({
+  variables,
   colors,
   props: { width, marginVertical, marginHorizontal, borderRadius, alignItems, borderWidth },
 }: ThemeParamsType<OwnProps>) =>
@@ -63,7 +64,7 @@ const getStyles = ({
     buttonContainer: {
       justifyContent: "center",
       flexDirection: "row",
-      paddingVertical: 12,
+      paddingVertical: variables.size.m,
       width,
       marginVertical,
       marginHorizontal,
@@ -81,7 +82,7 @@ const getStyles = ({
     buttonLinkText: {
       textDecorationLine: "underline",
       color: colors.link,
-      marginHorizontal: 2,
+      marginHorizontal: variables.size.xs,
     },
   });
 const TransparentButton = withTheme<Props, DefaultProps>(getStyles)(Button);

@@ -110,7 +110,7 @@ const getStyles = ({
     linearGradient: {
       justifyContent: "center",
       flexDirection: "row",
-      paddingVertical: 12,
+      paddingVertical: variables.size.m,
       width,
       marginVertical,
       marginHorizontal,
