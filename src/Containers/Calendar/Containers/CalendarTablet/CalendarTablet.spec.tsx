@@ -51,8 +51,7 @@ it("should switch to next month", async () => {
   const SubmitButton = getByLabelText("submit");
   fireEvent.press(SubmitButton);
   expect(onDateChange).toHaveBeenCalledTimes(1);
-  const month = await findByText("May", { exact: false });
-  expect(month).toBeTruthy();
+  await findByText("May", { exact: false });
 });
 
 it("should switch to previous month", async () => {
@@ -88,8 +87,8 @@ it("should not change data on cancel", async () => {
   );
   const ToggleMonthButton = getByLabelText("toggleMonthCalendar");
   fireEvent.press(ToggleMonthButton);
-  const day = await findByText("1");
-  fireEvent.press(day);
+  const Day = await findByText("1");
+  fireEvent.press(Day);
   const CancelButton = getByLabelText("cancel");
   fireEvent.press(CancelButton);
   expect(onDateChange).toHaveBeenCalledTimes(0);
