@@ -13,12 +13,12 @@ export type WindowSizeType = {
 const size = {
   xxs: normalize(1),
   xs: Math.pow(sizeBase, 2),
-  s: Math.pow(sizeBase, 4),
-  m: Math.pow(sizeBase, 5),
-  l: Math.pow(sizeBase, 6),
-  xl: Math.pow(sizeBase, 7),
-  xxl: Math.pow(sizeBase, 8),
-  xxxl: Math.pow(sizeBase, 9),
+  s: Math.pow(sizeBase, 3),
+  m: Math.pow(sizeBase, 4),
+  l: Math.pow(sizeBase, 5),
+  xl: Math.pow(sizeBase, 6),
+  xxl: Math.pow(sizeBase, 7),
+  xxxl: Math.pow(sizeBase, 8),
   /**
    * We have 7 days, all days aligned in the center, otherwise
    * we' ll have a problem with the right or left side. So 100 / 7 / 2 = ~7.14

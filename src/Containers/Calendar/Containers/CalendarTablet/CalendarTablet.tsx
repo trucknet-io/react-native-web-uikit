@@ -82,7 +82,7 @@ const getStyles = ({ colors, variables: { size } }: ThemeParamsType) =>
     headerContainer: {
       flexDirection: "row",
       justifyContent: "space-between",
-      paddingVertical: 14,
+      paddingVertical: size.m,
       paddingHorizontal: size.calendarPaddingHorizontal,
     },
     calendarContainer: {
@@ -90,13 +90,13 @@ const getStyles = ({ colors, variables: { size } }: ThemeParamsType) =>
       top: "25%",
       left: "105%",
       backgroundColor: colors.background,
-      borderRadius: 6,
+      borderRadius: size.xs,
       minWidth: 328,
-      ...getShadowStyle(12),
+      ...getShadowStyle(size.m),
     },
     monthContainer: { flex: 3 },
     switchButtonsContainer: { flex: 1 },
-    month: { paddingHorizontal: 8 },
+    month: { paddingHorizontal: size.s },
   });
 
 export default withTheme<Props, DefaultProps>(getStyles)(CalendarTablet);

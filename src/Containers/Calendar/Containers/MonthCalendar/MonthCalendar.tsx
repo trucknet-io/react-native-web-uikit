@@ -36,9 +36,9 @@ class MonthCalendarContainer extends React.PureComponent<Props, State> {
   };
 
   public render() {
-    const { style, colors, styles } = this.props;
+    const { colors, styles } = this.props;
     return (
-      <View style={[styles.container, style]}>
+      <View style={[styles.container, this.props.style]}>
         <View style={styles.headerContainer}>
           <View style={styles.monthContainer}>
             <Text style={{ color: colors.defaultText }}>{moment(this.state.currentDate).format("MMMM Y")}</Text>
@@ -72,7 +72,7 @@ class MonthCalendarContainer extends React.PureComponent<Props, State> {
 
 const getStyles = ({ colors, variables: { size } }: ThemeParamsType) =>
   StyleSheet.create({
-    container: { alignItems: "flex-end", backgroundColor: colors.background },
+    container: { backgroundColor: colors.background },
     headerContainer: {
       flexDirection: "row",
       justifyContent: "space-around",
@@ -82,7 +82,11 @@ const getStyles = ({ colors, variables: { size } }: ThemeParamsType) =>
     },
     monthContainer: { flex: 3 },
     switchButtonsContainer: { flex: 1 },
-    footerContainer: { flexDirection: "row", paddingHorizontal: size.calendarPaddingHorizontal },
+    footerContainer: {
+      flexDirection: "row",
+      paddingHorizontal: size.calendarPaddingHorizontal,
+      justifyContent: "flex-end",
+    },
   });
 
 export default withTheme<Props, DefaultProps>(getStyles)(MonthCalendarContainer);

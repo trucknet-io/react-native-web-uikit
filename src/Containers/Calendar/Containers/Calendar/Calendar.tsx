@@ -83,14 +83,13 @@ const getStyles = ({ colors, variables: { size, shadow } }: ThemeParamsType) =>
     headerContainer: {
       flexDirection: "row",
       justifyContent: "space-between",
-      paddingVertical: 14,
+      paddingVertical: size.m,
       paddingHorizontal: size.calendarPaddingHorizontal,
     },
     monthContainer: { flex: 3 },
     switchButtonsContainer: { flex: 1 },
     calendarContainer: {
       position: "absolute",
-      zIndex: 100,
       top: "101%",
       width: "100%",
       backgroundColor: colors.background,

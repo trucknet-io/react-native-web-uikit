@@ -42,7 +42,7 @@ class CalendarDay extends React.PureComponent<Props> {
   };
 }
 
-const getStyles = ({ props, colors }: ThemeParamsType<OwnProps>) => {
+const getStyles = ({ props, colors, variables: { size } }: ThemeParamsType<OwnProps>) => {
   const getDayBackgroundColor = (props: OwnProps) => {
     const day = moment(props.day);
     if (day.isSame(props.currentDate, "day")) {
@@ -71,7 +71,7 @@ const getStyles = ({ props, colors }: ThemeParamsType<OwnProps>) => {
       flexBasis: `${100 / 7}%`,
       alignItems: "center",
       justifyContent: "center",
-      paddingVertical: 12,
+      paddingVertical: size.s,
     },
     day: {
       textAlign: "center",
