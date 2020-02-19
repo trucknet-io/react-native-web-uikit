@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 import { addDecorator, addParameters } from "@storybook/react";
 import { withKnobs } from "@storybook/addon-knobs/react";
 import { addReadme } from "storybook-readme";

@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 import { ViewStyle } from "react-native";
 import CalendarTablet from "./Containers/CalendarTablet";
 import Calendar from "./Containers/Calendar";

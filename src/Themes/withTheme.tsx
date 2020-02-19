@@ -1,5 +1,5 @@
 import { getColors, ColorType, ColorThemeNames } from "./Colors";
-import React from "react";
+import * as React from "react";
 import variables, { VariablesType } from "./variables";
 import { getFonts, FontType } from "./Fonts";
 import { ThemeConsumer, ThemeProviderType } from "src/Contexts/ThemeContext";

@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 import { View, ViewStyle, StyleSheet } from "react-native";
 import MonthCalendar from "../MonthCalendar";
 import WeekCalendar from "src/Containers/Calendar/Components/WeekCalendar";

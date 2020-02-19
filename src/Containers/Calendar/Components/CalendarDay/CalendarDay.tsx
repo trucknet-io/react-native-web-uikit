@@ -1,5 +1,5 @@
 import moment from "moment";
-import React from "react";
+import * as React from "react";
 import { Text, StyleSheet } from "react-native";
 import { TransparentButton, TransparentButtonProps } from "src/Components/Buttons";
 import withTheme, { ThemeProps, ThemeParamsType } from "src/Themes/withTheme";

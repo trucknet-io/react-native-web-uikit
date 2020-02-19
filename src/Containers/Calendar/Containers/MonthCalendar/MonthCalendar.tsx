@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 import { View, StyleSheet, Text, ViewStyle } from "react-native";
 import MonthCalendar from "src/Containers/Calendar/Components/MonthCalendar";
 import SwitchMonthButtons from "src/Containers/Calendar/Components/SwitchMonthButtons";

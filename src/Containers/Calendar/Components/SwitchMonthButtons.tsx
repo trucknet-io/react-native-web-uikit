@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 import { View, ViewStyle, StyleSheet } from "react-native";
 import moment from "moment";
 import { TransparentButton } from "src/Components/Buttons";
