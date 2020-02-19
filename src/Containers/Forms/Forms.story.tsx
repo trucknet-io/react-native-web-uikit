@@ -26,6 +26,7 @@ const validatePassword = (password?: string) => {
 const loginFormStories = storiesOf("Forms|Login Form", module).addParameters({
   component: LoginFormContainerComponent,
 });
+
 loginFormStories.add("Login Form", () => (
   <LoginForm
     callback={object("callback", {
