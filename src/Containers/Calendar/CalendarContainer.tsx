@@ -16,11 +16,10 @@ interface Props extends ThemeParamsType {
 
 class CalendarContainer extends React.PureComponent<Props> {
   public render() {
-    const key = this.props.currentDate.toString();
     if (Device.isTablet) {
-      return <CalendarTablet {...this.props} key={key} />;
+      return <CalendarTablet {...this.props} />;
     }
-    return <Calendar {...this.props} key={key} />;
+    return <Calendar {...this.props} />;
   }
 }
 

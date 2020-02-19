@@ -5,6 +5,7 @@ import WeekCalendar from "src/Containers/Calendar/Components/WeekCalendar";
 import CurrentMonth from "../../Components/CurrentMonth";
 import WeekDays from "../../Components/WeekDays";
 import getShadowStyle from "src/Themes/getShadowStyle";
+import CalendarWrapper, { CalendarParamsTypes } from "../../Wrappers/CalendarWrapper";
 
 import withTheme, { ThemeProps, ThemeParamsType } from "src/Themes/withTheme";
 
@@ -22,58 +23,51 @@ interface Props extends ThemeProps<Styles>, DefaultProps {
   cancelLabel?: React.ReactNode;
 }
 
-type State = {
-  isOpen: Boolean;
-  currentDate: Date;
-};
-
-export class CalendarTabletComponent extends React.PureComponent<Props, State> {
+export class CalendarTabletComponent extends React.PureComponent<Props> {
   static defaultProps = {
     currentDate: new Date(),
   };
 
-  public state = {
-    isOpen: false,
-    currentDate: this.props.currentDate,
-  };
-
   public render() {
+    return (
+      <CalendarWrapper
+        key={this.props.currentDate.toString()}
+        currentDate={this.props.currentDate}
+        render={this.renderCalendar}
+        onDateChange={this.props.onDateChange}
+      />
+    );
+  }
+
+  private renderCalendar = ({ state, methods }: CalendarParamsTypes) => {
     const { styles } = this.props;
     return (
       <View>
         <View style={[styles.container, this.props.style]}>
           <View style={styles.headerContainer}>
             <CurrentMonth
-              currentDate={this.state.currentDate}
-              onPress={this.toggleCalendar}
-              isOpen={this.state.isOpen}
+              currentDate={state.currentDate}
+              onPress={methods.toggleCalendar}
+              isOpen={state.isOpen}
               style={styles.monthContainer}
             />
           </View>
-          <WeekDays currentDate={this.state.currentDate} />
-          <WeekCalendar currentDate={this.state.currentDate} onDayPress={this.handleDayPress} fontSize={18} />
+          <WeekDays currentDate={state.currentDate} />
+          <WeekCalendar currentDate={state.currentDate} onDayPress={methods.handleDayPress} fontSize={18} />
         </View>
         <View style={[styles.calendarContainer, this.props.calendarStyle]}>
-          {this.state.isOpen ? (
+          {state.isOpen ? (
             <MonthCalendar
-              key={this.state.currentDate.toString()}
-              currentDate={this.state.currentDate}
-              submit={{ onSubmit: this.handleCalendarDateChange, submitLabel: this.props.submitLabel }}
-              cancel={{ onCancel: this.toggleCalendar, cancelLabel: this.props.cancelLabel }}
+              key={state.currentDate.toString()}
+              currentDate={state.currentDate}
+              submit={{ onSubmit: methods.handleCalendarDateChange, submitLabel: this.props.submitLabel }}
+              cancel={{ onCancel: methods.toggleCalendar, cancelLabel: this.props.cancelLabel }}
             />
           ) : null}
         </View>
       </View>
     );
-  }
-
-  private handleCalendarDateChange = (date: Date) => {
-    this.toggleCalendar();
-    this.handleDayPress(date);
   };
-  private toggleCalendar = () => this.setState({ isOpen: !this.state.isOpen });
-  private handleDayPress = (date: Date) => this.setState({ currentDate: date }, this.handleDateChange);
-  private handleDateChange = () => this.props.onDateChange(this.state.currentDate);
 }
 
 const getStyles = ({ colors, variables: { size } }: ThemeParamsType) =>
