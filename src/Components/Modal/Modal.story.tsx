@@ -9,7 +9,7 @@ import { StyleSheet } from "react-native";
 const stories = storiesOf("Modals|Modal", module).addParameters({ component: HybridModalComponent });
 
 stories.add("Modal", () => (
-  <Modal isVisible={boolean("isVisible", true)} style={object("styles", { padding: "2%", top: 40 })}>
+  <Modal isVisible={boolean("isVisible", false)} style={object("styles", { padding: "2%", top: 40 })}>
     <View style={styles.container}>
       <Text>Modal</Text>
     </View>

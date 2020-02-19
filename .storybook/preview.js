@@ -6,6 +6,7 @@ import { addReadmeToStory } from "./readmeDecorator";
 import StoryWrapper from "src/Wrappers/StoryWrapper";
 import { setOptions } from "@storybook/addon-options";
 import { DocsPage, DocsContainer } from "@storybook/addon-docs/blocks";
+import { themes } from "@storybook/theming";
 
 setOptions({
   hierarchySeparator: /\/|\./,
@@ -15,13 +16,17 @@ addDecorator(withKnobs);
 addDecorator(addReadme);
 
 addDecorator(addReadmeToStory);
-addDecorator((story) => {
-  return <StoryWrapper>{story()}</StoryWrapper>;
-});
+
 addParameters({
   docs: {
     container: DocsContainer,
     page: DocsPage,
   },
-  options: {},
+  options: {
+    theme: themes.dark,
+  },
+});
+
+addDecorator((story) => {
+  return <StoryWrapper>{story()}</StoryWrapper>;
 });

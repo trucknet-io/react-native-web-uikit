@@ -9,7 +9,7 @@ type State = {
 
 class ThemeProviderWrapper extends React.PureComponent<Props, State> {
   public state: State = {
-    theme: "light",
+    theme: "dark",
   };
 
   render() {

@@ -11,12 +11,16 @@ const stories = storiesOf("Thumbnail|Avatar", module).addParameters({
 stories.add("Avatar with letter", () => (
   <View style={styles.container}>
     <Avatar accessibilityLabel="Avatar" size="small" name="avatar" />
+    <Avatar accessibilityLabel="Avatar" size="medium" name="avatar" />
+    <Avatar accessibilityLabel="Avatar" size="large" name="avatar" />
   </View>
 ));
 
 stories.add("Avatar with image", () => (
   <View style={styles.container}>
     <Avatar accessibilityLabel="Avatar" size="small" name="avatar" uriCloudName="demo" imageId="lady" />
+    <Avatar accessibilityLabel="Avatar" size="medium" name="avatar" uriCloudName="demo" imageId="lady" />
+    <Avatar accessibilityLabel="Avatar" size="large" name="avatar" uriCloudName="demo" imageId="lady" />
   </View>
 ));
 
