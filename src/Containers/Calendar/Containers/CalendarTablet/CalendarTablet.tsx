@@ -27,7 +27,7 @@ type State = {
   currentDate: Date;
 };
 
-class CalendarTablet extends React.PureComponent<Props, State> {
+export class CalendarTabletComponent extends React.PureComponent<Props, State> {
   static defaultProps = {
     currentDate: new Date(),
   };
@@ -99,4 +99,4 @@ const getStyles = ({ colors, variables: { size } }: ThemeParamsType) =>
     month: { paddingHorizontal: size.s },
   });
 
-export default withTheme<Props, DefaultProps>(getStyles)(CalendarTablet);
+export default withTheme<Props, DefaultProps>(getStyles)(CalendarTabletComponent);

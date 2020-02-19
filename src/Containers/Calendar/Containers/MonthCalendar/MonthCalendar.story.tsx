@@ -1,10 +1,12 @@
 import * as React from "react";
 import { storiesOf } from "@storybook/react-native";
-import MonthCalendar from "./MonthCalendar";
+import MonthCalendar, { MonthCalendarContainerComponent } from "./MonthCalendar";
 import { action } from "@storybook/addon-actions";
 import getShadowStyle from "src/Themes/getShadowStyle";
 
-const stories = storiesOf("Calendar|Month Calendar Container", module);
+const stories = storiesOf("Calendar|Month Calendar Container", module).addParameters({
+  component: MonthCalendarContainerComponent,
+});
 
 stories.add("Month Calendar container", () => (
   <MonthCalendar
@@ -14,4 +16,4 @@ stories.add("Month Calendar container", () => (
   />
 ));
 
-export default stories;
+export { stories };

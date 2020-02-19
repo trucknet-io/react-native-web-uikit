@@ -22,7 +22,7 @@ interface Props extends ThemeProps<Styles>, OwnProps {}
 
 export type TransparentButtonProps = Omit<Props, keyof DefaultProps> & Partial<DefaultProps>;
 
-class Button extends React.PureComponent<Props> {
+export class TransparentButtonComponent extends React.PureComponent<Props> {
   public static defaultProps: DefaultProps = {
     borderWidth: 0,
     borderRadius: 4,
@@ -85,6 +85,6 @@ const getStyles = ({
       marginHorizontal: variables.size.xs,
     },
   });
-const TransparentButton = withTheme<Props, DefaultProps>(getStyles)(Button);
+const TransparentButton = withTheme<Props, DefaultProps>(getStyles)(TransparentButtonComponent);
 
 export { TransparentButton };

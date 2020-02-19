@@ -26,18 +26,13 @@ module.exports = ({ config }) => {
       },
       {
         test: /\.(ts|tsx)$/,
-        use: [
-          {
-            loader: require.resolve("awesome-typescript-loader"),
-            options: {
-              transpileOnly: true,
-              useCache: true,
-            },
-          },
-          {
-            loader: require.resolve("react-docgen-typescript-loader"),
-          },
-        ],
+        include: path.resolve(__dirname, "../src"),
+        loader: "awesome-typescript-loader",
+      },
+      {
+        test: /\.(ts|tsx)$/,
+        include: path.resolve(__dirname, "../src"),
+        loader: "react-docgen-typescript-loader",
       },
       {
         test: /\.md$/,

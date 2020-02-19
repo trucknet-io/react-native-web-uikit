@@ -1,11 +1,11 @@
 import * as React from "react";
 import { storiesOf } from "@storybook/react-native";
-import Calendar from "./Calendar";
+import Calendar, { CalendarContainerMobileComponent } from "./Calendar";
 import { action } from "@storybook/addon-actions";
 import getShadowStyle from "src/Themes/getShadowStyle";
 
-const stories = storiesOf("Calendar|Calendar", module);
+const stories = storiesOf("Calendar|Calendar", module).addParameters({ component: CalendarContainerMobileComponent });
 
 stories.add("Calendar", () => <Calendar onDateChange={action("onDayPress")} style={getShadowStyle()} />);
 
-export default stories;
+export { stories };

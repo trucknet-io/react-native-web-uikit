@@ -41,7 +41,7 @@ type State = {
   error: React.ReactNode | void;
 };
 
-class Input extends React.PureComponent<Props, State> {
+export class InputComponent extends React.PureComponent<Props, State> {
   private textInput?: TextInput;
 
   static defaultProps: DefaultProps = {
@@ -172,4 +172,4 @@ const getStyle = ({ fonts, colors }: ThemeParamsType) => {
   });
 };
 
-export default withTheme<Props, DefaultProps>(getStyle)(Input);
+export default withTheme<Props, DefaultProps>(getStyle)(InputComponent);

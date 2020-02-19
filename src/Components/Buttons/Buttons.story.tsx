@@ -1,11 +1,13 @@
 import * as React from "react";
 import { storiesOf } from "@storybook/react-native";
-import { TransparentButton } from "src/Components/Buttons";
-import { GradientButton } from "src/Components/Buttons";
+import { TransparentButton, TransparentButtonComponent } from "src/Components/Buttons";
+import { GradientButton, GradientButtonComponent } from "src/Components/Buttons";
 import { color, text } from "@storybook/addon-knobs/react";
 import Colors from "src/Themes/Colors";
 
-const gradientButtonStories = storiesOf("Buttons", module);
+const gradientButtonStories = storiesOf("Buttons", module).addParameters({
+  component: GradientButtonComponent,
+});
 
 gradientButtonStories.add("Gradient Button", () => (
   <GradientButton
@@ -15,7 +17,9 @@ gradientButtonStories.add("Gradient Button", () => (
   />
 ));
 
-const transparentButtonStories = storiesOf("Buttons|Transparent Button", module);
+const transparentButtonStories = storiesOf("Buttons|Transparent Button", module).addParameters({
+  component: TransparentButtonComponent,
+});
 
 transparentButtonStories.add("Transparent Button", () => (
   <TransparentButton label={text("label", "TransparentButton")} />
@@ -29,4 +33,4 @@ transparentButtonStories.add("Transparent Button with link", () => (
   <TransparentButton label={text("label", "TransparentButton")} link={text("link", "link")} />
 ));
 
-export default { gradientButtonStories, transparentButtonStories };
+export { gradientButtonStories, transparentButtonStories };

@@ -18,7 +18,7 @@ interface DefaultProps {
   name: string;
 }
 
-interface OwnProps extends CroppedThumbnailProps, DefaultProps {
+export interface OwnProps extends CroppedThumbnailProps, DefaultProps {
   accessibilityLabel: string;
   imageId?: string;
   uriCloudName?: string;
@@ -29,7 +29,7 @@ interface Props extends OwnProps, ThemeProps<Style> {}
 
 const getAvatarSize = (size: SizeType) => (typeof size === "number" ? size : AVATAR_SIZES[size]);
 
-class Avatar extends React.PureComponent<Props> {
+export class AvatarComponent extends React.PureComponent<Props> {
   public static defaultProps: DefaultProps = {
     size: "medium",
     name: "?",
@@ -88,4 +88,5 @@ const getStyle = ({ colors, props: { size } }: ThemeParamsType<OwnProps>) => {
   });
 };
 
-export default withTheme<Props, DefaultProps>(getStyle)(Avatar);
+const Avatar = withTheme<Props, DefaultProps>(getStyle)(AvatarComponent);
+export default Avatar;

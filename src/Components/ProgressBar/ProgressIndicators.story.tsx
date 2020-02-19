@@ -6,4 +6,4 @@ const stories = storiesOf("Load Indicators|Progress Bar", module);
 
 stories.add("Progress Bar", () => <ProgressBar />);
 
-export default stories;
+export { stories };

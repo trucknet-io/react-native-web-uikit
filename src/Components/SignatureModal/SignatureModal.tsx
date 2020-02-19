@@ -36,7 +36,7 @@ type State = {
   resetCount: number;
 };
 
-class SignatureModal extends React.PureComponent<Props> {
+export class SignatureModalComponent extends React.PureComponent<Props> {
   static defaultProps = {
     backgroundColor: Colors.palette.white,
     submitButtonLabel: "ok",
@@ -215,4 +215,4 @@ const getStyles = ({ colors, fonts }: ThemeParamsType) =>
     },
   });
 
-export default withTheme<Props, DefaultProps>(getStyles)(SignatureModal);
+export default withTheme<Props, DefaultProps>(getStyles)(SignatureModalComponent);

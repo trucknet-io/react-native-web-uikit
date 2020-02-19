@@ -8,4 +8,4 @@ const stories = storiesOf("Icons|Icons", module);
 
 stories.add("Icons", Icons);
 
-export default stories;
+export { stories };

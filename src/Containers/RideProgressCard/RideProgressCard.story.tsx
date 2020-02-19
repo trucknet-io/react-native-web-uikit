@@ -50,4 +50,4 @@ stories.add("Long names with container", () => (
 ));
 stories.add("Minimum props", () => <RideProgressCard origin={fakeProps[3]} destination={fakeProps[3]} />);
 
-export default stories;
+export { stories };

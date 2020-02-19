@@ -4,7 +4,9 @@ import CroppedThumbnail from "./CroppedThumbnail";
 import { View, StyleSheet } from "react-native";
 import { object, number } from "@storybook/addon-knobs/react";
 
-const stories = storiesOf("Thumbnail|Cropped Thumbnail", module);
+const stories = storiesOf("Thumbnail|Cropped Thumbnail", module).addParameters({
+  component: CroppedThumbnail,
+});
 
 stories.add("Resize to small thumbnail by width", () => (
   <View style={styles.smallImageContainer}>
@@ -105,4 +107,4 @@ const styles = StyleSheet.create({
   bigImageContainer: { width: 400, height: 400 },
 });
 
-export default stories;
+export { stories };

@@ -21,7 +21,7 @@ interface OwnProps extends DefaultProps {
 
 interface Props extends ThemeProps<Styles>, OwnProps, ButtonProps {}
 
-class CalendarDay extends React.PureComponent<Props> {
+export class CalendarDayComponent extends React.PureComponent<Props> {
   static defaultProps: DefaultProps = {
     type: "month",
     fontSize: 14,
@@ -85,4 +85,4 @@ const getStyles = ({ props, colors, variables: { size } }: ThemeParamsType<OwnPr
     },
   });
 };
-export default withTheme<Props, DefaultProps>(getStyles)(CalendarDay);
+export default withTheme<Props, DefaultProps>(getStyles)(CalendarDayComponent);

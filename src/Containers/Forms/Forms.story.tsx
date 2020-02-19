@@ -1,12 +1,14 @@
 import * as React from "react";
 import { storiesOf } from "@storybook/react-native";
-import LoginForm from "./LoginFormContainer";
-import Form from "./FormContainer";
+import LoginForm, { LoginFormContainerComponent } from "./LoginFormContainer";
+import Form, { FormContainerComponent } from "./FormContainer";
 import { object } from "@storybook/addon-knobs/react";
 import { action } from "@storybook/addon-actions";
 import { validateEmail, validatePassword } from "src/Helpers/validateHelpers";
 
-const loginFormStories = storiesOf("Forms|Login Form", module);
+const loginFormStories = storiesOf("Forms|Login Form", module).addParameters({
+  component: LoginFormContainerComponent,
+});
 loginFormStories.add("Login Form", () => (
   <LoginForm
     callback={object("callback", {
@@ -29,7 +31,9 @@ loginFormStories.add("Login Form", () => (
   />
 ));
 
-const formStories = storiesOf("Forms|Form", module);
+const formStories = storiesOf("Forms|Form", module).addParameters({
+  component: FormContainerComponent,
+});
 
 formStories.add("Form", () => (
   <Form
@@ -43,4 +47,4 @@ formStories.add("Form", () => (
   />
 ));
 
-export default { loginFormStories, formStories };
+export { loginFormStories, formStories };

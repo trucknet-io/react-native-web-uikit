@@ -26,7 +26,7 @@ type State = {
   currentDate: Date;
 };
 
-class MonthCalendarContainer extends React.PureComponent<Props, State> {
+export class MonthCalendarContainerComponent extends React.PureComponent<Props, State> {
   static defaultProps = {
     currentDate: new Date(),
   };
@@ -89,4 +89,4 @@ const getStyles = ({ colors, variables: { size } }: ThemeParamsType) =>
     },
   });
 
-export default withTheme<Props, DefaultProps>(getStyles)(MonthCalendarContainer);
+export default withTheme<Props, DefaultProps>(getStyles)(MonthCalendarContainerComponent);

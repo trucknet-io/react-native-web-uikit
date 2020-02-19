@@ -1,9 +1,9 @@
 import * as React from "react";
 import { storiesOf } from "@storybook/react-native";
-import CalendarDay from "./CalendarDay";
+import CalendarDay, { CalendarDayComponent } from "./CalendarDay";
 import { action } from "@storybook/addon-actions";
 
-const stories = storiesOf("Calendar|Calendar Day", module);
+const stories = storiesOf("Calendar|Calendar Day", module).addParameters({ component: CalendarDayComponent });
 
 stories.add("Calendar Day", () => (
   <CalendarDay
@@ -23,4 +23,4 @@ stories.add("Calendar Current Day", () => (
   />
 ));
 
-export default stories;
+export { stories };

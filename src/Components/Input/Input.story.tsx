@@ -1,10 +1,11 @@
 import * as React from "react";
 import { storiesOf } from "@storybook/react-native";
-import InputField from "./Input";
+import InputField, { InputComponent } from "./Input";
 import { action } from "@storybook/addon-actions";
 import { object } from "@storybook/addon-knobs/react";
 
-const stories = storiesOf("Forms|Input Field", module);
+const stories = storiesOf("Forms|Input Field", module).addParameters({ component: InputComponent });
+
 stories.add("Input Field", () => (
   <InputField
     label="input"
@@ -29,4 +30,4 @@ stories.add("Input Field with custom styles", () => (
   />
 ));
 
-export default stories;
+export { stories };

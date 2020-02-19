@@ -3,7 +3,7 @@ import getShadowStyle from "./getShadowStyle";
 import { Platform } from "react-native";
 import { normalize } from "../Helpers/sizeHelper";
 
-const sizeBase = Platform.OS === "web" ? 2.4 : 2;
+const sizeBase = Platform.OS === "web" ? 2.3 : 2;
 
 export type WindowSizeType = {
   width: number;

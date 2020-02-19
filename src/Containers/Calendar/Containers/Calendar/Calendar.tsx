@@ -23,7 +23,7 @@ type State = {
   currentDate: Date;
 };
 
-class CalendarContainerMobile extends React.PureComponent<Props, State> {
+export class CalendarContainerMobileComponent extends React.PureComponent<Props, State> {
   static defaultProps = {
     currentDate: new Date(),
   };
@@ -97,4 +97,4 @@ const getStyles = ({ colors, variables: { size, shadow } }: ThemeParamsType) =>
     },
   });
 
-export default withTheme<Props, DefaultProps>(getStyles)(CalendarContainerMobile);
+export default withTheme<Props, DefaultProps>(getStyles)(CalendarContainerMobileComponent);

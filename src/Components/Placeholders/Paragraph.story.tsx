@@ -10,4 +10,4 @@ stories.add("Paragraph", () => <ParagraphPlaceholder />);
 stories.add("Cards", () => <CardsPlaceholder />);
 stories.add("Map", () => <MapPlaceholder />);
 
-export default stories;
+export { stories };

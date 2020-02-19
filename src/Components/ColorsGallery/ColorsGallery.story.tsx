@@ -1,8 +1,8 @@
 import * as React from "react";
 import { storiesOf } from "@storybook/react-native";
-import ColorsGallery from "./ColorsGallery";
+import ColorsGallery, { ColorsGalleryComponent } from "./ColorsGallery";
 
-const stories = storiesOf("Colors|Colors Gallery", module);
+const stories = storiesOf("Colors|Colors Gallery", module).addParameters({ component: ColorsGalleryComponent });
 stories.add("Colors Gallery", () => <ColorsGallery />);
 
-export default stories;
+export { stories };
