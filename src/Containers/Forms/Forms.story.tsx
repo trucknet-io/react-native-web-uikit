@@ -4,7 +4,24 @@ import LoginForm, { LoginFormContainerComponent } from "./LoginFormContainer";
 import Form, { FormContainerComponent } from "./FormContainer";
 import { object } from "@storybook/addon-knobs/react";
 import { action } from "@storybook/addon-actions";
-import { validateEmail, validatePassword } from "src/Helpers/validateHelpers";
+
+const validateEmail = (email?: string) => {
+  const emailRegex = new RegExp(
+    // tslint:disable-next-line: max-line-length
+    /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/,
+  );
+  if (!email) {
+    return "Email field is required";
+  }
+  return !emailRegex.test(email) ? "Email format is invalid" : undefined;
+};
+
+const validatePassword = (password?: string) => {
+  if (!password) {
+    return "Password field is required";
+  }
+  return password.length < 8 ? "Password must be at least 8 characters long" : undefined;
+};
 
 const loginFormStories = storiesOf("Forms|Login Form", module).addParameters({
   component: LoginFormContainerComponent,
