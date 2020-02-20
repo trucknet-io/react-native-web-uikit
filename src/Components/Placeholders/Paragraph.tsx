@@ -13,7 +13,7 @@ interface DefaultProps {
 
 interface Props extends DefaultProps, ThemeProps<Styles> {}
 
-class Placeholder extends React.PureComponent<Props> {
+export class ParagraphPlaceholderComponent extends React.PureComponent<Props> {
   public static defaultProps: DefaultProps = {
     lines: 5,
   };
@@ -63,6 +63,6 @@ const getStyles = ({ colors }: ThemeParamsType) =>
     },
   });
 
-let ParagraphPlaceholder = withTheme<Props, DefaultProps>(getStyles)(Placeholder);
+let ParagraphPlaceholder = withTheme<Props, DefaultProps>(getStyles)(ParagraphPlaceholderComponent);
 
 export { ParagraphPlaceholder };
