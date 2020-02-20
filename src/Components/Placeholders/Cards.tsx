@@ -17,7 +17,7 @@ export class CardsPlaceholderComponent extends React.PureComponent<Props> {
   public static defaultProps = {
     cards: 3,
     margin: 12,
-    cardHeight: 250,
+    cardHeight: 100,
   };
   public render() {
     return (

@@ -4,13 +4,13 @@ import { MapPlaceholder, MapPlaceholderComponent } from "./Map";
 import { ParagraphPlaceholder, ParagraphPlaceholderComponent } from "./Paragraph";
 import { CardsPlaceholder, CardsPlaceholderComponent } from "./Cards";
 
-const paragraphPlaceholderStories = storiesOf("Load Indicators|Placeholders", module).addParameters({
+const paragraphPlaceholderStories = storiesOf("Load Indicators|Paragraph Placeholder", module).addParameters({
   component: ParagraphPlaceholderComponent,
 });
-const cardsPlaceholderStories = storiesOf("Load Indicators|Placeholders", module).addParameters({
+const cardsPlaceholderStories = storiesOf("Load Indicators|Cards Placeholders", module).addParameters({
   component: CardsPlaceholderComponent,
 });
-const mapPlaceholderStories = storiesOf("Load Indicators|Placeholders", module).addParameters({
+const mapPlaceholderStories = storiesOf("Load Indicators|Map Placeholders", module).addParameters({
   component: MapPlaceholderComponent,
 });
 
