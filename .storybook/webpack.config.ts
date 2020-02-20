@@ -33,6 +33,9 @@ module.exports = ({ config }) => {
         test: /\.(ts|tsx)$/,
         include: path.resolve(__dirname, "../src"),
         loader: "react-docgen-typescript-loader",
+        options: {
+          tsconfigPath: path.resolve(__dirname, "../tsconfig.json"),
+        },
       },
       {
         test: /\.md$/,
