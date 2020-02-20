@@ -19,7 +19,7 @@ interface Props extends ThemeProps<Styles>, DefaultProps {
   calendarStyle?: ViewStyle;
 }
 
-export class CalendarContainerMobileComponent extends React.PureComponent<Props> {
+export class PureCalendarContainer extends React.PureComponent<Props> {
   static defaultProps = {
     currentDate: new Date(),
   };
@@ -91,4 +91,4 @@ const getStyles = ({ colors, variables: { size, shadow } }: ThemeParamsType) =>
     },
   });
 
-export default withTheme<Props, DefaultProps>(getStyles)(CalendarContainerMobileComponent);
+export default withTheme<Props, DefaultProps>(getStyles)(PureCalendarContainer);

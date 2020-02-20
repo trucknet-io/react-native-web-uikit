@@ -14,7 +14,7 @@ interface Props extends DefaultProps, ThemeProps {
   style?: ViewStyle;
 }
 
-export class CalendarComponent extends React.PureComponent<Props> {
+export class PureCalendar extends React.PureComponent<Props> {
   static defaultProps: DefaultProps = {
     currentDate: new Date(),
     fontSize: 14,
@@ -50,4 +50,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default withTheme<Props, DefaultProps>()(CalendarComponent);
+export default withTheme<Props, DefaultProps>()(PureCalendar);

@@ -1,7 +1,7 @@
 import * as React from "react";
 import { storiesOf } from "@storybook/react-native";
-import LoginForm, { LoginFormContainerComponent } from "./LoginFormContainer";
-import Form, { FormContainerComponent } from "./FormContainer";
+import LoginForm, { PureLoginFormContainer } from "./LoginFormContainer";
+import Form, { PureFormContainer } from "./FormContainer";
 import { object } from "@storybook/addon-knobs/react";
 import { action } from "@storybook/addon-actions";
 
@@ -24,7 +24,7 @@ const validatePassword = (password?: string) => {
 };
 
 const loginFormStories = storiesOf("Forms|Login Form", module).addParameters({
-  component: LoginFormContainerComponent,
+  component: PureLoginFormContainer,
 });
 
 loginFormStories.add("Login Form", () => (
@@ -50,7 +50,7 @@ loginFormStories.add("Login Form", () => (
 ));
 
 const formStories = storiesOf("Forms|Form", module).addParameters({
-  component: FormContainerComponent,
+  component: PureFormContainer,
 });
 
 formStories.add("Form", () => (

@@ -38,7 +38,7 @@ type State = {
   subElementsOpacity: Animated.Value;
 };
 
-export class LoginFormContainerComponent extends React.PureComponent<Props, State> {
+export class PureLoginFormContainer extends React.PureComponent<Props, State> {
   keyboardDidShowListener;
   keyboardDidHideListener;
 
@@ -158,4 +158,4 @@ const styles = StyleSheet.create({
   buttonsContainer: { flex: 0.3, width: "100%", justifyContent: "space-around" },
 });
 
-export default withTheme<Props, DefaultProps>()(LoginFormContainerComponent);
+export default withTheme<Props, DefaultProps>()(PureLoginFormContainer);

@@ -1,10 +1,10 @@
 import * as React from "react";
 import { storiesOf } from "@storybook/react-native";
-import CalendarTablet, { CalendarTabletComponent } from "./CalendarTablet";
+import CalendarTablet, { PureCalendarTablet } from "./CalendarTablet";
 import { action } from "@storybook/addon-actions";
 import { StyleSheet, View } from "react-native";
 
-const stories = storiesOf("Calendar|Calendar Tablet", module).addParameters({ component: CalendarTabletComponent });
+const stories = storiesOf("Calendar|Calendar Tablet", module).addParameters({ component: PureCalendarTablet });
 
 stories.add("Tablet Calendar", () => (
   <View style={styles.container}>

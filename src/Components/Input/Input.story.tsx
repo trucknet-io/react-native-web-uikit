@@ -1,10 +1,10 @@
 import * as React from "react";
 import { storiesOf } from "@storybook/react-native";
-import InputField, { InputComponent } from "./Input";
+import InputField, { PureInput } from "./Input";
 import { action } from "@storybook/addon-actions";
 import { object } from "@storybook/addon-knobs/react";
 
-const stories = storiesOf("Forms|Input Field", module).addParameters({ component: InputComponent });
+const stories = storiesOf("Forms|Input Field", module).addParameters({ component: PureInput });
 
 stories.add("Input Field", () => (
   <InputField

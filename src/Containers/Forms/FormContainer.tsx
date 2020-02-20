@@ -31,7 +31,7 @@ interface State {
   fields: FieldsState;
 }
 
-export class FormContainerComponent extends React.PureComponent<Props, State> {
+export class PureFormContainer extends React.PureComponent<Props, State> {
   nextInput: { [key: string]: TextInput } = {};
   static defaultProps: DefaultProps = {
     paddingTop: 32,
@@ -159,4 +159,4 @@ const styles = StyleSheet.create({
   buttonsContainer: { flex: 1, width: "100%", justifyContent: "space-around" },
 });
 
-export default withTheme<Props, DefaultProps>()(FormContainerComponent);
+export default withTheme<Props, DefaultProps>()(PureFormContainer);

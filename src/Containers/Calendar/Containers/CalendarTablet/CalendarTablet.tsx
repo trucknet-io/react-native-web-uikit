@@ -23,7 +23,7 @@ interface Props extends ThemeProps<Styles>, DefaultProps {
   cancelLabel?: React.ReactNode;
 }
 
-export class CalendarTabletComponent extends React.PureComponent<Props> {
+export class PureCalendarTablet extends React.PureComponent<Props> {
   static defaultProps = {
     currentDate: new Date(),
   };
@@ -93,4 +93,4 @@ const getStyles = ({ colors, variables: { size } }: ThemeParamsType) =>
     month: { paddingHorizontal: size.s },
   });
 
-export default withTheme<Props, DefaultProps>(getStyles)(CalendarTabletComponent);
+export default withTheme<Props, DefaultProps>(getStyles)(PureCalendarTablet);

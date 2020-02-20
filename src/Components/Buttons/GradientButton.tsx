@@ -35,7 +35,7 @@ interface Props extends OwnProps, ThemeProps<Styles> {}
 
 export type GradientButtonProps = Omit<Props, keyof DefaultProps> & Partial<DefaultProps>;
 
-export class GradientButtonComponent extends React.PureComponent<Props> {
+export class PureGradientButton extends React.PureComponent<Props> {
   private PRESS_IN_SHADOW = 1;
   private PRESS_OUT_SHADOW = 4;
 
@@ -129,6 +129,6 @@ const getStyles = ({
     },
   });
 };
-const GradientButton = withTheme<Props, DefaultProps>(getStyles)(GradientButtonComponent);
+const GradientButton = withTheme<Props, DefaultProps>(getStyles)(PureGradientButton);
 
 export { GradientButton };

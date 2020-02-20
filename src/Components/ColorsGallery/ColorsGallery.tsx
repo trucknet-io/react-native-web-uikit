@@ -7,7 +7,7 @@ import withTheme, { ThemeProps, ThemeParamsType } from "src/Themes/withTheme";
 type Styles = ReturnType<typeof getStyles>;
 interface Props extends ThemeProps<Styles> {}
 
-export class ColorsGalleryComponent extends React.PureComponent<Props> {
+export class PureColorsGallery extends React.PureComponent<Props> {
   public render() {
     return (
       <ScrollView style={this.props.styles.container}>
@@ -76,4 +76,4 @@ const getStyles = ({ colors }: ThemeParamsType) =>
     },
   });
 
-export default withTheme<Props>(getStyles)(ColorsGalleryComponent);
+export default withTheme<Props>(getStyles)(PureColorsGallery);

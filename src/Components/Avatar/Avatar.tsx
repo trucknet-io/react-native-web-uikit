@@ -29,7 +29,7 @@ interface Props extends OwnProps, ThemeProps<Style> {}
 
 const getAvatarSize = (size: SizeType) => (typeof size === "number" ? size : AVATAR_SIZES[size]);
 
-export class AvatarComponent extends React.PureComponent<Props> {
+export class PureAvatar extends React.PureComponent<Props> {
   public static defaultProps: DefaultProps = {
     size: "medium",
     name: "?",
@@ -88,5 +88,5 @@ const getStyle = ({ colors, props: { size } }: ThemeParamsType<OwnProps>) => {
   });
 };
 
-const Avatar = withTheme<Props, DefaultProps>(getStyle)(AvatarComponent);
+const Avatar = withTheme<Props, DefaultProps>(getStyle)(PureAvatar);
 export default Avatar;

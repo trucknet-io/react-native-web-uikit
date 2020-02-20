@@ -13,7 +13,7 @@ interface DefaultProps {
 }
 interface Props extends DefaultProps, ThemeProps<Styles> {}
 
-export class CardsPlaceholderComponent extends React.PureComponent<Props> {
+export class PureCardsPlaceholder extends React.PureComponent<Props> {
   public static defaultProps = {
     cards: 3,
     margin: 12,
@@ -74,6 +74,6 @@ const getStyles = ({ colors, props: { margin, cardHeight } }: ThemeParamsType<De
     },
   });
 
-let CardsPlaceholder = withTheme<Props, DefaultProps>(getStyles)(CardsPlaceholderComponent);
+let CardsPlaceholder = withTheme<Props, DefaultProps>(getStyles)(PureCardsPlaceholder);
 
 export { CardsPlaceholder };

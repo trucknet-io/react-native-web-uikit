@@ -9,7 +9,7 @@ interface Props {
   style?: ViewStyle;
 }
 
-export class MonthCalendarComponent extends React.PureComponent<Props> {
+export class PureMonthCalendar extends React.PureComponent<Props> {
   static defaultProps = {
     currentDate: new Date(),
   };
@@ -46,4 +46,4 @@ const styles = StyleSheet.create({
   container: { flexDirection: "row", flexWrap: "wrap" },
 });
 
-export default MonthCalendarComponent;
+export default PureMonthCalendar;

@@ -12,7 +12,7 @@ interface DefaultProps {
 
 interface Props extends DefaultProps, ThemeProps<Styles> {}
 
-export class MapPlaceholderComponent extends React.PureComponent<Props> {
+export class PureMapPlaceholder extends React.PureComponent<Props> {
   public static defaultProps: DefaultProps = {
     lines: 5,
   };
@@ -43,6 +43,6 @@ const getStyles = ({ colors }: ThemeParamsType) =>
     },
   });
 
-let MapPlaceholder = withTheme<Props, DefaultProps>(getStyles)(MapPlaceholderComponent);
+let MapPlaceholder = withTheme<Props, DefaultProps>(getStyles)(PureMapPlaceholder);
 
 export { MapPlaceholder };

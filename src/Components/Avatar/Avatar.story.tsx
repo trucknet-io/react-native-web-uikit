@@ -1,11 +1,11 @@
 import * as React from "react";
 import { storiesOf } from "@storybook/react-native";
-import Avatar, { AvatarComponent } from "./Avatar";
+import Avatar, { PureAvatar } from "./Avatar";
 import { View, StyleSheet } from "react-native";
 import { number, object } from "@storybook/addon-knobs/react";
 
 const stories = storiesOf("Thumbnail|Avatar", module).addParameters({
-  component: AvatarComponent,
+  component: PureAvatar,
 });
 
 stories.add("Avatar with letter", () => (

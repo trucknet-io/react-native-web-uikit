@@ -1,9 +1,9 @@
 import * as React from "react";
 import { storiesOf } from "@storybook/react-native";
-import CalendarDay, { CalendarDayComponent } from "./CalendarDay";
+import CalendarDay, { PureCalendarDay } from "./CalendarDay";
 import { action } from "@storybook/addon-actions";
 
-const stories = storiesOf("Calendar|Calendar Day", module).addParameters({ component: CalendarDayComponent });
+const stories = storiesOf("Calendar|Calendar Day", module).addParameters({ component: PureCalendarDay });
 
 stories.add("Calendar Day", () => (
   <CalendarDay
