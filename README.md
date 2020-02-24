@@ -1,6 +1,6 @@
 # UI Kit
 
-> UI Kit for react-native and react-native-web
+> [UI Kit for react-native and react-native-web](https://react-native-web-uikit.storybook.trucknet.io)
 
 ## StoryBook
 
@@ -13,6 +13,61 @@
 Try to add to stories only required props, rest props will be added withSmartKnobs addon.
 [SmartKnobs](https://github.com/storybookjs/addon-smart-knobs) will not automatically create knobs for props whose name is in the `ignoreProps` array
 `addDecorator(withSmartKnobs({ ignoreProps: ["gradientStartColor", "gradientEndColor"] }))`
+
+## ThemeProvider
+
+```
+import { ThemeProviderWrapper } from "react-native-web-uikit";
+
+<ThemeProviderWrapper>
+    {this.props.children}
+</ThemeProviderWrapper>
+```
+
+```
+import {
+  withTheme,
+  ThemeProps,
+  ThemeParamsType,
+  ThemeType,
+} from "react-native-web-uikit";
+
+type Styles = ReturnType<typeof getStyles>;
+
+interface Props extends ThemeProps<Styles> {}
+
+class Component extends React.PureComponent<Props, State> {
+    render() {
+        const { styles, theme, fonts, colors, toggleTheme, variables } = this.props;
+        return <View style={styles.container} />
+    }
+}
+
+const getStyles = ({ colors, fonts, variables }: ThemeParamsType) => {
+    const { shadow, size, borderRadius, borderWidth } = variables;
+    return (
+        StyleSheet.create({
+            container: {
+                backgroundColor: colors.background,
+                padding: size.m,
+                alignItems: "center",
+                justifyContent: "center",
+            },
+            card, {
+                flex: 1,
+                borderRadius,
+                borderWidth,
+                ...shadow,
+            }
+            text: fonts.BodyRegular,
+        });
+    )
+}
+
+
+export default withTheme<Props, DefaultProps>(getStyles)(Component);
+
+```
 
 ### Web
 
@@ -30,19 +85,6 @@ import { ComponentName } from "react-native-web-uikit"
 ```
 
 For show Modal Wrap Root Container with `RootWrapper` Component
-
-## webpack config
-
-_web apps only_
-
-change your `webpack.config.js`
-
-```
-const { setUikitWebpackSetting } = require("react-native-web-uikit");
-
-module.exports = setUikitWebpackSetting(config?: webpackConfig);
-
-```
 
 ## Libraries
 

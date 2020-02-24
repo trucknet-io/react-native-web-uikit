@@ -3,7 +3,7 @@ import Modal, { ModalProps } from "react-native-modal";
 import { isWeb } from "src/Helpers/platform";
 import WebModal from "./WebModal";
 
-class HybridModal extends React.PureComponent<ModalProps> {
+export class HybridModalComponent extends React.PureComponent<ModalProps> {
   public render() {
     if (!this.props.isVisible) return null;
 
@@ -15,4 +15,4 @@ class HybridModal extends React.PureComponent<ModalProps> {
   }
 }
 
-export default HybridModal;
+export default HybridModalComponent;

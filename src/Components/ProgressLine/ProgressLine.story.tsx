@@ -4,7 +4,7 @@ import ProgressLine from "./ProgressLine";
 import { View } from "react-native";
 import { object } from "@storybook/addon-knobs/react";
 
-const stories = storiesOf("Progress Line", module);
+const stories = storiesOf("Ride|Progress Line", module);
 
 stories.add("Default", () => (
   <View style={object("container", { height: 100, width: 100, borderWidth: 1 })}>

@@ -1,9 +1,9 @@
 import * as React from "react";
 
 import { View, StyleSheet, KeyboardType, TextInput } from "react-native";
-import { colorTheme } from "src/Themes/Colors";
 import Input from "src/Components/Input/Input";
 import { GradientButton } from "src/Components/Buttons";
+import withTheme, { ThemeProps } from "src/Themes/withTheme";
 
 type FieldValue = { value?: string; isValid: boolean };
 type FieldsState = { [key: string]: FieldValue };
@@ -16,26 +16,26 @@ type Field = {
   keyboardType?: KeyboardType;
 };
 
-interface Props {
-  handleSubmit(res: FieldsState): void;
-  fields: { [key: string]: Field };
-  submitLabel: string;
-  theme: "light" | "dark";
+interface DefaultProps {
   paddingTop: string | number;
   paddingHorizontal: string | number;
 }
 
-interface State {
-  fields: FieldsState;
-  colors: typeof colorTheme;
+interface Props extends DefaultProps, ThemeProps {
+  handleSubmit(res: FieldsState): void;
+  fields: { [key: string]: Field };
+  submitLabel: string;
 }
 
-class LoginFormContainer extends React.PureComponent<Props, State> {
+interface State {
+  fields: FieldsState;
+}
+
+export class PureFormContainer extends React.PureComponent<Props, State> {
   nextInput: { [key: string]: TextInput } = {};
-  static defaultProps = {
+  static defaultProps: DefaultProps = {
     paddingTop: 32,
     paddingHorizontal: "16%",
-    theme: "light",
   };
 
   public constructor(props) {
@@ -51,18 +51,17 @@ class LoginFormContainer extends React.PureComponent<Props, State> {
 
     this.state = {
       fields: fields,
-      colors: colorTheme,
     };
   }
 
   public render() {
-    const theme = this.state.colors[this.props.theme];
+    const { colors } = this.props;
     return (
       <View
         style={[
           styles.container,
           {
-            backgroundColor: theme.background,
+            backgroundColor: colors.containerBackground,
             paddingTop: this.props.paddingTop,
             paddingHorizontal: this.props.paddingHorizontal,
           },
@@ -74,7 +73,6 @@ class LoginFormContainer extends React.PureComponent<Props, State> {
   }
 
   private renderInputs = () => {
-    const theme = this.state.colors[this.props.theme];
     const fieldNames = Object.keys(this.props.fields);
 
     return fieldNames.map((fieldName, index) => {
@@ -88,8 +86,6 @@ class LoginFormContainer extends React.PureComponent<Props, State> {
           secureTextEntry={field.secureTextEntry}
           validateValue={this.validateValue(fieldName)}
           onChangeTextValidated={this.setValue(fieldName)}
-          onSuccessInputFieldColor={theme.themeColor}
-          textColor={theme.defaultText}
           keyboardType={field.keyboardType}
           initialValue={field.initialValue}
           onSubmitEditing={this.handleInputSubmit(nextInputName)}
@@ -163,4 +159,4 @@ const styles = StyleSheet.create({
   buttonsContainer: { flex: 1, width: "100%", justifyContent: "space-around" },
 });
 
-export default LoginFormContainer;
+export default withTheme<Props, DefaultProps>()(PureFormContainer);

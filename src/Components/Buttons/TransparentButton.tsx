@@ -1,56 +1,40 @@
 import * as React from "react";
-import { Text, TouchableOpacity, TouchableOpacityProps, FlexAlignType, TextStyle } from "react-native";
-import Colors from "src/Themes/Colors";
-import { styles } from "./styles";
+import { Text, TouchableOpacity, TouchableOpacityProps, FlexAlignType, StyleSheet } from "react-native";
+import withTheme, { ThemeProps, ThemeParamsType } from "src/Themes/withTheme";
 
-interface TransparentButtonProps extends TouchableOpacityProps {
+type Styles = ReturnType<typeof getStyles>;
+
+interface DefaultProps {
+  borderWidth: number;
   borderRadius: number;
   width: string | number;
   marginVertical: string | number;
   marginHorizontal: string | number;
-  textColor: string;
   alignItems: FlexAlignType;
-  label?: React.ReactNode;
-  style?: TouchableOpacityProps["style"] & TextStyle;
-  linkColor: string;
-  borderWidth: number;
-  borderColor: string;
-  link?: string;
 }
 
-export class TransparentButton extends React.PureComponent<TransparentButtonProps> {
-  public static defaultProps = {
-    linkColor: Colors.defaultText,
-    textColor: Colors.defaultText,
+interface OwnProps extends DefaultProps, TouchableOpacityProps {
+  label?: React.ReactNode;
+  link?: React.ReactNode;
+}
+
+interface Props extends ThemeProps<Styles>, OwnProps {}
+
+export type TransparentButtonProps = Omit<Props, keyof DefaultProps> & Partial<DefaultProps>;
+
+export class PureTransparentButton extends React.PureComponent<Props> {
+  public static defaultProps: DefaultProps = {
     borderWidth: 0,
-    borderColor: Colors.defaultText,
     borderRadius: 4,
     width: "100%",
     marginVertical: 0,
     marginHorizontal: 0,
     alignItems: "center",
-    disabled: false,
-    style: {},
   };
   public render() {
-    const {
-      width,
-      marginVertical,
-      marginHorizontal,
-      borderRadius,
-      alignItems,
-      style,
-      borderWidth,
-      borderColor,
-    } = this.props;
+    const { styles, ...rest } = this.props;
     return (
-      <TouchableOpacity
-        {...this.props}
-        style={[
-          styles.buttonContainer,
-          { width, marginVertical, marginHorizontal, borderRadius, alignItems, borderWidth, borderColor },
-          style,
-        ]}>
+      <TouchableOpacity {...rest} style={[styles.buttonContainer, this.props.style]}>
         {this.renderChildren()}
       </TouchableOpacity>
     );
@@ -62,11 +46,45 @@ export class TransparentButton extends React.PureComponent<TransparentButtonProp
     if (this.props.link) {
       return (
         <React.Fragment>
-          <Text style={[styles.buttonText, { color: this.props.textColor }]}>{this.props.label}</Text>
-          <Text style={[styles.buttonLinkText, { color: this.props.linkColor }]}>{this.props.link}</Text>
+          <Text style={this.props.styles.buttonText}>{this.props.label}</Text>
+          <Text style={this.props.styles.buttonLinkText}>{this.props.link}</Text>
         </React.Fragment>
       );
     }
-    return <Text style={[styles.buttonLabel, { color: this.props.textColor }]}>{this.props.label}</Text>;
+    return <Text style={this.props.styles.buttonLabel}>{this.props.label}</Text>;
   };
 }
+
+const getStyles = ({
+  variables,
+  colors,
+  props: { width, marginVertical, marginHorizontal, borderRadius, alignItems, borderWidth },
+}: ThemeParamsType<OwnProps>) =>
+  StyleSheet.create({
+    buttonContainer: {
+      justifyContent: "center",
+      flexDirection: "row",
+      paddingVertical: variables.size.s,
+      width,
+      marginVertical,
+      marginHorizontal,
+      borderRadius,
+      alignItems,
+      borderWidth,
+      borderColor: colors.defaultText,
+    },
+    buttonText: {
+      color: colors.defaultText,
+    },
+    buttonLabel: {
+      color: colors.defaultText,
+    },
+    buttonLinkText: {
+      textDecorationLine: "underline",
+      color: colors.link,
+      marginHorizontal: variables.size.xs,
+    },
+  });
+const TransparentButton = withTheme<Props, DefaultProps>(getStyles)(PureTransparentButton);
+
+export { TransparentButton };

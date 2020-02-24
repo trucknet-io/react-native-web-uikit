@@ -1,8 +1,8 @@
 import * as React from "react";
 import { StyleSheet, Text, View, ImageURISource } from "react-native";
 import CroppedThumbnail, { CroppedThumbnailProps } from "src/Components/CroppedThumbnail";
-import Colors from "src/Themes/Colors";
 import Fonts from "src/Themes/Fonts";
+import withTheme, { ThemeProps, ThemeParamsType } from "src/Themes/withTheme";
 
 const AVATAR_SIZES = {
   small: 28,
@@ -10,78 +10,83 @@ const AVATAR_SIZES = {
   large: 44,
 };
 
-interface IProps extends CroppedThumbnailProps {
-  size: keyof typeof AVATAR_SIZES | number;
-  accessibilityLabel: string;
+type Style = ReturnType<typeof getStyle>;
+type SizeType = keyof typeof AVATAR_SIZES | number;
+
+interface DefaultProps {
+  size: SizeType;
   name: string;
+}
+
+export interface OwnProps extends CroppedThumbnailProps, DefaultProps {
+  accessibilityLabel: string;
   imageId?: string;
   uriCloudName?: string;
   source?: ImageURISource;
 }
 
-class Avatar extends React.PureComponent<IProps> {
-  public static defaultProps = {
+interface Props extends OwnProps, ThemeProps<Style> {}
+
+const getAvatarSize = (size: SizeType) => (typeof size === "number" ? size : AVATAR_SIZES[size]);
+
+export class PureAvatar extends React.PureComponent<Props> {
+  public static defaultProps: DefaultProps = {
     size: "medium",
     name: "?",
   };
 
   public render() {
-    const avatarStyles = this.getAvatarStyles();
     return (
-      <View style={[avatarStyles, styles.container, this.props.style]}>
+      <View style={[this.props.styles.container, this.props.style]}>
         {this.props.imageId ? this.renderImage() : this.renderNameFirstLetter()}
       </View>
     );
   }
 
   private renderNameFirstLetter = () => {
-    const avatarSize = this.getAvatarSize();
-    return <Text style={[styles.letter, { fontSize: avatarSize / 2 }]}>{this.props.name.charAt(0)}</Text>;
+    return <Text style={this.props.styles.letter}>{this.props.name.charAt(0)}</Text>;
   };
 
   private renderImage = () => {
     const imageId = this.props.imageId as string;
-    const avatarSize = this.getAvatarSize();
+    const avatarSize = getAvatarSize(this.props.size);
     return (
-      <CroppedThumbnail {...this.props} imageId={imageId} width={avatarSize} style={styles.avatarImageContainer} />
+      <CroppedThumbnail
+        {...this.props}
+        imageId={imageId}
+        width={avatarSize}
+        style={this.props.styles.avatarImageContainer}
+      />
     );
-  };
-
-  private getAvatarSize = () => {
-    if (typeof this.props.size === "number") {
-      return this.props.size;
-    }
-    return AVATAR_SIZES[this.props.size];
-  };
-
-  private getAvatarStyles = () => {
-    const avatarSize = this.getAvatarSize();
-    return {
-      height: avatarSize,
-      width: avatarSize,
-      borderRadius: avatarSize / 2,
-    };
   };
 }
 
-const styles = StyleSheet.create({
-  container: {
-    alignItems: "center",
-    justifyContent: "center",
-    margin: 2,
-    backgroundColor: Colors.subBackground,
-    borderColor: Colors.defaultText,
-    overflow: "hidden",
-    borderWidth: 1,
-  },
-  letter: {
-    ...Fonts.style.ThinTitle,
-    textTransform: "uppercase",
-    color: Colors.defaultText,
-  },
-  avatarImageContainer: {
-    flexGrow: 1,
-  },
-});
+const getStyle = ({ colors, props: { size } }: ThemeParamsType<OwnProps>) => {
+  const avatarSize = getAvatarSize(size);
+  return StyleSheet.create({
+    container: {
+      alignItems: "center",
+      justifyContent: "center",
+      margin: 2,
+      backgroundColor: colors.subBackground,
+      borderColor: colors.defaultText,
+      overflow: "hidden",
+      borderWidth: 1,
+      height: avatarSize,
+      width: avatarSize,
+      borderRadius: avatarSize / 2,
+    },
+    letter: {
+      ...Fonts.BodyRegular,
+      textTransform: "uppercase",
+      color: colors.defaultText,
+      fontSize: avatarSize / 2,
+    },
+    avatarImageContainer: {
+      flexGrow: 1,
+    },
+  });
+};
 
+const Avatar = withTheme<Props, DefaultProps>(getStyle)(PureAvatar);
 export default Avatar;

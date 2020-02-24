@@ -76,10 +76,10 @@ const styles = StyleSheet.create({
   destinationVerticalContainer: { flex: 1, justifyContent: "flex-end" },
   mainText: {
     color: Colors.defaultText,
-    ...Fonts.style.description,
+    ...Fonts.BodyRegular,
   },
   secondaryText: {
     color: Colors.secondaryText,
-    ...Fonts.style.small,
+    ...Fonts.BodySmall,
   },
 });

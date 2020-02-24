@@ -1,13 +1,21 @@
 import * as React from "react";
 import { storiesOf } from "@storybook/react-native";
-import { MapPlaceholder } from "./Map";
-import { ParagraphPlaceholder } from "./Paragraph";
-import { CardsPlaceholder } from "./Cards";
+import { MapPlaceholder, PureMapPlaceholder } from "./Map";
+import { ParagraphPlaceholder, PureParagraphPlaceholder } from "./Paragraph";
+import { CardsPlaceholder, PureCardsPlaceholder } from "./Cards";
 
-const stories = storiesOf("Paragraphs", module);
+const paragraphPlaceholderStories = storiesOf("Load Indicators|Paragraph Placeholder", module).addParameters({
+  component: PureParagraphPlaceholder,
+});
+const cardsPlaceholderStories = storiesOf("Load Indicators|Cards Placeholders", module).addParameters({
+  component: PureCardsPlaceholder,
+});
+const mapPlaceholderStories = storiesOf("Load Indicators|Map Placeholders", module).addParameters({
+  component: PureMapPlaceholder,
+});
 
-stories.add("Paragraph", () => <ParagraphPlaceholder />);
-stories.add("Cards", () => <CardsPlaceholder />);
-stories.add("Map", () => <MapPlaceholder />);
+paragraphPlaceholderStories.add("Paragraph", () => <ParagraphPlaceholder />);
+cardsPlaceholderStories.add("Cards", () => <CardsPlaceholder />);
+mapPlaceholderStories.add("Map", () => <MapPlaceholder />);
 
-export default stories;
+export { paragraphPlaceholderStories, cardsPlaceholderStories, mapPlaceholderStories };

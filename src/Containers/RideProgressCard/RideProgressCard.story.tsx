@@ -2,10 +2,10 @@ import * as React from "react";
 import { storiesOf } from "@storybook/react-native";
 import RideProgressCard from "./RideProgressCard";
 import { View, StyleSheet } from "react-native";
+import moment from "moment";
 
 const verticalCardStories = storiesOf("Vertical Ride Progress Card", module);
 const horizontalCardStories = storiesOf("Horizontal Ride Progress Card", module);
-import moment from "moment";
 
 const fakeProps = [
   {
