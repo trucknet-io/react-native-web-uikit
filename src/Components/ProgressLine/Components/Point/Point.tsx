@@ -1,34 +1,42 @@
 import * as React from "react";
 import { View, StyleSheet } from "react-native";
-import Colors from "src/Themes/Colors";
 
-type Props = {
+import withTheme, { ThemeProps, ThemeParamsType } from "src/Themes/withTheme";
+
+type Style = ReturnType<typeof getStyles>;
+
+interface OwnProps {
   currentProgress?: number;
   isHollowPoint?: boolean;
-};
+}
 
-export default class Point extends React.PureComponent<Props> {
+interface Props extends OwnProps, ThemeProps<Style> {}
+
+class Point extends React.PureComponent<Props> {
   render() {
-    const { currentProgress, isHollowPoint } = this.props;
-    const pointColor = currentProgress ? Colors.themeColor : Colors.disable;
-    const pointStyles = isHollowPoint
-      ? [styles.hollowPointContainer, { borderColor: pointColor }]
-      : [styles.pointContainer, { backgroundColor: pointColor }];
-    return <View style={pointStyles} />;
+    const { styles } = this.props;
+    return <View style={styles.pointStyles} />;
   }
 }
 
-const styles = StyleSheet.create({
-  pointContainer: {
+const getStyles = ({ colors, props: { currentProgress, isHollowPoint } }: ThemeParamsType<OwnProps>) => {
+  const pointColor = currentProgress ? colors.themeColor : colors.disable;
+  const pointContainer = {
     width: 7,
     height: 7,
     borderRadius: 7,
-  },
-  hollowPointContainer: {
+    backgroundColor: pointColor,
+  };
+  const hollowPointContainer = {
     width: 10,
     height: 10,
     borderRadius: 5,
-    backgroundColor: Colors.background,
+    backgroundColor: colors.containerBackground,
     borderWidth: 2,
-  },
-});
+    borderColor: pointColor,
+  };
+  return StyleSheet.create({
+    pointStyles: isHollowPoint ? hollowPointContainer : pointContainer,
+  });
+};
+export default withTheme<Props>(getStyles)(Point);

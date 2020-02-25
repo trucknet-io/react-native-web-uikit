@@ -1,18 +1,22 @@
 import * as React from "react";
 import { Animated, View, StyleSheet, Easing } from "react-native";
-import Colors from "src/Themes/Colors";
 import Point from "./Components/Point";
+import withTheme, { ThemeProps, ThemeParamsType } from "src/Themes/withTheme";
 
-type Props = {
+type Style = ReturnType<typeof getStyles>;
+
+interface OwnProps {
   currentProgress?: number;
   isHorizontal?: boolean;
-};
+}
+
+interface Props extends ThemeProps<Style>, OwnProps {}
 
 type State = {
   progress: Animated.Value;
 };
 
-class ProgressLine extends React.PureComponent<Props, State> {
+export class PureProgressLine extends React.PureComponent<Props, State> {
   private animation;
   public state: State = {
     progress: new Animated.Value(0),
@@ -29,11 +33,7 @@ class ProgressLine extends React.PureComponent<Props, State> {
     const progressLineStyles = this.getProgressLineStyles();
     return (
       <View style={progressLineStyles.container}>
-        <View
-          style={[
-            progressLineStyles.progressBarContainer,
-            { backgroundColor: currentProgress ? Colors.transperentThemeColor : Colors.disable },
-          ]}>
+        <View style={progressLineStyles.progressBarContainer}>
           <Animated.View style={progressLineStyles.line} />
           <Point currentProgress={currentProgress} />
         </View>
@@ -43,6 +43,7 @@ class ProgressLine extends React.PureComponent<Props, State> {
   }
 
   private getProgressLineStyles = () => {
+    const { styles } = this.props;
     if (this.props.isHorizontal) {
       return {
         container: styles.horizontalContainer,
@@ -82,30 +83,42 @@ class ProgressLine extends React.PureComponent<Props, State> {
   };
 }
 
-export default ProgressLine;
-
-const styles = StyleSheet.create({
-  horizontalContainer: { flexDirection: "row", alignItems: "center" },
-  verticalContainer: { justifyContent: "center", alignItems: "center" },
-  horizontalProgressBarContainer: {
-    height: 2,
-    width: "99%",
-    alignItems: "center",
-    marginVertical: 10,
-    flexDirection: "row",
-  },
-  horizontalLine: {
-    height: 2,
-    backgroundColor: Colors.themeColor,
-  },
-  verticalProgressBarContainer: {
-    width: 2,
-    height: "95%",
-    alignItems: "center",
-    marginHorizontal: 10,
-  },
-  verticalLine: {
-    width: 2,
-    backgroundColor: Colors.themeColor,
-  },
-});
+const getStyles = ({ colors, props: { currentProgress } }: ThemeParamsType<OwnProps>) => {
+  const lineBackgroundColor = currentProgress ? colors.transparentThemeColor : colors.disable;
+  return StyleSheet.create({
+    horizontalContainer: {
+      width: "100%",
+      flexDirection: "row",
+      alignItems: "center",
+    },
+    verticalContainer: {
+      height: "100%",
+      justifyContent: "center",
+      alignItems: "center",
+    },
+    horizontalProgressBarContainer: {
+      height: 2,
+      width: "99%",
+      alignItems: "center",
+      marginVertical: 10,
+      flexDirection: "row",
+      backgroundColor: lineBackgroundColor,
+    },
+    horizontalLine: {
+      height: 2,
+      backgroundColor: colors.themeColor,
+    },
+    verticalProgressBarContainer: {
+      width: 2,
+      height: "95%",
+      alignItems: "center",
+      marginHorizontal: 10,
+      backgroundColor: lineBackgroundColor,
+    },
+    verticalLine: {
+      width: 2,
+      backgroundColor: colors.themeColor,
+    },
+  });
+};
+export default withTheme<Props>(getStyles)(PureProgressLine);

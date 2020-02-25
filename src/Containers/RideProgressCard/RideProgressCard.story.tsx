@@ -4,9 +4,12 @@ import RideProgressCard from "./RideProgressCard";
 import { View, StyleSheet } from "react-native";
 import moment from "moment";
 
-const verticalCardStories = storiesOf("Vertical Ride Progress Card", module);
-const horizontalCardStories = storiesOf("Horizontal Ride Progress Card", module);
-
+const verticalCardStories = storiesOf("Vertical Ride Progress Card", module).addParameters({
+  component: RideProgressCard,
+});
+const horizontalCardStories = storiesOf("Horizontal Ride Progress Card", module).addParameters({
+  component: RideProgressCard,
+});
 const fakeProps = [
   {
     date: new Date(

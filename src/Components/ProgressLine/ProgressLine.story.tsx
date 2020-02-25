@@ -1,18 +1,17 @@
 import * as React from "react";
 import { storiesOf } from "@storybook/react-native";
-import ProgressLine from "./ProgressLine";
+import ProgressLine, { PureProgressLine } from "./ProgressLine";
 import { View } from "react-native";
-import { object } from "@storybook/addon-knobs/react";
 
-const stories = storiesOf("Ride|Progress Line", module);
+const stories = storiesOf("Ride|Progress Line", module).addParameters({ component: PureProgressLine });
 
-stories.add("Default", () => (
-  <View style={object("container", { height: 100, width: 100, borderWidth: 1 })}>
+stories.add("Vertical", () => (
+  <View style={{ height: 500, width: 500 }}>
     <ProgressLine currentProgress={66} />
   </View>
 ));
-stories.add("No progress", () => (
-  <View style={object("container", { height: 100, width: 100, borderWidth: 1 })}>
-    <ProgressLine />
+stories.add("Horizontal", () => (
+  <View style={{ height: 500, width: 500 }}>
+    <ProgressLine currentProgress={66} isHorizontal />
   </View>
 ));

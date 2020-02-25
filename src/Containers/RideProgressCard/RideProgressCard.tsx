@@ -56,6 +56,7 @@ export default RideProgressCard;
 const styles = StyleSheet.create({
   container: {
     flexGrow: 1,
+    height: "100%",
     flexDirection: "row",
   },
 });
