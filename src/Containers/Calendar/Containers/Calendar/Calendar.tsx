@@ -2,11 +2,12 @@ import * as React from "react";
 import { View, ViewStyle, StyleSheet } from "react-native";
 import MonthCalendar from "src/Containers/Calendar/Components/MonthCalendar";
 import WeekCalendar from "src/Containers/Calendar/Components/WeekCalendar";
-import CurrentMonth from "../../Components/CurrentMonth";
-import SwitchMonthButtons from "../../Components/SwitchMonthButtons";
-import WeekDays from "../../Components/WeekDays";
+import CurrentMonth from "src/Containers/Calendar/Components/CurrentMonth";
+import SwitchMonthButtons from "src/Containers/Calendar/Components/SwitchMonthButtons";
+import WeekDays from "src/Containers/Calendar/Components/WeekDays";
 import withTheme, { ThemeProps, ThemeParamsType } from "src/Themes/withTheme";
-import CalendarWrapper, { CalendarParamsTypes } from "../../Wrappers/CalendarWrapper";
+import CalendarWrapper, { CalendarParamsTypes } from "src/Containers/Calendar/Wrappers/CalendarWrapper";
+import { calendarPaddingHorizontal } from "src/Containers/Calendar/constants";
 
 interface DefaultProps {
   currentDate: Date;
@@ -78,7 +79,7 @@ const getStyles = ({ colors, variables: { size, shadow } }: ThemeParamsType) =>
       flexDirection: "row",
       justifyContent: "space-between",
       paddingVertical: size.m,
-      paddingHorizontal: size.calendarPaddingHorizontal,
+      paddingHorizontal: calendarPaddingHorizontal,
     },
     monthContainer: { flex: 3 },
     switchButtonsContainer: { flex: 1 },
