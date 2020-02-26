@@ -1,10 +1,12 @@
 import * as React from "react";
 import { storiesOf } from "@storybook/react-native";
-import Avatar from "./Avatar";
+import Avatar, { PureAvatar } from "./Avatar";
 import { View, StyleSheet } from "react-native";
 import { number, object } from "@storybook/addon-knobs/react";
 
-const stories = storiesOf("Avatar", module);
+const stories = storiesOf("Thumbnail|Avatar", module).addParameters({
+  component: PureAvatar,
+});
 
 stories.add("Avatar with letter", () => (
   <View style={styles.container}>
@@ -43,4 +45,4 @@ stories.add("Avatar custom styles", () => (
 
 const styles = StyleSheet.create({ container: { flexDirection: "row", alignItems: "center" } });
 
-export default stories;
+export { stories };

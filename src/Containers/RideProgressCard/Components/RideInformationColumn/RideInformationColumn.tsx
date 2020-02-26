@@ -34,10 +34,10 @@ export default RideInfoColumn;
 const styles = StyleSheet.create({
   mainText: {
     color: Colors.defaultText,
-    ...Fonts.style.description,
+    ...Fonts.BodyRegular,
   },
   secondaryText: {
     color: Colors.secondaryText,
-    ...Fonts.style.small,
+    ...Fonts.BodySmall,
   },
 });

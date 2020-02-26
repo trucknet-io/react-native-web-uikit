@@ -1,15 +1,23 @@
 import * as React from "react";
-import { Text, TouchableOpacity, GestureResponderEvent, FlexAlignType, TouchableOpacityProps } from "react-native";
+import {
+  Text,
+  TouchableOpacity,
+  GestureResponderEvent,
+  FlexAlignType,
+  TouchableOpacityProps,
+  StyleSheet,
+} from "react-native";
 import Colors from "src/Themes/Colors";
 import getShadowStyle from "src/Themes/getShadowStyle";
-import { styles } from "./styles";
+import withTheme, { ThemeProps, ThemeParamsType } from "src/Themes/withTheme";
 
 import LinearGradient from "src/Components/LinearGradient/LinearGradient";
+
+type Styles = ReturnType<typeof getStyles>;
 
 interface DefaultProps {
   gradientStartColor: string;
   gradientEndColor: string;
-  textColor: string;
   borderRadius: number;
   width: string | number;
   marginVertical: string | number;
@@ -17,29 +25,28 @@ interface DefaultProps {
   alignItems?: FlexAlignType;
 }
 
-interface Props extends TouchableOpacityProps, DefaultProps {
+interface OwnProps extends TouchableOpacityProps, DefaultProps {
   label?: React.ReactNode;
   borderWidth?: 0;
   borderColor?: string;
 }
 
+interface Props extends OwnProps, ThemeProps<Styles> {}
+
 export type GradientButtonProps = Omit<Props, keyof DefaultProps> & Partial<DefaultProps>;
 
-export class GradientButton extends React.PureComponent<Props> {
+export class PureGradientButton extends React.PureComponent<Props> {
   private PRESS_IN_SHADOW = 1;
   private PRESS_OUT_SHADOW = 4;
 
-  public static defaultProps = {
+  public static defaultProps: DefaultProps = {
     gradientStartColor: Colors.themeGradient.gradientColor1,
     gradientEndColor: Colors.themeGradient.gradientColor2,
-    textColor: Colors.buttonText,
     borderRadius: 4,
     width: "100%",
     marginVertical: 0,
     marginHorizontal: 0,
     alignItems: "center",
-    disabled: false,
-    style: {},
   };
 
   public state = {
@@ -47,31 +54,17 @@ export class GradientButton extends React.PureComponent<Props> {
   };
 
   public render() {
-    const {
-      gradientStartColor,
-      gradientEndColor,
-      width,
-      marginVertical,
-      marginHorizontal,
-      borderRadius,
-      alignItems,
-      style,
-    } = this.props;
+    const { gradientStartColor, gradientEndColor, styles, ...rest } = this.props;
     return (
       <LinearGradient
         start={{ x: 0, y: 1 }}
         end={{ x: 1, y: 1 }}
         gradientStartColor={this.getColor(gradientStartColor)}
         gradientEndColor={this.getColor(gradientEndColor)}
-        style={[
-          styles.linearGradient,
-          { width, marginVertical, marginHorizontal, borderRadius, alignItems },
-          this.state.shadow,
-          style,
-        ]}>
+        style={[styles.linearGradient, this.state.shadow, this.props.style]}>
         <TouchableOpacity
-          {...this.props}
-          style={[styles.buttonContainer, { width, alignItems }, style]}
+          {...rest}
+          style={[styles.buttonContainer, this.props.style]}
           onPressIn={this.handlePressIn}
           onPressOut={this.handlePressOut}>
           {this.renderChildren()}
@@ -84,14 +77,7 @@ export class GradientButton extends React.PureComponent<Props> {
     if (this.props.children) {
       return this.props.children;
     }
-    return <Text style={[styles.buttonLabel, { color: this.getTextColor() }]}>{this.props.label}</Text>;
-  };
-
-  private getTextColor = () => {
-    if (this.props.disabled) {
-      return Colors.disable;
-    }
-    return this.props.textColor || Colors.buttonText;
+    return <Text style={this.props.styles.buttonLabel}>{this.props.label}</Text>;
   };
 
   private getColor = (gradientColor: string) => {
@@ -114,3 +100,35 @@ export class GradientButton extends React.PureComponent<Props> {
     });
   };
 }
+
+const getStyles = ({
+  variables,
+  colors,
+  props: { width, marginVertical, marginHorizontal, borderRadius, alignItems, disabled },
+}: ThemeParamsType<OwnProps>) => {
+  return StyleSheet.create({
+    linearGradient: {
+      justifyContent: "center",
+      flexDirection: "row",
+      paddingVertical: variables.size.s,
+      width,
+      marginVertical,
+      marginHorizontal,
+      borderRadius,
+      alignItems,
+      ...variables.shadow,
+    },
+    buttonContainer: {
+      justifyContent: "center",
+      flexDirection: "row",
+      width,
+      alignItems,
+    },
+    buttonLabel: {
+      color: disabled ? colors.disable : colors.buttonText,
+    },
+  });
+};
+const GradientButton = withTheme<Props, DefaultProps>(getStyles)(PureGradientButton);
+
+export { GradientButton };

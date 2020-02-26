@@ -1,11 +1,11 @@
-import React from "react";
+import * as React from "react";
 import { storiesOf } from "@storybook/react-native";
 import IconsContainer from "./IconsContainer";
 
 const Icons = () => <IconsContainer />;
 
-const stories = storiesOf("Icons", module);
+const stories = storiesOf("Icons|Icons", module);
 
 stories.add("Icons", Icons);
 
-export default stories;
+export { stories };
