@@ -1,9 +1,8 @@
 import * as React from "react";
 import { storiesOf } from "@storybook/react-native";
-import ColorsGallery from "./ColorsGallery";
-import { select } from "@storybook/addon-knobs/react";
+import ColorsGallery, { PureColorsGallery } from "./ColorsGallery";
 
-const stories = storiesOf("ColorsGallery", module);
-stories.add("ColorsGallery", () => <ColorsGallery theme={select("theme", { light: "light", dark: "dark" })} />);
+const stories = storiesOf("Colors|Colors Gallery", module).addParameters({ component: PureColorsGallery });
+stories.add("Colors Gallery", () => <ColorsGallery />);
 
-export default stories;
+export { stories };

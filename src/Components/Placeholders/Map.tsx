@@ -2,48 +2,47 @@ import * as React from "react";
 import { StyleSheet, View } from "react-native";
 import MapPlaceholderIcon from "src/Components/Icons/MapPlaceholderIcon";
 import { ParagraphPlaceholder } from "./Paragraph";
-import { colorTheme } from "src/Themes/Colors";
+import withTheme, { ThemeProps, ThemeParamsType } from "src/Themes/withTheme";
 
-interface Props {
+type Styles = ReturnType<typeof getStyles>;
+
+interface DefaultProps {
   lines: number;
-  theme: "light" | "dark";
 }
 
-interface State {
-  colors: typeof colorTheme;
-}
+interface Props extends DefaultProps, ThemeProps<Styles> {}
 
-export class MapPlaceholder extends React.PureComponent<Props, State> {
-  state = {
-    colors: colorTheme,
-  };
-  public static defaultProps = {
+export class PureMapPlaceholder extends React.PureComponent<Props> {
+  public static defaultProps: DefaultProps = {
     lines: 5,
-    theme: "light",
   };
   public render() {
-    const theme = this.state.colors[this.props.theme];
     return (
-      <View style={[styles.container, { backgroundColor: theme.background }]}>
-        <View style={styles.mapIconContainer}>
-          <MapPlaceholderIcon color={theme.defaultText} width={150} height={150} />
+      <View style={this.props.styles.container}>
+        <View style={this.props.styles.mapIconContainer}>
+          <MapPlaceholderIcon color={this.props.colors.defaultText} width={150} height={150} />
         </View>
-        <ParagraphPlaceholder lines={this.props.lines} theme={this.props.theme} />
+        <ParagraphPlaceholder lines={this.props.lines} />
       </View>
     );
   }
 }
+const getStyles = ({ colors }: ThemeParamsType) =>
+  StyleSheet.create({
+    container: {
+      flex: 1,
+      alignItems: "center",
+      justifyContent: "space-around",
+      backgroundColor: colors.containerBackground,
+    },
+    mapIconContainer: {
+      flex: 1,
+      height: 300,
+      alignItems: "center",
+      justifyContent: "center",
+    },
+  });
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "space-around",
-  },
-  mapIconContainer: {
-    flex: 1,
-    height: 300,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});
+let MapPlaceholder = withTheme<Props, DefaultProps>(getStyles)(PureMapPlaceholder);
+
+export { MapPlaceholder };

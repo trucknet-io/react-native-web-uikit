@@ -13,6 +13,17 @@ import ProgressLine from "./Components/ProgressLine";
 import Modal from "./Components/Modal";
 import Avatar from "./Components/Avatar";
 import CroppedThumbnail from "./Components/CroppedThumbnail";
+import {
+  CalendarContainer,
+  Calendar,
+  CalendarTablet,
+  MonthCalendar,
+  CalendarDay,
+  WeekCalendar,
+  MonthCalendarContainer,
+} from "./Containers/Calendar";
+import ThemeProviderWrapper from "src/Wrappers/ThemeProviderWrapper";
+import withTheme, { ThemeProps, ThemeParamsType, ThemeType } from "src/Themes/withTheme";
 
 export {
   GradientButton,
@@ -35,4 +46,16 @@ export {
   Modal,
   Avatar,
   CroppedThumbnail,
+  CalendarDay,
+  WeekCalendar,
+  MonthCalendar,
+  CalendarContainer,
+  Calendar,
+  CalendarTablet,
+  MonthCalendarContainer,
+  ThemeProviderWrapper,
+  withTheme,
+  ThemeProps,
+  ThemeParamsType,
+  ThemeType,
 };

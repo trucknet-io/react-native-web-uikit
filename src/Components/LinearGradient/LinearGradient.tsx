@@ -23,8 +23,8 @@ const styles = StyleSheet.create({
 
 class Gradient extends React.PureComponent<Props> {
   static defaultProps = {
-    gradientStartColor: Colors.palette.ashDark,
-    gradientEndColor: Colors.palette.ashLight,
+    gradientStartColor: Colors.themeGradient.gradientColor1,
+    gradientEndColor: Colors.themeGradient.gradientColor2,
     start: { x: 0, y: 1 },
     end: { x: 1, y: 1 },
     style: styles.container,
