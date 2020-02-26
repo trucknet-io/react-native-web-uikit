@@ -6,7 +6,7 @@ import CurrentMonth from "src/Containers/Calendar/Components/CurrentMonth";
 import WeekDays from "src/Containers/Calendar/Components/WeekDays";
 import getShadowStyle from "src/Themes/getShadowStyle";
 import CalendarWrapper, { CalendarParamsTypes } from "src/Containers/Calendar/Wrappers/CalendarWrapper";
-import { calendarPaddingHorizontal } from "src/Containers/Calendar/constants";
+import { calendarPaddingHorizontal } from "src/Containers/Calendar/variables";
 import withTheme, { ThemeProps, ThemeParamsType } from "src/Themes/withTheme";
 
 interface DefaultProps {
