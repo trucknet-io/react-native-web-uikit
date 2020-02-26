@@ -7,7 +7,7 @@ import SwitchMonthButtons from "src/Containers/Calendar/Components/SwitchMonthBu
 import WeekDays from "src/Containers/Calendar/Components/WeekDays";
 import withTheme, { ThemeProps, ThemeParamsType } from "src/Themes/withTheme";
 import CalendarWrapper, { CalendarParamsTypes } from "src/Containers/Calendar/Wrappers/CalendarWrapper";
-import { calendarPaddingHorizontal } from "src/Containers/Calendar/constants";
+import { calendarPaddingHorizontal } from "src/Containers/Calendar/variables";
 
 interface DefaultProps {
   currentDate: Date;

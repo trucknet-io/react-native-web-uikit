@@ -5,7 +5,7 @@ import SwitchMonthButtons from "src/Containers/Calendar/Components/SwitchMonthBu
 import moment from "moment";
 import { TransparentButton } from "src/Components/Buttons/TransparentButton";
 import withTheme, { ThemeProps, ThemeParamsType } from "src/Themes/withTheme";
-import { calendarPaddingHorizontal } from "src/Containers/Calendar/constants";
+import { calendarPaddingHorizontal } from "src/Containers/Calendar/variables";
 
 interface DefaultProps {
   currentDate: Date;
