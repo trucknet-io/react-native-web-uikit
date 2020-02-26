@@ -5,6 +5,7 @@ import SwitchMonthButtons from "src/Containers/Calendar/Components/SwitchMonthBu
 import moment from "moment";
 import { TransparentButton } from "src/Components/Buttons/TransparentButton";
 import withTheme, { ThemeProps, ThemeParamsType } from "src/Themes/withTheme";
+import { calendarPaddingHorizontal } from "src/Containers/Calendar/constants";
 
 interface DefaultProps {
   currentDate: Date;
@@ -78,13 +79,13 @@ const getStyles = ({ colors, variables: { size } }: ThemeParamsType) =>
       justifyContent: "space-around",
       alignItems: "center",
       width: "100%",
-      paddingHorizontal: size.calendarPaddingHorizontal,
+      paddingHorizontal: calendarPaddingHorizontal,
     },
     monthContainer: { flex: 3 },
     switchButtonsContainer: { flex: 1 },
     footerContainer: {
       flexDirection: "row",
-      paddingHorizontal: size.calendarPaddingHorizontal,
+      paddingHorizontal: calendarPaddingHorizontal,
       justifyContent: "flex-end",
     },
   });

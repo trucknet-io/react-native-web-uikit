@@ -2,11 +2,11 @@ import * as React from "react";
 import { View, ViewStyle, StyleSheet } from "react-native";
 import MonthCalendar from "../MonthCalendar";
 import WeekCalendar from "src/Containers/Calendar/Components/WeekCalendar";
-import CurrentMonth from "../../Components/CurrentMonth";
-import WeekDays from "../../Components/WeekDays";
+import CurrentMonth from "src/Containers/Calendar/Components/CurrentMonth";
+import WeekDays from "src/Containers/Calendar/Components/WeekDays";
 import getShadowStyle from "src/Themes/getShadowStyle";
-import CalendarWrapper, { CalendarParamsTypes } from "../../Wrappers/CalendarWrapper";
-
+import CalendarWrapper, { CalendarParamsTypes } from "src/Containers/Calendar/Wrappers/CalendarWrapper";
+import { calendarPaddingHorizontal } from "src/Containers/Calendar/constants";
 import withTheme, { ThemeProps, ThemeParamsType } from "src/Themes/withTheme";
 
 interface DefaultProps {
@@ -77,7 +77,7 @@ const getStyles = ({ colors, variables: { size } }: ThemeParamsType) =>
       flexDirection: "row",
       justifyContent: "space-between",
       paddingVertical: size.m,
-      paddingHorizontal: size.calendarPaddingHorizontal,
+      paddingHorizontal: calendarPaddingHorizontal,
     },
     calendarContainer: {
       position: "absolute",
