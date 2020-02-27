@@ -1,22 +1,20 @@
 import * as React from "react";
 import { View, Text, StyleSheet, ScrollView } from "react-native";
 import * as Icons from "src/Components/Icons";
-import Colors from "src/Themes/Colors";
+import withTheme, { ThemeProps, ThemeParamsType } from "src/Themes/withTheme";
 
-type IconProps = {
+type Styles = ReturnType<typeof getStyles>;
+
+interface IconProps extends ThemeProps<Styles> {
   width?: number;
   height?: number;
-  color: string;
-};
+}
 
 class IconName extends React.PureComponent<IconProps> {
-  public static defaultProps = {
-    color: Colors.icon,
-  };
   public render() {
     return (
       <ScrollView>
-        <View style={styles.container}>{this.renderIcons()}</View>
+        <View style={this.props.styles.container}>{this.renderIcons()}</View>
       </ScrollView>
     );
   }
@@ -24,34 +22,37 @@ class IconName extends React.PureComponent<IconProps> {
   private renderIcons = () => {
     const IconsNames = Object.keys(Icons);
     return IconsNames.map((name: string, i: number) => {
-      // @ts-ignore
       const Icon = Icons[name];
       return (
-        <View style={styles.iconContainer} key={i}>
-          <Text>{name}</Text>
-          <Icon color={this.props.color} width={this.props.width} height={this.props.height} />
+        <View style={this.props.styles.iconContainer} key={i}>
+          <Text style={this.props.styles.text}>{name}</Text>
+          <Icon color={this.props.colors.defaultText} width={this.props.width} height={this.props.height} />
         </View>
       );
     });
   };
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 40,
-    flexDirection: "row",
-    flexWrap: "wrap",
-    alignItems: "stretch",
-    backgroundColor: Colors.background,
-  },
-  iconContainer: {
-    padding: "4%",
-    alignItems: "center",
-    justifyContent: "space-between",
-    height: 200,
-    width: 150,
-  },
-});
+const getStyles = ({ colors }: ThemeParamsType) =>
+  StyleSheet.create({
+    container: {
+      flex: 1,
+      padding: 40,
+      flexDirection: "row",
+      flexWrap: "wrap",
+      alignItems: "stretch",
+      backgroundColor: colors.containerBackground,
+    },
+    iconContainer: {
+      padding: "4%",
+      alignItems: "center",
+      justifyContent: "space-between",
+      height: 200,
+      width: 150,
+    },
+    text: {
+      color: colors.defaultText,
+    },
+  });
 
-export default IconName;
+export default withTheme<IconProps>(getStyles)(IconName);

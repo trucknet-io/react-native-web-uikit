@@ -69,7 +69,7 @@ const styles = StyleSheet.create({
   },
   headerText: {
     color: colors.themeColor,
-    ...fonts.style.Subheading,
+    ...fonts.SubTitle,
     lineHeight: 16,
     marginHorizontal: 8,
   },
