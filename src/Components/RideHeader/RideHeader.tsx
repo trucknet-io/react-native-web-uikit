@@ -41,14 +41,14 @@ export class PureRideHeader extends React.PureComponent<Props> {
   }
 }
 
-const getStyle = ({ props: { color } }: ThemeParamsType<OwnProps>) =>
+const getStyle = ({ props: { color }, variables: { size } }: ThemeParamsType<OwnProps>) =>
   StyleSheet.create({
     container: {
       alignItems: "center",
       flexDirection: "row",
-      padding: 16,
-      borderTopLeftRadius: 4,
-      borderTopRightRadius: 4,
+      padding: size.s,
+      borderTopLeftRadius: size.xs,
+      borderTopRightRadius: size.xs,
       width: "100%",
       backgroundColor: getTransparentColor(color),
     },
@@ -69,8 +69,8 @@ const getStyle = ({ props: { color } }: ThemeParamsType<OwnProps>) =>
     },
     headerText: {
       ...fonts.SubTitle,
-      lineHeight: 16,
-      marginHorizontal: 8,
+      lineHeight: size.m,
+      marginHorizontal: size.s,
       color,
     },
   });
