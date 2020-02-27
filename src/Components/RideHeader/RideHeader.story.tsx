@@ -22,4 +22,4 @@ stories.add("Ride Header without secondary text", () => (
 
 const styles = StyleSheet.create({ container: { flexDirection: "row", alignItems: "center", width: 250 } });
 
-export default stories;
+export { stories };

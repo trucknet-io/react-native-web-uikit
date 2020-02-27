@@ -9,4 +9,4 @@ stories.add("Point", () => <Point color={colors.themeColor} size={64} />);
 
 stories.add("Hollow Point", () => <Point color={colors.themeColor} size={64} hollowSize={44} />);
 
-export default stories;
+export { stories };
