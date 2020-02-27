@@ -15,7 +15,7 @@ const fakeProps = [
     date: new Date(
       moment()
         .add(-1, "days")
-        .toString(),
+        .toDate(),
     ),
     city: "Paris, France",
     address: "84, Ave des Champs-Elisey",
@@ -24,7 +24,7 @@ const fakeProps = [
     date: new Date(
       moment()
         .add(1, "days")
-        .toString(),
+        .toDate(),
     ),
     city: "Nantes, France",
     address: "Paran 3, 615 A",

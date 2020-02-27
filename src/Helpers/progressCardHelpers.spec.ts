@@ -5,13 +5,13 @@ it("should get progress from 0 to 100", () => {
   const currentOriginDate = new Date(
     moment()
       .add(-1, "days")
-      .toString(),
+      .toDate(),
   );
 
   const currentDestinationDate = new Date(
     moment()
       .add(1, "days")
-      .toString(),
+      .toDate(),
   );
 
   const passedDate = new Date("10/10/2000");
@@ -28,7 +28,7 @@ it("should get formated date without year if it's date with current year", () =>
   const futureDate = new Date(
     moment()
       .add(1, "year")
-      .toString(),
+      .toDate(),
   );
   expect(getFormatedDate(currentDate).day).not.toContain(currentDate.getFullYear().toString());
   expect(getFormatedDate(futureDate).day).toContain(futureDate.getFullYear().toString());
