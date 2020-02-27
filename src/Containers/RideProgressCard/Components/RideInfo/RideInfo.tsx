@@ -75,8 +75,8 @@ const getStyles = ({ fonts }: ThemeParamsType) => {
       flexGrow: 1,
       flexBasis: 0,
     },
-    extraRideInfoHorizontalContainer: { flexShrink: 1, alignItems: "center" },
-    extraRideInfoVerticalContainer: { flexShrink: 1, justifyContent: "center" },
+    extraRideInfoHorizontalContainer: { alignItems: "center" },
+    extraRideInfoVerticalContainer: { justifyContent: "center" },
     destinationHorizontalContainer: {
       flexGrow: 1,
       flexBasis: 0,
