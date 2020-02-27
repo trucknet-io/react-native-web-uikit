@@ -72,11 +72,16 @@ const getStyles = ({ fonts }: ThemeParamsType) => {
     },
     verticalContainer: { justifyContent: "space-between" },
     originContainer: {
-      flex: 1,
+      flexGrow: 1,
+      flexBasis: 0,
     },
     extraRideInfoHorizontalContainer: { flexShrink: 1, alignItems: "center" },
     extraRideInfoVerticalContainer: { flexShrink: 1, justifyContent: "center" },
-    destinationHorizontalContainer: { flex: 1, alignItems: "flex-end" },
+    destinationHorizontalContainer: {
+      flexGrow: 1,
+      flexBasis: 0,
+      alignItems: "flex-end",
+    },
     destinationVerticalContainer: { flex: 1, justifyContent: "flex-end" },
     mainText: fonts.BodyRegular,
     secondaryText: fonts.BodySmall,
