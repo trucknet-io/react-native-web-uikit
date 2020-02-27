@@ -4,7 +4,9 @@ import RideHeader from "./RideHeader";
 import { View, StyleSheet } from "react-native";
 import colors from "src/Themes/Colors";
 
-const stories = storiesOf("RideHeader", module);
+const stories = storiesOf("Ride|Ride Header", module).addParameters({
+  component: RideHeader,
+});
 
 stories.add("Ride Header", () => (
   <RideHeader color={colors.themeColor} primaryText="current ride" secondaryText="Eta: 10/10/2020, 10:33" />

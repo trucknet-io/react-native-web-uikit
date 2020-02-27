@@ -1,9 +1,11 @@
 import * as React from "react";
 import { storiesOf } from "@storybook/react-native";
-import Point from "./Point";
+import Point, { PurePoint } from "./Point";
 import colors from "src/Themes/Colors";
 
-const stories = storiesOf("Point", module);
+const stories = storiesOf("Point|Point", module).addParameters({
+  component: PurePoint,
+});
 
 stories.add("Point", () => <Point color={colors.themeColor} size={64} />);
 
