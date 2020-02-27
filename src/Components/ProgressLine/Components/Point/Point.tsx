@@ -22,17 +22,17 @@ class Point extends React.PureComponent<Props> {
 const getStyles = ({ colors, props: { currentProgress, isHollowPoint } }: ThemeParamsType<OwnProps>) => {
   const pointColor = currentProgress ? colors.themeColor : colors.disable;
   const pointContainer = {
-    width: 7,
-    height: 7,
-    borderRadius: 7,
+    width: 8,
+    height: 8,
+    borderRadius: 4,
     backgroundColor: pointColor,
   };
   const hollowPointContainer = {
-    width: 10,
-    height: 10,
-    borderRadius: 5,
+    width: 12,
+    height: 12,
+    borderRadius: 6,
     backgroundColor: colors.containerBackground,
-    borderWidth: 2,
+    borderWidth: 3,
     borderColor: pointColor,
   };
   return StyleSheet.create({

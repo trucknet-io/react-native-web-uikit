@@ -100,7 +100,7 @@ const getStyles = ({ colors, props: { currentProgress } }: ThemeParamsType<OwnPr
       height: 2,
       width: "99%",
       alignItems: "center",
-      marginVertical: 10,
+      marginVertical: 12,
       flexDirection: "row",
       backgroundColor: lineBackgroundColor,
     },
@@ -112,7 +112,7 @@ const getStyles = ({ colors, props: { currentProgress } }: ThemeParamsType<OwnPr
       width: 2,
       height: "95%",
       alignItems: "center",
-      marginHorizontal: 10,
+      marginHorizontal: 12,
       backgroundColor: lineBackgroundColor,
     },
     verticalLine: {
