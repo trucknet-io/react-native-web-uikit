@@ -16,7 +16,7 @@ interface OwnProps {
 
 interface Props extends ThemeProps<Style>, OwnProps {}
 
-class RideHeader extends React.PureComponent<Props> {
+export class PureRideHeader extends React.PureComponent<Props> {
   public render() {
     const { color, primaryText, secondaryText, styles } = this.props;
     return (
@@ -75,4 +75,4 @@ const getStyle = ({ props: { color } }: ThemeParamsType<OwnProps>) =>
     },
   });
 
-export default withTheme<Props>(getStyle)(RideHeader);
+export default withTheme<Props>(getStyle)(PureRideHeader);

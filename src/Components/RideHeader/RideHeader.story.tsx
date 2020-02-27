@@ -1,11 +1,11 @@
 import * as React from "react";
 import { storiesOf } from "@storybook/react-native";
-import RideHeader from "./RideHeader";
+import RideHeader, { PureRideHeader } from "./RideHeader";
 import { View, StyleSheet } from "react-native";
 import colors from "src/Themes/Colors";
 
 const stories = storiesOf("Ride|Ride Header", module).addParameters({
-  component: RideHeader,
+  component: PureRideHeader,
 });
 
 stories.add("Ride Header", () => (
