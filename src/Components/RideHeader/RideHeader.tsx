@@ -1,38 +1,36 @@
 import * as React from "react";
 import { StyleSheet, Text, View, ViewStyle } from "react-native";
 import Point from "src/Components/Point";
-import colors, { getTransparentColor } from "src/Themes/Colors";
+import { getTransparentColor } from "src/Themes/Colors";
 import fonts from "src/Themes/Fonts";
+import withTheme, { ThemeProps, ThemeParamsType } from "src/Themes/withTheme";
 
-interface IProps {
+type Style = ReturnType<typeof getStyle>;
+
+interface OwnProps {
   color: string;
   primaryText: React.ReactNode;
   secondaryText?: React.ReactNode;
   style?: ViewStyle;
 }
 
-class RideHeader extends React.PureComponent<IProps> {
+interface Props extends ThemeProps<Style>, OwnProps {}
+
+class RideHeader extends React.PureComponent<Props> {
   public render() {
-    const { color, primaryText, secondaryText } = this.props;
+    const { color, primaryText, secondaryText, styles } = this.props;
     return (
-      <View
-        style={[
-          styles.container,
-          {
-            backgroundColor: getTransparentColor(color),
-          },
-          this.props.style,
-        ]}>
+      <View style={[styles.container, this.props.style]}>
         <View style={styles.textContainer}>
           <Point color={color} />
           <View style={styles.primaryTextContainer}>
-            <Text numberOfLines={1} style={[styles.headerText, { color }]}>
+            <Text numberOfLines={1} style={styles.headerText}>
               {primaryText}
             </Text>
           </View>
           {secondaryText ? (
             <View style={styles.secondaryTextContainer}>
-              <Text numberOfLines={1} style={[styles.headerText, { color }]}>
+              <Text numberOfLines={1} style={styles.headerText}>
                 {secondaryText}
               </Text>
             </View>
@@ -43,36 +41,38 @@ class RideHeader extends React.PureComponent<IProps> {
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    alignItems: "center",
-    flexDirection: "row",
-    padding: 16,
-    borderTopLeftRadius: 4,
-    borderTopRightRadius: 4,
-    width: "100%",
-  },
-  textContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-    width: "100%",
-    textTransform: "uppercase",
-  },
-  primaryTextContainer: {
-    flexGrow: 1,
-    justifyContent: "center",
-  },
-  secondaryTextContainer: {
-    flexShrink: 1,
-    alignItems: "center",
-  },
-  headerText: {
-    color: colors.themeColor,
-    ...fonts.SubTitle,
-    lineHeight: 16,
-    marginHorizontal: 8,
-  },
-});
+const getStyle = ({ props: { color } }: ThemeParamsType<OwnProps>) =>
+  StyleSheet.create({
+    container: {
+      alignItems: "center",
+      flexDirection: "row",
+      padding: 16,
+      borderTopLeftRadius: 4,
+      borderTopRightRadius: 4,
+      width: "100%",
+      backgroundColor: getTransparentColor(color),
+    },
+    textContainer: {
+      flexDirection: "row",
+      alignItems: "center",
+      justifyContent: "space-between",
+      width: "100%",
+      textTransform: "uppercase",
+    },
+    primaryTextContainer: {
+      flexGrow: 1,
+      justifyContent: "center",
+    },
+    secondaryTextContainer: {
+      flexShrink: 1,
+      alignItems: "center",
+    },
+    headerText: {
+      ...fonts.SubTitle,
+      lineHeight: 16,
+      marginHorizontal: 8,
+      color,
+    },
+  });
 
-export default RideHeader;
+export default withTheme<Props>(getStyle)(RideHeader);
