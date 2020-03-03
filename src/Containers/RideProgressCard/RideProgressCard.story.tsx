@@ -1,53 +1,94 @@
 import * as React from "react";
 import { storiesOf } from "@storybook/react-native";
 import RideProgressCard from "./RideProgressCard";
-import { View } from "react-native";
-import { object } from "@storybook/addon-knobs/react";
+import { View, StyleSheet } from "react-native";
+import moment from "moment";
 
-const stories = storiesOf("Ride|Ride Progress Card", module);
-
+const verticalCardStories = storiesOf("Vertical Ride Progress Card", module).addParameters({
+  component: RideProgressCard,
+});
+const horizontalCardStories = storiesOf("Horizontal Ride Progress Card", module).addParameters({
+  component: RideProgressCard,
+});
 const fakeProps = [
   {
-    time: "08:15",
-    day: "10 November",
+    date: new Date(
+      moment()
+        .add(-1, "days")
+        .toDate(),
+    ),
     city: "Paris, France",
     address: "84, Ave des Champs-Elisey",
   },
   {
-    time: "16:45",
-    day: "02 December",
+    date: new Date(
+      moment()
+        .add(1, "days")
+        .toDate(),
+    ),
     city: "Nantes, France",
     address: "Paran 3, 615 A",
   },
   {
-    time: "14:20",
-    day: "02 December",
+    date: new Date("10/10/3000"),
     city: "Taumatawhakatangi­hangakoauauotamatea­turipukakapikimaunga­horonukupokaiwhen­uakitanatahu , North Island",
     address: "Llanfair­pwllgwyngyll­gogery­chwyrn­drobwll­llan­tysilio­gogo­goch 666, 13 Y",
   },
   {
-    time: "11:11",
-    day: "13 May",
+    date: new Date("10/10/2000"),
     city: "Ibi, Spain",
   },
 ];
 
-stories.add("No container", () => (
-  <RideProgressCard origin={fakeProps[0]} destination={fakeProps[1]} currentProgress={10} />
-));
-stories.add("With container", () => (
-  <View style={object("container", { height: 200, width: 300, borderWidth: 1 })}>
-    <RideProgressCard origin={fakeProps[0]} destination={fakeProps[1]} currentProgress={70} />
+verticalCardStories.add("Progress 0%", () => (
+  <View style={styles.container}>
+    <RideProgressCard origin={fakeProps[2]} destination={fakeProps[2]} />
   </View>
 ));
-stories.add("Long names", () => (
-  <RideProgressCard origin={fakeProps[2]} destination={fakeProps[2]} currentProgress={40} />
-));
-stories.add("Long names with container", () => (
-  <View style={object("container", { height: 200, width: 400, borderWidth: 1 })}>
-    <RideProgressCard origin={fakeProps[2]} destination={fakeProps[2]} currentProgress={82} />
+verticalCardStories.add("Progress 50%", () => (
+  <View style={styles.container}>
+    <RideProgressCard origin={fakeProps[0]} destination={fakeProps[1]} />
   </View>
 ));
-stories.add("Minimum props", () => <RideProgressCard origin={fakeProps[3]} destination={fakeProps[3]} />);
 
-export { stories };
+verticalCardStories.add("Progress 100%", () => (
+  <View style={styles.container}>
+    <RideProgressCard origin={fakeProps[3]} destination={fakeProps[3]} />
+  </View>
+));
+
+horizontalCardStories.add("Progress 0%", () => (
+  <View style={styles.container}>
+    <RideProgressCard origin={fakeProps[2]} destination={fakeProps[2]} isHorizontal />
+  </View>
+));
+
+horizontalCardStories.add("Progress 50%", () => (
+  <View style={styles.container}>
+    <RideProgressCard origin={fakeProps[0]} destination={fakeProps[1]} isHorizontal />
+  </View>
+));
+
+horizontalCardStories.add("Progress 100%", () => (
+  <View style={styles.container}>
+    <RideProgressCard origin={fakeProps[3]} destination={fakeProps[3]} isHorizontal />
+  </View>
+));
+
+horizontalCardStories.add("Progress with extra info", () => (
+  <View style={styles.container}>
+    <RideProgressCard
+      origin={fakeProps[0]}
+      destination={fakeProps[1]}
+      isHorizontal
+      distanceInfo="1000 km"
+      timeInfo="8h 44m"
+    />
+  </View>
+));
+
+const styles = StyleSheet.create({
+  container: { height: 300 },
+});
+
+export { verticalCardStories, horizontalCardStories };
