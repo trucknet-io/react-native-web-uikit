@@ -1,2 +1,1 @@
-import Point from "./Point";
-export default Point;
+export { default } from "./Point";

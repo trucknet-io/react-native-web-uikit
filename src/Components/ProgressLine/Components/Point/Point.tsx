@@ -2,9 +2,10 @@ import * as React from "react";
 import Point from "src/Components/Point";
 import Colors from "src/Themes/Colors";
 
-type Props = {
+interface Props {
   currentProgress?: number;
-};
+  isHollowPoint?: boolean;
+}
 
 class ProgressPoint extends React.PureComponent<Props> {
   render() {

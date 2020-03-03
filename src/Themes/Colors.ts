@@ -24,7 +24,7 @@ const lightColors = {
   icon: "#000",
   separator: "#000",
   themeColor: "#2cce62",
-  transperentThemeColor: "#c4ecc9",
+  transparentThemeColor: "#c4ecc9",
   transparent: "#00000000",
   borderColor: "#000",
   shadow: "#00000022",
@@ -85,7 +85,7 @@ export const darkColors = {
   link: "#000",
   email: "#2979ff",
   themeColor: "#2cce62",
-  transperentThemeColor: "#c4ecc9",
+  transparentThemeColor: "#c4ecc9",
   themeGradient: {
     gradientColor1: "#2cceb3",
     gradientColor2: "#2cce62",
