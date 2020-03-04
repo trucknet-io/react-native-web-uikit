@@ -66,3 +66,6 @@ buck-out/
 
 # rn stories paths
 rn_storybook/storyLoader.js
+
+# Lib package
+*.tgz
