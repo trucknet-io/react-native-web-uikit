@@ -1,7 +1,6 @@
 import * as React from "react";
 import { StyleSheet, Text, View, ViewStyle } from "react-native";
 import Point from "src/Components/Point";
-import { getTransparentColor } from "src/Themes/Colors";
 import fonts from "src/Themes/Fonts";
 import withTheme, { ThemeProps, ThemeParamsType } from "src/Themes/withTheme";
 
@@ -40,6 +39,10 @@ export class PureRideHeader extends React.PureComponent<Props> {
     );
   }
 }
+
+const getTransparentColor = (color: string) => {
+  return `${color}44`;
+};
 
 const getStyle = ({ props: { color }, variables: { size } }: ThemeParamsType<OwnProps>) =>
   StyleSheet.create({

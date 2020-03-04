@@ -1,7 +1,3 @@
-export const getTransparentColor = (color: string) => {
-  return `${color}44`;
-};
-
 const lightColors = {
   // guideline colors
   inverseTextColor: "#fff",
