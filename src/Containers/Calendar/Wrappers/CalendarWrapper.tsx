@@ -7,6 +7,7 @@ interface DefaultProps {
 interface Props extends DefaultProps {
   onDateChange(date: Date): void;
   render(p: CalendarParamsTypes): React.ReactNode;
+  styles: unknown;
 }
 
 type State = {
@@ -14,7 +15,7 @@ type State = {
   currentDate: Date;
 };
 
-export type CalendarParamsTypes = {
+export type CalendarParamsTypes<S = unknown> = {
   state: State;
   methods: {
     handleCalendarDateChange(date: Date): void;
@@ -22,6 +23,7 @@ export type CalendarParamsTypes = {
     handleDayPress(date: Date): void;
     handleDateChange(): void;
   };
+  styles: S;
 };
 
 export class CalendarWrapper extends React.PureComponent<Props, State> {
@@ -43,6 +45,7 @@ export class CalendarWrapper extends React.PureComponent<Props, State> {
         handleDayPress: this.handleDayPress,
         handleDateChange: this.handleDateChange,
       },
+      styles: this.props.styles,
     });
   }
 

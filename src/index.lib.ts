@@ -13,6 +13,8 @@ import ProgressLine from "./Components/ProgressLine";
 import Modal from "./Components/Modal";
 import Avatar from "./Components/Avatar";
 import CroppedThumbnail from "./Components/CroppedThumbnail";
+import Point from "./Components/Point";
+import RideHeader from "./Components/RideHeader";
 import {
   CalendarContainer,
   Calendar,
@@ -46,6 +48,8 @@ export {
   Modal,
   Avatar,
   CroppedThumbnail,
+  Point,
+  RideHeader,
   CalendarDay,
   WeekCalendar,
   MonthCalendar,
