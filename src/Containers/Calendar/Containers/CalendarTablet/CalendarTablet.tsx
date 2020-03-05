@@ -35,12 +35,12 @@ export class PureCalendarTablet extends React.PureComponent<Props> {
         currentDate={this.props.currentDate}
         render={this.renderCalendar}
         onDateChange={this.props.onDateChange}
+        styles={this.props.styles}
       />
     );
   }
 
-  private renderCalendar = ({ state, methods }: CalendarParamsTypes) => {
-    const { styles } = this.props;
+  private renderCalendar = ({ state, methods, styles }: CalendarParamsTypes<Styles>) => {
     return (
       <View>
         <View style={[styles.container, this.props.style]}>
