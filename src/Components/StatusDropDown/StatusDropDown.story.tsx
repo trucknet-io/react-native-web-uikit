@@ -1,13 +1,13 @@
 import * as React from "react";
 import { storiesOf } from "@storybook/react-native";
-import StatusDropDown from "./StatusDropDown";
+import StatusDropDown, { PureStatusDropDown } from "./StatusDropDown";
 import colors from "src/Themes/Colors";
 import { Truck, Breakfast } from "src/Components/Icons";
 import { View } from "react-native";
 import { action } from "@storybook/addon-actions";
 import { StyleSheet } from "react-native";
 
-const stories = storiesOf("StatusDropDown", module);
+const stories = storiesOf("StatusDropDown", module).addParameters({ component: PureStatusDropDown });
 
 const statuses = [
   { value: "On The Way", key: "onWay" },
@@ -53,4 +53,4 @@ stories.add("StatusDropDown broken", () => (
 const styles = StyleSheet.create({
   container: { height: 300, justifyContent: "flex-end" },
 });
-export default stories;
+export { stories };

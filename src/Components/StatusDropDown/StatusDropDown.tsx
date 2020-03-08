@@ -2,11 +2,13 @@ import React from "react";
 import { StyleSheet, Text, ViewStyle, View } from "react-native";
 import { TransparentButton } from "src/Components/Buttons";
 import getShadowStyle from "src/Themes/getShadowStyle";
-import colors, { getTransparentColor } from "src/Themes/Colors";
+import { getTransparentColor } from "src/Themes/Colors";
 import { Point, TriangleDown, TriangleUp } from "src/Components/Icons";
+import withTheme, { ThemeProps, ThemeParamsType } from "src/Themes/withTheme";
 
 type Status = { key: string; value: React.ReactNode };
-interface Props {
+
+interface OwnProps {
   currentStatus: Status;
   dropDownStatuses: Status[];
   onStatusPress(statusKey: string): void;
@@ -15,15 +17,20 @@ interface Props {
   statusIcon?: React.ReactNode;
 }
 
+type Style = ReturnType<typeof getStyles>;
+
+interface Props extends OwnProps, ThemeProps<Style> {}
+
 interface State {
   isOpen: boolean;
 }
 
-class StatusDropDown extends React.PureComponent<Props, State> {
+export class PureStatusDropDown extends React.PureComponent<Props, State> {
   public state = {
     isOpen: false,
   };
   public render() {
+    const { styles } = this.props;
     return (
       <View>
         {this.renderDropDownMenu()}
@@ -33,7 +40,7 @@ class StatusDropDown extends React.PureComponent<Props, State> {
           <View style={styles.statusContainer}>
             <Point color={this.props.color} width={6} height={6} />
             <View style={styles.statusIconContainer}>{this.props.statusIcon}</View>
-            <Text style={[styles.statusText, { color: this.props.color }]}>{this.props.currentStatus.value}</Text>
+            <Text style={[styles.statusLabel, { color: this.props.color }]}>{this.props.currentStatus.value}</Text>
           </View>
           {this.state.isOpen ? (
             <TriangleUp color={this.props.color} width={12} height={12} />
@@ -47,6 +54,7 @@ class StatusDropDown extends React.PureComponent<Props, State> {
 
   private renderDropDownMenu = () => {
     if (!this.state.isOpen) return null;
+    const { styles, colors } = this.props;
     return (
       <View style={styles.dropDownMenuContainer}>
         {this.props.dropDownStatuses.map((status) => {
@@ -62,7 +70,7 @@ class StatusDropDown extends React.PureComponent<Props, State> {
               disabled={isCurrentStatus}
               key={status.key}
               onPress={this.handleStatusPress(status.key)}>
-              <Text>{status.value}</Text>
+              <Text style={styles.statusValue}>{status.value}</Text>
             </TransparentButton>
           );
         })}
@@ -77,31 +85,33 @@ class StatusDropDown extends React.PureComponent<Props, State> {
   private toggleDropDown = () => this.setState({ isOpen: !this.state.isOpen });
 }
 
-const styles = StyleSheet.create({
-  container: {
-    paddingVertical: 8,
-    paddingHorizontal: 16,
-    borderRadius: 4,
-    justifyContent: "space-between",
-    ...getShadowStyle(4),
-  },
-  statusIconContainer: { marginHorizontal: 8 },
-  statusContainer: { flexDirection: "row", alignItems: "center" },
-  statusText: { textTransform: "uppercase", lineHeight: 24 },
-  dropDownMenuContainer: {
-    position: "absolute",
-    bottom: "110%",
-    width: "98%",
-    backgroundColor: colors.background,
-    ...getShadowStyle(6),
-  },
-  dropDownButton: {
-    alignItems: "flex-start",
-    justifyContent: "flex-start",
-    borderRadius: 0,
-    marginHorizontal: 0,
-    paddingHorizontal: 16,
-  },
-});
+const getStyles = ({ colors, variables }: ThemeParamsType) =>
+  StyleSheet.create({
+    container: {
+      paddingVertical: 8,
+      paddingHorizontal: 16,
+      borderRadius: 4,
+      justifyContent: "space-between",
+      ...variables.shadow,
+    },
+    statusIconContainer: { marginHorizontal: 8 },
+    statusContainer: { flexDirection: "row", alignItems: "center" },
+    statusLabel: { textTransform: "uppercase", lineHeight: 24, color: colors.defaultText },
+    statusValue: { color: colors.defaultText },
+    dropDownMenuContainer: {
+      position: "absolute",
+      bottom: "110%",
+      width: "98%",
+      backgroundColor: colors.background,
+      ...getShadowStyle(6),
+    },
+    dropDownButton: {
+      alignItems: "flex-start",
+      justifyContent: "flex-start",
+      borderRadius: 0,
+      marginHorizontal: 0,
+      paddingHorizontal: 16,
+    },
+  });
 
-export default StatusDropDown;
+export default withTheme<Props>(getStyles)(PureStatusDropDown);

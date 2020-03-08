@@ -1,17 +1,19 @@
 import * as React from "react";
 import { StyleSheet, Text, View, ViewStyle } from "react-native";
 import RideProperty from "./Components";
-import colors from "src/Themes/Colors";
 import fonts from "src/Themes/Fonts";
+import withTheme, { ThemeProps, ThemeParamsType } from "src/Themes/withTheme";
 
-interface IProps {
+type Style = ReturnType<typeof getStyles>;
+
+interface Props extends ThemeProps<Style> {
   properties: { label: React.ReactNode; content: React.ReactNode }[];
   style?: ViewStyle;
 }
 
-class RideInfo extends React.Component<IProps> {
+export class PureRideInfo extends React.Component<Props> {
   public render() {
-    const { properties } = this.props;
+    const { properties, styles } = this.props;
     return (
       <View style={[styles.container, this.props.style]}>
         <View style={styles.propertiesRawContainer}>
@@ -34,31 +36,33 @@ class RideInfo extends React.Component<IProps> {
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    justifyContent: "space-around",
-    flexGrow: 1,
-  },
+const getStyles = ({ colors }: ThemeParamsType) =>
+  StyleSheet.create({
+    container: {
+      justifyContent: "space-around",
+      flexGrow: 1,
+    },
 
-  propertiesRawContainer: {
-    flexGrow: 1,
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-    flexWrap: "wrap",
-  },
-  textProperty: {
-    ...fonts.BodyRegular,
-    color: colors.defaultText,
-    marginTop: 8,
-    flexWrap: "wrap",
-  },
-  viewProperty: {
-    marginTop: 8,
-    flexWrap: "wrap",
-    flexDirection: "row",
-    alignItems: "center",
-  },
-});
+    propertiesRawContainer: {
+      flexGrow: 1,
+      flexDirection: "row",
+      alignItems: "center",
+      justifyContent: "space-between",
+      flexWrap: "wrap",
+    },
+    textProperty: {
+      ...fonts.BodyRegular,
+      color: colors.defaultText,
+      marginTop: 8,
+      flexWrap: "wrap",
+    },
+    viewProperty: {
+      marginTop: 8,
+      flexWrap: "wrap",
+      flexDirection: "row",
+      alignItems: "center",
+      color: colors.defaultText,
+    },
+  });
 
-export default RideInfo;
+export default withTheme<Props>(getStyles)(PureRideInfo);

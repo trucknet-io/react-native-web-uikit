@@ -1,11 +1,24 @@
 import * as React from "react";
 import { storiesOf } from "@storybook/react-native";
-import RideInfo from "./RideInfo";
+import RideInfo, { PureRideInfo } from "./RideInfo";
 import { View, Text } from "react-native";
 import Avatar from "src/Components/Avatar";
 import { Phone } from "src/Components/Icons";
+import { StyleSheet } from "react-native";
+import colors from "src/Themes/Colors";
 
-const stories = storiesOf("RideInfo", module);
+const styles = StyleSheet.create({
+  callCustomerContainer: {
+    flexGrow: 1,
+    justifyContent: "space-between",
+    flexDirection: "row",
+  },
+  avatarContainer: { flexDirection: "row", alignItems: "center" },
+  licenseContainer: { lineHeight: 28 },
+  border: { borderWidth: 2 },
+});
+
+const stories = storiesOf("RideInfo", module).addParameters({ component: PureRideInfo });
 const cargoProperties = [
   { label: "Cargo type", content: "Containers, Grand Cube 40, Pallete" },
   { label: "Vehicle type", content: "Container Truck" },
@@ -32,7 +45,7 @@ const driverProperties = [
   },
   {
     label: "License plate",
-    content: <Text style={{ lineHeight: 28 }}># SR-045-JD</Text>,
+    content: <Text style={styles.licenseContainer}># SR-045-JD</Text>,
   },
 ];
 
@@ -40,34 +53,24 @@ const callCustomerProperties = [
   {
     label: "Sender",
     content: (
-      <View
-        style={{
-          flexGrow: 1,
-          justifyContent: "space-between",
-          flexDirection: "row",
-        }}>
-        <View style={{ flexDirection: "row", alignItems: "center" }}>
+      <View style={styles.callCustomerContainer}>
+        <View style={styles.avatarContainer}>
           <Avatar accessibilityLabel="avatar" name="driver" size="small" />
           <Text>Sam Cooper</Text>
         </View>
-        <Phone color="black" />
+        <Phone color={colors.themeColor} />
       </View>
     ),
   },
   {
     label: "Receiver",
     content: (
-      <View
-        style={{
-          flexGrow: 1,
-          justifyContent: "space-between",
-          flexDirection: "row",
-        }}>
-        <View style={{ flexDirection: "row", alignItems: "center" }}>
+      <View style={styles.callCustomerContainer}>
+        <View style={styles.avatarContainer}>
           <Avatar accessibilityLabel="avatar" name="driver" size="small" />
           <Text>Sam Cooper</Text>
         </View>
-        <Phone color="black" />
+        <Phone color={colors.themeColor} />
       </View>
     ),
   },
@@ -81,7 +84,7 @@ stories.add("Cargo Info Big Card", () => (
 
 stories.add("Cargo Info Medium Card with style", () => (
   <View style={{ width: 360 }}>
-    <RideInfo properties={cargoProperties} style={{ borderWidth: 2 }} />
+    <RideInfo properties={cargoProperties} style={styles.border} />
   </View>
 ));
 
@@ -105,4 +108,4 @@ stories.add("Driver Info Small Card", () => (
 
 stories.add("Customer Info Card", () => <RideInfo properties={callCustomerProperties} />);
 
-export default stories;
+export { stories };
