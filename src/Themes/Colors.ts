@@ -6,10 +6,10 @@ const lightColors = {
   // guideline colors
   inverseTextColor: "#fff",
   background: "#fff",
-  navBarBackground: "#fff",
+  containerBackground: "#fff",
   formBackground: "#fff",
   rideInfo: "#fff",
-  componentDefaultBackground: "#fff",
+  componentBackground: "#fff",
   bottomNavBarBackground: "#29464d",
   bottomNavBarBackgroundActive: "#39565d",
   subBackground: "#d7d7d7",
@@ -24,7 +24,7 @@ const lightColors = {
   icon: "#000",
   separator: "#000",
   themeColor: "#2cce62",
-  transperentThemeColor: "#c4ecc9",
+  transparentThemeColor: "#c4ecc9",
   transparent: "#00000000",
   borderColor: "#000",
   shadow: "#00000022",
@@ -61,10 +61,10 @@ export const darkColors = {
   // guideline colors
   inverseTextColor: "#222",
   background: "#2e2e2e",
-  navBarBackground: "#464646",
+  containerBackground: "#464646",
   bottomNavBarBackground: "#212121",
   bottomNavBarBackgroundActive: "#39565d",
-  componentDefaultBackground: "#D3D3D3",
+  componentBackground: "#D3D3D3",
   subBackground: "#303030",
   formBackground: "#303030",
   webViewBackground: "#c7c7c7",
@@ -86,7 +86,7 @@ export const darkColors = {
 
   email: "#2979ff",
   themeColor: "#2cce62",
-  transperentThemeColor: "#c4ecc9",
+  transparentThemeColor: "#c4ecc9",
   themeGradient: {
     gradientColor1: "#2cceb3",
     gradientColor2: "#2cce62",
@@ -120,3 +120,9 @@ export const colorTheme = {
   light: lightColors,
   dark: darkColors,
 };
+
+export type ColorThemeNames = "light" | "dark";
+
+export const getColors = (theme: ColorThemeNames) => colorTheme[theme];
+
+export type ColorType = typeof lightColors;

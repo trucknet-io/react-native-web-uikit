@@ -1,24 +1,18 @@
 import * as React from "react";
-import { View, StyleSheet } from "react-native";
+import Point from "src/Components/Point";
 import Colors from "src/Themes/Colors";
 
-type Props = {
+interface Props {
   currentProgress?: number;
-};
+  isHollowPoint?: boolean;
+}
 
-class Point extends React.PureComponent<Props> {
+class ProgressPoint extends React.PureComponent<Props> {
   render() {
     const { currentProgress } = this.props;
-    return <View style={[styles.point, { backgroundColor: currentProgress ? Colors.themeColor : Colors.disable }]} />;
+    const color = currentProgress ? Colors.themeColor : Colors.disable;
+    return <Point color={color} />;
   }
 }
 
-export default Point;
-
-const styles = StyleSheet.create({
-  point: {
-    width: 7,
-    height: 7,
-    borderRadius: 7,
-  },
-});
+export default ProgressPoint;

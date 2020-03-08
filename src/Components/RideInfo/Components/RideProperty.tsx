@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
     margin: 8,
   },
   label: {
-    ...fonts.style.Subheading,
+    ...fonts.SubTitle,
     color: colors.subtitle,
   },
 });

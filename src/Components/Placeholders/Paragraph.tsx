@@ -3,29 +3,23 @@ import { StyleSheet, View } from "react-native";
 // tslint:disable-next-line:import-name
 import Shimmer from "react-native-shimmer-placeholder";
 import { isWeb } from "src/Helpers/platform";
-import { colorTheme } from "src/Themes/Colors";
+import withTheme, { ThemeProps, ThemeParamsType } from "src/Themes/withTheme";
 
-interface Props {
+type Styles = ReturnType<typeof getStyles>;
+
+interface DefaultProps {
   lines: number;
-  theme: "light" | "dark";
 }
 
-interface State {
-  colors: typeof colorTheme;
-}
+interface Props extends DefaultProps, ThemeProps<Styles> {}
 
-export class ParagraphPlaceholder extends React.PureComponent<Props, State> {
-  state = {
-    colors: colorTheme,
-  };
-  public static defaultProps = {
+export class PureParagraphPlaceholder extends React.PureComponent<Props> {
+  public static defaultProps: DefaultProps = {
     lines: 5,
-    theme: "light",
   };
   public render() {
-    const theme = this.state.colors[this.props.theme];
     return (
-      <View style={[styles.container, { backgroundColor: theme.background }]}>
+      <View style={this.props.styles.container}>
         {isWeb ? this.renderWebPlaceholder() : this.renderNativePlaceholderLines()}
       </View>
     );
@@ -35,7 +29,7 @@ export class ParagraphPlaceholder extends React.PureComponent<Props, State> {
     const placeholderLines: Array<React.ReactNode> = [];
     let i;
     for (i = 0; i < this.props.lines; i++) {
-      placeholderLines.push(<Shimmer autoRun={true} style={styles.line} />);
+      placeholderLines.push(<Shimmer autoRun={true} style={this.props.styles.line} />);
     }
     return placeholderLines;
   };
@@ -52,17 +46,23 @@ export class ParagraphPlaceholder extends React.PureComponent<Props, State> {
   };
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    width: "100%",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  webContainer: {
-    width: "90%",
-  },
-  line: {
-    margin: 8,
-  },
-});
+const getStyles = ({ colors }: ThemeParamsType) =>
+  StyleSheet.create({
+    container: {
+      flex: 1,
+      width: "100%",
+      justifyContent: "center",
+      alignItems: "center",
+      backgroundColor: colors.containerBackground,
+    },
+    webContainer: {
+      width: "90%",
+    },
+    line: {
+      margin: 8,
+    },
+  });
+
+let ParagraphPlaceholder = withTheme<Props, DefaultProps>(getStyles)(PureParagraphPlaceholder);
+
+export { ParagraphPlaceholder };

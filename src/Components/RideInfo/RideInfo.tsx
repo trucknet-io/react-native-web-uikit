@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
     flexWrap: "wrap",
   },
   textProperty: {
-    ...fonts.style.BodyRegular,
+    ...fonts.BodyRegular,
     color: colors.defaultText,
     marginTop: 8,
     flexWrap: "wrap",

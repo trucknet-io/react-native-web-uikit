@@ -12,4 +12,7 @@ module.exports = {
   testMatch: ["<rootDir>/src/**/__tests__/**/*.(js|ts|tsx)", "<rootDir>/src/**/?(*.)+(spec|test).(js|ts|tsx)"],
   modulePaths: ["<rootDir>"],
   transformIgnorePatterns: ["node_modules/(?!react-native)/"],
+  moduleNameMapper: {
+    "react-native-svg": "react-native-svg-web",
+  },
 };
