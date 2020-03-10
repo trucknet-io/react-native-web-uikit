@@ -18,8 +18,9 @@ interface Props extends NativeWebViewProps {
 }
 
 export default (props: Props) => {
-  const { source, injectedJavaScript, onMessage } = props;
+  const { source, injectedJavaScript, onMessage, onLoadStart, onLoad } = props;
   const { html, uri } = source;
+
   useEffect(
     () => {
       const handleMessage = (e) => {
@@ -43,8 +44,8 @@ export default (props: Props) => {
 
   useEffect(
     () => {
-      if (!props.source.html && props.onLoadStart && props.onLoad) {
-        props.onLoadStart();
+      if (!props.source.html && onLoadStart) {
+        onLoadStart();
       }
     },
     [uri],
@@ -64,7 +65,7 @@ export default (props: Props) => {
     );
   if (source.html) return renderInjectedHtml();
   if (source.uri) {
-    return <iframe src={source.uri} width="100%" height="100%" onLoad={props.onLoad} />;
+    return <iframe src={source.uri} width="100%" height="100%" onLoad={onLoad} />;
   }
   return null;
 };

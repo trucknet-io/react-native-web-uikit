@@ -3,11 +3,11 @@ import WebView from "react-native-webview";
 import { StyleSheet, View, ActivityIndicator } from "react-native";
 import { WebViewProps } from "react-native-webview";
 import colors from "src/Themes/Colors";
+import { getZIndex } from "src/Themes/variables";
 
 const WebViewLoader = (props: WebViewProps) => {
   const [isLoad, setIsLoad] = React.useState(false);
-  const startIsLoad = () => setIsLoad(true);
-  const endIsLoad = () => setIsLoad(false);
+  const toggleIsLoad = () => setIsLoad(!isLoad);
   return (
     <React.Fragment>
       {isLoad ? (
@@ -15,7 +15,7 @@ const WebViewLoader = (props: WebViewProps) => {
           <ActivityIndicator size="large" color={colors.themeColor} />
         </View>
       ) : null}
-      <WebView {...props} onLoadStart={startIsLoad} onLoad={endIsLoad} />
+      <WebView {...props} onLoadStart={toggleIsLoad} onLoad={toggleIsLoad} />
     </React.Fragment>
   );
 };
@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
     right: 0,
     top: "40%",
     margin: "auto",
-    elevation: 5,
+    ...getZIndex,
   },
 });
 
