@@ -122,7 +122,6 @@
     "modal-react-native-web": "^0.2.0",
     "react-native-modal": "^11.3.1",
     "react-native-popup-menu": "^0.15.6",
-    "react-native-web-webview": "^0.2.8",
     "react-native-webview": "^6.8.1",
     "react-content-loader": "^4.2.2",
     "react-native-shimmer-placeholder": "^1.0.35"
@@ -137,7 +136,6 @@
     "react-native-uikit",
     "react-native-web-uikit",
     "react-native-modal",
-    "react-native-drawer",
     "react-native-web-modal",
     "react-native-web-storybook-uikit"
   ]

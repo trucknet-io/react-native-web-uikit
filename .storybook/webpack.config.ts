@@ -14,16 +14,6 @@ module.exports = ({ config }) => {
   const moduleRulesChanges = {
     rules: [
       ...defaultRules,
-      // https://github.com/react-native-web-community/react-native-web-webview#getting-started
-      {
-        test: /postMock.html$/,
-        use: {
-          loader: "file-loader",
-          options: {
-            name: "[name].[ext]",
-          },
-        },
-      },
       {
         test: /\.(ts|tsx)$/,
         include: path.resolve(__dirname, "../src"),
