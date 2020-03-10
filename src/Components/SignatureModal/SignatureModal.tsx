@@ -5,6 +5,7 @@ import { Text, View, StyleSheet, ActivityIndicator, ViewStyle } from "react-nati
 import Modal from "src/Components/Modal";
 import { TransparentButton } from "src/Components/Buttons";
 import { canvasHTML } from "./canvasHTML";
+import { canvasScript } from "./canvasScript";
 import WebView from "react-native-webview";
 import { isWeb } from "src/Helpers/platform";
 import withTheme, { ThemeProps, ThemeParamsType } from "src/Themes/withTheme";
@@ -106,7 +107,7 @@ export class PureSignatureModal extends React.PureComponent<Props> {
         {this.renderHelperText()}
         <View style={this.props.styles.webViewContainer}>
           <WebView
-            ref={this.setWebViewRef}
+            // ref={this.setWebViewRef}
             onMessage={this.onMessage}
             style={this.props.styles.webView}
             automaticallyAdjustContentInsets={false}
@@ -115,6 +116,7 @@ export class PureSignatureModal extends React.PureComponent<Props> {
             showsVerticalScrollIndicator={false}
             showsHorizontalScrollIndicator={false}
             key={this.state.resetCount}
+            injectedJavaScript={canvasScript}
           />
         </View>
         {this.renderButtons()}
@@ -133,7 +135,7 @@ export class PureSignatureModal extends React.PureComponent<Props> {
     }
     return;
   };
-  private setWebViewRef = (ref) => {
+  public setWebViewRef = (ref) => {
     this.webView = ref;
     if (this.webView && !isWeb) {
       this.webView.reload();

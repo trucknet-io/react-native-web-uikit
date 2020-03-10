@@ -26,6 +26,7 @@ import {
 } from "./Containers/Calendar";
 import ThemeProviderWrapper from "src/Wrappers/ThemeProviderWrapper";
 import withTheme, { ThemeProps, ThemeParamsType, ThemeType } from "src/Themes/withTheme";
+import WebView, { WebViewLoader } from "src/Components/WebView";
 
 export {
   GradientButton,
@@ -62,4 +63,6 @@ export {
   ThemeProps,
   ThemeParamsType,
   ThemeType,
+  WebView,
+  WebViewLoader,
 };

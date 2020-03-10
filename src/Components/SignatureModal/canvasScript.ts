@@ -1,33 +1,30 @@
-export var canvasScript = `
-  var bodyWidth = document.body.clientWidth;
-  var bodyHeight = document.body.clientHeight;
-  if (!bodyWidth) {
-    bodyWidth = window.innerWidth;
-  }
-  if (!bodyHeight) {
-    bodyHeight = window.innerHeight;
-  }
-
-  var canvasWidth = bodyWidth;
-  var canvasHeight = bodyHeight;
-
+import { isWeb } from "src/Helpers/platform";
+export var canvasScript =
+  `
   var canvas = document.getElementById("signatureCanvas");
-  canvas.width = canvasWidth;
-  canvas.height = canvasHeight;
+  var rect = canvas.getBoundingClientRect();
+  var width = rect.width;
+  var height = rect.height;
+  if (!` +
+  isWeb +
+  `) {
+    width = document.body.clientWidth;
+    height = document.body.clientHeight;
+  }
+  canvas.width = width;
+  canvas.height = height;
   var ctx = canvas.getContext("2d");
 
   function getTouchCoords(e) {
     var touch = e.changedTouches[0];
-    var rect = canvas.getBoundingClientRect();
     var x = touch.clientX - rect.left;
     var y = touch.clientY - rect.top;
     return { x: x, y: y };
   }
 
   function getMouseCoords(e) {
-    var rect = canvas.getBoundingClientRect();
-    var x = e.clientX - rect.left;
-    var y = e.clientY - rect.top;
+    var x = e.clientX - rect.x;
+    var y = e.clientY - rect.y;
     return { x: x, y: y };
   }
 
@@ -53,7 +50,8 @@ export var canvasScript = `
   canvas.addEventListener("mouseup", function(e) {
     e.preventDefault();
     isMouseDown = false;
-    window.parent.postMessage(canvas.toDataURL());
+    var event = new CustomEvent("message", { detail: canvas.toDataURL() });
+    window.dispatchEvent(event);
   });
 
   canvas.addEventListener("touchstart", function(e) {
