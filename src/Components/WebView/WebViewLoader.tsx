@@ -9,14 +9,14 @@ const WebViewLoader = (props: WebViewProps) => {
   const [isLoad, setIsLoad] = React.useState(false);
   const toggleIsLoad = () => setIsLoad(!isLoad);
   return (
-    <React.Fragment>
+    <>
       {isLoad ? (
         <View style={styles.container}>
           <ActivityIndicator size="large" color={colors.themeColor} />
         </View>
       ) : null}
       <WebView {...props} onLoadStart={toggleIsLoad} onLoad={toggleIsLoad} />
-    </React.Fragment>
+    </>
   );
 };
 
