@@ -50,19 +50,19 @@ export default (props: Props) => {
     [uri],
   );
 
-  const InjectedHtml = useMemo(
-    () => {
-      if (!source.html) return null;
-      return (
-        <>
-          {getParsedHtml(source.html!)}
-          {injectedJavaScript ? <script>{setTimeout(() => eval(injectedJavaScript))}</script> : null}
-        </>
-      );
-    },
-    [html, injectedJavaScript],
-  );
-  if (source.html) return InjectedHtml;
+  const renderInjectedHtml = () =>
+    useMemo(
+      () => {
+        return (
+          <>
+            {getParsedHtml(source.html!)}
+            {injectedJavaScript ? <script>{setTimeout(() => eval(injectedJavaScript))}</script> : null}
+          </>
+        );
+      },
+      [html, injectedJavaScript],
+    );
+  if (source.html) return renderInjectedHtml();
   if (source.uri) {
     return <iframe src={source.uri} width="100%" height="100%" onLoad={props.onLoad} />;
   }

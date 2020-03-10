@@ -107,7 +107,7 @@ export class PureSignatureModal extends React.PureComponent<Props> {
         {this.renderHelperText()}
         <View style={this.props.styles.webViewContainer}>
           <WebView
-            // ref={this.setWebViewRef}
+            ref={this.setWebViewRef}
             onMessage={this.onMessage}
             style={this.props.styles.webView}
             automaticallyAdjustContentInsets={false}
@@ -135,7 +135,7 @@ export class PureSignatureModal extends React.PureComponent<Props> {
     }
     return;
   };
-  public setWebViewRef = (ref) => {
+  private setWebViewRef = (ref) => {
     this.webView = ref;
     if (this.webView && !isWeb) {
       this.webView.reload();
