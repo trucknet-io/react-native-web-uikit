@@ -44,9 +44,7 @@
     }
   },
   "dependencies": {
-    "@types/shortid": "0.0.29",
-    "react-native-device-detection": "^0.2.1",
-    "shortid": "^2.2.15"
+    "react-native-device-detection": "^0.2.1"
   },
   "devDependencies": {
     "@babel/core": "^7.5.5",
