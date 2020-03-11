@@ -3,6 +3,7 @@ import { StyleSheet, Text, View, ViewStyle } from "react-native";
 import RideProperty from "./Components";
 import fonts from "src/Themes/Fonts";
 import withTheme, { ThemeProps, ThemeParamsType } from "src/Themes/withTheme";
+import shortid from "shortid";
 
 type Style = ReturnType<typeof getStyles>;
 
@@ -18,9 +19,7 @@ export class PureRideInfo extends React.Component<Props> {
       <View style={[styles.container, this.props.style]}>
         <View style={styles.propertiesRawContainer}>
           {properties.map((property, index) => (
-            <RideProperty
-              key={typeof property.label === "string" ? property.label : index.toString()}
-              label={property.label}>
+            <RideProperty key={shortid.generate()} label={property.label}>
               {typeof property.content === "string" ? (
                 <Text numberOfLines={1} style={styles.textProperty}>
                   {property.content}
