@@ -5,7 +5,6 @@ import { Text, View, StyleSheet, ActivityIndicator, ViewStyle } from "react-nati
 import Modal from "src/Components/Modal";
 import { TransparentButton } from "src/Components/Buttons";
 import { canvasHTML } from "./canvasHTML";
-import { canvasScript } from "./canvasScript";
 import WebView from "react-native-webview";
 import { isWeb } from "src/Helpers/platform";
 import withTheme, { ThemeProps, ThemeParamsType } from "src/Themes/withTheme";
@@ -116,7 +115,6 @@ export class PureSignatureModal extends React.PureComponent<Props> {
             showsVerticalScrollIndicator={false}
             showsHorizontalScrollIndicator={false}
             key={this.state.resetCount}
-            injectedJavaScript={canvasScript}
           />
         </View>
         {this.renderButtons()}
