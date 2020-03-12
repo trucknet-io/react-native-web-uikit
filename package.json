@@ -44,8 +44,7 @@
     }
   },
   "dependencies": {
-    "react-native-device-detection": "^0.2.1",
-    "srcdoc-polyfill": "^1.0.0"
+    "react-native-device-detection": "^0.2.1"
   },
   "devDependencies": {
     "@babel/core": "^7.5.5",

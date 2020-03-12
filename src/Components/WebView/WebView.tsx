@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import { ViewStyle } from "react-native";
 import { WebViewProps } from "react-native-webview";
-import * as srcDocPolyFill from "srcdoc-polyfill";
 
 type Message = {
   nativeEvent: MessageEvent;
@@ -16,12 +15,6 @@ interface Props extends NativeWebViewProps {
   onLoadStart?: () => void;
   style?: ViewStyle;
 }
-
-const IFrame = (props) => {
-  const iframe = <iframe {...props} />;
-  srcDocPolyFill.set(iframe);
-  return iframe;
-};
 
 export default (props: Props) => {
   const { source, onLoadStart, onLoad, onMessage } = props;
@@ -47,8 +40,10 @@ export default (props: Props) => {
     [uri, html],
   );
 
-  if (source.html) return <IFrame srcDoc={source.html} style={styles.iframe} onLoad={onLoad} />;
-  if (source.uri) return <IFrame src={source.uri} style={styles.iframe} onLoad={onLoad} />;
+  if (source.html) {
+    return <iframe src={`data:text/html;charset=UTF-8, ${source.html}`} style={styles.iframe} onLoad={onLoad} />;
+  }
+  if (source.uri) return <iframe src={source.uri} style={styles.iframe} onLoad={onLoad} />;
   return null;
 };
 
