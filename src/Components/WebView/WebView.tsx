@@ -1,71 +1,57 @@
-import getParsedHtml from "html-react-parser";
-import React, { useEffect, useMemo } from "react";
+import React, { useEffect } from "react";
 import { ViewStyle } from "react-native";
 import { WebViewProps } from "react-native-webview";
+import * as srcDocPolyFill from "srcdoc-polyfill";
 
 type Message = {
-  nativeEvent: { data: string };
+  nativeEvent: MessageEvent;
 };
 
 type NativeWebViewProps = Omit<WebViewProps, "onMessage" | "source" | "onLoad" | "onLoadStart">;
 
 interface Props extends NativeWebViewProps {
-  onMessage?: (m: Message, e: CustomEvent) => void;
+  onMessage?: (e: Message) => void;
   source: { uri?: string; html?: string };
   onLoad?: (event: React.SyntheticEvent<HTMLIFrameElement, Event>) => void;
   onLoadStart?: () => void;
   style?: ViewStyle;
 }
 
-export default (props: Props) => {
-  const { source, injectedJavaScript, onMessage, onLoadStart, onLoad } = props;
-  const { html, uri } = source;
+const IFrame = (props) => {
+  const iframe = <iframe {...props} />;
+  srcDocPolyFill.set(iframe);
+  return iframe;
+};
 
+export default (props: Props) => {
+  const { source, onLoadStart, onLoad, onMessage } = props;
+  const { uri, html } = source;
   useEffect(
     () => {
-      const handleMessage = (e) => {
-        if (!e.detail || !onMessage) return;
-        const mouseEvent = e as CustomEvent;
-        onMessage(
-          {
-            nativeEvent: {
-              data: mouseEvent.detail,
-            },
-          },
-          e,
-        );
+      const handleMessage = (e: MessageEvent) => {
+        if (!onMessage) return;
+        onMessage({ nativeEvent: e });
       };
 
-      window.addEventListener("message", handleMessage, true);
-      return () => window.removeEventListener("message", handleMessage, true);
+      window.addEventListener("message", handleMessage);
+      return () => window.removeEventListener("message", handleMessage);
     },
     [html],
   );
 
   useEffect(
     () => {
-      if (!props.source.html && onLoadStart) {
-        onLoadStart();
-      }
+      if (!onLoadStart) return;
+      onLoadStart();
     },
-    [uri],
+    [uri, html],
   );
 
-  const renderInjectedHtml = () =>
-    useMemo(
-      () => {
-        return (
-          <>
-            {getParsedHtml(source.html!)}
-            {injectedJavaScript ? <script>{setTimeout(() => eval(injectedJavaScript))}</script> : null}
-          </>
-        );
-      },
-      [html, injectedJavaScript],
-    );
-  if (source.html) return renderInjectedHtml();
-  if (source.uri) {
-    return <iframe src={source.uri} width="100%" height="100%" onLoad={onLoad} />;
-  }
+  if (source.html) return <IFrame srcDoc={source.html} style={styles.iframe} onLoad={onLoad} />;
+  if (source.uri) return <IFrame src={source.uri} style={styles.iframe} onLoad={onLoad} />;
   return null;
+};
+
+const styles = {
+  iframe: { display: "flex", flexGrow: 1 },
 };

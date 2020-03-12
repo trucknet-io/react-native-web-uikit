@@ -3,8 +3,8 @@ export var canvasScript =
   `
   var canvas = document.getElementById("signatureCanvas");
   var rect = canvas.getBoundingClientRect();
-  var width = rect.width;
-  var height = rect.height;
+  var width = window.innerWidth;
+  var height = window.innerHeight;
   if (!` +
   isWeb +
   `) {
@@ -50,8 +50,7 @@ export var canvasScript =
   canvas.addEventListener("mouseup", function(e) {
     e.preventDefault();
     isMouseDown = false;
-    var event = new CustomEvent("message", { detail: canvas.toDataURL() });
-    window.dispatchEvent(event);
+    window.parent.postMessage(canvas.toDataURL(), "*")
   });
 
   canvas.addEventListener("touchstart", function(e) {
