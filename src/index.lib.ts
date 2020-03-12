@@ -16,7 +16,6 @@ import CroppedThumbnail from "./Components/CroppedThumbnail";
 import Point from "./Components/Point";
 import RideHeader from "./Components/RideHeader";
 import {
-  CalendarContainer,
   Calendar,
   CalendarTablet,
   MonthCalendar,
@@ -54,7 +53,6 @@ export {
   CalendarDay,
   WeekCalendar,
   MonthCalendar,
-  CalendarContainer,
   Calendar,
   CalendarTablet,
   MonthCalendarContainer,
