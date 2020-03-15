@@ -13,7 +13,7 @@ import ProgressLine from "./Components/ProgressLine";
 import Modal from "./Components/Modal";
 import Avatar from "./Components/Avatar";
 import CroppedThumbnail from "./Components/CroppedThumbnail";
-import RideInfo from "./Components/RideInfo";
+import RideInfo, { RideProperty } from "./Components/RideInfo";
 import Point from "./Components/Point";
 import RideHeader from "./Components/RideHeader";
 import {
@@ -49,6 +49,7 @@ export {
   Avatar,
   CroppedThumbnail,
   RideInfo,
+  RideProperty,
   Point,
   RideHeader,
   CalendarDay,
