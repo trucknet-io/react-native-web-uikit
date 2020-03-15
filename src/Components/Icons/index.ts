@@ -36,6 +36,11 @@ import Vehicle from "./Vehicle";
 import TrucknetLogo from "./TrucknetLogo";
 import TrucknetLogoIcon from "./TrucknetLogoIcon";
 import MapPlaceholderIcon from "./MapPlaceholderIcon";
+import Truck from "./Truck";
+import TriangleDown from "./TriangleDown";
+import TriangleUp from "./TriangleUp";
+import Point from "./Point";
+import Breakfast from "./Breakfast";
 
 export {
   ChevronUp,
@@ -76,4 +81,9 @@ export {
   VatIcon,
   Vehicle,
   MapPlaceholderIcon,
+  Truck,
+  TriangleUp,
+  TriangleDown,
+  Breakfast,
+  Point,
 };

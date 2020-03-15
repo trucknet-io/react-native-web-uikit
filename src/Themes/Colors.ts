@@ -1,3 +1,7 @@
+export const getTransparentColor = (color: string) => {
+  return `${color}44`;
+};
+
 const lightColors = {
   // guideline colors
   inverseTextColor: "#fff",
@@ -79,6 +83,7 @@ export const darkColors = {
   borderColor: "#000",
   shadow: "#00000022",
   link: "#000",
+
   email: "#2979ff",
   themeColor: "#2cce62",
   transparentThemeColor: "#c4ecc9",
