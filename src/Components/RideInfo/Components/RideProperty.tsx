@@ -13,9 +13,9 @@ export const PureRideProperty = ({ label, children, styles }: Props) => (
   <View style={styles.propertyContainer}>
     <Text style={styles.label}>{label}</Text>
     {typeof children === "string" ? (
-      <Text style={styles.content}>{children}</Text>
+      <Text style={styles.textContainer}>{children}</Text>
     ) : (
-      <View style={{ flexDirection: "row", alignItems: "center" }}>{children}</View>
+      <View style={styles.viewContainer}>{children}</View>
     )}
   </View>
 );
@@ -31,12 +31,13 @@ const getStyles = ({ colors, fonts }) =>
       ...fonts.SubTitle,
       color: colors.subtitle,
     },
-    content: {
+    textContainer: {
       ...fonts.BodyRegular,
       color: colors.defaultText,
       marginTop: 8,
       flexWrap: "wrap",
     },
+    viewContainer: { flexDirection: "row", alignItems: "center" },
   });
 
 export default withTheme<Props>(getStyles)(PureRideProperty);
