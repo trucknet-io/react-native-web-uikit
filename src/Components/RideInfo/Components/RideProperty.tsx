@@ -12,11 +12,7 @@ interface Props extends ThemeProps<Style> {
 export const PureRideProperty = ({ label, children, styles }: Props) => (
   <View style={styles.propertyContainer}>
     <Text style={styles.label}>{label}</Text>
-    {typeof children === "string" ? (
-      <Text style={styles.textContainer}>{children}</Text>
-    ) : (
-      <View style={styles.viewContainer}>{children}</View>
-    )}
+    <View style={styles.viewContainer}>{children}</View>
   </View>
 );
 
@@ -25,19 +21,17 @@ const getStyles = ({ colors, fonts }) =>
     propertyContainer: {
       flexGrow: 1,
       margin: 8,
-      color: colors.defaultText,
     },
     label: {
       ...fonts.SubTitle,
       color: colors.subtitle,
     },
-    textContainer: {
-      ...fonts.BodyRegular,
+    viewContainer: {
+      flexDirection: "row",
+      alignItems: "center",
       color: colors.defaultText,
-      marginTop: 8,
       flexWrap: "wrap",
     },
-    viewContainer: { flexDirection: "row", alignItems: "center" },
   });
 
 export default withTheme<Props>(getStyles)(PureRideProperty);

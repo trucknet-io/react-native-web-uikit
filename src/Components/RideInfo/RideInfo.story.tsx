@@ -5,19 +5,36 @@ import RideProperty from "./Components/RideProperty";
 import { DriverComponent, CallDriverComponent } from "./Components/RideProperty.story";
 import { ViewStyle } from "react-native";
 import { StyleSheet } from "react-native";
+import ThemedText from "src/Components/ThemedText";
 
 const stories = storiesOf("Ride|RideInfo", module).addParameters({ component: PureRideInfo });
 
 const RideCard = (props: { style?: ViewStyle }) => (
   <RideInfo {...props}>
-    <RideProperty label="Cargo type">Containers, Grand Cube 40, Pallete</RideProperty>
-    <RideProperty label="Vehicle type">Container Truck</RideProperty>
-    <RideProperty label="Size">7 m</RideProperty>
-    <RideProperty label="Weight">22kg/m3</RideProperty>
-    <RideProperty label="Quantity">5</RideProperty>
-    <RideProperty label="Dangerous">no</RideProperty>
-    <RideProperty label="License plate">#SR-045-JD</RideProperty>
-    <RideProperty label="Notes:">Here you can see some notes from customer</RideProperty>
+    <RideProperty label="Cargo type">
+      <ThemedText>Containers, Grand Cube 40, Pallete</ThemedText>
+    </RideProperty>
+    <RideProperty label="Vehicle type">
+      <ThemedText>Container Truck</ThemedText>
+    </RideProperty>
+    <RideProperty label="Size">
+      <ThemedText>7 m</ThemedText>
+    </RideProperty>
+    <RideProperty label="Weight">
+      <ThemedText>22kg/m3</ThemedText>
+    </RideProperty>
+    <RideProperty label="Quantity">
+      <ThemedText>5</ThemedText>
+    </RideProperty>
+    <RideProperty label="Dangerous">
+      <ThemedText>no</ThemedText>
+    </RideProperty>
+    <RideProperty label="License plate">
+      <ThemedText>#SR-045-JD</ThemedText>
+    </RideProperty>
+    <RideProperty label="Notes:">
+      <ThemedText>Here you can see some notes from customer</ThemedText>
+    </RideProperty>
   </RideInfo>
 );
 

@@ -5,8 +5,7 @@ import getShadowStyle from "src/Themes/getShadowStyle";
 import { getTransparentColor } from "src/Themes/Colors";
 import { Point, TriangleDown, TriangleUp } from "src/Components/Icons";
 import withTheme, { ThemeProps, ThemeParamsType } from "src/Themes/withTheme";
-
-type Status = { key: string; value: React.ReactNode };
+import StatusButton, { Status } from "./StatusButton";
 
 interface OwnProps {
   currentStatus: Status;
@@ -34,9 +33,7 @@ export class PureStatusDropDown extends React.PureComponent<Props, State> {
     return (
       <View>
         {this.renderDropDownMenu()}
-        <TransparentButton
-          onPress={this.toggleDropDown}
-          style={[styles.container, { backgroundColor: getTransparentColor(this.props.color) }, this.props.style]}>
+        <TransparentButton onPress={this.toggleDropDown} style={[styles.container, this.props.style]}>
           <View style={styles.statusContainer}>
             <Point color={this.props.color} width={6} height={6} />
             <View style={styles.statusIconContainer}>{this.props.statusIcon}</View>
@@ -54,26 +51,17 @@ export class PureStatusDropDown extends React.PureComponent<Props, State> {
 
   private renderDropDownMenu = () => {
     if (!this.state.isOpen) return null;
-    const { styles, colors } = this.props;
+    const { styles } = this.props;
     return (
       <View style={styles.dropDownMenuContainer}>
-        {this.props.dropDownStatuses.map((status) => {
-          const isCurrentStatus = status.key === this.props.currentStatus.key;
-          return (
-            <TransparentButton
-              style={[
-                styles.dropDownButton,
-                {
-                  backgroundColor: isCurrentStatus ? colors.shadow : colors.background,
-                },
-              ]}
-              disabled={isCurrentStatus}
-              key={status.key}
-              onPress={this.handleStatusPress(status.key)}>
-              <Text style={styles.statusValue}>{status.value}</Text>
-            </TransparentButton>
-          );
-        })}
+        {this.props.dropDownStatuses.map((status) => (
+          <StatusButton
+            isCurrentStatus={status.key === this.props.currentStatus.key}
+            value={status.value}
+            onStatusPress={this.handleStatusPress(status.key)}
+            key={status.key}
+          />
+        ))}
       </View>
     );
   };
@@ -82,35 +70,29 @@ export class PureStatusDropDown extends React.PureComponent<Props, State> {
     this.toggleDropDown();
     this.props.onStatusPress(statusKey);
   };
-  private toggleDropDown = () => this.setState({ isOpen: !this.state.isOpen });
+  private toggleDropDown = () => this.setState((prevState) => ({ isOpen: !prevState.isOpen }));
 }
 
-const getStyles = ({ colors, variables }: ThemeParamsType) =>
+const getStyles = ({ colors, variables, props }: ThemeParamsType<OwnProps>) =>
   StyleSheet.create({
     container: {
       paddingVertical: 8,
       paddingHorizontal: 16,
       borderRadius: 4,
       justifyContent: "space-between",
-      ...variables.shadow,
+      backgroundColor: getTransparentColor(props.color),
+      flexDirection: "row",
+      alignItems: "center",
     },
     statusIconContainer: { marginHorizontal: 8 },
     statusContainer: { flexDirection: "row", alignItems: "center" },
     statusLabel: { textTransform: "uppercase", lineHeight: 24, color: colors.defaultText },
-    statusValue: { color: colors.defaultText },
     dropDownMenuContainer: {
       position: "absolute",
       bottom: "110%",
       width: "98%",
       backgroundColor: colors.background,
       ...getShadowStyle(6),
-    },
-    dropDownButton: {
-      alignItems: "flex-start",
-      justifyContent: "flex-start",
-      borderRadius: 0,
-      marginHorizontal: 0,
-      paddingHorizontal: 16,
     },
   });
 

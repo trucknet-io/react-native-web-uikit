@@ -1,20 +1,25 @@
 import * as React from "react";
 import { storiesOf } from "@storybook/react-native";
 import RideProperty, { PureRideProperty } from "./RideProperty";
-import { View, Text } from "react-native";
+import { View } from "react-native";
 import Avatar from "src/Components/Avatar";
 import { Phone } from "src/Components/Icons";
 import { StyleSheet } from "react-native";
 import colors from "src/Themes/Colors";
+import ThemedText from "src/Components/ThemedText";
 
 const stories = storiesOf("Ride|RideProperty", module).addParameters({ component: PureRideProperty });
 
-stories.add("Ride property", () => <RideProperty label="Cargo type">Containers, Grand Cube 40, Pallete</RideProperty>);
+stories.add("Ride property", () => (
+  <RideProperty label="Cargo type">
+    <ThemedText>Containers, Grand Cube 40, Pallete</ThemedText>
+  </RideProperty>
+));
 
 export const DriverComponent = () => (
   <React.Fragment>
     <Avatar accessibilityLabel="avatar" name="driver" size="small" />
-    <Text>Sam Cooper</Text>
+    <ThemedText>Sam Cooper</ThemedText>
   </React.Fragment>
 );
 
