@@ -24,6 +24,7 @@ import {
   WeekCalendar,
   MonthCalendarContainer,
 } from "./Containers/Calendar";
+import ThemedText from "src/Components/ThemedText";
 import ThemeProviderWrapper from "src/Wrappers/ThemeProviderWrapper";
 import withTheme, { ThemeProps, ThemeParamsType, ThemeType } from "src/Themes/withTheme";
 
@@ -63,4 +64,5 @@ export {
   ThemeProps,
   ThemeParamsType,
   ThemeType,
+  ThemedText,
 };
