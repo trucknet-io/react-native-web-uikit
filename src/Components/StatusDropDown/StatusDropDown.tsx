@@ -8,7 +8,7 @@ import withTheme, { ThemeProps, ThemeParamsType } from "src/Themes/withTheme";
 import StatusButton, { Status } from "./StatusButton";
 
 interface OwnProps {
-  currentStatus: Status;
+  currentStatusKey: Status["key"];
   dropDownStatuses: Status[];
   onStatusPress(statusKey: string): void;
   color: string;
@@ -37,7 +37,7 @@ export class PureStatusDropDown extends React.PureComponent<Props, State> {
           <View style={styles.statusContainer}>
             <Point color={this.props.color} width={6} height={6} />
             <View style={styles.statusIconContainer}>{this.props.statusIcon}</View>
-            <Text style={[styles.statusLabel, { color: this.props.color }]}>{this.props.currentStatus.value}</Text>
+            <Text style={[styles.statusLabel, { color: this.props.color }]}>{this.getCurrentStatus()}</Text>
           </View>
           {this.state.isOpen ? (
             <TriangleUp color={this.props.color} width={12} height={12} />
@@ -49,6 +49,15 @@ export class PureStatusDropDown extends React.PureComponent<Props, State> {
     );
   }
 
+  private getCurrentStatus = () => {
+    for (const status of this.props.dropDownStatuses) {
+      if (status.key === this.props.currentStatusKey) {
+        return status.value;
+      }
+    }
+    return null;
+  };
+
   private renderDropDownMenu = () => {
     if (!this.state.isOpen) return null;
     const { styles } = this.props;
@@ -56,7 +65,7 @@ export class PureStatusDropDown extends React.PureComponent<Props, State> {
       <View style={styles.dropDownMenuContainer}>
         {this.props.dropDownStatuses.map((status) => (
           <StatusButton
-            isCurrentStatus={status.key === this.props.currentStatus.key}
+            isCurrentStatus={status.key === this.props.currentStatusKey}
             value={status.value}
             onStatusPress={this.handleStatusPress(status.key)}
             key={status.key}

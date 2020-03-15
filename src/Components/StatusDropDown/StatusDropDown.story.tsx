@@ -19,7 +19,7 @@ stories.add("StatusDropDown on the way", () => (
   <View style={styles.container}>
     <StatusDropDown
       color={colors.themeColor}
-      currentStatus={statuses[0]}
+      currentStatusKey={statuses[0].key}
       statusIcon={<Truck color={colors.themeColor} width={34} height={18} />}
       dropDownStatuses={statuses}
       onStatusPress={action("onStatusPress")}
@@ -31,7 +31,7 @@ stories.add("StatusDropDown on a break", () => (
   <View style={styles.container}>
     <StatusDropDown
       color={colors.palette.dodgerBlue}
-      currentStatus={statuses[1]}
+      currentStatusKey={statuses[1].key}
       statusIcon={<Breakfast color={colors.palette.dodgerBlue} width={18} height={18} />}
       dropDownStatuses={statuses}
       onStatusPress={action("onStatusPress")}
@@ -43,7 +43,7 @@ stories.add("StatusDropDown broken", () => (
   <View style={styles.container}>
     <StatusDropDown
       color={colors.palette.torchRed}
-      currentStatus={statuses[2]}
+      currentStatusKey={statuses[2].key}
       dropDownStatuses={statuses}
       onStatusPress={action("onStatusPress")}
     />
