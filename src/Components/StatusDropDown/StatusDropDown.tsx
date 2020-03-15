@@ -1,6 +1,6 @@
 import React from "react";
-import { StyleSheet, Text, ViewStyle, View } from "react-native";
-import { TransparentButton } from "src/Components/Buttons";
+import { StyleSheet, Text, View } from "react-native";
+import { TransparentButton, TransparentButtonProps } from "src/Components/Buttons";
 import getShadowStyle from "src/Themes/getShadowStyle";
 import { getTransparentColor } from "src/Themes/Colors";
 import { Point, TriangleDown, TriangleUp } from "src/Components/Icons";
@@ -12,13 +12,14 @@ interface OwnProps {
   dropDownStatuses: Status[];
   onStatusPress(statusKey: string): void;
   color: string;
-  style?: ViewStyle;
   statusIcon?: React.ReactNode;
 }
 
 type Style = ReturnType<typeof getStyles>;
 
-interface Props extends OwnProps, ThemeProps<Style> {}
+type DropdownTransparentButtonProps = Omit<TransparentButtonProps, "styles">;
+
+interface Props extends OwnProps, ThemeProps<Style>, DropdownTransparentButtonProps {}
 
 interface State {
   isOpen: boolean;
@@ -29,20 +30,20 @@ export class PureStatusDropDown extends React.PureComponent<Props, State> {
     isOpen: false,
   };
   public render() {
-    const { styles } = this.props;
+    const { styles, style, currentStatusKey, dropDownStatuses, onStatusPress, color, statusIcon, ...rest } = this.props;
     return (
       <View>
         {this.renderDropDownMenu()}
-        <TransparentButton onPress={this.toggleDropDown} style={[styles.container, this.props.style]}>
+        <TransparentButton onPress={this.toggleDropDown} style={[styles.container, style]} {...rest}>
           <View style={styles.statusContainer}>
-            <Point color={this.props.color} width={6} height={6} />
-            <View style={styles.statusIconContainer}>{this.props.statusIcon}</View>
-            <Text style={[styles.statusLabel, { color: this.props.color }]}>{this.getCurrentStatus()}</Text>
+            <Point color={color} width={6} height={6} />
+            <View style={styles.statusIconContainer}>{statusIcon}</View>
+            <Text style={styles.statusLabel}>{this.getCurrentStatus()}</Text>
           </View>
           {this.state.isOpen ? (
-            <TriangleUp color={this.props.color} width={12} height={12} />
+            <TriangleUp color={color} width={12} height={12} />
           ) : (
-            <TriangleDown color={this.props.color} width={12} height={12} />
+            <TriangleDown color={color} width={12} height={12} />
           )}
         </TransparentButton>
       </View>
@@ -82,7 +83,7 @@ export class PureStatusDropDown extends React.PureComponent<Props, State> {
   private toggleDropDown = () => this.setState((prevState) => ({ isOpen: !prevState.isOpen }));
 }
 
-const getStyles = ({ colors, variables, props }: ThemeParamsType<OwnProps>) =>
+const getStyles = ({ colors, props }: ThemeParamsType<OwnProps>) =>
   StyleSheet.create({
     container: {
       paddingVertical: 8,
@@ -95,7 +96,7 @@ const getStyles = ({ colors, variables, props }: ThemeParamsType<OwnProps>) =>
     },
     statusIconContainer: { marginHorizontal: 8 },
     statusContainer: { flexDirection: "row", alignItems: "center" },
-    statusLabel: { textTransform: "uppercase", lineHeight: 24, color: colors.defaultText },
+    statusLabel: { textTransform: "uppercase", lineHeight: 24, color: props.color },
     dropDownMenuContainer: {
       position: "absolute",
       bottom: "110%",

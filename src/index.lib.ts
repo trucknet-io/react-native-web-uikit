@@ -14,6 +14,7 @@ import Modal from "./Components/Modal";
 import Avatar from "./Components/Avatar";
 import CroppedThumbnail from "./Components/CroppedThumbnail";
 import RideInfo, { RideProperty } from "./Components/RideInfo";
+import StatusDropDown from "./Components/StatusDropDown";
 import Point from "./Components/Point";
 import RideHeader from "./Components/RideHeader";
 import {
@@ -51,6 +52,7 @@ export {
   CroppedThumbnail,
   RideInfo,
   RideProperty,
+  StatusDropDown,
   Point,
   RideHeader,
   CalendarDay,
