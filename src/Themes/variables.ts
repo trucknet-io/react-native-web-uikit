@@ -10,6 +10,13 @@ export type WindowSizeType = {
   height: number;
 };
 
+export const getZIndex = (size: number = 4) => {
+  if (Platform.OS === "android") return { elevation: size };
+  return {
+    zIndex: 100 * size,
+  };
+};
+
 const getPoweredSize = (pow: number) => Math.floor(sizeBase ** pow);
 const size = {
   xxs: normalize(1),

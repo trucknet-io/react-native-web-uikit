@@ -1,18 +1,8 @@
 import { canvasScript } from "./canvasScript";
-import { isWeb } from "src/Helpers/platform";
-import { Dimensions } from "react-native";
+const canvas = `<canvas id="signatureCanvas" style="display:flex; flex-grow: 1"></canvas>`;
 
-const height = Dimensions.get("window").height;
-
-const canvas = isWeb
-  ? `<canvas id="signatureCanvas" height=${height * 0.8}></canvas>`
-  : `<canvas id="signatureCanvas"></canvas>`;
-
-export const canvasHTML = `<html>
-    <body>
+export const canvasHTML = `
       ${canvas}
       <script>
         ${canvasScript}
-      </script>
-    </body>
-  </html>`;
+      </script>`;
