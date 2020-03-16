@@ -13,6 +13,8 @@ import ProgressLine from "./Components/ProgressLine";
 import Modal from "./Components/Modal";
 import Avatar from "./Components/Avatar";
 import CroppedThumbnail from "./Components/CroppedThumbnail";
+import RideInfo, { RideProperty } from "./Components/RideInfo";
+import StatusDropDown from "./Components/StatusDropDown";
 import Point from "./Components/Point";
 import RideHeader from "./Components/RideHeader";
 import {
@@ -23,6 +25,7 @@ import {
   WeekCalendar,
   MonthCalendarContainer,
 } from "./Containers/Calendar";
+import ThemedText from "src/Components/ThemedText";
 import ThemeProviderWrapper from "src/Wrappers/ThemeProviderWrapper";
 import withTheme, { ThemeProps, ThemeParamsType, ThemeType } from "src/Themes/withTheme";
 import WebView, { WebViewLoader } from "src/Components/WebView";
@@ -48,6 +51,9 @@ export {
   Modal,
   Avatar,
   CroppedThumbnail,
+  RideInfo,
+  RideProperty,
+  StatusDropDown,
   Point,
   RideHeader,
   CalendarDay,
@@ -63,4 +69,5 @@ export {
   ThemeType,
   WebView,
   WebViewLoader,
+  ThemedText,
 };

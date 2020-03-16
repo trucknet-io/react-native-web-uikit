@@ -26,7 +26,7 @@ export interface ThemeProps<S = unknown> {
 type WithOutProps<P, D> = Pick<P, Exclude<keyof P, keyof D>>;
 
 const withTheme = <P, D = {}>(getComponentStyle?: (p: ThemeParamsType<P>) => { [key: string]: StyleProp<unknown> }) => (
-  Component: React.ComponentClass<P>,
+  Component: React.ComponentClass<P> | React.FunctionComponent<P>,
 ) => {
   type ComponentProps = WithOutProps<WithOutProps<P, D> & Partial<D>, ThemeProps>;
   return class WithContextHOC extends React.PureComponent<ComponentProps> {
