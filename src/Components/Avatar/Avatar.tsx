@@ -19,9 +19,9 @@ interface DefaultProps {
 }
 
 export interface OwnProps extends CroppedThumbnailProps, DefaultProps {
-  accessibilityLabel: string;
   imageId?: string;
   uriCloudName?: string;
+  accessibilityLabel?: string;
   source?: ImageURISource;
 }
 
