@@ -36,9 +36,10 @@ export class PureAvatar extends React.PureComponent<Props> {
   };
 
   public render() {
+    const { imageId, source } = this.props;
     return (
       <View style={[this.props.styles.container, this.props.style]}>
-        {this.props.imageId ? this.renderImage() : this.renderNameFirstLetter()}
+        {imageId || source ? this.renderImage() : this.renderNameFirstLetter()}
       </View>
     );
   }
