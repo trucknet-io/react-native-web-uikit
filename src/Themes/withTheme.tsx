@@ -29,20 +29,18 @@ const withTheme = <P, D = {}>(getComponentStyle?: (p: ThemeParamsType<P>) => { [
   Component: React.ComponentClass<P> | React.FunctionComponent<P>,
 ) => {
   type ComponentProps = WithOutProps<WithOutProps<P, D> & Partial<D>, ThemeProps>;
-  return class WithContextHOC extends React.PureComponent<ComponentProps> {
-    public render() {
-      return <ThemeConsumer>{this.renderComponent}</ThemeConsumer>;
-    }
-
-    public renderComponent = (ctx: ThemeProviderType) => {
+  return React.forwardRef((componentProps: ComponentProps, ref) => {
+    console.log("rerender");
+    const renderComponent = (ctx: ThemeProviderType) => {
       const { theme, toggleTheme } = ctx;
       const colors = getColors(theme);
       const fonts = getFonts(theme);
-      const props = { ...Component.defaultProps, ...this.props } as P;
+      const props = { ...Component.defaultProps, ...componentProps } as P;
       const styles = getComponentStyle ? getComponentStyle({ colors, fonts, variables, props }) : undefined;
       return (
         <Component
           {...props}
+          ref={ref}
           styles={styles}
           theme={theme}
           variables={variables}
@@ -52,7 +50,9 @@ const withTheme = <P, D = {}>(getComponentStyle?: (p: ThemeParamsType<P>) => { [
         />
       );
     };
-  };
+
+    return <ThemeConsumer>{renderComponent}</ThemeConsumer>;
+  });
 };
 
 export default withTheme;

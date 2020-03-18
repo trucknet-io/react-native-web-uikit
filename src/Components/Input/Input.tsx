@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useState, useEffect } from "react";
 import {
   StyleSheet,
   Text,
@@ -23,11 +23,11 @@ interface DefaultProps {
   width: number | string;
 }
 
-interface Props extends ThemeProps<Style>, DefaultProps {
+interface OwnProps {
   label: React.ReactNode;
   labelStyle?: TextStyle;
   onChangeTextValidated(res: { value: string | undefined; isValid: boolean }): void;
-  validateValue?(value?: string): React.ReactNode | void;
+  validateValue?(value?: string): React.ReactNode;
   initialValue?: string;
   onFocus?(e: NativeSyntheticEvent<TextInputFocusEventData>): void;
   onBlur?(e: NativeSyntheticEvent<TargetedEvent>): void;
@@ -36,125 +36,107 @@ interface Props extends ThemeProps<Style>, DefaultProps {
   textInputProps?: TextInputProps;
 }
 
+interface Props extends ThemeProps<Style>, DefaultProps, OwnProps {}
+
 type State = {
   value?: string;
-  error: React.ReactNode | void;
+  error: React.ReactNode;
 };
 
-export class PureInput extends React.PureComponent<Props, State> {
-  private textInput?: TextInput;
+export const PureInput = React.forwardRef((props: Props, ref: React.Ref<TextInput>) => {
+  const [value, setValue] = useState<State["value"]>(props.initialValue);
+  const [error, setError] = useState<State["error"]>(undefined);
 
-  static defaultProps: DefaultProps = {
-    secureTextEntry: false,
-    keyboardType: "default",
-    width: "100%",
+  useEffect(
+    () => {
+      props.onChangeTextValidated({ value, isValid: !error });
+    },
+    [value, error],
+  );
+
+  useEffect(
+    () => {
+      const { validateValue } = props;
+      if (!validateValue) return;
+      setError(validateValue(value));
+    },
+    [value],
+  );
+
+  const handleFocus = (event: NativeSyntheticEvent<TextInputFocusEventData>) => {
+    if (props.onFocus) props.onFocus(event);
   };
 
-  state = {
-    value: this.props.initialValue,
-    error: undefined,
+  const handleBlur = (event: NativeSyntheticEvent<TargetedEvent>) => {
+    if (props.onBlur) props.onBlur(event);
   };
 
-  public focus = () => {
-    if (this.textInput) {
-      this.textInput.focus();
+  const handleSubmitEditing = (e) => {
+    if (props.onSubmitEditing) {
+      props.onSubmitEditing(e);
     }
   };
 
-  public render() {
-    const { width, styles } = this.props;
-    return (
-      <View style={[styles.container, { width }]}>
-        <TouchableWithoutFeedback onPress={this.handleLabelPress}>
-          <Text
-            style={[
-              styles.label,
-              {
-                color: this.getLabelColor(),
-              },
-              this.props.labelStyle,
-            ]}>
-            {this.props.label}
-          </Text>
-        </TouchableWithoutFeedback>
-        <InputField
-          textInputProps={this.props.textInputProps}
-          setInputRef={this.setInputRef}
-          secureTextEntry={this.props.secureTextEntry}
-          keyboardType={this.props.keyboardType}
-          style={this.props.textInputStyle}
-          onFocus={this.handleFocus}
-          onBlur={this.handleBlur}
-          onSubmitEditing={this.handleSubmitEditing}
-          onChangeText={this.handleChangeText}
-          borderBottomColor={this.getFieldColor()}
-          color={this.props.colors.defaultText}
-          initialValue={this.props.initialValue}
-        />
-        <Text style={styles.error}>{this.state.error}</Text>
-      </View>
-    );
-  }
-
-  private handleLabelPress = () => {
-    if (this.textInput) this.textInput.focus();
-  };
-
-  private handleFocus = (event: NativeSyntheticEvent<TextInputFocusEventData>) => {
-    if (this.props.onFocus) this.props.onFocus(event);
-  };
-
-  private handleBlur = (event: NativeSyntheticEvent<TargetedEvent>) => {
-    if (this.props.onBlur) this.props.onBlur(event);
-  };
-
-  private handleSubmitEditing = (e) => {
-    if (this.props.onSubmitEditing) {
-      this.props.onSubmitEditing(e);
+  const getLabelColor = () => {
+    if (!value) {
+      return props.colors.palette.lightGray;
     }
-  };
-
-  private setInputRef = (el: TextInput) => {
-    this.textInput = el;
-  };
-
-  private handleChangeText = (value: string) => {
-    this.setState({ value }, this.validate);
-  };
-
-  private validate = () => {
-    const { validateValue } = this.props;
-    if (validateValue) {
-      return this.setState({ error: validateValue(this.state.value) }, this.setValue);
+    if (error) {
+      return props.colors.error;
     }
-
-    return this.setValue();
+    return props.colors.defaultText;
   };
 
-  private setValue = () => {
-    this.props.onChangeTextValidated({ value: this.state.value, isValid: !this.state.error });
+  const getFieldColor = () => {
+    if (!value) {
+      return props.colors.palette.lightGray;
+    }
+    if (error) {
+      return props.colors.error;
+    }
+    return props.colors.themeColor;
   };
 
-  private getLabelColor = () => {
-    if (!this.state.value) {
-      return this.props.colors.palette.lightGray;
-    }
-    if (this.state.error) {
-      return this.props.colors.error;
-    }
-    return this.props.colors.defaultText;
-  };
+  const { width, styles } = props;
 
-  private getFieldColor = () => {
-    if (!this.state.value) {
-      return this.props.colors.palette.lightGray;
-    }
-    if (this.state.error) {
-      return this.props.colors.error;
-    }
-    return this.props.colors.themeColor;
-  };
-}
+  return (
+    <View style={[styles.container, { width }]}>
+      <TouchableWithoutFeedback>
+        <Text
+          style={[
+            styles.label,
+            {
+              color: getLabelColor(),
+            },
+            props.labelStyle,
+          ]}>
+          {props.label}
+        </Text>
+      </TouchableWithoutFeedback>
+      <InputField
+        ref={ref}
+        textInputProps={props.textInputProps}
+        secureTextEntry={props.secureTextEntry}
+        keyboardType={props.keyboardType}
+        style={props.textInputStyle}
+        onFocus={handleFocus}
+        onBlur={handleBlur}
+        onSubmitEditing={handleSubmitEditing}
+        onChangeText={setValue}
+        borderBottomColor={getFieldColor()}
+        color={props.colors.defaultText}
+        initialValue={props.initialValue}
+      />
+      <Text style={styles.error}>{error}</Text>
+    </View>
+  );
+});
+
+PureInput.defaultProps = {
+  secureTextEntry: false,
+  keyboardType: "default",
+  width: "100%",
+};
 
 const getStyle = ({ fonts, colors }: ThemeParamsType) => {
   return StyleSheet.create({

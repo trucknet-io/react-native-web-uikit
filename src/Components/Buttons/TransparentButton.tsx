@@ -16,6 +16,7 @@ interface DefaultProps {
 interface OwnProps extends DefaultProps, TouchableOpacityProps {
   label?: React.ReactNode;
   link?: React.ReactNode;
+  children?: React.ReactNode;
 }
 
 interface Props extends ThemeProps<Styles>, OwnProps {}
