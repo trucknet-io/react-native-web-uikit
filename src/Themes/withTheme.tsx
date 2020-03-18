@@ -30,7 +30,6 @@ const withTheme = <P, D = {}>(getComponentStyle?: (p: ThemeParamsType<P>) => { [
 ) => {
   type ComponentProps = WithOutProps<WithOutProps<P, D> & Partial<D>, ThemeProps>;
   return React.forwardRef((componentProps: ComponentProps, ref) => {
-    console.log("rerender");
     const renderComponent = (ctx: ThemeProviderType) => {
       const { theme, toggleTheme } = ctx;
       const colors = getColors(theme);
