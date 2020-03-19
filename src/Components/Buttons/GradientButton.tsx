@@ -29,6 +29,7 @@ interface OwnProps extends TouchableOpacityProps, DefaultProps {
   label?: React.ReactNode;
   borderWidth?: 0;
   borderColor?: string;
+  children?: React.ReactNode;
 }
 
 interface Props extends OwnProps, ThemeProps<Styles> {}

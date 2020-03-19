@@ -18,7 +18,6 @@ type FieldProps = {
   textInputProps?: TextInputProps;
   onChangeText(value: string): void;
   borderBottomColor: string;
-  setInputRef(TextInput): void;
   onSubmitEditing(e: NativeSyntheticEvent<TextInputSubmitEditingEventData>): void;
   initialValue?: string;
   secureTextEntry?: boolean;
@@ -30,42 +29,39 @@ type FieldProps = {
   keyboardType: KeyboardType;
 };
 
-class InputField extends React.Component<FieldProps> {
-  render() {
-    const {
-      initialValue,
-      secureTextEntry,
-      keyboardType,
-      color,
-      onChangeText,
-      borderBottomColor,
-      onSubmitEditing,
-      setInputRef,
-      textInputProps,
-    } = this.props;
-    return (
-      <TextInput
-        {...textInputProps}
-        ref={setInputRef}
-        defaultValue={initialValue}
-        keyboardType={keyboardType}
-        style={[
-          styles.textInput,
-          {
-            borderBottomColor,
-            color,
-          },
-          this.props.style,
-        ]}
-        secureTextEntry={secureTextEntry}
-        onFocus={this.props.onFocus}
-        onBlur={this.props.onBlur}
-        onChangeText={onChangeText}
-        onSubmitEditing={onSubmitEditing}
-      />
-    );
-  }
-}
+const InputField = React.forwardRef((props: FieldProps, ref: React.Ref<TextInput>) => {
+  const {
+    initialValue,
+    secureTextEntry,
+    keyboardType,
+    color,
+    onChangeText,
+    borderBottomColor,
+    onSubmitEditing,
+    textInputProps,
+  } = props;
+  return (
+    <TextInput
+      {...textInputProps}
+      ref={ref}
+      defaultValue={initialValue}
+      keyboardType={keyboardType}
+      style={[
+        styles.textInput,
+        {
+          borderBottomColor,
+          color,
+        },
+        props.style,
+      ]}
+      secureTextEntry={secureTextEntry}
+      onFocus={props.onFocus}
+      onBlur={props.onBlur}
+      onChangeText={onChangeText}
+      onSubmitEditing={onSubmitEditing}
+    />
+  );
+});
 
 const styles = StyleSheet.create({
   textInput: {

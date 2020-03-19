@@ -19,9 +19,9 @@ interface DefaultProps {
 }
 
 export interface OwnProps extends CroppedThumbnailProps, DefaultProps {
-  accessibilityLabel: string;
   imageId?: string;
   uriCloudName?: string;
+  accessibilityLabel?: string;
   source?: ImageURISource;
 }
 
@@ -36,9 +36,10 @@ export class PureAvatar extends React.PureComponent<Props> {
   };
 
   public render() {
+    const { imageId, source } = this.props;
     return (
       <View style={[this.props.styles.container, this.props.style]}>
-        {this.props.imageId ? this.renderImage() : this.renderNameFirstLetter()}
+        {imageId || source ? this.renderImage() : this.renderNameFirstLetter()}
       </View>
     );
   }

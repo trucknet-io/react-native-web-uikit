@@ -19,7 +19,6 @@ type KeyofOptions = keyof IImageTransformationOptionsProps;
 export type CroppedThumbnailProps = Omit<ImageProps, "source">;
 
 interface IProps extends CroppedThumbnailProps, IImageTransformationOptionsProps {
-  accessibilityLabel: string;
   imageId: string;
   uriCloudName: string;
   source?: ImageURISource;
