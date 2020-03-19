@@ -11,7 +11,7 @@ type FieldsState = { [key: string]: FieldValue };
 type Field = {
   label: string;
   initialValue?: string;
-  validate?(value?: string, fieldsState?: FieldsState): string | void | undefined;
+  validate?(value?: string, fieldsState?: FieldsState): React.ReactNode;
   secureTextEntry?: boolean;
   keyboardType?: KeyboardType;
 };
@@ -95,13 +95,12 @@ export class PureFormContainer extends React.PureComponent<Props, State> {
   };
   private validateValue = (fieldName: string) => (value?: string) => {
     const field = this.props.fields[fieldName];
-    if (field.validate) {
-      const preValidateFieldsState = {
-        ...this.state.fields,
-        [fieldName]: { value, isValid: false },
-      };
-      return field.validate(value, preValidateFieldsState);
-    }
+    if (!field.validate) return;
+    const preValidateFieldsState = {
+      ...this.state.fields,
+      [fieldName]: { value, isValid: false },
+    };
+    return field.validate(value, preValidateFieldsState);
   };
   private setValue = (fieldName: string) => (value: FieldValue) => {
     this.setState({ fields: { ...this.state.fields, [fieldName]: value } });

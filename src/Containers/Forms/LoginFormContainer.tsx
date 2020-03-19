@@ -19,12 +19,12 @@ interface Props extends ThemeProps, DefaultProps {
     email: {
       label: string;
       initialValue?: string;
-      validate?(value: string): string | void;
+      validate?(value: string): React.ReactNode;
     };
     password: {
       label: string;
       initialValue?: string;
-      validate?(value: string): string | void;
+      validate?(value: string): React.ReactNode;
     };
   };
   callback: {
