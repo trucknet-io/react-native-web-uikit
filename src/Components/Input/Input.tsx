@@ -34,6 +34,7 @@ interface OwnProps {
   onSubmitEditing?(e: NativeSyntheticEvent<TextInputSubmitEditingEventData>): void;
   textInputStyle?: TextStyle;
   textInputProps?: TextInputProps;
+  isRequired?: boolean;
 }
 
 interface Props extends ThemeProps<Style>, DefaultProps, OwnProps {}
@@ -41,10 +42,12 @@ interface Props extends ThemeProps<Style>, DefaultProps, OwnProps {}
 type State = {
   value?: string;
   error: React.ReactNode;
+  isPure: boolean;
 };
 
 export const PureInput = React.forwardRef((props: Props, ref: React.Ref<TextInput>) => {
   const [value, setValue] = useState<State["value"]>(props.initialValue);
+  const [isPure, setIsPure] = useState<State["isPure"]>(true);
   const [error, setError] = useState<State["error"]>(undefined);
 
   useEffect(
@@ -60,8 +63,13 @@ export const PureInput = React.forwardRef((props: Props, ref: React.Ref<TextInpu
       if (!validateValue) return;
       setError(validateValue(value));
     },
-    [value],
+    [value, isPure],
   );
+
+  const setInputValue = (value: string) => {
+    setIsPure(false);
+    setValue(value);
+  };
 
   const handleFocus = (event: NativeSyntheticEvent<TextInputFocusEventData>) => {
     if (props.onFocus) props.onFocus(event);
@@ -77,9 +85,11 @@ export const PureInput = React.forwardRef((props: Props, ref: React.Ref<TextInpu
     }
   };
 
+  const initialColor = props.isRequired ? props.colors.error : props.colors.palette.lightGray;
+
   const getLabelColor = () => {
     if (!value) {
-      return props.colors.palette.lightGray;
+      return initialColor;
     }
     if (error) {
       return props.colors.error;
@@ -89,7 +99,7 @@ export const PureInput = React.forwardRef((props: Props, ref: React.Ref<TextInpu
 
   const getFieldColor = () => {
     if (!value) {
-      return props.colors.palette.lightGray;
+      return initialColor;
     }
     if (error) {
       return props.colors.error;
@@ -110,7 +120,7 @@ export const PureInput = React.forwardRef((props: Props, ref: React.Ref<TextInpu
             },
             props.labelStyle,
           ]}>
-          {props.label}
+          {props.label} {props.isRequired ? "*" : null}
         </Text>
       </TouchableWithoutFeedback>
       <InputField
@@ -122,12 +132,12 @@ export const PureInput = React.forwardRef((props: Props, ref: React.Ref<TextInpu
         onFocus={handleFocus}
         onBlur={handleBlur}
         onSubmitEditing={handleSubmitEditing}
-        onChangeText={setValue}
+        onChangeText={setInputValue}
         borderBottomColor={getFieldColor()}
         color={props.colors.defaultText}
         initialValue={props.initialValue}
       />
-      <Text style={styles.error}>{error}</Text>
+      <Text style={styles.error}>{isPure ? null : error}</Text>
     </View>
   );
 });

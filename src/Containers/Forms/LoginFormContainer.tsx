@@ -20,11 +20,13 @@ interface Props extends ThemeProps, DefaultProps {
       label: string;
       initialValue?: string;
       validate?(value: string): React.ReactNode;
+      isRequired?: boolean;
     };
     password: {
       label: string;
       initialValue?: string;
       validate?(value: string): React.ReactNode;
+      isRequired?: boolean;
     };
   };
   callback: {
@@ -32,6 +34,7 @@ interface Props extends ThemeProps, DefaultProps {
     onForgotPasswordPress?(): void;
   };
   logo?: React.ReactNode;
+  isLoading?: boolean;
 }
 
 type State = {
@@ -86,6 +89,7 @@ export class PureLoginFormContainer extends React.PureComponent<Props, State> {
           paddingTop={84}
           submitLabel={this.props.text.submitLabel}
           key={formKey}
+          isLoading={this.props.isLoading}
         />
         <View style={styles.buttonsContainer}>{this.renderForgotPasswordButton()}</View>
       </View>
