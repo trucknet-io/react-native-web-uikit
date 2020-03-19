@@ -67,7 +67,9 @@ export const PureInput = React.forwardRef((props: Props, ref: React.Ref<TextInpu
   );
 
   const setInputValue = (value: string) => {
-    setIsPure(false);
+    if (isPure) {
+      setIsPure(false);
+    }
     setValue(value);
   };
 
