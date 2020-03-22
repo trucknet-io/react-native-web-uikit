@@ -39,11 +39,12 @@ loginFormStories.add("Login Form", () => (
         label: "Email",
         initialValue: "lol@lol.ru",
         validate: validateEmail,
+        isRequired: true,
       },
       password: {
         label: "Password",
-        initialValue: "123123123",
         validate: validatePassword,
+        isRequired: true,
       },
     })}
   />
@@ -62,6 +63,19 @@ formStories.add("Form", () => (
       phone: { label: "phone", keyboardType: "phone-pad" },
     })}
     submitLabel="Sign in"
+  />
+));
+
+formStories.add("Form Loading", () => (
+  <Form
+    handleSubmit={action("Submit")}
+    fields={object("fields", {
+      email: { label: "email", validate: validateEmail, keyboardType: "email-address" },
+      pass: { label: "pass", validate: validatePassword, secureTextEntry: true },
+      phone: { label: "phone", keyboardType: "phone-pad" },
+    })}
+    submitLabel="Sign in"
+    isLoading
   />
 ));
 

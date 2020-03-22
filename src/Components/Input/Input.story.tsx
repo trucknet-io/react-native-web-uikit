@@ -30,4 +30,13 @@ stories.add("Input Field with custom styles", () => (
   />
 ));
 
+stories.add("Required Input Field", () => (
+  <InputField
+    isRequired
+    label="input"
+    onChangeTextValidated={action("onChangeTextValidated")}
+    validateValue={(value: string) => (value && value.length > 6 ? undefined : "value must be more than 6 symbols")}
+  />
+));
+
 export { stories };

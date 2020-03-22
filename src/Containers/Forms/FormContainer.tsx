@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import { View, StyleSheet, KeyboardType, TextInput } from "react-native";
+import { View, StyleSheet, KeyboardType, TextInput, ActivityIndicator } from "react-native";
 import Input from "src/Components/Input/Input";
 import { GradientButton } from "src/Components/Buttons";
 import withTheme, { ThemeProps } from "src/Themes/withTheme";
@@ -14,6 +14,7 @@ type Field = {
   validate?(value?: string, fieldsState?: FieldsState): React.ReactNode;
   secureTextEntry?: boolean;
   keyboardType?: KeyboardType;
+  isRequired?: boolean;
 };
 
 interface DefaultProps {
@@ -25,6 +26,7 @@ interface Props extends DefaultProps, ThemeProps {
   handleSubmit(res: FieldsState): void;
   fields: { [key: string]: Field };
   submitLabel: string;
+  isLoading?: boolean;
 }
 
 interface State {
@@ -83,6 +85,7 @@ export class PureFormContainer extends React.PureComponent<Props, State> {
           ref={this.setFieldRef(fieldName)}
           key={fieldName}
           label={field.label}
+          isRequired={field.isRequired}
           secureTextEntry={field.secureTextEntry}
           validateValue={this.validateValue(fieldName)}
           onChangeTextValidated={this.setValue(fieldName)}
@@ -122,6 +125,9 @@ export class PureFormContainer extends React.PureComponent<Props, State> {
     this.props.handleSubmit(this.state.fields);
   };
   private renderSubmitButton = () => {
+    if (this.props.isLoading) {
+      return <ActivityIndicator color={this.props.colors.themeColor} />;
+    }
     return (
       <GradientButton
         disabled={!this.isFormValid()}
