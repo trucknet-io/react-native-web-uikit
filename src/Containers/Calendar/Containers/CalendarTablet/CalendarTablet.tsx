@@ -19,6 +19,7 @@ interface Props extends ThemeProps<Styles>, DefaultProps {
   onDateChange(date: Date): void;
   style?: ViewStyle;
   calendarStyle?: ViewStyle;
+  headerStyle?: ViewStyle;
   submitLabel?: React.ReactNode;
   cancelLabel?: React.ReactNode;
 }
@@ -44,7 +45,7 @@ export class PureCalendarTablet extends React.PureComponent<Props> {
     return (
       <View>
         <View style={[styles.container, this.props.style]}>
-          <View style={styles.headerContainer}>
+          <View style={[styles.headerContainer, this.props.headerStyle]}>
             <CurrentMonth
               currentDate={state.currentDate}
               onPress={methods.toggleCalendar}
@@ -76,7 +77,7 @@ const getStyles = ({ colors, variables: { size } }: ThemeParamsType) =>
     headerContainer: {
       flexDirection: "row",
       justifyContent: "space-between",
-      paddingVertical: size.m,
+      paddingVertical: size.s,
       paddingHorizontal: calendarPaddingHorizontal,
     },
     calendarContainer: {
