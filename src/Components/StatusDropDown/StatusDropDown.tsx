@@ -3,7 +3,7 @@ import { StyleSheet, Text, View } from "react-native";
 import { TransparentButton, TransparentButtonProps } from "src/Components/Buttons";
 import getShadowStyle from "src/Themes/getShadowStyle";
 import { getTransparentColor } from "src/Themes/Colors";
-import { Point, TriangleDown, TriangleUp } from "src/Components/Icons";
+import { TriangleDown, TriangleUp } from "src/Components/Icons";
 import withTheme, { ThemeProps, ThemeParamsType } from "src/Themes/withTheme";
 import StatusButton, { Status } from "./StatusButton";
 
@@ -36,7 +36,6 @@ export class PureStatusDropDown extends React.PureComponent<Props, State> {
         {this.renderDropDownMenu()}
         <TransparentButton onPress={this.toggleDropDown} style={[styles.container, style]} {...rest}>
           <View style={styles.statusContainer}>
-            <Point color={color} width={6} height={6} />
             <View style={styles.statusIconContainer}>{statusIcon}</View>
             <Text style={styles.statusLabel}>{this.getCurrentStatus()}</Text>
           </View>
@@ -86,16 +85,15 @@ export class PureStatusDropDown extends React.PureComponent<Props, State> {
 const getStyles = ({ colors, props }: ThemeParamsType<OwnProps>) =>
   StyleSheet.create({
     container: {
-      paddingVertical: 8,
-      paddingHorizontal: 16,
+      padding: 8,
       borderRadius: 4,
       justifyContent: "space-between",
       backgroundColor: getTransparentColor(props.color),
       flexDirection: "row",
       alignItems: "center",
     },
-    statusIconContainer: { marginHorizontal: 8 },
-    statusContainer: { flexDirection: "row", alignItems: "center" },
+    statusIconContainer: { marginHorizontal: 2 },
+    statusContainer: { flexDirection: "row", alignItems: "center", marginHorizontal: 4 },
     statusLabel: { textTransform: "uppercase", lineHeight: 24, color: props.color },
     dropDownMenuContainer: {
       position: "absolute",
