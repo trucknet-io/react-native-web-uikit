@@ -19,14 +19,14 @@ export const getZIndex = (size: number = 4) => {
 
 const getPoweredSize = (pow: number) => Math.floor(sizeBase ** pow);
 const size = {
-  xxs: normalize(1),
-  xs: getPoweredSize(2),
-  s: getPoweredSize(3),
-  m: getPoweredSize(4),
-  l: getPoweredSize(5),
-  xl: getPoweredSize(6),
-  xxl: getPoweredSize(7),
-} as const;
+  xxs: normalize(1) as 1,
+  xs: getPoweredSize(2) as 4,
+  s: getPoweredSize(3) as 8,
+  m: getPoweredSize(4) as 16,
+  l: getPoweredSize(5) as 32,
+  xl: getPoweredSize(6) as 64,
+  xxl: getPoweredSize(7) as 128,
+};
 
 const variables = {
   platform: Platform.OS,

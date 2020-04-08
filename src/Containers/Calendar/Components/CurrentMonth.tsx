@@ -40,7 +40,6 @@ class CurrentMonth extends React.PureComponent<Props> {
 const getStyles = ({ colors, variables }: ThemeParamsType) =>
   StyleSheet.create({
     container: {
-      paddingVertical: variables.size.m,
       flexDirection: "row",
       alignItems: "center",
       justifyContent: "flex-start",

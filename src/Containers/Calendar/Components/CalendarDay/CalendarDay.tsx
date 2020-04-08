@@ -82,6 +82,7 @@ const getStyles = ({ props, colors, variables: { size } }: ThemeParamsType<OwnPr
       fontSize: props.fontSize,
       backgroundColor: getDayBackgroundColor(props),
       color: getDayTextColor(props),
+      overflow: "hidden",
     },
   });
 };
