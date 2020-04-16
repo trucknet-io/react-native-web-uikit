@@ -74,6 +74,7 @@ export class PureProgressLine extends React.PureComponent<Props, State> {
       toValue: this.getValidValue(this.props.currentProgress),
       easing: Easing.linear,
       duration: 700,
+      useNativeDriver: false,
     });
 
   private getValidValue = (value?: number): number => {

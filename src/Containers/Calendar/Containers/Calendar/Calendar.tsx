@@ -29,7 +29,6 @@ export class PureCalendarContainer extends React.PureComponent<Props> {
   public render() {
     return (
       <CalendarWrapper
-        key={this.props.currentDate.toString()}
         currentDate={this.props.currentDate}
         render={this.renderCalendar}
         onDateChange={this.props.onDateChange}
@@ -86,7 +85,7 @@ const getStyles = ({ colors, variables: { size, shadow } }: ThemeParamsType) =>
     switchButtonsContainer: { flex: 1 },
     calendarContainer: {
       position: "absolute",
-      top: "101%",
+      top: "102%",
       width: "100%",
       backgroundColor: colors.background,
       ...shadow,

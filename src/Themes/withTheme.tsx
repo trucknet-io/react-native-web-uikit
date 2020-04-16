@@ -1,7 +1,7 @@
-import { getColors, ColorType, ColorThemeNames } from "./Colors";
+import { getThemeColors, ColorType, ColorThemeNames } from "./Colors";
 import * as React from "react";
 import variables, { VariablesType } from "./variables";
-import { getFonts, FontType } from "./Fonts";
+import { getThemeFonts, FontType } from "./Fonts";
 import { ThemeConsumer, ThemeProviderType } from "src/Contexts/ThemeContext";
 import { StyleProp } from "react-native";
 
@@ -25,20 +25,56 @@ export interface ThemeProps<S = unknown> {
 
 type WithOutProps<P, D> = Pick<P, Exclude<keyof P, keyof D>>;
 
-const withTheme = <P, D = {}>(getComponentStyle?: (p: ThemeParamsType<P>) => { [key: string]: StyleProp<unknown> }) => (
-  Component: React.ComponentClass<P> | React.FunctionComponent<P>,
-) => {
+const withTheme = <P, D = {}>(
+  getComponentStyles?: (p: ThemeParamsType<P>) => { [key: string]: StyleProp<unknown> },
+) => (Component: React.ComponentClass<P> | React.FunctionComponent<P>) => {
   type ComponentProps = WithOutProps<WithOutProps<P, D> & Partial<D>, ThemeProps>;
-  return React.forwardRef((componentProps: ComponentProps, ref) => {
+  const initialCache = {
+    theme: undefined,
+    ThemedComponent: undefined,
+  };
+  let componentThemeCache: {
+    theme?: ColorThemeNames;
+    props?: P;
+    ThemedComponent: React.ReactNode;
+  } = initialCache;
+  return React.forwardRef((props: ComponentProps, ref) => {
+    const componentProps = { ...Component.defaultProps, ...props } as P;
+    React.useEffect(() => {
+      return () => {
+        componentThemeCache = initialCache;
+      };
+    }, []);
+    const isPropsSame = (theme: ColorThemeNames) => {
+      if (!componentThemeCache.ThemedComponent) {
+        return false;
+      }
+      if (componentThemeCache.theme !== theme) {
+        return false;
+      }
+      for (const key in componentProps) {
+        const { props } = componentThemeCache;
+        if (props && props[key] !== componentProps[key]) {
+          return false;
+        }
+      }
+
+      return true;
+    };
+
     const renderComponent = (ctx: ThemeProviderType) => {
       const { theme, toggleTheme } = ctx;
-      const colors = getColors(theme);
-      const fonts = getFonts(theme);
-      const props = { ...Component.defaultProps, ...componentProps } as P;
-      const styles = getComponentStyle ? getComponentStyle({ colors, fonts, variables, props }) : undefined;
-      return (
+      if (isPropsSame(theme)) {
+        return componentThemeCache.ThemedComponent;
+      }
+      const colors = getThemeColors(theme);
+      const fonts = getThemeFonts(theme);
+      const styles = getComponentStyles
+        ? getComponentStyles({ colors, fonts, variables, props: componentProps })
+        : undefined;
+      const ThemedComponent = (
         <Component
-          {...props}
+          {...componentProps as P}
           ref={ref}
           styles={styles}
           theme={theme}
@@ -48,6 +84,10 @@ const withTheme = <P, D = {}>(getComponentStyle?: (p: ThemeParamsType<P>) => { [
           toggleTheme={toggleTheme}
         />
       );
+
+      componentThemeCache = { ...componentThemeCache, props: componentProps, theme, ThemedComponent };
+
+      return ThemedComponent;
     };
 
     return <ThemeConsumer>{renderComponent}</ThemeConsumer>;
