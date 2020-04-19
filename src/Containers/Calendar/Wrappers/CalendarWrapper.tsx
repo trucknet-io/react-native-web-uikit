@@ -1,13 +1,10 @@
 import * as React from "react";
 
-interface DefaultProps {
-  currentDate: Date;
-}
-
-interface Props extends DefaultProps {
+interface Props {
   onDateChange(date: Date): void;
-  render(p: CalendarParamsTypes): React.ReactNode;
+  render(p: CalendarParamsTypes): React.ReactElement<unknown>;
   styles: unknown;
+  currentDate: Date;
 }
 
 type State = {
@@ -18,7 +15,6 @@ type State = {
 export type CalendarParamsTypes<S = unknown> = {
   state: State;
   methods: {
-    handleCalendarDateChange(date: Date): void;
     toggleCalendar(): void;
     handleDayPress(date: Date): void;
     handleDateChange(): void;
@@ -26,36 +22,35 @@ export type CalendarParamsTypes<S = unknown> = {
   styles: S;
 };
 
-export class CalendarWrapper extends React.PureComponent<Props, State> {
-  static defaultProps = {
-    currentDate: new Date(),
-  };
+const CalendarWrapper = (props: Props) => {
+  const [isOpen, setIsOpen] = React.useState(false);
+  const [currentDate, setCurrentDate] = React.useState(props.currentDate);
 
-  public state = {
-    isOpen: false,
-    currentDate: this.props.currentDate,
-  };
+  React.useEffect(
+    () => {
+      handleDayPress(props.currentDate);
+    },
+    [props.currentDate],
+  );
 
-  public render() {
-    return this.props.render({
-      state: this.state,
-      methods: {
-        handleCalendarDateChange: this.handleCalendarDateChange,
-        toggleCalendar: this.toggleCalendar,
-        handleDayPress: this.handleDayPress,
-        handleDateChange: this.handleDateChange,
-      },
-      styles: this.props.styles,
-    });
-  }
-
-  private handleCalendarDateChange = (date: Date) => {
-    this.toggleCalendar();
-    this.handleDayPress(date);
-  };
-  private toggleCalendar = () => this.setState({ isOpen: !this.state.isOpen });
-  private handleDayPress = (date: Date) => this.setState({ currentDate: date }, this.handleDateChange);
-  private handleDateChange = () => this.props.onDateChange(this.state.currentDate);
-}
+  React.useEffect(
+    () => {
+      handleDateChange();
+    },
+    [currentDate],
+  );
+  const toggleCalendar = () => setIsOpen((isOpen) => !isOpen);
+  const handleDayPress = (date: Date) => setCurrentDate(date);
+  const handleDateChange = () => props.onDateChange(currentDate);
+  return props.render({
+    state: { isOpen, currentDate },
+    methods: {
+      toggleCalendar: toggleCalendar,
+      handleDayPress: handleDayPress,
+      handleDateChange: handleDateChange,
+    },
+    styles: props.styles,
+  });
+};
 
 export default CalendarWrapper;

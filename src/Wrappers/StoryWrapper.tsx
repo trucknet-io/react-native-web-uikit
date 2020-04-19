@@ -6,7 +6,7 @@ import ToggleThemeWrapper from "./ToggleThemeWrapper";
 export default class StoryWrapper extends React.PureComponent {
   render() {
     return (
-      <ThemeProviderWrapper>
+      <ThemeProviderWrapper theme="dark">
         <ToggleThemeWrapper>
           <View style={styles.container}>{this.props.children}</View>
         </ToggleThemeWrapper>

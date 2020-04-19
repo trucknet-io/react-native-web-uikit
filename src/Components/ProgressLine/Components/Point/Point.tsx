@@ -9,9 +9,9 @@ interface Props {
 
 class ProgressPoint extends React.PureComponent<Props> {
   render() {
-    const { currentProgress } = this.props;
+    const { currentProgress, isHollowPoint } = this.props;
     const color = currentProgress ? Colors.themeColor : Colors.disable;
-    return <Point color={color} />;
+    return <Point color={color} hollowSize={isHollowPoint ? 4 : 0} />;
   }
 }
 

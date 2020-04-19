@@ -55,6 +55,7 @@ export class ProgressBar extends React.PureComponent<IProps, IState> {
         toValue: windowWidth,
         easing: Easing.linear,
         duration: 5000,
+        useNativeDriver: false,
       }),
     );
 
