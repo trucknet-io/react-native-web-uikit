@@ -35,6 +35,7 @@ interface State {
 
 export class PureFormContainer extends React.PureComponent<Props, State> {
   nextInput: { [key: string]: TextInput } = {};
+  inputs: React.ReactNode[];
   static defaultProps: DefaultProps = {
     paddingTop: 32,
     paddingHorizontal: "16%",
@@ -54,8 +55,9 @@ export class PureFormContainer extends React.PureComponent<Props, State> {
     this.state = {
       fields: fields,
     };
-  }
 
+    this.inputs = this.renderInputs();
+  }
   public render() {
     const { colors } = this.props;
     return (
@@ -68,8 +70,18 @@ export class PureFormContainer extends React.PureComponent<Props, State> {
             paddingHorizontal: this.props.paddingHorizontal,
           },
         ]}>
-        <View style={styles.inputContainer}>{this.renderInputs()}</View>
-        <View style={styles.buttonsContainer}>{this.renderSubmitButton()}</View>
+        <View style={styles.inputContainer}>{this.inputs}</View>
+        <View style={styles.buttonsContainer}>
+          {this.props.isLoading ? (
+            <ActivityIndicator color={this.props.colors.themeColor} />
+          ) : (
+            <GradientButton
+              disabled={!this.isFormValid()}
+              label={this.props.submitLabel.toUpperCase()}
+              onPress={this.handleSubmit}
+            />
+          )}
+        </View>
       </View>
     );
   }
@@ -123,18 +135,6 @@ export class PureFormContainer extends React.PureComponent<Props, State> {
 
   private handleSubmit = () => {
     this.props.handleSubmit(this.state.fields);
-  };
-  private renderSubmitButton = () => {
-    if (this.props.isLoading) {
-      return <ActivityIndicator color={this.props.colors.themeColor} />;
-    }
-    return (
-      <GradientButton
-        disabled={!this.isFormValid()}
-        label={this.props.submitLabel.toUpperCase()}
-        onPress={this.handleSubmit}
-      />
-    );
   };
 
   private isFormValid = () => {

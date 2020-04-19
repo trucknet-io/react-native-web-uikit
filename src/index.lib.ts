@@ -29,6 +29,7 @@ import ThemedText from "src/Components/ThemedText";
 import ThemeProviderWrapper from "src/Wrappers/ThemeProviderWrapper";
 import withTheme, { ThemeProps, ThemeParamsType, ThemeType } from "src/Themes/withTheme";
 import WebView, { WebViewLoader } from "src/Components/WebView";
+import getShadowStyle from "src/Themes/getShadowStyle";
 
 export {
   GradientButton,
@@ -70,4 +71,5 @@ export {
   WebView,
   WebViewLoader,
   ThemedText,
+  getShadowStyle,
 };

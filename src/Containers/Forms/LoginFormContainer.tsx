@@ -106,6 +106,7 @@ export class PureLoginFormContainer extends React.PureComponent<Props, State> {
     Animated.timing(this.state.subElementsOpacity, {
       toValue: 1,
       duration: 300,
+      useNativeDriver: false,
     }).start();
   };
 
@@ -113,6 +114,7 @@ export class PureLoginFormContainer extends React.PureComponent<Props, State> {
     Animated.timing(this.state.subElementsOpacity, {
       toValue: 0,
       duration: 300,
+      useNativeDriver: false,
     }).start();
   };
 

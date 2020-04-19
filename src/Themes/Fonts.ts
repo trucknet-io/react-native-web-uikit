@@ -1,8 +1,8 @@
 import { normalize } from "../Helpers/sizeHelper";
-import { getColors, ColorThemeNames } from "./Colors";
+import { getThemeColors, ColorThemeNames } from "./Colors";
 
 export const getFonts = (theme: ColorThemeNames) => {
-  const color = getColors(theme).defaultText;
+  const color = getThemeColors(theme).defaultText;
   return {
     LargeTitle: {
       fontWeight: "bold",
@@ -45,5 +45,9 @@ export const getFonts = (theme: ColorThemeNames) => {
 export type FontType = ReturnType<typeof getFonts>;
 export type FontNames = keyof FontType;
 
-const fonts = getFonts("light");
-export default fonts;
+const fonts = {
+  light: getFonts("light"),
+  dark: getFonts("dark"),
+};
+export const getThemeFonts = (theme: ColorThemeNames) => fonts[theme];
+export default getFonts("light");

@@ -32,7 +32,6 @@ export class PureCalendarTablet extends React.PureComponent<Props> {
   public render() {
     return (
       <CalendarWrapper
-        key={this.props.currentDate.toString()}
         currentDate={this.props.currentDate}
         render={this.renderCalendar}
         onDateChange={this.props.onDateChange}
@@ -41,7 +40,13 @@ export class PureCalendarTablet extends React.PureComponent<Props> {
     );
   }
 
+  private handleSubmit = (methods: CalendarParamsTypes["methods"]) => (date: Date) => {
+    methods.toggleCalendar();
+    methods.handleDayPress(date);
+  };
+
   private renderCalendar = ({ state, methods, styles }: CalendarParamsTypes<Styles>) => {
+    const handleSubmit = this.handleSubmit(methods);
     return (
       <View>
         <View style={[styles.container, this.props.style]}>
@@ -61,7 +66,7 @@ export class PureCalendarTablet extends React.PureComponent<Props> {
             <MonthCalendar
               key={state.currentDate.toString()}
               currentDate={state.currentDate}
-              submit={{ onSubmit: methods.handleCalendarDateChange, submitLabel: this.props.submitLabel }}
+              submit={{ onSubmit: handleSubmit, submitLabel: this.props.submitLabel }}
               cancel={{ onCancel: methods.toggleCalendar, cancelLabel: this.props.cancelLabel }}
             />
           ) : null}

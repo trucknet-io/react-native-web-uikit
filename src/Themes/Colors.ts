@@ -123,6 +123,6 @@ export const colorTheme = {
 
 export type ColorThemeNames = "light" | "dark";
 
-export const getColors = (theme: ColorThemeNames) => colorTheme[theme];
+export const getThemeColors = (theme: ColorThemeNames) => colorTheme[theme];
 
 export type ColorType = typeof lightColors;
