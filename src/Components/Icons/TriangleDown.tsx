@@ -2,7 +2,7 @@ import * as React from "react";
 import { Svg, Path, G } from "react-native-svg";
 import { iconType } from "./iconType";
 
-export default ({ width, height, color }: iconType) => {
+const TriangleDown = ({ width, height, color }: iconType) => {
   return (
     <Svg width={width} height={height} viewBox="0 0 10 5">
       <G fill="none" fillRule="evenodd">
@@ -12,3 +12,10 @@ export default ({ width, height, color }: iconType) => {
     </Svg>
   );
 };
+
+TriangleDown.defaultProps = {
+  width: 12,
+  height: 12,
+};
+
+export default TriangleDown;

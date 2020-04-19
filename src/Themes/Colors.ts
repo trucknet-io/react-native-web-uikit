@@ -2,6 +2,27 @@ export const getTransparentColor = (color: string) => {
   return `${color}44`;
 };
 
+const palette = {
+  elephant: "#1f3239",
+  tarawera: "#29464d",
+  nightRider: "#303030",
+  dodgerBlue: "#2979ff",
+  lightningYellow: "#f9a825",
+  gray: "#808080",
+  lightGray: "#929292",
+  veryLightGray: "#c7c7c7",
+  veryVeryLightGray: "#f2f2f2",
+  torchRed: "#ff1744",
+  purpleLight: "#6441A5",
+  purpleDark: "#2a0845",
+  ashLight: "#606c88",
+  ashDark: "#3f4c6b",
+  white: "#FFF",
+  lightGreen: "#e9faef",
+  lightBlue: "#e9f1ff",
+  lightRed: "#ffe7ec",
+};
+
 const lightColors = {
   // guideline colors
   inverseTextColor: "#fff",
@@ -39,23 +60,7 @@ const lightColors = {
     gradientColor1: "#6441A5",
     gradientColor2: "#2a0845",
   },
-  palette: {
-    elephant: "#1f3239",
-    tarawera: "#29464d",
-    nightRider: "#303030",
-    dodgerBlue: "#2979ff",
-    lightningYellow: "#f9a825",
-    gray: "#808080",
-    lightGray: "#929292",
-    veryLightGray: "#c7c7c7",
-    veryVeryLightGray: "#f2f2f2",
-    torchRed: "#ff1744",
-    purpleLight: "#6441A5",
-    purpleDark: "#2a0845",
-    ashLight: "#606c88",
-    ashDark: "#3f4c6b",
-    white: "#FFF",
-  },
+  palette,
 };
 export const darkColors = {
   // guideline colors
@@ -95,23 +100,7 @@ export const darkColors = {
     gradientColor1: "#6441A5",
     gradientColor2: "#2a0845",
   },
-  palette: {
-    elephant: "#1f3239",
-    tarawera: "#29464d",
-    nightRider: "#303030",
-    dodgerBlue: "#2979ff",
-    lightningYellow: "#f9a825",
-    gray: "#808080",
-    veryLightGray: "#c7c7c7",
-    lightGray: "#929292",
-    veryVeryLightGray: "#f2f2f2",
-    torchRed: "#ff1744",
-    purpleLight: "#6441A5",
-    purpleDark: "#2a0845",
-    ashLight: "#606c88",
-    ashDark: "#3f4c6b",
-    white: "#FFF",
-  },
+  palette,
 };
 
 export default lightColors;
