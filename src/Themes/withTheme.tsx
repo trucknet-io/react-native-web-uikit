@@ -73,7 +73,6 @@ const withTheme = <P, D = {}>(
       const styles = getComponentStyles
         ? getComponentStyles({ colors, fonts, variables, props: componentProps })
         : undefined;
-      console.log("rernder component");
       const ThemedComponent = (
         <Component
           {...componentProps as P}
