@@ -32,10 +32,11 @@ const withTheme = <P, D = {}>(
   const initialCache = {
     theme: undefined,
     ThemedComponent: undefined,
+    props: {},
   };
   let componentThemeCache: {
     theme?: ColorThemeNames;
-    props?: P;
+    props: P | { [key: string]: unknown };
     ThemedComponent: React.ReactNode;
   } = initialCache;
   return React.forwardRef((props: ComponentProps, ref) => {
@@ -52,9 +53,9 @@ const withTheme = <P, D = {}>(
       if (componentThemeCache.theme !== theme) {
         return false;
       }
-      for (const key in componentProps) {
-        const { props } = componentThemeCache;
-        if (props && props[key] !== componentProps[key]) {
+      for (const key in componentThemeCache.props as P) {
+        const props = componentProps;
+        if (props && props[key] !== componentThemeCache.props[key]) {
           return false;
         }
       }
@@ -72,6 +73,7 @@ const withTheme = <P, D = {}>(
       const styles = getComponentStyles
         ? getComponentStyles({ colors, fonts, variables, props: componentProps })
         : undefined;
+      console.log("rernder component");
       const ThemedComponent = (
         <Component
           {...componentProps as P}
