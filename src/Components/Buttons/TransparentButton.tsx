@@ -7,7 +7,6 @@ type Styles = ReturnType<typeof getStyles>;
 interface DefaultProps {
   borderWidth: number;
   borderRadius: number;
-  width: string | number;
   marginVertical: string | number;
   marginHorizontal: string | number;
   alignItems: FlexAlignType;
@@ -27,7 +26,6 @@ export class PureTransparentButton extends React.PureComponent<Props> {
   public static defaultProps: DefaultProps = {
     borderWidth: 0,
     borderRadius: 4,
-    width: "100%",
     marginVertical: 0,
     marginHorizontal: 0,
     alignItems: "center",
@@ -59,14 +57,13 @@ export class PureTransparentButton extends React.PureComponent<Props> {
 const getStyles = ({
   variables,
   colors,
-  props: { width, marginVertical, marginHorizontal, borderRadius, alignItems, borderWidth },
+  props: { marginVertical, marginHorizontal, borderRadius, alignItems, borderWidth },
 }: ThemeParamsType<OwnProps>) =>
   StyleSheet.create({
     buttonContainer: {
       justifyContent: "center",
       flexDirection: "row",
       paddingVertical: variables.size.s,
-      width,
       marginVertical,
       marginHorizontal,
       borderRadius,
