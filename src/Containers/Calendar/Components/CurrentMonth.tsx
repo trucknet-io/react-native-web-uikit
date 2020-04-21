@@ -2,8 +2,8 @@ import * as React from "react";
 import { ViewStyle, StyleSheet, Text } from "react-native";
 import moment from "moment";
 import { TransparentButton } from "src/Components/Buttons";
-import { ChevronDown, ChevronUp, Calendar } from "src/Components/Icons";
 import withTheme, { ThemeProps, ThemeParamsType } from "src/Themes/withTheme";
+import { TriangleDown, TriangleUp, Calendar } from "src/Components/Icons";
 
 type Styles = ReturnType<typeof getStyles>;
 
@@ -31,7 +31,7 @@ class CurrentMonth extends React.PureComponent<Props> {
         accessibilityLabel="toggleMonthCalendar">
         <Calendar color={colors.defaultText} />
         <Text style={styles.month}>{moment(this.props.currentDate).format("LL")}</Text>
-        {this.props.isOpen ? <ChevronUp color={colors.defaultText} /> : <ChevronDown color={colors.defaultText} />}
+        {this.props.isOpen ? <TriangleUp color={colors.defaultText} /> : <TriangleDown color={colors.defaultText} />}
       </TransparentButton>
     );
   }

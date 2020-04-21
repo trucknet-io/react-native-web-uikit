@@ -19,7 +19,6 @@ interface DefaultProps {
   gradientStartColor: string;
   gradientEndColor: string;
   borderRadius: number;
-  width: string | number;
   marginVertical: string | number;
   marginHorizontal: string | number;
   alignItems?: FlexAlignType;
@@ -44,7 +43,6 @@ export class PureGradientButton extends React.PureComponent<Props> {
     gradientStartColor: Colors.themeGradient.gradientColor1,
     gradientEndColor: Colors.themeGradient.gradientColor2,
     borderRadius: 4,
-    width: "100%",
     marginVertical: 0,
     marginHorizontal: 0,
     alignItems: "center",
@@ -105,14 +103,12 @@ export class PureGradientButton extends React.PureComponent<Props> {
 const getStyles = ({
   variables,
   colors,
-  props: { width, marginVertical, marginHorizontal, borderRadius, alignItems, disabled },
+  props: { marginVertical, marginHorizontal, borderRadius, alignItems, disabled },
 }: ThemeParamsType<OwnProps>) => {
   return StyleSheet.create({
     linearGradient: {
       justifyContent: "center",
       flexDirection: "row",
-      paddingVertical: variables.size.s,
-      width,
       marginVertical,
       marginHorizontal,
       borderRadius,
@@ -122,8 +118,9 @@ const getStyles = ({
     buttonContainer: {
       justifyContent: "center",
       flexDirection: "row",
-      width,
       alignItems,
+      paddingVertical: variables.size.s,
+      flexGrow: 1,
     },
     buttonLabel: {
       color: disabled ? colors.disable : colors.buttonText,
