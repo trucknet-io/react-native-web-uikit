@@ -36,14 +36,10 @@ export class PureStatusDropDown extends React.PureComponent<Props, State> {
         {this.renderDropDownMenu()}
         <TransparentButton onPress={this.toggleDropDown} style={[styles.container, style]} {...rest}>
           <View style={styles.statusContainer}>
-            <View style={styles.statusIconContainer}>{statusIcon}</View>
+            {statusIcon ? <View style={styles.statusIconContainer}>{statusIcon}</View> : null}
             <Text style={styles.statusLabel}>{this.getCurrentStatus()}</Text>
           </View>
-          {this.state.isOpen ? (
-            <TriangleUp color={color} width={12} height={12} />
-          ) : (
-            <TriangleDown color={color} width={12} height={12} />
-          )}
+          {this.state.isOpen ? <TriangleUp color={color} /> : <TriangleDown color={color} />}
         </TransparentButton>
       </View>
     );
@@ -92,7 +88,7 @@ const getStyles = ({ colors, props }: ThemeParamsType<OwnProps>) =>
       flexDirection: "row",
       alignItems: "center",
     },
-    statusIconContainer: { marginHorizontal: 2 },
+    statusIconContainer: { marginHorizontal: 4 },
     statusContainer: { flexDirection: "row", alignItems: "center", marginHorizontal: 4 },
     statusLabel: { textTransform: "uppercase", lineHeight: 24, color: props.color },
     dropDownMenuContainer: {
