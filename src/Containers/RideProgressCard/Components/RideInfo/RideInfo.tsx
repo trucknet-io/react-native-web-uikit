@@ -38,8 +38,8 @@ class RideInfo extends React.PureComponent<Props> {
           </View>
         ) : null}
         <View style={rideInfoStyles.destinationContainer}>
-          <Text style={styles.mainText}>{destinationPrimaryText}</Text>
-          <Text style={styles.secondaryText}>{destinationSecondaryText}</Text>
+          <Text style={rideInfoStyles.destinationMainText}>{destinationPrimaryText}</Text>
+          <Text style={rideInfoStyles.destinationSecondaryText}>{destinationSecondaryText}</Text>
         </View>
       </View>
     );
@@ -53,6 +53,8 @@ class RideInfo extends React.PureComponent<Props> {
         extraRideInfoContainer: styles.extraRideInfoHorizontalContainer,
         originContainer: styles.originContainer,
         destinationContainer: styles.destinationHorizontalContainer,
+        destinationMainText: styles.mainTextDestination,
+        destinationSecondaryText: styles.secondaryTextDestination,
       };
     }
     return {
@@ -60,6 +62,8 @@ class RideInfo extends React.PureComponent<Props> {
       extraRideInfoContainer: styles.extraRideInfoVerticalContainer,
       originContainer: styles.originContainer,
       destinationContainer: styles.destinationVerticalContainer,
+      destinationMainText: styles.mainText,
+      destinationSecondaryText: styles.secondaryText,
     };
   };
 }
@@ -83,8 +87,10 @@ const getStyles = ({ fonts }: ThemeParamsType) => {
       alignItems: "flex-end",
     },
     destinationVerticalContainer: { flex: 1, justifyContent: "flex-end" },
-    mainText: fonts.BodyRegular,
-    secondaryText: fonts.BodySmall,
+    mainText: { ...fonts.BodyRegular, textAlign: "left" },
+    secondaryText: { ...fonts.BodySmall, textAlign: "left" },
+    mainTextDestination: { ...fonts.BodyRegular, textAlign: "right" },
+    secondaryTextDestination: { ...fonts.BodySmall, textAlign: "right" },
   });
 };
 export default withTheme<Props>(getStyles)(RideInfo);
