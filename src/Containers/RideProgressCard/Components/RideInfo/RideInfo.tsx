@@ -78,7 +78,6 @@ const getStyles = ({ fonts }: ThemeParamsType) => {
     originContainer: {
       flexGrow: 1,
       flexBasis: 0,
-      textAlign: "left",
     },
     extraRideInfoHorizontalContainer: { alignItems: "center" },
     extraRideInfoVerticalContainer: { justifyContent: "center" },
