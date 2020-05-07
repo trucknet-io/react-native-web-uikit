@@ -27,6 +27,7 @@ interface Props extends DefaultProps, ThemeProps {
   fields: { [key: string]: Field };
   submitLabel: string;
   isLoading?: boolean;
+  children?: React.ReactChild;
 }
 
 interface State {
@@ -71,6 +72,7 @@ export class PureFormContainer extends React.PureComponent<Props, State> {
           },
         ]}>
         <View style={styles.inputContainer}>{this.inputs}</View>
+        {this.props.children}
         <View style={styles.buttonsContainer}>
           {this.props.isLoading ? (
             <ActivityIndicator color={this.props.colors.themeColor} />
