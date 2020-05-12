@@ -35,6 +35,7 @@ interface Props extends ThemeProps, DefaultProps {
   };
   logo?: React.ReactNode;
   isLoading?: boolean;
+  children?: React.ReactChild;
 }
 
 type State = {
@@ -89,8 +90,9 @@ export class PureLoginFormContainer extends React.PureComponent<Props, State> {
           paddingTop={84}
           submitLabel={this.props.text.submitLabel}
           key={formKey}
-          isLoading={this.props.isLoading}
-        />
+          isLoading={this.props.isLoading}>
+          {this.props.children}
+        </FormContainer>
         <View style={styles.buttonsContainer}>{this.renderForgotPasswordButton()}</View>
       </View>
     );
