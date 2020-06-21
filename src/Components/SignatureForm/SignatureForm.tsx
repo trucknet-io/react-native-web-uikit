@@ -156,7 +156,7 @@ const getStyles = ({ colors, fonts }: ThemeParamsType) =>
       flexGrow: 1,
       paddingHorizontal: 20,
       paddingTop: 10,
-      backgroundColor: colors.background,
+      backgroundColor: colors.containerBackground,
     },
     activityIndicatorContainer: {
       height: 48,

@@ -5,8 +5,8 @@ import { boolean, object } from "@storybook/addon-knobs/react";
 import { action } from "@storybook/addon-actions";
 import { View, StyleSheet } from "react-native";
 
-const stories = storiesOf("Modals|Signature Modal", module).addParameters({ component: PureSignatureForm });
-stories.add("Signature Modal", () => (
+const stories = storiesOf("Forms|Signature Form", module).addParameters({ component: PureSignatureForm });
+stories.add("Signature Form", () => (
   <View style={styles.container}>
     <SignatureForm
       isVisible={boolean(`isVisible`, false)}
