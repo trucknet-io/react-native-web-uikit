@@ -2,8 +2,7 @@ import Colors from "src/Themes/Colors";
 import { parseDataUrl, ParsedDataUrlType } from "src/Helpers/regexHelpers";
 import * as React from "react";
 import { Text, View, StyleSheet, ActivityIndicator, ViewStyle } from "react-native";
-import Modal from "src/Components/Modal";
-import { TransparentButton } from "src/Components/Buttons";
+import { TransparentButton, GradientButton } from "src/Components/Buttons";
 import { canvasHTML } from "./canvasHTML";
 import WebView from "react-native-webview";
 import { isWeb } from "src/Helpers/platform";
@@ -36,7 +35,7 @@ type State = {
   resetCount: number;
 };
 
-export class PureSignatureModal extends React.PureComponent<Props> {
+export class PureSignatureForm extends React.PureComponent<Props> {
   static defaultProps = {
     backgroundColor: Colors.palette.white,
     submitButtonLabel: "ok",
@@ -49,57 +48,6 @@ export class PureSignatureModal extends React.PureComponent<Props> {
     resetCount: 0,
   };
   public render() {
-    return this.renderModal();
-  }
-
-  private renderButtons = () => {
-    return (
-      <View style={this.props.styles.buttonsContainer}>
-        {this.state.isSignSubmitted ? this.renderActivityIndicator() : this.renderCancelButton()}
-        {this.renderSubmitButton()}
-      </View>
-    );
-  };
-  private renderActivityIndicator = () => (
-    <View style={this.props.styles.activityIndicatorContainer}>
-      <ActivityIndicator />
-    </View>
-  );
-
-  private renderCancelButton = () => {
-    return (
-      <TransparentButton onPress={this.resetWebView} style={this.props.styles.buttonTextContainer}>
-        <Text style={this.props.styles.buttonText}>{this.props.cancelButtonLabel}</Text>
-      </TransparentButton>
-    );
-  };
-
-  private renderSubmitButton = () => {
-    const { colors } = this.props;
-    const isDisabled = this.state.isSignSubmitted || !this.state.signatureData;
-    const submitButtonTextColor = isDisabled ? colors.palette.lightGray : colors.themeColor;
-    return (
-      <TransparentButton
-        disabled={isDisabled}
-        onPress={this.sendSignature}
-        style={this.props.styles.buttonTextContainer}>
-        <Text style={[this.props.styles.buttonText, { color: submitButtonTextColor }]}>
-          {this.props.submitButtonLabel}
-        </Text>
-      </TransparentButton>
-    );
-  };
-  private renderModal = () => (
-    <Modal
-      style={this.props.style}
-      isVisible={this.props.isVisible}
-      onBackdropPress={this.props.onBackdropPress}
-      onModalShow={this.unSubmitSignApply}>
-      {this.renderSignView()}
-    </Modal>
-  );
-
-  renderSignView = () => {
     return (
       <View style={this.props.styles.container}>
         {this.renderHeaderText()}
@@ -120,7 +68,47 @@ export class PureSignatureModal extends React.PureComponent<Props> {
         {this.renderButtons()}
       </View>
     );
+  }
+  private renderButtons = () => {
+    return (
+      <View style={this.props.styles.buttonsContainer}>
+        {this.state.isSignSubmitted ? this.renderActivityIndicator() : this.renderCancelButton()}
+        {this.renderSubmitButton()}
+      </View>
+    );
   };
+  private renderActivityIndicator = () => (
+    <View style={this.props.styles.activityIndicatorContainer}>
+      <ActivityIndicator />
+    </View>
+  );
+
+  private renderCancelButton = () => {
+    return (
+      <TransparentButton
+        borderWidth={1}
+        borderRadius={4}
+        marginVertical={8}
+        onPress={this.resetWebView}
+        style={this.props.styles.buttonTextContainer}>
+        <Text style={this.props.styles.cancelText}>{this.props.cancelButtonLabel}</Text>
+      </TransparentButton>
+    );
+  };
+
+  private renderSubmitButton = () => {
+    const isDisabled = this.state.isSignSubmitted || !this.state.signatureData;
+    return (
+      <GradientButton
+        disabled={isDisabled}
+        marginVertical={8}
+        onPress={this.sendSignature}
+        style={this.props.styles.buttonTextContainer}>
+        <Text style={this.props.styles.submitText}>{this.props.submitButtonLabel}</Text>
+      </GradientButton>
+    );
+  };
+
   private renderHeaderText = () => {
     if (this.props.headerText) {
       return <Text style={this.props.styles.headerText}>{this.props.headerText}</Text>;
@@ -165,7 +153,7 @@ export class PureSignatureModal extends React.PureComponent<Props> {
 const getStyles = ({ colors, fonts }: ThemeParamsType) =>
   StyleSheet.create({
     container: {
-      flex: 1,
+      flexGrow: 1,
       paddingHorizontal: 20,
       paddingTop: 10,
       backgroundColor: colors.background,
@@ -174,7 +162,7 @@ const getStyles = ({ colors, fonts }: ThemeParamsType) =>
       height: 48,
     },
     webViewContainer: {
-      flex: 1,
+      flexGrow: 1,
       borderWidth: 1,
       borderRadius: 5,
       padding: 2,
@@ -183,15 +171,13 @@ const getStyles = ({ colors, fonts }: ThemeParamsType) =>
       backgroundColor: colors.webViewBackground,
     },
     webView: {
-      flex: 1,
+      flexGrow: 1,
       borderRadius: 5,
       backgroundColor: colors.webViewBackground,
     },
     buttonsContainer: {
       marginTop: 25,
-      flexDirection: "row",
-      justifyContent: "flex-end",
-      alignItems: "center",
+      width: "100%",
     },
     headerText: {
       ...fonts.Title,
@@ -205,14 +191,19 @@ const getStyles = ({ colors, fonts }: ThemeParamsType) =>
     },
     buttonTextContainer: {
       marginHorizontal: 4,
-      width: undefined,
     },
-    buttonText: {
+    cancelText: {
       ...fonts.SubTitle,
       textAlign: "right",
       textTransform: "uppercase",
       color: colors.defaultText,
     },
+    submitText: {
+      ...fonts.SubTitle,
+      textAlign: "right",
+      textTransform: "uppercase",
+      color: colors.buttonText,
+    },
   });
 
-export default withTheme<Props, DefaultProps>(getStyles)(PureSignatureModal);
+export default withTheme<Props, DefaultProps>(getStyles)(PureSignatureForm);

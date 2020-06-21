@@ -3,8 +3,8 @@ import { storiesOf } from "@storybook/react-native";
 import WebView from "./WebView";
 import WebViewLoader from "./WebViewLoader";
 import { action } from "@storybook/addon-actions";
-import { canvasHTML } from "src/Components/SignatureModal/canvasHTML";
-import { canvasScript } from "src/Components/SignatureModal/canvasScript";
+import { canvasHTML } from "src/Components/SignatureForm/canvasHTML";
+import { canvasScript } from "src/Components/SignatureForm/canvasScript";
 import { View, StyleSheet } from "react-native";
 
 const stories = storiesOf("WebView|WebView", module).addParameters({ component: WebViewLoader });
