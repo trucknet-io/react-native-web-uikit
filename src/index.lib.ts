@@ -4,7 +4,7 @@ import LinearGradient from "./Components/LinearGradient/LinearGradient";
 import InputField from "./Components/Input/Input";
 import Form from "./Containers/Forms/FormContainer";
 import LoginForm from "./Containers/Forms/LoginFormContainer";
-import SignatureModal from "./Components/SignatureModal";
+import SignatureForm from "./Components/SignatureForm";
 import { colorTheme } from "./Themes/Colors";
 import { ProgressBar } from "./Components/ProgressBar";
 import { CardsPlaceholder, MapPlaceholder, ParagraphPlaceholder } from "./Components/Placeholders";
@@ -41,7 +41,7 @@ export {
   InputField,
   Form,
   LoginForm,
-  SignatureModal,
+  SignatureForm,
   colorTheme,
   ParagraphPlaceholder,
   CardsPlaceholder,
