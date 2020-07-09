@@ -50,7 +50,7 @@ class CroppedThumbnail extends React.PureComponent<IProps> {
   }
 
   private getImageSource = (): ImageURISource => {
-    if (this.props.source) return this.props.source;
+    if (this.props.source && this.props.source.uri) return this.props.source;
     const { imageId } = this.props;
     const optionsKeys = Object.keys(this.imageTransformationOptions) as KeyofOptions[];
     const optionsArray: string[] = [];
