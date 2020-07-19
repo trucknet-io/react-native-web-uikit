@@ -16,9 +16,8 @@ type DefaultProps = {
 type Styles = ReturnType<typeof getStyles>;
 
 interface OwnProps extends DefaultProps {
-  isVisible: boolean;
-  onBackdropPress(): void;
   onSignApply(data: ParsedDataUrlType): void;
+  isInvalid?: boolean;
   headerText?: React.ReactNode;
   helperText?: React.ReactNode;
   style?: ViewStyle;
@@ -97,7 +96,7 @@ export class PureSignatureForm extends React.PureComponent<Props> {
   };
 
   private renderSubmitButton = () => {
-    const isDisabled = this.state.isSignSubmitted || !this.state.signatureData;
+    const isDisabled = this.state.isSignSubmitted || !this.state.signatureData || this.props.isInvalid;
     return (
       <GradientButton
         disabled={isDisabled}
