@@ -17,8 +17,9 @@ interface OwnProps {
 interface Props extends ThemeProps<Style>, OwnProps {}
 
 const StatusButton = ({ value, isCurrentStatus, onStatusPress, styles }: Props) => {
+  if (isCurrentStatus) return null;
   return (
-    <TransparentButton style={styles.container} disabled={isCurrentStatus} onPress={onStatusPress}>
+    <TransparentButton style={styles.container} onPress={onStatusPress}>
       <ThemedText>{value}</ThemedText>
     </TransparentButton>
   );
