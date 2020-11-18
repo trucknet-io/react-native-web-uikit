@@ -45,14 +45,14 @@ class RideProgressCard extends React.PureComponent<Props> {
     const originFormatedDate = getFormatedDate(origin.date);
     const destinationFormatedDate = getFormatedDate(destination.date);
     return (
-      <View style={[styles.container, { flexDirection: "row" }]}>
+      <View style={styles.container}>
         <RideInfo
           originPrimaryText={originFormatedDate.time}
           originSecondaryText={originFormatedDate.day}
           destinationPrimaryText={destinationFormatedDate.time}
           destinationSecondaryText={destinationFormatedDate.day}
         />
-        <View>{this.renderProgressLines()}</View>
+        <View style={{ flexShrink: 1 }}>{this.renderProgressLines()}</View>
         <RideInfo
           originPrimaryText={origin.city}
           originSecondaryText={origin.address}
@@ -69,7 +69,6 @@ export default RideProgressCard;
 const styles = StyleSheet.create({
   container: {
     flexGrow: 1,
-    height: "100%",
     flexDirection: "row",
   },
 });

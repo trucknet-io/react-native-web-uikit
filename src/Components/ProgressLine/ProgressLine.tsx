@@ -40,7 +40,7 @@ export class PureProgressLine extends React.PureComponent<Props, State> {
     const isDepartureFromCurrentPoint = this.props.stopsPass >= this.props.currentStop - 1;
     const isArrivedToCurrentPoint = this.props.stopsPass >= this.props.currentStop;
     return (
-      <View style={[this.props.styles.container, { height: `${100 / this.props.amountOfStops}%` }]}>
+      <View style={this.props.styles.container}>
         {isFirstLine ? <Point isArrivedTo={isDepartureFromCurrentPoint} /> : null}
         <View
           style={[
@@ -69,9 +69,10 @@ export class PureProgressLine extends React.PureComponent<Props, State> {
 const getStyles = ({ colors }: ThemeParamsType<OwnProps>) => {
   return StyleSheet.create({
     container: {
-      height: "100%",
+      flex: 1,
       justifyContent: "flex-start",
       alignItems: "flex-start",
+      marginHorizontal: 5,
     },
     progressBarContainer: {
       width: 2,
@@ -83,8 +84,8 @@ const getStyles = ({ colors }: ThemeParamsType<OwnProps>) => {
       width: 2,
       backgroundColor: colors.themeColor,
     },
-    destinationPointContainer: { flexDirection: "row", alignItems: "center", justifyContent: "center" },
-    destinationTextContainer: { position: "absolute", left: 12, color: colors.defaultText },
+    destinationPointContainer: { flexDirection: "row", alignItems: "center", justifyContent: "center", height: 16 },
+    destinationTextContainer: { position: "absolute", left: 24, color: colors.defaultText },
   });
 };
 export default withTheme<Props, DefaultProps>(getStyles)(PureProgressLine);

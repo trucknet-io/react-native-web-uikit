@@ -35,13 +35,13 @@ class RideInfo extends React.PureComponent<Props> {
 
 const getStyles = ({ fonts }: ThemeParamsType) => {
   return StyleSheet.create({
-    container: { justifyContent: "space-between" },
+    container: { justifyContent: "space-between", marginVertical: -4 },
     originContainer: {
       flexGrow: 1,
       flexBasis: 0,
     },
     extraRideInfoContainer: { justifyContent: "center" },
-    destinationContainer: { flex: 1, justifyContent: "flex-end" },
+    destinationContainer: { flex: 1, justifyContent: "flex-end", alignItems: "flex-end" },
     mainText: { ...fonts.BodyRegular, textAlign: "left" },
     secondaryText: { ...fonts.BodySmall, textAlign: "left" },
     mainTextDestination: { ...fonts.BodyRegular, textAlign: "right" },
