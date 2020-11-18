@@ -42,47 +42,24 @@ const fakeProps = [
 
 verticalCardStories.add("Progress 0%", () => (
   <View style={styles.container}>
-    <RideProgressCard origin={fakeProps[2]} destination={fakeProps[2]} />
-  </View>
-));
-verticalCardStories.add("Progress 50%", () => (
-  <View style={styles.container}>
-    <RideProgressCard origin={fakeProps[0]} destination={fakeProps[1]} />
+    <RideProgressCard
+      origin={fakeProps[2]}
+      destination={fakeProps[2]}
+      stops={{ amount: 2, stopsPass: 0, intermediatePointsText: ["(2 stops)"] }}
+    />
   </View>
 ));
 
 verticalCardStories.add("Progress 100%", () => (
   <View style={styles.container}>
-    <RideProgressCard origin={fakeProps[3]} destination={fakeProps[3]} />
-  </View>
-));
-
-horizontalCardStories.add("Progress 0%", () => (
-  <View style={styles.container}>
-    <RideProgressCard origin={fakeProps[2]} destination={fakeProps[2]} isHorizontal />
-  </View>
-));
-
-horizontalCardStories.add("Progress 50%", () => (
-  <View style={styles.container}>
-    <RideProgressCard origin={fakeProps[0]} destination={fakeProps[1]} isHorizontal />
-  </View>
-));
-
-horizontalCardStories.add("Progress 100%", () => (
-  <View style={styles.container}>
-    <RideProgressCard origin={fakeProps[3]} destination={fakeProps[3]} isHorizontal />
-  </View>
-));
-
-horizontalCardStories.add("Progress with extra info", () => (
-  <View style={styles.container}>
     <RideProgressCard
-      origin={fakeProps[0]}
-      destination={fakeProps[1]}
-      isHorizontal
-      distanceInfo="1000 km"
-      timeInfo="8h 44m"
+      origin={fakeProps[3]}
+      destination={fakeProps[3]}
+      stops={{
+        amount: 3,
+        stopsPass: 3,
+        intermediatePointsText: ["stop 1", "stop 2 aaa aa yyy"],
+      }}
     />
   </View>
 ));

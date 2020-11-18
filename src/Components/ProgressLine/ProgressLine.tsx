@@ -1,13 +1,20 @@
 import * as React from "react";
-import { Animated, View, StyleSheet, Easing } from "react-native";
+import { Animated, View, StyleSheet, Text } from "react-native";
 import Point from "./Components/Point";
+import { NavigationMap } from "src/Components/Icons";
 import withTheme, { ThemeProps, ThemeParamsType } from "src/Themes/withTheme";
 
 type Style = ReturnType<typeof getStyles>;
 
-interface OwnProps {
-  currentProgress?: number;
+interface DefaultProps {
+  amountOfStops: number;
+  currentStop: number;
+  stopsPass: number;
+}
+
+interface OwnProps extends DefaultProps {
   isHorizontal?: boolean;
+  description?: React.ReactNode;
 }
 
 interface Props extends ThemeProps<Style>, OwnProps {}
@@ -17,109 +24,67 @@ type State = {
 };
 
 export class PureProgressLine extends React.PureComponent<Props, State> {
-  private animation;
+  static defaultProps: DefaultProps = {
+    amountOfStops: 1,
+    currentStop: 1,
+    stopsPass: 1,
+  };
+
   public state: State = {
     progress: new Animated.Value(0),
   };
 
-  public componentDidMount = () => this.startAnimation();
-
-  public componentDidUpdate = () => this.startAnimation();
-
-  public componentWillUnmount = () => this.animation.stop();
-
   public render() {
-    const { currentProgress } = this.props;
-    const progressLineStyles = this.getProgressLineStyles();
+    const isFirstLine = this.props.currentStop === 1;
+    const isLastLine = this.props.currentStop === this.props.amountOfStops;
+    const isDepartureFromCurrentPoint = this.props.stopsPass >= this.props.currentStop - 1;
+    const isArrivedToCurrentPoint = this.props.stopsPass >= this.props.currentStop;
     return (
-      <View style={progressLineStyles.container}>
-        <View style={progressLineStyles.progressBarContainer}>
-          <Animated.View style={progressLineStyles.line} />
-          <Point currentProgress={currentProgress} />
+      <View style={[this.props.styles.container, { height: `${100 / this.props.amountOfStops}%` }]}>
+        {isFirstLine ? <Point isArrivedTo={isDepartureFromCurrentPoint} /> : null}
+        <View
+          style={[
+            this.props.styles.progressBarContainer,
+            { backgroundColor: isArrivedToCurrentPoint ? this.props.colors.themeColor : this.props.colors.disable },
+          ]}>
+          <View style={this.props.styles.line} />
         </View>
-        <Point currentProgress={currentProgress} isHollowPoint />
+        {isLastLine ? (
+          <NavigationMap
+            height={22}
+            width={17}
+            color={isArrivedToCurrentPoint ? this.props.colors.themeColor : this.props.colors.disable}
+          />
+        ) : (
+          <View style={this.props.styles.destinationPointContainer}>
+            <Point isHollowPoint isArrivedTo={isArrivedToCurrentPoint} />
+            <Text style={this.props.styles.destinationTextContainer}>{this.props.description}</Text>
+          </View>
+        )}
       </View>
     );
   }
-
-  private getProgressLineStyles = () => {
-    const { styles } = this.props;
-    if (this.props.isHorizontal) {
-      return {
-        container: styles.horizontalContainer,
-        progressBarContainer: styles.horizontalProgressBarContainer,
-        line: [styles.horizontalLine, { width: this.interpolate() }],
-      };
-    }
-    return {
-      container: styles.verticalContainer,
-      progressBarContainer: styles.verticalProgressBarContainer,
-      line: [styles.verticalLine, { height: this.interpolate() }],
-    };
-  };
-
-  private interpolate = () =>
-    this.state.progress.interpolate({
-      inputRange: [0, 100],
-      outputRange: ["0%", "100%"],
-    });
-
-  private startAnimation = () => {
-    this.animation = this.calcAnimation();
-    this.animation.start();
-  };
-
-  private calcAnimation = () =>
-    Animated.timing(this.state.progress, {
-      toValue: this.getValidValue(this.props.currentProgress),
-      easing: Easing.linear,
-      duration: 700,
-      useNativeDriver: false,
-    });
-
-  private getValidValue = (value?: number): number => {
-    if (value === undefined) return 0;
-    if (value > 100) return 100;
-    return value;
-  };
 }
 
-const getStyles = ({ colors, props: { currentProgress } }: ThemeParamsType<OwnProps>) => {
-  const lineBackgroundColor = currentProgress ? colors.transparentThemeColor : colors.disable;
+const getStyles = ({ colors }: ThemeParamsType<OwnProps>) => {
   return StyleSheet.create({
-    horizontalContainer: {
-      width: "100%",
-      flexDirection: "row",
-      alignItems: "center",
-    },
-    verticalContainer: {
+    container: {
       height: "100%",
-      justifyContent: "center",
-      alignItems: "center",
+      justifyContent: "flex-start",
+      alignItems: "flex-start",
     },
-    horizontalProgressBarContainer: {
-      height: 2,
-      width: "99%",
-      alignItems: "center",
-      marginVertical: 12,
-      flexDirection: "row",
-      backgroundColor: lineBackgroundColor,
-    },
-    horizontalLine: {
-      height: 2,
-      backgroundColor: colors.themeColor,
-    },
-    verticalProgressBarContainer: {
+    progressBarContainer: {
       width: 2,
-      height: "95%",
-      alignItems: "center",
-      marginHorizontal: 12,
-      backgroundColor: lineBackgroundColor,
+      flex: 1,
+      alignItems: "flex-start",
+      marginHorizontal: 5,
     },
-    verticalLine: {
+    line: {
       width: 2,
       backgroundColor: colors.themeColor,
     },
+    destinationPointContainer: { flexDirection: "row", alignItems: "center", justifyContent: "center" },
+    destinationTextContainer: { position: "absolute", left: 12, color: colors.defaultText },
   });
 };
-export default withTheme<Props>(getStyles)(PureProgressLine);
+export default withTheme<Props, DefaultProps>(getStyles)(PureProgressLine);
