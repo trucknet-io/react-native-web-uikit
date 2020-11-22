@@ -7,12 +7,7 @@ const stories = storiesOf("Ride|Progress Line", module).addParameters({ componen
 
 stories.add("Vertical", () => (
   <View style={styles.container}>
-    <ProgressLine currentProgress={66} />
-  </View>
-));
-stories.add("Horizontal", () => (
-  <View style={styles.container}>
-    <ProgressLine currentProgress={66} isHorizontal />
+    <ProgressLine />
   </View>
 ));
 

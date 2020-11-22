@@ -2,7 +2,7 @@ import * as React from "react";
 import { View, StyleSheet } from "react-native";
 import ProgressLine from "src/Components/ProgressLine";
 import RideInfo from "./Components/RideInfo";
-import { getFormatedDate, getProgress } from "src/Helpers/progressCardHelpers";
+import { getFormatedDate } from "src/Helpers/progressCardHelpers";
 
 type Props = {
   origin: {
@@ -17,34 +17,47 @@ type Props = {
   };
   timeInfo?: React.ReactNode;
   distanceInfo?: React.ReactNode;
-  currentProgress?: number;
-  isHorizontal?: boolean;
+  stops: {
+    amount: number;
+    stopsPass: number;
+    intermediatePointsText?: React.ReactNode[];
+  };
 };
 
 class RideProgressCard extends React.PureComponent<Props> {
+  private renderProgressLines = () => {
+    const lines: any = [];
+    for (let i = 0; i < this.props.stops.amount; i++) {
+      lines.push(
+        <ProgressLine
+          amountOfStops={this.props.stops.amount}
+          currentStop={i + 1}
+          stopsPass={this.props.stops.stopsPass}
+          description={this.props.stops.intermediatePointsText ? this.props.stops.intermediatePointsText[i] : undefined}
+        />,
+      );
+    }
+
+    return lines;
+  };
   public render() {
-    const { origin, destination, isHorizontal, currentProgress, timeInfo, distanceInfo } = this.props;
-    const progress = getProgress(origin.date, destination.date, currentProgress);
+    const { origin, destination } = this.props;
     const originFormatedDate = getFormatedDate(origin.date);
     const destinationFormatedDate = getFormatedDate(destination.date);
     return (
-      <View style={[styles.container, { flexDirection: isHorizontal ? "column-reverse" : "row" }]}>
+      <View style={styles.container}>
         <RideInfo
           originPrimaryText={originFormatedDate.time}
           originSecondaryText={originFormatedDate.day}
           destinationPrimaryText={destinationFormatedDate.time}
           destinationSecondaryText={destinationFormatedDate.day}
-          extraRideInfo={distanceInfo}
-          isHorizontal={isHorizontal}
         />
-        <ProgressLine currentProgress={progress} isHorizontal={isHorizontal} />
+        <View>{this.renderProgressLines()}</View>
         <RideInfo
           originPrimaryText={origin.city}
           originSecondaryText={origin.address}
           destinationPrimaryText={destination.city}
           destinationSecondaryText={destination.address}
-          extraRideInfo={timeInfo}
-          isHorizontal={isHorizontal}
         />
       </View>
     );
@@ -56,7 +69,6 @@ export default RideProgressCard;
 const styles = StyleSheet.create({
   container: {
     flexGrow: 1,
-    height: "100%",
     flexDirection: "row",
   },
 });
