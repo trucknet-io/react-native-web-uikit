@@ -41,7 +41,7 @@ const getStyles = ({ fonts }: ThemeParamsType) => {
       flexBasis: 0,
     },
     extraRideInfoContainer: { justifyContent: "center" },
-    destinationContainer: { flex: 1, justifyContent: "flex-end", alignItems: "flex-end" },
+    destinationContainer: { flex: 1, justifyContent: "flex-end" },
     mainText: { ...fonts.BodyRegular, textAlign: "left" },
     secondaryText: { ...fonts.BodySmall, textAlign: "left" },
     mainTextDestination: { ...fonts.BodyRegular, textAlign: "right" },
