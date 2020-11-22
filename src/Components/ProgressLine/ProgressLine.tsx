@@ -58,7 +58,9 @@ export class PureProgressLine extends React.PureComponent<Props, State> {
         ) : (
           <View style={this.props.styles.destinationPointContainer}>
             <Point isHollowPoint isArrivedTo={isArrivedToCurrentPoint} />
-            <Text style={this.props.styles.destinationTextContainer}>{this.props.description}</Text>
+            <Text style={this.props.styles.destinationTextContainer} numberOfLines={3}>
+              {this.props.description}
+            </Text>
           </View>
         )}
       </View>
@@ -85,7 +87,7 @@ const getStyles = ({ colors }: ThemeParamsType<OwnProps>) => {
       backgroundColor: colors.themeColor,
     },
     destinationPointContainer: { flexDirection: "row", alignItems: "center", justifyContent: "center", height: 16 },
-    destinationTextContainer: { position: "absolute", left: 24, color: colors.defaultText },
+    destinationTextContainer: { position: "absolute", left: 24, color: colors.defaultText, width: 270 },
   });
 };
 export default withTheme<Props, DefaultProps>(getStyles)(PureProgressLine);

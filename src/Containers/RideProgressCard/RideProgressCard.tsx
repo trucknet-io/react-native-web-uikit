@@ -52,7 +52,7 @@ class RideProgressCard extends React.PureComponent<Props> {
           destinationPrimaryText={destinationFormatedDate.time}
           destinationSecondaryText={destinationFormatedDate.day}
         />
-        <View style={{ flexShrink: 1 }}>{this.renderProgressLines()}</View>
+        <View>{this.renderProgressLines()}</View>
         <RideInfo
           originPrimaryText={origin.city}
           originSecondaryText={origin.address}

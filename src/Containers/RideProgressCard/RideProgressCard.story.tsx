@@ -31,7 +31,7 @@ const fakeProps = [
   },
   {
     date: new Date("10/10/3000"),
-    city: "Taumatawhakatangi­hangakoauauotamatea­turipukakapikimaunga­horonukupokaiwhen­uakitanatahu , North Island",
+    city: "Taumatawhakatangi­hangakoauauotamatea­turipukakapikimaunga­horonukupokaiwhen­uakitanatahu  , North Island",
     address: "Llanfair­pwllgwyngyll­gogery­chwyrn­drobwll­llan­tysilio­gogo­goch 666, 13 Y",
   },
   {
@@ -58,14 +58,14 @@ verticalCardStories.add("Progress 100%", () => (
       stops={{
         amount: 3,
         stopsPass: 3,
-        intermediatePointsText: ["stop 1", "stop 2 aaa aa yyy"],
+        intermediatePointsText: ["stop 1", "stop 3 near ­horonukupokaiwhen­uakitanatahu"],
       }}
     />
   </View>
 ));
 
 const styles = StyleSheet.create({
-  container: { height: 300 },
+  container: { height: 300, width: 250 },
 });
 
 export { verticalCardStories, horizontalCardStories };

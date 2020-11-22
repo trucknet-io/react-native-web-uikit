@@ -20,13 +20,21 @@ class RideInfo extends React.PureComponent<Props> {
     return (
       <View style={styles.container}>
         <View style={styles.originContainer}>
-          <Text style={styles.mainText}>{originPrimaryText}</Text>
-          <Text style={styles.secondaryText}>{originSecondaryText}</Text>
+          <Text style={styles.mainText} numberOfLines={2}>
+            {originPrimaryText}
+          </Text>
+          <Text style={styles.secondaryText} numberOfLines={2}>
+            {originSecondaryText}
+          </Text>
         </View>
         <View />
         <View style={styles.destinationContainer}>
-          <Text style={styles.mainText}>{destinationPrimaryText}</Text>
-          <Text style={styles.secondaryText}>{destinationSecondaryText}</Text>
+          <Text style={styles.mainText} numberOfLines={2}>
+            {destinationPrimaryText}
+          </Text>
+          <Text style={styles.secondaryText} numberOfLines={2}>
+            {destinationSecondaryText}
+          </Text>
         </View>
       </View>
     );
